@@ -204,7 +204,7 @@
         <div style="margin-top:32px; background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:10px; padding:16px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                 <div style="font-size:14px; font-weight:800; color:#fff;">
-                    <i class="fa-solid fa-radar" style="color:var(--brand-teal); margin-right:6px;"></i> BB 2.0 Real-Time Setup Radar
+                    <i class="fa-solid fa-radar" style="color:var(--brand-teal); margin-right:6px;"></i> BB 3.0 Real-Time Setup Radar
                 </div>
                 <span style="font-size:10px; background:var(--bg-surface-elevated); color:var(--brand-teal); font-weight:800; padding:2px 8px; border-radius:4px;">
                     LIVE 15M SCANNER
@@ -272,7 +272,7 @@
                 <i class="fa-solid fa-layer-group" style="width:18px;"></i> Markets & 20 Champions
             </a>
             <a href="/nexus/deca" style="display:flex; align-items:center; justify-content:space-between; color:#fff; text-decoration:none; font-weight:700; font-size:13px; padding:10px 12px; border-radius:8px; background:var(--bg-surface-elevated);">
-                <span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-trophy" style="color:var(--gold); width:18px;"></i> BB 2.0 Deca Hub</span>
+                <span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-trophy" style="color:var(--gold); width:18px;"></i> BB 3.0 Deca Hub</span>
                 <span style="font-size:9px; background:var(--gold); color:#000; font-weight:900; padding:2px 6px; border-radius:4px;">$47K GOAL</span>
             </a>
             <a href="/nexus/assets" style="display:flex; align-items:center; gap:10px; color:var(--text-secondary); text-decoration:none; font-weight:600; font-size:13px; padding:10px 12px; border-radius:8px;">
@@ -280,9 +280,9 @@
             </a>
         </nav>
 
-        <!-- SECTION 2: HERMES 3.0 INSTITUTIONAL SUITE -->
+        <!-- SECTION 2: BB 3.0 INSTITUTIONAL MATRIX -->
         <div style="font-size:10px; font-weight:800; color:#60A5FA; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
-            <i class="fa-solid fa-shield-halved"></i> Hermes 3.0 Institutional
+            <i class="fa-solid fa-shield-halved"></i> BB 3.0 Institutional Matrix
         </div>
         <nav style="display:flex; flex-direction:column; gap:6px; margin-bottom:20px;">
             <a href="/hermes-ai" style="display:flex; align-items:center; justify-content:space-between; color:var(--text-secondary); text-decoration:none; font-weight:600; font-size:13px; padding:10px 12px; border-radius:8px;">
@@ -316,9 +316,9 @@
         </nav>
 
         <div style="padding-top:16px; border-top:1px solid var(--border-subtle); font-size:11px; color:var(--text-muted); display:flex; flex-direction:column; gap:4px; margin-top:auto;">
-            <div style="display:flex; justify-content:space-between;"><span>Total Portfolio:</span> <b style="color:#fff;" id="drawerTotalEquity">$574.84 USDT</b></div>
-            <div style="display:flex; justify-content:space-between;"><span>BB 2.0 Deca Capital:</span> <b style="color:var(--brand-teal);">$500.00 USDT</b></div>
-            <div style="display:flex; justify-content:space-between;"><span>Hermes Model 2A:</span> <b style="color:var(--buy-green);">Active (100% Win Rate)</b></div>
+            <div style="display:flex; justify-content:space-between;"><span>Total Portfolio:</span> <b style="color:#fff;" id="drawerTotalEquity">$575.06 USDT</b></div>
+            <div style="display:flex; justify-content:space-between;"><span>BB 3.0 Deca Capital:</span> <b style="color:var(--brand-teal);">$500.00 USDT</b></div>
+            <div style="display:flex; justify-content:space-between;"><span>Strategy:</span> <b style="color:var(--buy-green);" id="drawerActiveMode">BB 3.0 (STEPPED TRAILING SL)</b></div>
         </div>
     </div>
 
@@ -385,6 +385,11 @@
                 document.getElementById("heroWinRate").innerText = `${Number(s.win_rate || 95.2).toFixed(1)}%`;
                 document.getElementById("heroTradesCount").innerText = `${s.total_trades || 21} Trades (${s.total_wins || 20}W / ${s.total_losses || 1}L)`;
                 document.getElementById("heroProgressPct").innerText = `${Number(s.progress_pct || 1.21).toFixed(2)}% of $47k Target`;
+
+                const dEq = document.getElementById("drawerTotalEquity");
+                if (dEq) dEq.innerText = `$${totalEq.toFixed(2)} USDT`;
+                const dMode = document.getElementById("drawerActiveMode");
+                if (dMode && s.mode) dMode.innerText = s.mode;
 
                 // Sections
                 const secRes = await fetch("/api/deca/sections");

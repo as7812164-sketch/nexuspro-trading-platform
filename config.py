@@ -3,7 +3,7 @@ NEXUSPRO PLATFORM CONFIGURATION
 ===============================
 Brand: NexusPro (Institutional Futures & Deca Compounding Terminal)
 Format: 100% Bitget Pro Layout & UI System
-Engine: BB 2.0 ($47,389.77 USDT Historic Compounding Model)
+Engine: BB 3.0 ($47,389.77 USDT Historic Compounding Model)
 """
 
 import os

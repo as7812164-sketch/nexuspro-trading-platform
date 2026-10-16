@@ -106,6 +106,25 @@ def init_db():
         )
     """)
 
+    # Safe column migration for positions and trade_history (zero data loss)
+    pos_cols = [d[1] for d in c.execute("PRAGMA table_info(positions)").fetchall()]
+    for col, ctype in [("mae_pct", "REAL DEFAULT 0.0"), ("mfe_pct", "REAL DEFAULT 0.0"), ("size_usdt", "REAL DEFAULT 0.0")]:
+        if col not in pos_cols:
+            c.execute(f"ALTER TABLE positions ADD COLUMN {col} {ctype}")
+
+    hist_cols = [d[1] for d in c.execute("PRAGMA table_info(trade_history)").fetchall()]
+    for col, ctype in [
+        ("roi_pct", "REAL DEFAULT 0.0"),
+        ("entry_time_str", "TEXT"),
+        ("exit_time_str", "TEXT"),
+        ("duration_str", "TEXT"),
+        ("be_status_str", "TEXT"),
+        ("mae_pct", "TEXT DEFAULT '0.00%'"),
+        ("mfe_pct", "TEXT DEFAULT '0.00%'")
+    ]:
+        if col not in hist_cols:
+            c.execute(f"ALTER TABLE trade_history ADD COLUMN {col} {ctype}")
+
     conn.commit()
 
     # Seed 10 Deca sections if not already seeded

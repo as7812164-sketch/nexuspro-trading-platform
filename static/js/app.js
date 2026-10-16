@@ -342,6 +342,15 @@ async function pollSummary() {
             const free = s.free_margin !== undefined ? s.free_margin : (s.total_balance / 10);
             capEl.innerText = `$${free.toFixed(2)} USDT`;
         }
+
+        const drawerEq = document.getElementById("drawerTotalEquity");
+        if (drawerEq && s.total_equity !== undefined) {
+            drawerEq.innerText = `$${s.total_equity.toFixed(2)} USDT`;
+        }
+        const drawerMode = document.getElementById("drawerActiveMode");
+        if (drawerMode && s.mode) {
+            drawerMode.innerText = s.mode;
+        }
     } catch (e) {
         console.error("Summary poll error:", e);
     }
@@ -361,7 +370,7 @@ async function pollPositions() {
 
         if (tbody) {
             if (!data.positions || data.positions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;">No Open Positions • BB 2.0 Autonomous Scanner Standing By</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;">No Open Positions • BB 3.0 Autonomous Scanner Standing By</td></tr>`;
             } else {
                 tbody.innerHTML = data.positions.map(p => {
                     const isLong = (p.side_raw || p.side || '').toUpperCase() === 'LONG' || (p.side_raw || p.side || '').toUpperCase() === 'BUY';

@@ -3,7 +3,7 @@ NEXUSPRO FUTURES & DECA COMPOUNDING TERMINAL (FASTAPI BACKEND)
 ============================================================
 Brand: NexusPro
 Format: 100% Bitget Pro Layout & UI
-Engine: BB 2.0 ($47,389.77 USDT Historic Compounding Model)
+Engine: BB 3.0 ($47,389.77 USDT Historic Compounding Model)
 """
 
 import os
@@ -28,6 +28,7 @@ from config import (
 )
 from database.db import (
     init_db,
+    get_db_connection,
     get_all_sections,
     get_section,
     get_open_positions,
@@ -44,7 +45,7 @@ STATIC_DIR = BASE_DIR / "static"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Start background BB 2.0 scanner and position monitor
+    # Startup: Start background BB 3.0 scanner and position monitor
     init_db()
     sniper_task = asyncio.create_task(bb20_sniper.start_loop())
     yield
@@ -183,6 +184,27 @@ async def get_positions():
             u_pnl = round((pnl_pct / 100.0) * margin, 2)
             item["unrealized_pnl"] = u_pnl
             item["pnl_pct"] = pnl_pct
+
+            # Dynamic MFE (Peak Profit) Tracking:
+            # MFE is peak favorable excursion and must ALWAYS be >= current ROE (pnl_pct)
+            cur_mfe = float(item.get("mfe_pct") or 0.0)
+            if pnl_pct > cur_mfe:
+                item["mfe_pct"] = pnl_pct
+                try:
+                    conn = get_db_connection()
+                    cur = conn.cursor()
+                    cur.execute("UPDATE positions SET mfe_pct = ?, updated_at = ? WHERE id = ?", (pnl_pct, time.time(), p["id"]))
+                    conn.commit()
+                    conn.close()
+                except Exception:
+                    pass
+            else:
+                item["mfe_pct"] = cur_mfe
+        else:
+            cur_mfe = float(item.get("mfe_pct") or 0.0)
+            cur_roe = float(item.get("pnl_pct") or 0.0)
+            item["mfe_pct"] = max(cur_mfe, cur_roe)
+
         if "size_usdt" not in item or not item["size_usdt"]:
             item["size_usdt"] = item.get("position_size_usdt", item.get("margin_usdt", 50.0) * 5.0)
         enriched.append(item)

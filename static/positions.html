@@ -753,7 +753,7 @@
             <span>NEXUS PRO BB 3.0 APK &amp; App (Infinite Trailing)</span>
         </div>
         <div class="pwa-banner-actions">
-            <a href="#" class="pwa-badge-btn" onclick="alert('PWA Ready on this browser')">GET APK</a>
+            <a href="/download/apk" class="pwa-badge-btn" download>GET APK</a>
             <a href="#" class="pwa-badge-btn" onclick="alert('Install NexusPro PWA to Home Screen')">PWA</a>
             <button class="pwa-close-btn" onclick="document.getElementById('pwaBanner').style.display='none'">&times;</button>
         </div>
@@ -847,7 +847,7 @@
                     const entryP = Number(p.entry_price || 0).toFixed(4);
                     const markP = Number(p.mark_price || entryP).toFixed(4);
                     const mae = Number(p.mae_pct || 0).toFixed(2);
-                    const mfe = Number(p.mfe_pct || 0).toFixed(2);
+                    const mfe = Math.max(Number(p.mfe_pct || 0), roe).toFixed(2);
 
                     return `
                         <div class="pos-card">
