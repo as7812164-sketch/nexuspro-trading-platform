@@ -81,6 +81,10 @@ async def serve_assets_page():
 async def serve_hologram_page():
     return FileResponse(STATIC_DIR / "hologram.html")
 
+@app.get("/positions", response_class=HTMLResponse)
+async def serve_positions_page():
+    return FileResponse(STATIC_DIR / "positions.html")
+
 # ----------------- REST API ENDPOINTS -----------------
 
 @app.get("/api/status")
@@ -152,9 +156,31 @@ async def get_deca_setups():
     return {"count": len(bb20_sniper.scanned_setups), "setups": bb20_sniper.scanned_setups}
 
 @app.get("/api/trade/positions")
+@app.get("/api/paper/positions")
 async def get_positions():
     pos = get_open_positions()
-    return {"positions": pos, "count": len(pos)}
+    tickers = await market_feed.get_all_tickers()
+    enriched = []
+    for p in pos:
+        item = dict(p)
+        sym = item["symbol"]
+        ticker = tickers.get(sym)
+        if ticker:
+            cur_price = ticker["last_price"]
+            item["mark_price"] = cur_price
+            side = item["side"]
+            entry = item["entry_price"]
+            margin = item["margin_usdt"]
+            leverage = item["leverage"]
+            price_diff = (cur_price - entry) if side in ("BUY", "LONG") else (entry - cur_price)
+            pnl_pct = round((price_diff / entry) * leverage * 100.0, 2)
+            u_pnl = round((pnl_pct / 100.0) * margin, 2)
+            item["unrealized_pnl"] = u_pnl
+            item["pnl_pct"] = pnl_pct
+        if "size_usdt" not in item or not item["size_usdt"]:
+            item["size_usdt"] = item.get("position_size_usdt", item.get("margin_usdt", 50.0) * 5.0)
+        enriched.append(item)
+    return {"positions": enriched, "count": len(enriched)}
 
 @app.post("/api/trade/order")
 async def place_order(order: Dict[str, Any] = Body(...)):
@@ -190,6 +216,7 @@ async def place_order(order: Dict[str, Any] = Body(...)):
         "entry_price": entry_price,
         "mark_price": entry_price,
         "position_size_usdt": pos_size,
+        "size_usdt": pos_size,
         "margin_usdt": margin,
         "leverage": leverage,
         "sl_price": sl_price,
@@ -215,16 +242,53 @@ async def close_trade(pos_id: int):
     margin = target["margin_usdt"]
     leverage = target["leverage"]
 
-    price_diff = (curr_price - target["entry_price"]) if side == "LONG" else (target["entry_price"] - curr_price)
+    price_diff = (curr_price - target["entry_price"]) if side in ("BUY", "LONG") else (target["entry_price"] - curr_price)
     pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
     close_position_in_db(pos_id, curr_price, pnl, "MANUAL_CLOSE")
-    return {"status": "CLOSED", "position_id": pos_id, "realized_pnl": pnl}
+    return {"status": "CLOSED", "success": True, "position_id": pos_id, "realized_pnl": pnl}
+
+@app.post("/api/trade/close")
+@app.post("/api/paper/close")
+async def close_trade_body(body: Dict[str, Any] = Body(...)):
+    pos_id = body.get("position_id") or body.get("trade_id")
+    symbol = body.get("symbol")
+    open_pos = get_open_positions()
+    target = None
+    if pos_id:
+        target = next((p for p in open_pos if p["id"] == int(pos_id)), None)
+    if not target and symbol:
+        target = next((p for p in open_pos if p["symbol"] == symbol.upper()), None)
+
+    if not target:
+        return {"success": False, "error": "Position not found or already closed"}
+
+    ticker = await market_feed.get_ticker(target["symbol"])
+    curr_price = ticker["last_price"] if ticker else target["mark_price"]
+    side = target["side"]
+    margin = target["margin_usdt"]
+    leverage = target["leverage"]
+
+    price_diff = (curr_price - target["entry_price"]) if side in ("BUY", "LONG") else (target["entry_price"] - curr_price)
+    pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
+
+    close_position_in_db(target["id"], curr_price, pnl, "MANUAL_CLOSE")
+    return {"status": "CLOSED", "success": True, "position_id": target["id"], "realized_pnl": pnl}
 
 @app.get("/api/trade/history")
+@app.get("/api/paper/trades")
 async def get_history(limit: int = 50):
     trades = get_trade_history(limit=limit)
-    return {"trades": trades, "count": len(trades)}
+    enriched = []
+    for t in trades:
+        item = dict(t)
+        item["pnl_usdt"] = item.get("realized_pnl", 0.0)
+        item["pnl"] = item.get("realized_pnl", 0.0)
+        item["realized_pnl"] = item.get("realized_pnl", 0.0)
+        item["roi_pct"] = item.get("roi_pct") or item.get("pnl_pct", 0.0)
+        item["result"] = item.get("exit_reason", "TP Hit")
+        enriched.append(item)
+    return {"trades": enriched, "count": len(enriched)}
 
 @app.post("/api/deca/reset")
 async def reset_deca():

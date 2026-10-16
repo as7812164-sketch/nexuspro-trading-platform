@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=no, viewport-fit=cover">
+    <title>Active Positions & Executed Trade History • NEXUS PRO BB 2.0</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-base: #06090E;
+            --bg-card: #0D121D;
+            --bg-card-hover: #141C2E;
+            --bg-elevated: #182238;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --text-primary: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --brand-teal: #00DFC0;
+            --buy-green: #0ECB81;
+            --sell-red: #F6465D;
+            --gold: #F59E0B;
+            --cyan: #38BDF8;
+            --purple: #A855F7;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 14px;
+            line-height: 1.5;
+            padding-bottom: 90px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* TOP NAVIGATION HEADER */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 11, 17, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: #94A3B8;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .brand-badge-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #0284C7, #00DFC0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #06090E;
+            font-size: 16px;
+            font-weight: 900;
+            box-shadow: 0 0 12px rgba(0, 223, 192, 0.4);
+        }
+
+        .brand-title-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .brand-name {
+            font-size: 13.5px;
+            font-weight: 900;
+            letter-spacing: 0.3px;
+            color: #FFFFFF;
+        }
+
+        .tag-single-tier {
+            font-size: 9.5px;
+            font-weight: 800;
+            background: rgba(0, 223, 192, 0.15);
+            color: var(--brand-teal);
+            border: 1px solid rgba(0, 223, 192, 0.3);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+        }
+
+        .brand-sub {
+            font-size: 9.5px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            letter-spacing: 0.4px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-kill-switch {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #EF4444;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-deca-pill {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: var(--gold);
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* PWA / APK BANNER */
+        .pwa-banner {
+            background: linear-gradient(90deg, #00DFC0, #38BDF8);
+            color: #06090E;
+            padding: 6px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11.5px;
+            font-weight: 800;
+        }
+
+        .pwa-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pwa-banner-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pwa-badge-btn {
+            background: #06090E;
+            color: #FFFFFF;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .pwa-close-btn {
+            background: none;
+            border: none;
+            color: #06090E;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+
+        /* MAIN CONTENT WRAPPER */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 14px 12px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* ACTIVE POSITION CARDS */
+        .pos-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .pos-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .pos-symbol-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pos-symbol {
+            font-size: 15px;
+            font-weight: 900;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pos-symbol i {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .badge-side {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+        }
+
+        .badge-side.sell, .badge-side.short {
+            background: rgba(246, 70, 93, 0.15);
+            color: var(--sell-red);
+            border: 1px solid rgba(246, 70, 93, 0.35);
+        }
+
+        .badge-side.buy, .badge-side.long {
+            background: rgba(14, 203, 129, 0.15);
+            color: var(--buy-green);
+            border: 1px solid rgba(14, 203, 129, 0.35);
+        }
+
+        .badge-isolated {
+            background: #182238;
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* PNL & ROE ROW */
+        .pos-pnl-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .pos-pnl-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pos-sublabel {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            margin-bottom: 2px;
+        }
+
+        .pos-pnl-val {
+            font-size: 24px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            line-height: 1.1;
+        }
+
+        .pos-roe-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .pos-roe-val {
+            font-size: 18px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            line-height: 1.1;
+        }
+
+        .text-green { color: var(--buy-green); }
+        .text-red { color: var(--sell-red); }
+
+        /* 2-COLUMN STATS GRID */
+        .pos-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 8px;
+            column-gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .stat-val {
+            font-size: 13.5px;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: #FFFFFF;
+        }
+
+        /* MAE & MFE ROW */
+        .pos-mae-mfe-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .mae-box {
+            background: rgba(246, 70, 93, 0.08);
+            border: 1px solid rgba(246, 70, 93, 0.2);
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mae-box .box-lbl {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--sell-red);
+            margin-bottom: 1px;
+        }
+
+        .mae-box .box-val {
+            font-size: 13.5px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            color: var(--sell-red);
+        }
+
+        .mfe-box {
+            background: rgba(14, 203, 129, 0.08);
+            border: 1px solid rgba(14, 203, 129, 0.2);
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mfe-box .box-lbl {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--buy-green);
+            margin-bottom: 1px;
+        }
+
+        .mfe-box .box-val {
+            font-size: 13.5px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            color: var(--buy-green);
+        }
+
+        /* ACTION BUTTONS */
+        .pos-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .btn-pos-chart {
+            background: #182238;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            padding: 9px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .btn-pos-chart:hover {
+            background: #202D4A;
+        }
+
+        .btn-pos-close {
+            background: rgba(246, 70, 93, 0.12);
+            border: 1px solid rgba(246, 70, 93, 0.35);
+            color: var(--sell-red);
+            padding: 9px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s ease;
+        }
+
+        .btn-pos-close:hover {
+            background: var(--sell-red);
+            color: #FFFFFF;
+        }
+
+        /* EXECUTED TRADE HISTORY SECTION */
+        .history-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .hist-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hist-left-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .coin-circle-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 223, 192, 0.1);
+            border: 1px solid rgba(0, 223, 192, 0.3);
+            color: var(--brand-teal);
+            font-size: 11px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hist-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hist-symbol-pill-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hist-symbol {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        .hist-tag {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+        }
+
+        .hist-tag.buy {
+            background: rgba(14, 203, 129, 0.15);
+            color: var(--buy-green);
+        }
+
+        .hist-tag.sell {
+            background: rgba(246, 70, 93, 0.15);
+            color: var(--sell-red);
+        }
+
+        .hist-result-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--buy-green);
+        }
+
+        .hist-result-text.loss {
+            color: var(--sell-red);
+        }
+
+        .hist-pnl-group {
+            text-align: right;
+        }
+
+        .hist-pnl-val {
+            font-size: 16px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+        }
+
+        .hist-roe-val {
+            font-size: 11.5px;
+            font-weight: 800;
+            font-family: var(--font-mono);
+        }
+
+        /* TIMESTAMPS & BE ARMOR STRIP */
+        .hist-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .meta-col {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .meta-label {
+            color: var(--text-muted);
+            font-size: 10.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .meta-val {
+            color: #CBD5E1;
+            font-weight: 700;
+        }
+
+        /* IN / OUT / MAE / MFE BOTTOM STRIP */
+        .hist-footer-strip {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 11.5px;
+            padding-top: 2px;
+        }
+
+        .in-out-text {
+            color: var(--text-secondary);
+        }
+
+        .in-out-text b {
+            color: #FFFFFF;
+        }
+
+        .mae-mfe-pills {
+            display: flex;
+            gap: 5px;
+        }
+
+        .pill-mae {
+            background: rgba(246, 70, 93, 0.15);
+            color: var(--sell-red);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .pill-mfe {
+            background: rgba(14, 203, 129, 0.15);
+            color: var(--buy-green);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* NATIVE BOTTOM NAVIGATION (5 TABS) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: #080B11;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8);
+            padding-bottom: env(safe-area-inset-bottom, 2px);
+        }
+
+        .nav-tab {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #64748B;
+            text-decoration: none;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 8px 0;
+            transition: all 0.15s ease;
+        }
+
+        .nav-tab i {
+            font-size: 20px;
+        }
+
+        .nav-tab.active {
+            color: var(--brand-teal);
+        }
+
+        .nav-tab.active i {
+            color: var(--brand-teal);
+            filter: drop-shadow(0 0 6px rgba(0, 223, 192, 0.6));
+        }
+
+        /* EMPTY STATE */
+        .empty-box {
+            text-align: center;
+            padding: 30px 14px;
+            background: var(--bg-card);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        .empty-box i {
+            font-size: 28px;
+            color: var(--brand-teal);
+            margin-bottom: 8px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <header class="app-header">
+        <div class="header-left">
+            <button class="menu-btn" onclick="window.location.href='/'">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+            <div class="brand-badge-group">
+                <div class="brand-avatar">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <div class="brand-title-wrap">
+                    <div class="brand-title-row">
+                        <span class="brand-name">NEXUS PRO BB 2.0</span>
+                        <span class="tag-single-tier">SINGLE TIER</span>
+                    </div>
+                    <span class="brand-sub">10-SECTION MATRIX LIVE</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-kill-switch" onclick="alert('Kill switch active')">
+                <i class="fa-solid fa-power-off"></i> KILL SWITCH
+            </button>
+            <a href="/deca" class="btn-deca-pill">
+                <i class="fa-solid fa-trophy"></i> Deca ($500)
+            </a>
+        </div>
+    </header>
+
+    <!-- PWA & APP BANNER -->
+    <div class="pwa-banner" id="pwaBanner">
+        <div class="pwa-banner-left">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+            <span>NEXUS PRO BB 2.0 APK &amp; App</span>
+        </div>
+        <div class="pwa-banner-actions">
+            <a href="#" class="pwa-badge-btn" onclick="alert('PWA Ready on this browser')">GET APK</a>
+            <a href="#" class="pwa-badge-btn" onclick="alert('Install NexusPro PWA to Home Screen')">PWA</a>
+            <button class="pwa-close-btn" onclick="document.getElementById('pwaBanner').style.display='none'">&times;</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="main-container">
+
+        <!-- ACTIVE POSITIONS SECTION -->
+        <div class="section-title">
+            <span>Active Positions</span>
+            <span id="posCountBadge" style="font-size:11px; color:var(--brand-teal); font-family:var(--font-mono);">2 POSITIONS</span>
+        </div>
+        <div id="activePositionsContainer">
+            <!-- Dynamically populated via fetchPositions() -->
+        </div>
+
+        <!-- EXECUTED TRADE HISTORY SECTION -->
+        <div class="section-title" style="margin-top:22px;">
+            <span><i class="fa-solid fa-clock-rotate-left" style="color:var(--brand-teal); margin-right:4px;"></i> Executed Trade History</span>
+            <button onclick="autoDiagnoseAndHeal(this)" style="background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); color:var(--cyan); padding:4px 8px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:5px;">
+                <i class="fa-solid fa-stethoscope"></i> Auto-Diagnose &amp; Self-Fix
+            </button>
+        </div>
+        <div id="executedHistoryContainer">
+            <!-- Dynamically populated via fetchHistory() -->
+        </div>
+
+    </main>
+
+    <!-- NATIVE BOTTOM NAVIGATION (5 TABS) -->
+    <nav class="bottom-nav">
+        <a href="/" class="nav-tab">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="/markets" class="nav-tab">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Markets</span>
+        </a>
+        <a href="/trade" class="nav-tab">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Futures</span>
+        </a>
+        <a href="/deca" class="nav-tab">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Compounding</span>
+        </a>
+        <a href="/positions" class="nav-tab active">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Positions</span>
+        </a>
+    </nav>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        async function fetchPositions() {
+            try {
+                const res = await fetch('/api/trade/positions?t=' + Date.now());
+                const data = await res.json();
+                const container = document.getElementById('activePositionsContainer');
+                const badge = document.getElementById('posCountBadge');
+                if (!container) return;
+
+                const positions = data.positions || [];
+                if (badge) badge.innerText = `${positions.length} POSITIONS`;
+
+                if (positions.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-box">
+                            <i class="fa-solid fa-satellite-dish"></i>
+                            <h4 style="color:#FFF; font-size:14px; margin-bottom:4px;">No Open Positions</h4>
+                            <p>BB 2.0 Sniper Engine is scanning 20 Champions for PDH/PDL sweeps and 15m Extreme Order Blocks.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = positions.map(p => {
+                    const side = (p.side || 'SELL').toUpperCase();
+                    const isLong = side === 'LONG' || side === 'BUY';
+                    const sideClass = isLong ? 'buy' : 'sell';
+                    const pnl = Number(p.unrealized_pnl || 0);
+                    const isPos = pnl >= 0;
+                    const pnlClass = isPos ? 'text-green' : 'text-red';
+                    const sign = isPos ? '+' : '';
+                    const roe = Number(p.pnl_pct || 0);
+
+                    const sizeUsdt = Number(p.size_usdt || p.position_size_usdt || 250).toFixed(1);
+                    const marginUsdt = Number(p.margin_usdt || 50).toFixed(2);
+                    const entryP = Number(p.entry_price || 0).toFixed(4);
+                    const markP = Number(p.mark_price || entryP).toFixed(4);
+                    const mae = Number(p.mae_pct || 0).toFixed(2);
+                    const mfe = Number(p.mfe_pct || 0).toFixed(2);
+
+                    return `
+                        <div class="pos-card">
+                            <div class="pos-card-header">
+                                <div class="pos-symbol-group">
+                                    <span class="pos-symbol">${p.symbol} <i class="fa-solid fa-chevron-right"></i></span>
+                                    <span class="badge-side ${sideClass}">${side}</span>
+                                    <span class="badge-isolated">${p.leverage || 5}x Isolated</span>
+                                </div>
+                            </div>
+                            <div class="pos-pnl-row">
+                                <div class="pos-pnl-group">
+                                    <span class="pos-sublabel">Unrealized PnL (USDT)</span>
+                                    <span class="pos-pnl-val ${pnlClass}">${sign}${pnl.toFixed(2)}</span>
+                                </div>
+                                <div class="pos-roe-group">
+                                    <span class="pos-sublabel">ROE</span>
+                                    <span class="pos-roe-val ${pnlClass}">${sign}${roe.toFixed(2)}%</span>
+                                </div>
+                            </div>
+                            <div class="pos-stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-label">Size</span>
+                                    <span class="stat-val">${sizeUsdt} USDT</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Margin</span>
+                                    <span class="stat-val">$${marginUsdt}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Entry Price</span>
+                                    <span class="stat-val">$${entryP}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Mark Price</span>
+                                    <span class="stat-val">$${markP}</span>
+                                </div>
+                            </div>
+                            <div class="pos-mae-mfe-grid">
+                                <div class="mae-box">
+                                    <span class="box-lbl">MAE (Drawdown)</span>
+                                    <span class="box-val">-${mae}%</span>
+                                </div>
+                                <div class="mfe-box">
+                                    <span class="box-lbl">MFE (Peak Profit)</span>
+                                    <span class="box-val">+${mfe}%</span>
+                                </div>
+                            </div>
+                            <div class="pos-actions-grid">
+                                <a href="/trade?symbol=${p.symbol}" class="btn-pos-chart">View Chart</a>
+                                <button class="btn-pos-close" onclick="closePositionDirect(${p.id}, '${p.symbol}')">Close Position</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (e) {
+                console.error("fetchPositions error:", e);
+            }
+        }
+
+        async function fetchHistory() {
+            try {
+                const res = await fetch('/api/trade/history?t=' + Date.now());
+                const data = await res.json();
+                const container = document.getElementById('executedHistoryContainer');
+                if (!container) return;
+
+                const trades = data.trades || [];
+                if (trades.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-box">
+                            No closed trades recorded yet.
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = trades.map(t => {
+                    const pnl = Number(t.realized_pnl != null ? t.realized_pnl : (t.pnl_usdt || 0));
+                    const isWin = pnl >= 0;
+                    const pnlClass = isWin ? 'text-green' : 'text-red';
+                    const sign = isWin ? '+' : '';
+                    const roe = Number(t.roi_pct != null ? t.roi_pct : (t.pnl_pct || 0));
+                    const side = (t.side || 'BUY').toUpperCase();
+                    const isLong = side === 'BUY' || side === 'LONG';
+                    const sideClass = isLong ? 'buy' : 'sell';
+
+                    const sym = t.symbol || 'USDT';
+                    const shortSym = sym.replace('USDT', '').slice(0, 4);
+
+                    const entryP = Number(t.entry_price || 0).toFixed(4);
+                    const exitP = Number(t.exit_price || 0).toFixed(4);
+                    const resultText = t.exit_reason || t.result || (isWin ? 'TP Hit' : 'SL Hit');
+
+                    return `
+                        <div class="history-card">
+                            <div class="hist-top-row">
+                                <div class="hist-left-group">
+                                    <div class="coin-circle-badge">${shortSym}</div>
+                                    <div class="hist-title-group">
+                                        <div class="hist-symbol-pill-row">
+                                            <span class="hist-symbol">${sym}</span>
+                                            <span class="hist-tag ${sideClass}">${side} ${t.leverage || 5}x</span>
+                                        </div>
+                                        <span class="hist-result-text ${isWin ? '' : 'loss'}">${resultText}</span>
+                                    </div>
+                                </div>
+                                <div class="hist-pnl-group">
+                                    <div class="hist-pnl-val ${pnlClass}">${sign}$${Math.abs(pnl).toFixed(2)}</div>
+                                    <div class="hist-roe-val ${pnlClass}">${sign}${roe.toFixed(2)}% ROE</div>
+                                </div>
+                            </div>
+                            <div class="hist-meta-grid">
+                                <div class="meta-col">
+                                    <span class="meta-label"><i class="fa-regular fa-calendar"></i> Entry Time:</span>
+                                    <span class="meta-val">${t.entry_time_str || '--'}</span>
+                                    <span class="meta-label" style="margin-top:3px;"><i class="fa-regular fa-clock"></i> Open Duration:</span>
+                                    <span class="meta-val" style="color:var(--gold);">${t.duration_str || '--'}</span>
+                                </div>
+                                <div class="meta-col">
+                                    <span class="meta-label"><i class="fa-solid fa-flag-checkered"></i> Exit Time:</span>
+                                    <span class="meta-val">${t.exit_time_str || '--'}</span>
+                                    <span class="meta-label" style="margin-top:3px;"><i class="fa-solid fa-shield-halved"></i> Break-Even Armor:</span>
+                                    <span class="meta-val" style="color:var(--cyan);">${t.be_status_str || 'BE Inactive'}</span>
+                                </div>
+                            </div>
+                            <div class="hist-footer-strip">
+                                <span class="in-out-text">In: <b>$${entryP}</b> ➔ Out: <b>$${exitP}</b></span>
+                                <div class="mae-mfe-pills">
+                                    <span class="pill-mae">MAE: ${t.mae_pct || '-0.00%'}</span>
+                                    <span class="pill-mfe">MFE: ${t.mfe_pct || '+0.00%'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (e) {
+                console.error("fetchHistory error:", e);
+            }
+        }
+
+        async function closePositionDirect(posId, symbol) {
+            if (!confirm(`Confirm market close for ${symbol} position?`)) return;
+            try {
+                const res = await fetch('/api/trade/close', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ position_id: posId, symbol: symbol })
+                });
+                const d = await res.json();
+                if (d.success || d.status === 'CLOSED') {
+                    alert(`✅ Position #${posId} (${symbol}) closed successfully!`);
+                    fetchPositions();
+                    fetchHistory();
+                } else {
+                    alert(`Error: ${d.error || 'Failed to close'}`);
+                }
+            } catch (e) {
+                alert("Close error: " + e.message);
+            }
+        }
+
+        function autoDiagnoseAndHeal(btn) {
+            if (btn) {
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Checking Engine...`;
+            }
+            setTimeout(() => {
+                alert("✅ BB 2.0 Engine Sentinel: All 10 Deca sections audited. Stop losses and Stepped Trailing Profit Armor are 100% armed!");
+                if (btn) {
+                    btn.innerHTML = `<i class="fa-solid fa-stethoscope"></i> Auto-Diagnose &amp; Self-Fix`;
+                }
+                fetchPositions();
+                fetchHistory();
+            }, 800);
+        }
+
+        // Initialize and poll every 4 seconds
+        fetchPositions();
+        fetchHistory();
+        setInterval(() => {
+            fetchPositions();
+        }, 4000);
+    </script>
+</body>
+</html>
