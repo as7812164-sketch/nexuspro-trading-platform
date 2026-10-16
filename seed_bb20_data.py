@@ -238,12 +238,18 @@ def setup_and_seed_nexuspro():
             h["be_status_str"], h["mae_pct"], h["mfe_pct"]
         ))
 
-    # Update section balances
-    c.execute("UPDATE deca_sections SET status = 'IN_TRADE', active_symbol = 'RENDERUSDT', current_balance = 49.45 WHERE id = 6")
-    c.execute("UPDATE deca_sections SET status = 'IN_TRADE', active_symbol = 'ETHUSDT', current_balance = 50.00 WHERE id = 1")
-    c.execute("UPDATE deca_sections SET current_balance = 60.03, total_pnl = 10.03, win_count = 2, loss_count = 0 WHERE id = 2")
-    c.execute("UPDATE deca_sections SET current_balance = 57.10, total_pnl = 7.10, win_count = 1, loss_count = 0 WHERE id = 10")
-    c.execute("UPDATE deca_sections SET current_balance = 42.85, total_pnl = -7.15, win_count = 0, loss_count = 1 WHERE id = 8")
+    # Update section balances to match exact trade history:
+    # Starting Capital: 10 * $50 = $500.00
+    # Sec 2 (CRVUSDT win +$7.83): balance = $57.83, 1W 0L
+    # Sec 6 (OPUSDT +$16.98, FETUSDT +$1.99): balance = $68.97, 2W 0L, in trade RENDERUSDT
+    # Sec 8 (TAOUSDT loss -$7.15): balance = $42.85, 0W 1L
+    # Sec 10 (ATOMUSDT win +$7.10): balance = $57.10, 1W 0L
+    # Sec 1 (ETHUSDT in trade): balance = $50.00
+    c.execute("UPDATE deca_sections SET status = 'IN_TRADE', active_symbol = 'RENDERUSDT', current_balance = 68.97, equity = 68.97, total_pnl = 18.97, win_count = 2, loss_count = 0, win_rate = 100.0 WHERE id = 6")
+    c.execute("UPDATE deca_sections SET status = 'IN_TRADE', active_symbol = 'ETHUSDT', current_balance = 50.00, equity = 50.00, total_pnl = 0.0, win_count = 0, loss_count = 0 WHERE id = 1")
+    c.execute("UPDATE deca_sections SET current_balance = 57.83, equity = 57.83, total_pnl = 7.83, win_count = 1, loss_count = 0, win_rate = 100.0 WHERE id = 2")
+    c.execute("UPDATE deca_sections SET current_balance = 57.10, equity = 57.10, total_pnl = 7.10, win_count = 1, loss_count = 0, win_rate = 100.0 WHERE id = 10")
+    c.execute("UPDATE deca_sections SET current_balance = 42.85, equity = 42.85, total_pnl = -7.15, win_count = 0, loss_count = 1, win_rate = 0.0 WHERE id = 8")
 
     conn.commit()
     conn.close()
