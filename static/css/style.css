@@ -346,6 +346,7 @@ body {
     flex: 1;
     width: 100%;
     height: 100%;
+    min-height: 330px;
 }
 
 /* ORDER BOOK */
@@ -760,7 +761,10 @@ body {
         overflow-y: auto;
         padding-bottom: 70px;
     }
-    .chart-container { height: 380px; }
+    .chart-container { 
+        height: 380px; 
+        min-height: 380px;
+    }
     .mobile-bottom-bar { display: flex; }
     .nav-links { display: none; }
     .top-stats-pill { display: none; }

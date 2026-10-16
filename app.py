@@ -60,28 +60,34 @@ app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 @app.get("/", response_class=HTMLResponse)
 @app.get("/trade", response_class=HTMLResponse)
 @app.get("/futures", response_class=HTMLResponse)
+@app.get("/nexus/trade", response_class=HTMLResponse)
 async def serve_trade_page():
     return FileResponse(STATIC_DIR / "trade.html")
 
 @app.get("/markets", response_class=HTMLResponse)
+@app.get("/nexus/markets", response_class=HTMLResponse)
 async def serve_markets_page():
     return FileResponse(STATIC_DIR / "markets.html")
 
 @app.get("/deca", response_class=HTMLResponse)
 @app.get("/compounding", response_class=HTMLResponse)
+@app.get("/nexus/deca", response_class=HTMLResponse)
 async def serve_deca_page():
     return FileResponse(STATIC_DIR / "deca.html")
 
 @app.get("/assets", response_class=HTMLResponse)
 @app.get("/wallet", response_class=HTMLResponse)
+@app.get("/nexus/assets", response_class=HTMLResponse)
 async def serve_assets_page():
     return FileResponse(STATIC_DIR / "assets.html")
 
 @app.get("/hologram", response_class=HTMLResponse)
+@app.get("/nexus/hologram", response_class=HTMLResponse)
 async def serve_hologram_page():
     return FileResponse(STATIC_DIR / "hologram.html")
 
 @app.get("/positions", response_class=HTMLResponse)
+@app.get("/nexus/positions", response_class=HTMLResponse)
 async def serve_positions_page():
     return FileResponse(STATIC_DIR / "positions.html")
 

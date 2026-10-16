@@ -75,7 +75,16 @@ function initChart() {
     const container = document.getElementById("tradingview_chart");
     if (!container || !window.LightweightCharts) return;
 
+    if (chart) {
+        try { chart.remove(); } catch(e) {}
+    }
+
+    const w = container.clientWidth || window.innerWidth || 360;
+    const h = container.clientHeight || 340;
+
     chart = LightweightCharts.createChart(container, {
+        width: w,
+        height: h,
         layout: {
             background: { color: '#0F1420' },
             textColor: '#94A3B8',
@@ -109,7 +118,10 @@ function initChart() {
 
     window.addEventListener('resize', () => {
         if (chart && container) {
-            chart.applyOptions({ width: container.clientWidth, height: container.clientHeight });
+            chart.applyOptions({ 
+                width: container.clientWidth || window.innerWidth, 
+                height: container.clientHeight || 340 
+            });
         }
     });
 }
@@ -229,15 +241,19 @@ async function pollTicker() {
             orderPriceInput.value = t.last_price;
         }
 
-        // Live chart tick update
+        // Live chart tick update (safe monotonic update)
         if (candleSeries && t.last_price > 0) {
-            candleSeries.update({
-                time: Math.floor(Date.now() / 1000),
-                open: t.last_price,
-                high: t.last_price,
-                low: t.last_price,
-                close: t.last_price
-            });
+            try {
+                candleSeries.update({
+                    time: Math.floor(Date.now() / 1000),
+                    open: t.last_price,
+                    high: t.last_price,
+                    low: t.last_price,
+                    close: t.last_price
+                });
+            } catch (tickErr) {
+                // Ignore any time-order exception from rapid updates
+            }
         }
     } catch (e) {
         console.error("Ticker poll error:", e);
