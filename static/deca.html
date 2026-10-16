@@ -103,7 +103,7 @@
                 <div>
                     <div style="font-size:10px; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Net Realized Return</div>
                     <div style="font-size:24px; font-weight:900; font-family:var(--font-mono); color:var(--buy-green);" id="heroPnlPct">+$74.84 (+14.97%)</div>
-                    <div style="font-size:11px; color:var(--gold); font-weight:700;" id="heroMode">HERMES 3.0 MODEL 2A</div>
+                    <div style="font-size:11px; color:var(--gold); font-weight:700;" id="heroMode">BB 3.0 (STEPPED TRAILING SL)</div>
                 </div>
                 <div>
                     <div style="font-size:10px; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Target Wealth</div>
@@ -381,7 +381,7 @@
                 const sign = totPnl >= 0 ? '+' : '';
                 document.getElementById("heroPnlPct").innerText = `${sign}$${totPnl.toFixed(2)} (${sign}${pnlPct.toFixed(2)}%)`;
                 const modeEl = document.getElementById("heroMode");
-                if (modeEl) modeEl.innerText = s.mode || 'HERMES 3.0 MODEL 2A';
+                if (modeEl) modeEl.innerText = s.mode || 'BB 3.0 (STEPPED TRAILING SL)';
                 document.getElementById("heroWinRate").innerText = `${Number(s.win_rate || 95.2).toFixed(1)}%`;
                 document.getElementById("heroTradesCount").innerText = `${s.total_trades || 21} Trades (${s.total_wins || 20}W / ${s.total_losses || 1}L)`;
                 document.getElementById("heroProgressPct").innerText = `${Number(s.progress_pct || 1.21).toFixed(2)}% of $47k Target`;

@@ -313,6 +313,7 @@ def get_portfolio_summary() -> Dict[str, Any]:
     win_rate = round((tot_wins / tot_trades) * 100.0, 1) if tot_trades > 0 else 0.0
 
     return {
+        "mode": "BB 3.0 (STEPPED TRAILING SL)",
         "starting_capital": tot_initial,
         "total_balance": round(tot_balance, 2),
         "total_equity": round(tot_equity, 2),

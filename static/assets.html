@@ -8,6 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Telegram WebApp SDK & Auto-Expand -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        try {
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.expand();
+            }
+        } catch(e) {}
+    </script>
+
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
@@ -94,7 +106,7 @@
                 </div>
                 <div>
                     <span style="font-size:10px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Active Engine</span>
-                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:var(--gold);" id="walletMode">HERMES 3.0 MODEL 2A</div>
+                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:var(--gold);" id="walletMode">BB 3.0 (STEPPED TRAILING SL)</div>
                 </div>
             </div>
         </div>
@@ -287,7 +299,7 @@
                 const marginEl = document.getElementById("walletMarginInfo");
                 if (marginEl) marginEl.innerText = `$${usedMarg.toFixed(2)} / $${freeMarg.toFixed(2)}`;
                 const modeEl = document.getElementById("walletMode");
-                if (modeEl) modeEl.innerText = s.mode || 'HERMES 3.0 MODEL 2A';
+                if (modeEl) modeEl.innerText = s.mode || 'BB 3.0 (STEPPED TRAILING SL)';
 
                 const secRes = await fetch("/api/deca/sections");
                 const secData = await secRes.json();
