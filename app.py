@@ -322,6 +322,14 @@ async def reset_deca():
     conn.close()
     return {"status": "RESET_SUCCESS", "message": "All 10 Deca sections reset to $50.00 ($500.00 total equity)."}
 
+@app.get("/download/apk")
+@app.get("/apk")
+async def download_apk():
+    apk_path = os.path.join(STATIC_DIR, "NexusPro_BB_Mobile_Terminal.apk")
+    if os.path.exists(apk_path):
+        return FileResponse(apk_path, media_type="application/vnd.android.package-archive", filename="NexusPro_BB_Mobile_Terminal.apk")
+    raise HTTPException(status_code=404, detail="APK file not found")
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8080))
