@@ -77,6 +77,10 @@ async def serve_deca_page():
 async def serve_assets_page():
     return FileResponse(STATIC_DIR / "assets.html")
 
+@app.get("/hologram", response_class=HTMLResponse)
+async def serve_hologram_page():
+    return FileResponse(STATIC_DIR / "hologram.html")
+
 # ----------------- REST API ENDPOINTS -----------------
 
 @app.get("/api/status")
