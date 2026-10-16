@@ -18,12 +18,13 @@ from config import (
     SL_ANTI_HUNT_BUFFER,
     MEAN_THRESHOLD_RATIO,
     DEFAULT_LEVERAGE,
-    DEFAULT_RRR,
     TRAILING_TIER_1_TRIGGER_R,
     TRAILING_TIER_1_LOCK_R,
-    TRAILING_TIER_2_TRIGGER_R,
-    TRAILING_TIER_2_LOCK_R,
-    TRAILING_TIER_3_TRIGGER_R
+    TRAILING_STEP_R,
+    TRAILING_OFFSET_R,
+    STRATEGY_NAME,
+    STRATEGY_VERSION,
+    STRATEGY_MODEL
 )
 from engine.feed import market_feed
 from database.db import (
@@ -223,24 +224,34 @@ class BB20SniperEngine:
             risk_dist = abs(entry - pos["sl_price"])
             r_multiple = (price_diff / risk_dist) if risk_dist > 0 else 0.0
 
-            # Stepped Trailing SL Ladder (BB 2.0 Model 3)
+            # BB 3.0 Infinite Stepped Trailing SL Ladder (Model 2)
             new_trailing = pos["trailing_sl_price"]
             new_stage = pos["trailing_stage"]
 
-            if r_multiple >= TRAILING_TIER_2_TRIGGER_R and new_stage < 2:
-                # Stage 2 (+1.5R): Lock +1.0R Profit
-                new_trailing = entry + (risk_dist * TRAILING_TIER_2_LOCK_R) if side == "LONG" else entry - (risk_dist * TRAILING_TIER_2_LOCK_R)
-                new_stage = 2
-            elif r_multiple >= TRAILING_TIER_1_TRIGGER_R and new_stage < 1:
-                # Stage 1 (+1.0R): Move SL to +0.2R (Fee Shield)
-                new_trailing = entry + (risk_dist * TRAILING_TIER_1_LOCK_R) if side == "LONG" else entry - (risk_dist * TRAILING_TIER_1_LOCK_R)
-                new_stage = 1
+            if r_multiple >= 1.0:
+                if r_multiple >= 1.5:
+                    # Dynamic Infinite Trailing: Tier candidate increments every 0.5R
+                    tier_candidate = int((r_multiple - 1.0) / 0.5) + 1
+                    if tier_candidate > new_stage:
+                        new_stage = tier_candidate
+                        locked_r = (new_stage - 1) * 0.5
+                        new_trailing = entry + (risk_dist * locked_r) if side == "LONG" else entry - (risk_dist * locked_r)
+                elif new_stage < 1:
+                    # Tier 1 (+1.0R): Move SL to +0.2R (Fee Shield / Risk-Free)
+                    new_trailing = entry + (risk_dist * TRAILING_TIER_1_LOCK_R) if side == "LONG" else entry - (risk_dist * TRAILING_TIER_1_LOCK_R)
+                    new_stage = 1
 
-            # Check Exit Conditions
-            if tp_hit:
-                close_position_in_db(pos["id"], tp, u_pnl, "TAKE_PROFIT (1:2 RRR)")
-            elif sl_hit:
-                reason = "TRAILING_STOP_LOCK" if new_stage > 0 else "STOP_LOSS"
+            # Check Exit Conditions:
+            # In BB 3.0, winners are NEVER prematurely capped at 2.0R.
+            # Positions ride dynamically until trailing stop loss or initial SL is hit!
+            if sl_hit:
+                if new_stage == 0:
+                    reason = "STOP_LOSS (-1.0R)"
+                elif new_stage == 1:
+                    reason = "FEE_SHIELD_SAVED (+0.2R)"
+                else:
+                    locked_r = (new_stage - 1) * 0.5
+                    reason = f"BB 3.0 TRAILING PROFIT (+{locked_r:.1f}R)"
                 close_position_in_db(pos["id"], sl, u_pnl, reason)
             else:
                 update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage)
