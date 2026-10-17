@@ -33,10 +33,12 @@ from database.db import (
     get_section,
     get_open_positions,
     open_position,
-    close_position_in_db,
     get_trade_history,
     get_portfolio_summary,
-    STARTING_BALANCE_PER_SECTION
+    STARTING_BALANCE_PER_SECTION,
+    sync_external_trade_open,
+    sync_external_trailing_update,
+    sync_external_trade_close
 )
 from engine.feed import market_feed
 from engine.bb20_sniper import bb20_sniper
@@ -317,6 +319,38 @@ async def get_history(limit: int = 50):
         item["result"] = item.get("exit_reason", "TP Hit")
         enriched.append(item)
     return {"trades": enriched, "count": len(enriched)}
+
+# ----------------- REAL-TIME SYNC BRIDGE (TELEGRAM SNIPER -> TERMINAL) -----------------
+
+@app.post("/api/sync/trade")
+async def sync_trade_from_sniper(body: Dict[str, Any] = Body(...)):
+    """Receives real-time trade events from BB 3.0 Live Sniper (Telegram Bot runner)."""
+    action = body.get("action", "").upper()
+    data = body.get("data", body)
+    
+    try:
+        if action == "OPEN":
+            pos_id = sync_external_trade_open(data)
+            return {"status": "SUCCESS", "action": "OPEN", "position_id": pos_id}
+        elif action == "TRAILING":
+            sym = data.get("symbol")
+            new_sl = float(data.get("trailing_sl", data.get("new_sl", 0.0)))
+            stage = int(data.get("stage", data.get("tier", 1)))
+            highest_r = float(data.get("highest_r", 0.0))
+            sync_external_trailing_update(sym, new_sl, stage, highest_r)
+            return {"status": "SUCCESS", "action": "TRAILING", "symbol": sym}
+        elif action == "CLOSE":
+            sync_external_trade_close(data)
+            return {"status": "SUCCESS", "action": "CLOSE", "symbol": data.get("symbol")}
+        elif action == "BATCH_HISTORY":
+            trades = data if isinstance(data, list) else body.get("trades", [])
+            for t in trades:
+                sync_external_trade_close(t)
+            return {"status": "SUCCESS", "action": "BATCH_HISTORY", "synced": len(trades)}
+        else:
+            return {"status": "ERROR", "message": f"Unknown action: {action}"}
+    except Exception as e:
+        return {"status": "ERROR", "message": str(e)}
 
 @app.post("/api/deca/reset")
 async def reset_deca():

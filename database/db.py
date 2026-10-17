@@ -349,5 +349,111 @@ def get_portfolio_summary() -> Dict[str, Any]:
         "progress_pct": round((tot_equity / 47389.77) * 100.0, 2)
     }
 
+# ----------------- REAL-TIME SYNC BRIDGE (BB 3.0 SNIPER & TELEGRAM) -----------------
+
+def sync_external_trade_open(trade_data: Dict[str, Any]) -> int:
+    conn = get_db_connection()
+    c = conn.cursor()
+    now = time.time()
+    sym = trade_data["symbol"]
+    # Check if symbol already has OPEN position
+    c.execute("SELECT id FROM positions WHERE symbol = ? AND status = 'OPEN'", (sym,))
+    existing = c.fetchone()
+    if existing:
+        conn.close()
+        return existing["id"]
+
+    sec_id = int(trade_data.get("section_id", 1))
+    side = trade_data["side"]
+    entry = float(trade_data.get("entry_price", trade_data.get("mt_entry", 0.0)))
+    sl = float(trade_data.get("sl_price", trade_data.get("sl", 0.0)))
+    tp = float(trade_data.get("tp_price", trade_data.get("target_1r", 0.0)))
+    margin = float(trade_data.get("margin_usdt", 50.0))
+    pos_size = float(trade_data.get("position_size_usdt", margin * 5))
+    lev = int(trade_data.get("leverage", 5))
+
+    c.execute("""
+        INSERT INTO positions (
+            section_id, symbol, side, entry_price, mark_price, position_size_usdt,
+            margin_usdt, leverage, sl_price, tp_price, trailing_sl_price, trailing_stage,
+            unrealized_pnl, pnl_pct, liquidation_price, order_type, status, open_time, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0.0, 0.0, 0.0, 'LIMIT', 'OPEN', ?, ?)
+    """, (
+        sec_id, sym, side, entry, entry, pos_size, margin, lev, sl, tp, sl, 0, now, now
+    ))
+    pos_id = c.lastrowid
+    conn.commit()
+    conn.close()
+    set_section_status(sec_id, "IN_TRADE", sym)
+    return pos_id
+
+def sync_external_trailing_update(sym: str, new_sl: float, stage: int, highest_r: float = 0.0):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("""
+        UPDATE positions SET
+            trailing_sl_price = ?,
+            trailing_stage = ?,
+            updated_at = ?
+        WHERE symbol = ? AND status = 'OPEN'
+    """, (new_sl, stage, time.time(), sym))
+    conn.commit()
+    conn.close()
+
+def sync_external_trade_close(trade_data: Dict[str, Any]):
+    conn = get_db_connection()
+    c = conn.cursor()
+    now = time.time()
+    sym = trade_data["symbol"]
+    sec_id = int(trade_data.get("section_id", 1))
+    side = trade_data.get("side", "LONG")
+    entry = float(trade_data.get("entry_price", trade_data.get("mt_entry", 0.0)))
+    exit_p = float(trade_data.get("exit_price", entry))
+    margin = float(trade_data.get("margin_usdt", 50.0))
+    pos_size = float(trade_data.get("position_size_usdt", margin * 5))
+    lev = int(trade_data.get("leverage", 5))
+    pnl = float(trade_data.get("dollar_pnl", trade_data.get("realized_pnl", 0.0)))
+    pnl_pct = float(trade_data.get("pnl_pct", round((pnl / margin) * 100.0, 2) if margin > 0 else 0.0))
+    reason = trade_data.get("outcome", trade_data.get("exit_reason", "TP Hit"))
+    
+    # Parse open/close timestamps if ISO string or int ms
+    open_val = trade_data.get("open_time") or trade_data.get("filled_at") or trade_data.get("entry_time") or (now - 300)
+    close_val = trade_data.get("close_time") or trade_data.get("closed_at") or trade_data.get("exit_time") or now
+    
+    open_t = open_val if isinstance(open_val, (int, float)) else now - 300
+    close_t = close_val if isinstance(close_val, (int, float)) else now
+    if open_t > 1e11: open_t /= 1000.0
+    if close_t > 1e11: close_t /= 1000.0
+    
+    dur_min = round((close_t - open_t) / 60.0, 1)
+
+    # 1. Close any open position in positions table
+    c.execute("UPDATE positions SET status = 'CLOSED', mark_price = ?, updated_at = ? WHERE symbol = ? AND status = 'OPEN'", (exit_p, close_t, sym))
+
+    # 2. Check if already recorded in trade_history to prevent duplicates
+    c.execute("SELECT id FROM trade_history WHERE symbol = ? AND ABS(close_time - ?) < 60", (sym, close_t))
+    existing = c.fetchone()
+    if not existing:
+        c.execute("""
+            INSERT INTO trade_history (
+                section_id, symbol, side, entry_price, exit_price, margin_usdt,
+                position_size_usdt, leverage, realized_pnl, pnl_pct, exit_reason,
+                open_time, close_time, duration_minutes
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            sec_id, sym, side, entry, exit_p, margin, pos_size, lev, round(pnl, 2), pnl_pct, reason, open_t, close_t, dur_min
+        ))
+
+    conn.commit()
+
+    # 3. Update section balance
+    sec = get_section(sec_id)
+    if sec:
+        new_balance = float(trade_data.get("section_new_balance", sec["current_balance"] + pnl))
+        is_win = pnl > 0
+        update_section_balance(sec_id, new_balance, pnl, is_win)
+
+    conn.close()
+
 # Run initialization immediately on import
 init_db()
