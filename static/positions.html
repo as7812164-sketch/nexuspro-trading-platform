@@ -999,7 +999,14 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ position_id: posId, symbol: symbol })
                 });
-                const d = await res.json();
+                let d;
+                try {
+                    d = await res.json();
+                } catch (pe) {
+                    const txt = await res.text();
+                    alert(`Close error (${res.status}): ${txt}`);
+                    return;
+                }
                 if (d.success || d.status === 'CLOSED') {
                     alert(`✅ Position #${posId} (${symbol}) closed successfully!`);
                     fetchPositions();

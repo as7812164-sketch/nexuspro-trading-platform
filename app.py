@@ -33,6 +33,7 @@ from database.db import (
     get_section,
     get_open_positions,
     open_position,
+    close_position_in_db,
     get_trade_history,
     get_portfolio_summary,
     STARTING_BALANCE_PER_SECTION,
@@ -261,49 +262,55 @@ async def place_order(order: Dict[str, Any] = Body(...)):
 
 @app.post("/api/trade/close/{pos_id}")
 async def close_trade(pos_id: int):
-    open_pos = get_open_positions()
-    target = next((p for p in open_pos if p["id"] == pos_id), None)
-    if not target:
-        raise HTTPException(status_code=404, detail="Position not found or already closed")
+    try:
+        open_pos = get_open_positions()
+        target = next((p for p in open_pos if p["id"] == pos_id), None)
+        if not target:
+            return JSONResponse(status_code=404, content={"success": False, "error": "Position not found or already closed"})
 
-    ticker = await market_feed.get_ticker(target["symbol"])
-    curr_price = ticker["last_price"] if ticker else target["mark_price"]
-    side = target["side"]
-    margin = target["margin_usdt"]
-    leverage = target["leverage"]
+        ticker = await market_feed.get_ticker(target["symbol"])
+        curr_price = ticker["last_price"] if ticker else target["mark_price"]
+        side = target["side"]
+        margin = target["margin_usdt"]
+        leverage = target["leverage"]
 
-    price_diff = (curr_price - target["entry_price"]) if side in ("BUY", "LONG") else (target["entry_price"] - curr_price)
-    pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
+        price_diff = (curr_price - target["entry_price"]) if side in ("BUY", "LONG") else (target["entry_price"] - curr_price)
+        pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
-    close_position_in_db(pos_id, curr_price, pnl, "MANUAL_CLOSE")
-    return {"status": "CLOSED", "success": True, "position_id": pos_id, "realized_pnl": pnl}
+        close_position_in_db(pos_id, curr_price, pnl, "MANUAL_CLOSE")
+        return {"status": "CLOSED", "success": True, "position_id": pos_id, "realized_pnl": pnl}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
 
 @app.post("/api/trade/close")
 @app.post("/api/paper/close")
 async def close_trade_body(body: Dict[str, Any] = Body(...)):
-    pos_id = body.get("position_id") or body.get("trade_id")
-    symbol = body.get("symbol")
-    open_pos = get_open_positions()
-    target = None
-    if pos_id:
-        target = next((p for p in open_pos if p["id"] == int(pos_id)), None)
-    if not target and symbol:
-        target = next((p for p in open_pos if p["symbol"] == symbol.upper()), None)
+    try:
+        pos_id = body.get("position_id") or body.get("trade_id")
+        symbol = body.get("symbol")
+        open_pos = get_open_positions()
+        target = None
+        if pos_id:
+            target = next((p for p in open_pos if p["id"] == int(pos_id)), None)
+        if not target and symbol:
+            target = next((p for p in open_pos if p["symbol"] == symbol.upper()), None)
 
-    if not target:
-        return {"success": False, "error": "Position not found or already closed"}
+        if not target:
+            return {"success": False, "error": "Position not found or already closed"}
 
-    ticker = await market_feed.get_ticker(target["symbol"])
-    curr_price = ticker["last_price"] if ticker else target["mark_price"]
-    side = target["side"]
-    margin = target["margin_usdt"]
-    leverage = target["leverage"]
+        ticker = await market_feed.get_ticker(target["symbol"])
+        curr_price = ticker["last_price"] if ticker else target["mark_price"]
+        side = target["side"]
+        margin = target["margin_usdt"]
+        leverage = target["leverage"]
 
-    price_diff = (curr_price - target["entry_price"]) if side in ("BUY", "LONG") else (target["entry_price"] - curr_price)
-    pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
+        price_diff = (curr_price - target["entry_price"]) if side in ("BUY", "LONG") else (target["entry_price"] - curr_price)
+        pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
-    close_position_in_db(target["id"], curr_price, pnl, "MANUAL_CLOSE")
-    return {"status": "CLOSED", "success": True, "position_id": target["id"], "realized_pnl": pnl}
+        close_position_in_db(target["id"], curr_price, pnl, "MANUAL_CLOSE")
+        return {"status": "CLOSED", "success": True, "position_id": target["id"], "realized_pnl": pnl}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
 
 @app.get("/api/trade/history")
 @app.get("/api/paper/trades")
