@@ -39,7 +39,9 @@ from database.db import (
     STARTING_BALANCE_PER_SECTION,
     sync_external_trade_open,
     sync_external_trailing_update,
-    sync_external_trade_close
+    sync_external_trade_close,
+    enrich_trade_metadata,
+    reconcile_sections_ledger
 )
 from engine.feed import market_feed
 from engine.bb20_sniper import bb20_sniper
@@ -50,6 +52,7 @@ STATIC_DIR = BASE_DIR / "static"
 async def lifespan(app: FastAPI):
     # Startup: Start background BB 3.0 scanner and position monitor
     init_db()
+    reconcile_sections_ledger()
     sniper_task = asyncio.create_task(bb20_sniper.start_loop())
     yield
     # Shutdown
@@ -316,16 +319,14 @@ async def close_trade_body(body: Dict[str, Any] = Body(...)):
 @app.get("/api/paper/trades")
 async def get_history(limit: int = 50):
     trades = get_trade_history(limit=limit)
-    enriched = []
-    for t in trades:
-        item = dict(t)
-        item["pnl_usdt"] = item.get("realized_pnl", 0.0)
-        item["pnl"] = item.get("realized_pnl", 0.0)
-        item["realized_pnl"] = item.get("realized_pnl", 0.0)
-        item["roi_pct"] = item.get("roi_pct") or item.get("pnl_pct", 0.0)
-        item["result"] = item.get("exit_reason", "TP Hit")
-        enriched.append(item)
+    enriched = [enrich_trade_metadata(t) for t in trades]
     return {"trades": enriched, "count": len(enriched)}
+
+@app.get("/api/admin/reconcile")
+@app.post("/api/admin/reconcile")
+async def trigger_reconciliation():
+    reconcile_sections_ledger()
+    return {"status": "SUCCESS", "summary": get_portfolio_summary()}
 
 # ----------------- REAL-TIME SYNC BRIDGE (TELEGRAM SNIPER -> TERMINAL) -----------------
 
