@@ -257,8 +257,14 @@ def reconcile_sections_ledger():
         status = "IN_TRADE" if sid in open_sec_map else "IDLE"
         active_sym = open_sec_map.get(sid, None)
 
+        coins = [sym for sym, s_id in PAIR_MAPPING.items() if s_id == sid]
+        coins_str = ", ".join(coins)
+        sec_name = f"Section {sid} ({coins_str})"
+
         c.execute("""
             UPDATE deca_sections SET
+                name = ?,
+                assigned_coins = ?,
                 current_balance = ?,
                 equity = ?,
                 total_pnl = ?,
@@ -270,7 +276,7 @@ def reconcile_sections_ledger():
                 active_symbol = ?,
                 updated_at = ?
             WHERE id = ?
-        """, (cur_bal, cur_bal, tot_pnl, pnl_pct, wins, losses, win_rate, status, active_sym, now, sid))
+        """, (sec_name, coins_str, cur_bal, cur_bal, tot_pnl, pnl_pct, wins, losses, win_rate, status, active_sym, now, sid))
 
     conn.commit()
     conn.close()
