@@ -106,6 +106,26 @@ def init_db():
         )
     """)
 
+    # 5. Pending Setups (Real-time BB 3.0 Radar Feed)
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS pending_setups (
+            symbol TEXT PRIMARY KEY,
+            section_id INTEGER NOT NULL,
+            side TEXT NOT NULL,
+            entry_price REAL NOT NULL,
+            sl_price REAL NOT NULL,
+            tp_price REAL NOT NULL,
+            risk_amount REAL NOT NULL,
+            current_price REAL NOT NULL,
+            proximity_pct REAL NOT NULL,
+            anchor_name TEXT,
+            anchor_price REAL,
+            status TEXT DEFAULT 'ARMED (50% MT)',
+            armed_at TEXT,
+            updated_at REAL
+        )
+    """)
+
     # Safe column migration for positions and trade_history (zero data loss)
     pos_cols = [d[1] for d in c.execute("PRAGMA table_info(positions)").fetchall()]
     for col, ctype in [("mae_pct", "REAL DEFAULT 0.0"), ("mfe_pct", "REAL DEFAULT 0.0"), ("size_usdt", "REAL DEFAULT 0.0")]:
@@ -608,6 +628,67 @@ def sync_external_trade_close(trade_data: Dict[str, Any]):
 
     # 3. Always reconcile all 10 section balances strictly from the immutable trade history
     reconcile_sections_ledger()
+
+def sync_external_setup(setup_data: Dict[str, Any]):
+    conn = get_db_connection()
+    c = conn.cursor()
+    sym = setup_data["symbol"]
+    sec_id = int(setup_data.get("section_id", PAIR_MAPPING.get(sym, 1)))
+    side = setup_data.get("side", "LONG")
+    entry = float(setup_data.get("mt_entry", setup_data.get("entry_price", 0.0)))
+    sl = float(setup_data.get("sl", setup_data.get("sl_price", 0.0)))
+    tp = float(setup_data.get("target_1r", setup_data.get("tp_price", 0.0)))
+    risk = float(setup_data.get("risk", abs(entry - sl)))
+    curr_p = float(setup_data.get("current_price", entry))
+    prox = float(setup_data.get("proximity_pct", round(abs(curr_p - entry) / entry * 100.0, 2) if entry > 0 else 0.0))
+    anchor_name = setup_data.get("anchor_name", "PDH/PDL")
+    anchor_price = float(setup_data.get("anchor_price", 0.0))
+    armed_at = setup_data.get("armed_at", datetime.now(timezone.utc).isoformat())
+    status = setup_data.get("status", f"ARMED (50% MT) - {prox}% away")
+    now = time.time()
+
+    c.execute("""
+        INSERT INTO pending_setups (
+            symbol, section_id, side, entry_price, sl_price, tp_price, risk_amount,
+            current_price, proximity_pct, anchor_name, anchor_price, status, armed_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(symbol) DO UPDATE SET
+            section_id = excluded.section_id,
+            side = excluded.side,
+            entry_price = excluded.entry_price,
+            sl_price = excluded.sl_price,
+            tp_price = excluded.tp_price,
+            risk_amount = excluded.risk_amount,
+            current_price = excluded.current_price,
+            proximity_pct = excluded.proximity_pct,
+            anchor_name = excluded.anchor_name,
+            anchor_price = excluded.anchor_price,
+            status = excluded.status,
+            armed_at = excluded.armed_at,
+            updated_at = excluded.updated_at
+    """, (
+        sym, sec_id, side, entry, sl, tp, risk, curr_p, prox, anchor_name, anchor_price, status, armed_at, now
+    ))
+    conn.commit()
+    conn.close()
+
+def remove_external_setup(symbol: str):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("DELETE FROM pending_setups WHERE symbol = ?", (symbol,))
+    conn.commit()
+    conn.close()
+
+def get_pending_setups() -> List[Dict[str, Any]]:
+    conn = get_db_connection()
+    c = conn.cursor()
+    # Delete setups older than 8 hours
+    c.execute("DELETE FROM pending_setups WHERE (? - updated_at) > 28800", (time.time(),))
+    conn.commit()
+    c.execute("SELECT * FROM pending_setups ORDER BY updated_at DESC")
+    rows = [dict(r) for r in c.fetchall()]
+    conn.close()
+    return rows
 
 # Run initialization and reconciliation immediately on import
 init_db()

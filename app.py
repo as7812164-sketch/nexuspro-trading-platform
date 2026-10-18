@@ -40,6 +40,9 @@ from database.db import (
     sync_external_trade_open,
     sync_external_trailing_update,
     sync_external_trade_close,
+    sync_external_setup,
+    remove_external_setup,
+    get_pending_setups,
     enrich_trade_metadata,
     reconcile_sections_ledger
 )
@@ -166,7 +169,69 @@ async def get_deca_sections():
 
 @app.get("/api/deca/setups")
 async def get_deca_setups():
-    return {"count": len(bb20_sniper.scanned_setups), "setups": bb20_sniper.scanned_setups}
+    # 1. Live active positions at top
+    open_pos = get_open_positions()
+    tickers = await market_feed.get_all_tickers()
+    active_list = []
+    busy_symbols = set()
+    for p in open_pos:
+        sym = p["symbol"]
+        busy_symbols.add(sym)
+        ticker = tickers.get(sym)
+        mark = ticker["last_price"] if ticker else p["entry_price"]
+        active_list.append({
+            "symbol": sym,
+            "side": p["side"],
+            "section_id": p["section_id"],
+            "timeframe": "15M",
+            "entry_price": p["entry_price"],
+            "mark_price": mark,
+            "sl_price": p["trailing_sl_price"] if p["trailing_sl_price"] > 0 else p["sl_price"],
+            "tp_price": p["tp_price"],
+            "distance_pct": 0.0,
+            "proximity_pct": 0.0,
+            "roe_pct": p.get("pnl_pct", 0.0),
+            "status": "LIVE POSITION (BB 3.0)",
+            "is_active": True
+        })
+
+    # 2. Pending limit setups from database
+    pending = get_pending_setups()
+    pending_list = []
+    for s in pending:
+        sym = s["symbol"]
+        if sym in busy_symbols:
+            continue
+        ticker = tickers.get(sym)
+        cur_p = ticker["last_price"] if ticker else s["current_price"]
+        entry = s["entry_price"]
+        dist = round(abs(cur_p - entry) / entry * 100.0, 2) if entry > 0 else s["proximity_pct"]
+        pending_list.append({
+            "symbol": sym,
+            "side": s["side"],
+            "section_id": s["section_id"],
+            "timeframe": "15M",
+            "entry_price": entry,
+            "mark_price": cur_p,
+            "sl_price": s["sl_price"],
+            "tp_price": s["tp_price"],
+            "distance_pct": dist,
+            "proximity_pct": dist,
+            "probability_pct": 94.0,
+            "status": f"ARMED (50% MT) - {dist}% away",
+            "anchor_name": s.get("anchor_name", "PDH/PDL"),
+            "anchor_price": s.get("anchor_price", 0.0),
+            "is_active": False
+        })
+
+    # 3. Fallback to internal bb20_sniper setups if pending is empty
+    if not pending_list and bb20_sniper.scanned_setups:
+        for s in bb20_sniper.scanned_setups:
+            if s.get("symbol") not in busy_symbols:
+                pending_list.append(s)
+
+    all_setups = active_list + pending_list
+    return {"count": len(all_setups), "setups": all_setups}
 
 @app.get("/api/trade/positions")
 @app.get("/api/paper/positions")
@@ -337,7 +402,14 @@ async def sync_trade_from_sniper(body: Dict[str, Any] = Body(...)):
     data = body.get("data", body)
     
     try:
-        if action == "OPEN":
+        if action == "SETUP":
+            sync_external_setup(data)
+            return {"status": "SUCCESS", "action": "SETUP", "symbol": data.get("symbol")}
+        elif action == "REMOVE_SETUP":
+            remove_external_setup(data.get("symbol", ""))
+            return {"status": "SUCCESS", "action": "REMOVE_SETUP", "symbol": data.get("symbol")}
+        elif action == "OPEN":
+            remove_external_setup(data.get("symbol", ""))
             pos_id = sync_external_trade_open(data)
             return {"status": "SUCCESS", "action": "OPEN", "position_id": pos_id}
         elif action == "TRAILING":
@@ -348,6 +420,7 @@ async def sync_trade_from_sniper(body: Dict[str, Any] = Body(...)):
             sync_external_trailing_update(sym, new_sl, stage, highest_r)
             return {"status": "SUCCESS", "action": "TRAILING", "symbol": sym}
         elif action == "CLOSE":
+            remove_external_setup(data.get("symbol", ""))
             sync_external_trade_close(data)
             return {"status": "SUCCESS", "action": "CLOSE", "symbol": data.get("symbol")}
         elif action == "BATCH_HISTORY":
@@ -355,6 +428,15 @@ async def sync_trade_from_sniper(body: Dict[str, Any] = Body(...)):
             for t in trades:
                 sync_external_trade_close(t)
             return {"status": "SUCCESS", "action": "BATCH_HISTORY", "synced": len(trades)}
+        elif action == "SYNC_ALL":
+            setups = data.get("setups", {})
+            if isinstance(setups, dict):
+                for sym, s_data in setups.items():
+                    sync_external_setup(s_data)
+            elif isinstance(setups, list):
+                for s_data in setups:
+                    sync_external_setup(s_data)
+            return {"status": "SUCCESS", "action": "SYNC_ALL", "setups_synced": len(setups)}
         else:
             return {"status": "ERROR", "message": f"Unknown action: {action}"}
     except Exception as e:
