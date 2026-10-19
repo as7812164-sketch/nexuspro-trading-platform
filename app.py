@@ -74,6 +74,7 @@ async def lifespan(app: FastAPI):
     # Startup: Start background BB 3.0 scanner and position monitor
     init_db()
     reconcile_sections_ledger()
+    asyncio.create_task(market_feed.get_all_tickers())
     sniper_task = asyncio.create_task(bb20_sniper.start_loop())
     keepalive_task = asyncio.create_task(keepalive_loop())
     yield
@@ -149,7 +150,7 @@ async def get_markets():
     # Filter to top champions first, then others
     top_list = []
     other_list = []
-    for sym, t in tickers.items():
+    for sym, t in (tickers or {}).items():
         if not sym.endswith("USDT"):
             continue
         item = {
@@ -162,8 +163,8 @@ async def get_markets():
         else:
             other_list.append(item)
 
-    top_list.sort(key=lambda x: x["volume_24h"], reverse=True)
-    other_list.sort(key=lambda x: x["volume_24h"], reverse=True)
+    top_list.sort(key=lambda x: x.get("volume_24h", 0.0), reverse=True)
+    other_list.sort(key=lambda x: x.get("volume_24h", 0.0), reverse=True)
     return {"champions": top_list, "all_markets": top_list + other_list[:60]}
 
 @app.get("/api/ticker/{symbol}")

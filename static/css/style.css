@@ -920,3 +920,128 @@ body {
     }
 }
 
+/* ==========================================================================
+   STRATEGY HUD OVERLAY ON CHART (TV STYLE)
+   ========================================================================== */
+.chart-strategy-hud {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    z-index: 25;
+    background: rgba(11, 15, 25, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 223, 192, 0.45);
+    border-radius: 10px;
+    padding: 10px 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    width: calc(100% - 20px);
+    max-width: 380px;
+    font-family: var(--font-sans);
+    animation: fadeInHud 0.25s ease-out;
+}
+
+@keyframes fadeInHud {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hud-pill {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+}
+.hud-pill.pill-long {
+    background: rgba(0, 192, 135, 0.18);
+    color: var(--buy-green);
+    border: 1px solid rgba(0, 192, 135, 0.4);
+}
+.hud-pill.pill-short {
+    background: rgba(255, 75, 85, 0.18);
+    color: var(--sell-red);
+    border: 1px solid rgba(255, 75, 85, 0.4);
+}
+.hud-pill.pill-sec {
+    background: rgba(0, 223, 192, 0.12);
+    color: var(--brand-teal);
+    border: 1px solid rgba(0, 223, 192, 0.3);
+}
+.hud-pill.pill-strat {
+    background: rgba(245, 158, 11, 0.15);
+    color: #F59E0B;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.hud-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 4px;
+}
+.hud-close-btn:hover { color: #fff; }
+
+.hud-metric-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.hud-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.hud-lbl {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.hud-val {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 800;
+}
+.hud-val.cyan { color: var(--brand-teal); }
+.hud-val.white { color: #fff; }
+.hud-val.red { color: var(--sell-red); }
+.hud-val.green { color: var(--buy-green); }
+
+.hud-pnl-strip {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.hud-trailing-stage {
+    font-size: 10px;
+    color: #FCD34D;
+    font-weight: 600;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.clickable-row:hover {
+    background: rgba(0, 223, 192, 0.06) !important;
+}
+
+

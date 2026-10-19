@@ -258,8 +258,9 @@
         async function loadMarkets() {
             try {
                 const res = await fetch("/api/markets");
+                if (!res.ok) throw new Error("HTTP " + res.status);
                 const data = await res.json();
-                allMarketsData = data.all_markets;
+                allMarketsData = (data.all_markets && data.all_markets.length > 0) ? data.all_markets : (data.champions || []);
 
                 // Update index cards
                 updateCard("cardBtcPrice", "cardBtcChange", "BTCUSDT");
@@ -336,7 +337,10 @@
             const tbody = document.getElementById("marketsTableBody");
             if (!tbody) return;
 
-            tbody.innerHTML = list.map((item, idx) => {
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;"><i class="fa-solid fa-spinner fa-spin" style="margin-right:8px; color:var(--brand-teal);"></i> Loading Live Markets Feed • Fetching 24h Binance / Bybit Tickers...</td></tr>`;
+                return;
+            }
                 const isPos = item.price_change_pct >= 0;
                 const sign = isPos ? '+' : '';
                 const secBadge = item.section_id ? `<span class="sec-badge">Section ${item.section_id}</span>` : `<span style="color:var(--text-muted);">-</span>`;

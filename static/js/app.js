@@ -13,6 +13,11 @@ let currentInterval = "15m";
 let currentLeverage = 5;
 let chart = null;
 let candleSeries = null;
+let currentChartPriceLines = [];
+let cachedActivePositions = [];
+let cachedRadarSetups = [];
+let activeChartStrategy = null;
+let isHudManuallyHidden = false;
 
 // Parse symbol from URL (e.g. /trade?symbol=SOLUSDT)
 const urlParams = new URLSearchParams(window.location.search);
@@ -134,6 +139,18 @@ async function loadKlines() {
         if (data.candles && data.candles.length > 0) {
             candleSeries.setData(data.candles);
             if (chart) chart.timeScale().fitContent();
+
+            // Auto-detect and render strategy levels for this pair
+            const target = cachedActivePositions.find(p => p.symbol === currentSymbol) || cachedRadarSetups.find(s => s.symbol === currentSymbol);
+            if (target) {
+                drawStrategyOnChart(target, false);
+            } else {
+                clearChartStrategyLines();
+                const hud = document.getElementById("chartStrategyHUD");
+                if (hud) hud.style.display = "none";
+                const toggleBtn = document.getElementById("chartStrategyToggleBtn");
+                if (toggleBtn) toggleBtn.style.display = "none";
+            }
         }
     } catch (e) {
         console.error("Failed to load klines:", e);
@@ -154,6 +171,203 @@ function changePair(sym) {
     loadKlines();
     pollTicker();
     pollOrderBook();
+}
+
+// ----------------- STRATEGY CHART VISUALIZER (TV STYLE) -----------------
+
+function clearChartStrategyLines() {
+    if (candleSeries && currentChartPriceLines && currentChartPriceLines.length > 0) {
+        currentChartPriceLines.forEach(line => {
+            try {
+                candleSeries.removePriceLine(line);
+            } catch (err) {}
+        });
+        currentChartPriceLines = [];
+    }
+}
+
+function drawStrategyOnChart(item, fitChart = false) {
+    if (!item || !candleSeries) return;
+    activeChartStrategy = item;
+
+    // Clear previous lines
+    clearChartStrategyLines();
+
+    const isLong = (item.side_raw || item.side || '').toUpperCase() === 'LONG' || (item.side_raw || item.side || '').toUpperCase() === 'BUY';
+    const sideStr = isLong ? 'LONG' : 'SHORT';
+    const lev = (item.leverage || '5x').toString().replace('x', '') + 'x';
+    const secId = item.section_id || item.account_id || 1;
+
+    const entryP = Number(item.entry_price || 0);
+    const markP = Number(item.mark_price || item.current_price || item.last_price || (document.getElementById("displayPrice")?.innerText.replace('$', '').replace(/,/g, '')) || entryP);
+    const slP = Number(item.trailing_sl_price > 0 ? item.trailing_sl_price : (item.sl_price || 0));
+    const tpP = Number(item.tp_price || 0);
+    const isTrailing = Boolean(item.trailing_sl_price && item.trailing_sl_price > 0);
+    const roe = item.roi_pct !== undefined ? Number(item.roi_pct) : Number(item.roe_pct || item.pnl_pct || 0);
+    const uPnl = item.unrealized_pnl !== undefined ? Number(item.unrealized_pnl) : Number(item.unrealized_pnl_usdt || 0);
+    const sign = uPnl >= 0 ? '+' : '';
+    const pnlColor = uPnl >= 0 ? 'var(--buy-green)' : 'var(--sell-red)';
+
+    // 1. Entry Price Line (Cyan / Teal)
+    if (entryP > 0) {
+        const eLine = candleSeries.createPriceLine({
+            price: entryP,
+            color: '#00DFC0',
+            lineWidth: 2,
+            lineStyle: 0, // Solid
+            axisLabelVisible: true,
+            title: `ENTRY: $${entryP.toFixed(4)} [${sideStr} ${lev}]`
+        });
+        currentChartPriceLines.push(eLine);
+    }
+
+    // 2. Stop Loss Line (Red)
+    if (slP > 0) {
+        const slLine = candleSeries.createPriceLine({
+            price: slP,
+            color: '#FF4B55',
+            lineWidth: 2,
+            lineStyle: 0, // Solid
+            axisLabelVisible: true,
+            title: `${isTrailing ? '🛡️ TRAILING SL' : '⛔ STOP LOSS'}: $${slP.toFixed(4)}`
+        });
+        currentChartPriceLines.push(slLine);
+    }
+
+    // 3. Take Profit Line (Green)
+    if (tpP > 0) {
+        const tpLine = candleSeries.createPriceLine({
+            price: tpP,
+            color: '#00C087',
+            lineWidth: 2,
+            lineStyle: 0, // Solid
+            axisLabelVisible: true,
+            title: `🎯 TARGET TP: $${tpP.toFixed(4)} (+3.0R)`
+        });
+        currentChartPriceLines.push(tpLine);
+    }
+
+    // 4. Mean Threshold Line (if setup / OB)
+    const mt = Number(item.mean_threshold || item.mt || 0);
+    if (mt > 0) {
+        const mtLine = candleSeries.createPriceLine({
+            price: mt,
+            color: '#F59E0B',
+            lineWidth: 1,
+            lineStyle: 2, // Dashed
+            axisLabelVisible: true,
+            title: `⚡ 50% MT: $${mt.toFixed(4)}`
+        });
+        currentChartPriceLines.push(mtLine);
+    }
+
+    // Update HUD DOM Elements
+    const hud = document.getElementById("chartStrategyHUD");
+    const toggleBtn = document.getElementById("chartStrategyToggleBtn");
+    if (toggleBtn) toggleBtn.style.display = "inline-flex";
+
+    const sideBadge = document.getElementById("hudSideBadge");
+    if (sideBadge) {
+        sideBadge.innerText = `${sideStr} ${lev}`;
+        sideBadge.className = `hud-pill ${isLong ? 'pill-long' : 'pill-short'}`;
+    }
+
+    const secBadge = document.getElementById("hudSectionBadge");
+    if (secBadge) secBadge.innerText = `Section #${secId}`;
+
+    const entryEl = document.getElementById("hudEntryPrice");
+    if (entryEl) entryEl.innerText = `$${entryP.toFixed(4)}`;
+
+    const markEl = document.getElementById("hudMarkPrice");
+    if (markEl) markEl.innerText = `$${markP.toFixed(4)}`;
+
+    const slEl = document.getElementById("hudSlPrice");
+    if (slEl) {
+        slEl.innerText = `$${slP.toFixed(4)}`;
+        slEl.className = `hud-val ${slP > entryP ? 'green' : 'red'}`;
+    }
+
+    const tpEl = document.getElementById("hudTpPrice");
+    if (tpEl) tpEl.innerText = `$${tpP.toFixed(4)}`;
+
+    const pnlEl = document.getElementById("hudPnlValue");
+    if (pnlEl) {
+        pnlEl.innerText = `${sign}$${uPnl.toFixed(2)} (${sign}${roe.toFixed(2)}% ROI)`;
+        pnlEl.style.color = pnlColor;
+    }
+
+    const stageEl = document.getElementById("hudTrailingStageText");
+    if (stageEl) {
+        if (isTrailing) {
+            stageEl.innerHTML = `🛡️ <b>Trailing Active</b>: SL Protected at $${slP.toFixed(4)} (Continuous ROI Lock)`;
+        } else {
+            stageEl.innerHTML = `⚡ <b>Armored Setup</b>: Trailing Trigger at +4.80% ROI ➔ Locks +1.00% Profit`;
+        }
+    }
+
+    if (hud && !isHudManuallyHidden) {
+        hud.style.display = "block";
+    }
+
+    if (fitChart && chart) {
+        try {
+            chart.timeScale().fitContent();
+        } catch(e) {}
+    }
+}
+
+function selectPositionOnChart(symbol) {
+    if (!symbol) return;
+    const sym = symbol.toUpperCase();
+    if (currentSymbol !== sym) {
+        changePair(sym);
+    }
+    
+    isHudManuallyHidden = false;
+
+    // Find in active positions first, then radar setups
+    let target = cachedActivePositions.find(p => p.symbol === sym);
+    if (!target) {
+        target = cachedRadarSetups.find(s => s.symbol === sym);
+    }
+
+    if (target) {
+        setTimeout(() => {
+            drawStrategyOnChart(target, true);
+        }, 300);
+    }
+
+    // Scroll to chart smoothly so trader sees the levels immediately
+    const chartEl = document.querySelector(".chart-container");
+    if (chartEl && window.innerWidth <= 960) {
+        chartEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function toggleChartStrategyHUD(e) {
+    if (e) e.stopPropagation();
+    const hud = document.getElementById("chartStrategyHUD");
+    if (!hud) return;
+    if (hud.style.display === "none") {
+        isHudManuallyHidden = false;
+        hud.style.display = "block";
+    } else {
+        isHudManuallyHidden = true;
+        hud.style.display = "none";
+    }
+}
+
+function onChartAreaClick(e) {
+    // If user clicks on the chart container, reveal / refresh strategy lines
+    const hud = document.getElementById("chartStrategyHUD");
+    const target = cachedActivePositions.find(p => p.symbol === currentSymbol) || cachedRadarSetups.find(s => s.symbol === currentSymbol);
+    if (target) {
+        if (hud && hud.style.display === "none") {
+            isHudManuallyHidden = false;
+            hud.style.display = "block";
+        }
+        drawStrategyOnChart(target, false);
+    }
 }
 
 // ----------------- LIVE DATA POLLERS -----------------
@@ -363,6 +577,13 @@ async function pollPositions() {
         const res = await fetch("/api/trade/positions");
         if (!res.ok) return;
         const data = await res.json();
+        cachedActivePositions = data.positions || [];
+
+        // If current symbol has an active open position, keep chart strategy & HUD in sync
+        const currentActivePos = cachedActivePositions.find(p => p.symbol === currentSymbol);
+        if (currentActivePos) {
+            drawStrategyOnChart(currentActivePos, false);
+        }
 
         const tbody = document.getElementById("positionsTableBody");
         const countBadge = document.getElementById("posCountBadge");
@@ -389,7 +610,7 @@ async function pollPositions() {
                     const tpP = Number(p.tp_price || 0);
 
                     return `
-                        <tr>
+                        <tr class="clickable-row" onclick="selectPositionOnChart('${p.symbol}')" title="Click to view full strategy on chart!">
                             <td>
                                 <span style="font-weight:800; color:#fff;">${p.symbol}</span>
                                 <span style="font-size:10px; padding:2px 4px; border-radius:3px; background:${isLong ? 'rgba(0,192,135,0.15)' : 'rgba(255,75,85,0.15)'}; color:${isLong ? 'var(--buy-green)' : 'var(--sell-red)'}; font-weight:800; margin-left:4px;">${sideStr} ${lev}</span>
@@ -403,7 +624,7 @@ async function pollPositions() {
                             <td style="font-family:var(--font-mono); color:var(--buy-green); font-weight:700;">${tpP.toFixed(4)}</td>
                             <td style="color:${pnlColor}; font-weight:800; font-family:var(--font-mono);">${sign}$${uPnl.toFixed(2)} (${sign}${roe.toFixed(2)}%)</td>
                             <td>
-                                <button class="btn-close-pos" onclick="closePosition(${p.id})">Close</button>
+                                <button class="btn-close-pos" onclick="event.stopPropagation(); closePosition(${p.id})">Close</button>
                             </td>
                         </tr>
                     `;
@@ -569,7 +790,16 @@ async function pollDockRadar() {
         const res = await fetch("/api/deca/setups");
         const data = await res.json();
         const setups = data.setups || [];
+        cachedRadarSetups = setups;
         if (badge) badge.innerText = setups.length;
+
+        // If current pair is on radar (and no active position), refresh its strategy lines
+        if (!cachedActivePositions.some(p => p.symbol === currentSymbol)) {
+            const currentSetup = cachedRadarSetups.find(s => s.symbol === currentSymbol);
+            if (currentSetup) {
+                drawStrategyOnChart(currentSetup, false);
+            }
+        }
 
         if (setups.length === 0) {
             tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:24px;">No active setups • Autonomous Scanner Scanning 20 Champions</td></tr>`;
@@ -587,7 +817,7 @@ async function pollDockRadar() {
                     const roeSign = roe >= 0 ? '+' : '';
                     const roeColor = roe >= 0 ? 'var(--buy-green)' : 'var(--sell-red)';
                     return `
-                        <tr style="cursor:pointer; background:rgba(0,245,155,0.04);" onclick="changePair('${s.symbol}')">
+                        <tr class="clickable-row" style="cursor:pointer; background:rgba(0,245,155,0.04);" onclick="selectPositionOnChart('${s.symbol}')" title="Click to view position on chart!">
                             <td>
                                 <span style="font-weight:800; color:var(--buy-green);"><i class="fa-solid fa-circle-dot" style="font-size:8px; margin-right:4px;"></i>${s.symbol}</span>
                             </td>
@@ -605,7 +835,7 @@ async function pollDockRadar() {
                 }
 
                 return `
-                    <tr style="cursor:pointer;" onclick="changePair('${s.symbol}')">
+                    <tr class="clickable-row" style="cursor:pointer;" onclick="selectPositionOnChart('${s.symbol}')" title="Click to view setup on chart!">
                         <td>
                             <span style="font-weight:800; color:#fff;">${s.symbol}</span>
                         </td>
