@@ -753,19 +753,170 @@ body {
 
 .mobile-drawer.open { left: 0; }
 
+/* ==========================================================================
+   MOBILE RESPONSIVE OPTIMIZATIONS (ZERO GLITCH • INSTANT TRACKING)
+   ========================================================================== */
 @media (max-width: 960px) {
+    body {
+        padding-bottom: 70px;
+        overflow-x: hidden;
+    }
+
     .terminal-layout {
         display: flex;
         flex-direction: column;
         height: auto;
         overflow-y: auto;
-        padding-bottom: 70px;
+        overflow-x: hidden;
+        padding-bottom: 85px;
+        width: 100%;
+        max-width: 100vw;
     }
+
+    /* Sub-bar ticker */
+    .ticker-sub-bar {
+        order: 1;
+        width: 100%;
+        max-width: 100vw;
+        padding: 0 10px;
+        gap: 12px;
+        white-space: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 1. Chart - Compact height on phone screen */
     .chart-container { 
-        height: 380px; 
-        min-height: 380px;
+        order: 2;
+        height: 310px; 
+        min-height: 310px;
+        max-height: 310px;
+        width: 100%;
+        max-width: 100vw;
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
     }
-    .mobile-bottom-bar { display: flex; }
+
+    .chart-controls {
+        padding: 4px 8px;
+        gap: 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tf-btn {
+        padding: 4px 7px;
+        font-size: 11px;
+    }
+
+    /* 2. Positions & Setups Radar Dock - Immediately under chart for mobile tracking */
+    .bottom-dock {
+        order: 3;
+        width: 100%;
+        max-width: 100vw;
+        min-height: 360px;
+        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+        background: var(--bg-surface);
+    }
+
+    .dock-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+        padding: 0 8px;
+        gap: 6px;
+    }
+
+    .dock-tab {
+        font-size: 11px;
+        padding: 8px 10px;
+        flex-shrink: 0;
+    }
+
+    .dock-content {
+        overflow-x: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 8px 10px;
+    }
+
+    .terminal-table {
+        min-width: 580px;
+    }
+
+    /* 3. Order Placement Desk */
+    .order-desk {
+        order: 4;
+        width: 100%;
+        max-width: 100vw;
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+        padding: 14px 12px;
+    }
+
+    /* 4. Order Book */
+    .orderbook-container {
+        order: 5;
+        width: 100%;
+        max-width: 100vw;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+        max-height: 220px;
+        padding: 8px 12px;
+    }
+
+    /* Top Header Adjustments */
+    .top-header {
+        padding: calc(env(safe-area-inset-top, 0px) + 8px) 10px 8px 10px;
+    }
+
     .nav-links { display: none; }
     .top-stats-pill { display: none; }
+
+    .header-ticker-pill {
+        padding: 3px 8px;
+        font-size: 11px;
+        gap: 6px;
+    }
+
+    /* Mobile Fixed Bottom Dock */
+    .mobile-bottom-bar { 
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: 60px;
+        background: rgba(8, 11, 17, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-subtle);
+        align-items: center;
+        justify-content: space-around;
+        padding-bottom: env(safe-area-inset-bottom, 4px);
+    }
+
+    .mobile-tab-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 6px 10px;
+        transition: color 0.15s ease;
+    }
+
+    .mobile-tab-btn i {
+        font-size: 16px;
+    }
+
+    .mobile-tab-btn.active, .mobile-tab-btn:hover {
+        color: var(--brand-teal);
+    }
 }
+

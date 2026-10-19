@@ -94,6 +94,9 @@
             </div>
 
             <div style="display:flex; align-items:center; gap:8px;">
+                <a href="/download/apk" style="text-decoration:none; background:rgba(0, 223, 192, 0.15); border:1px solid rgba(0, 223, 192, 0.4); color:var(--brand-teal); font-weight:800; font-size:11px; padding:6px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:5px;" title="Download Android APK">
+                    <i class="fa-brands fa-android"></i> Get APK
+                </a>
                 <a href="/nexus/assets" style="text-decoration:none; background:var(--brand-teal); color:#080B11; font-weight:800; font-size:11px; padding:6px 12px; border-radius:6px;">
                     <i class="fa-solid fa-wallet"></i> Deposit
                 </a>
@@ -116,7 +119,7 @@
                 <div><span style="color:var(--text-muted)">24h High: </span><span id="displayHigh24">--</span></div>
                 <div><span style="color:var(--text-muted)">24h Low: </span><span id="displayLow24">--</span></div>
                 <div><span style="color:var(--text-muted)">24h Vol: </span><span id="displayVol24">--</span></div>
-                <div><span style="color:var(--text-muted)">Strategy: </span><span style="color:var(--brand-teal); font-weight:700;">BB 3.0 (Infinite Trailing Rider)</span></div>
+                <div><span style="color:var(--text-muted)">Strategy: </span><span style="color:var(--brand-teal); font-weight:700;">BB 3.0 (Continuous ROI Trailing)</span></div>
             </div>
         </div>
 
@@ -186,8 +189,8 @@
 
             <div style="background:var(--bg-base); padding:8px; border-radius:6px; font-size:10px; display:flex; flex-direction:column; gap:4px; font-family:var(--font-mono);">
                 <div style="display:flex; justify-content:space-between;">
-                    <span style="color:var(--text-muted)">Take Profit (1:2 RRR)</span>
-                    <span style="color:var(--buy-green)">Automatic</span>
+                    <span style="color:var(--text-muted)">Take Profit (Trailing)</span>
+                    <span style="color:var(--buy-green)">Infinite Rider</span>
                 </div>
                 <div style="display:flex; justify-content:space-between;">
                     <span style="color:var(--text-muted)">Stop Loss (Anti-Hunt)</span>
@@ -195,7 +198,7 @@
                 </div>
                 <div style="display:flex; justify-content:space-between;">
                     <span style="color:var(--text-muted)">Stepped Trailing</span>
-                    <span style="color:var(--brand-teal)">+1.0R ➔ +0.2R BE Lock</span>
+                    <span style="color:var(--brand-teal)">+4.8% ROI ➔ +1.0% Lock</span>
                 </div>
             </div>
 
@@ -398,6 +401,22 @@
                 </div>
             </div>
             <button class="btn-modal-close" onclick="toggleDrawer()">&times;</button>
+        </div>
+
+        <!-- ANDROID APK DOWNLOAD HERO CARD -->
+        <div style="background:linear-gradient(135deg, rgba(0, 223, 192, 0.15), rgba(0, 240, 255, 0.08)); border:1px solid rgba(0, 223, 192, 0.35); border-radius:10px; padding:12px; margin-bottom:18px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <div style="width:36px; height:36px; border-radius:8px; background:rgba(0, 223, 192, 0.2); display:flex; align-items:center; justify-content:center; color:var(--brand-teal); font-size:20px;">
+                    <i class="fa-brands fa-android"></i>
+                </div>
+                <div>
+                    <div style="font-weight:900; font-size:13px; color:#fff;">NexusPro Android App</div>
+                    <div style="font-size:10px; color:var(--text-muted);">v3.0 Ultra-Responsive Mobile APK</div>
+                </div>
+            </div>
+            <a href="/download/apk" style="display:flex; align-items:center; justify-content:center; gap:8px; background:var(--brand-teal); color:#080B11; font-weight:800; font-size:12px; padding:8px 12px; border-radius:6px; text-decoration:none;">
+                <i class="fa-solid fa-download"></i> Download APK File
+            </a>
         </div>
 
         <!-- SECTION 1: NEXUSPRO TRADING SUITE -->
