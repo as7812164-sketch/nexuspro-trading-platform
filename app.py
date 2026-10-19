@@ -14,6 +14,7 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import Dict, List, Any, Optional
 
+import aiohttp
 from fastapi import FastAPI, Request, HTTPException, Query, Body
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -51,26 +52,50 @@ from engine.bb20_sniper import bb20_sniper
 
 STATIC_DIR = BASE_DIR / "static"
 
+async def keepalive_loop():
+    """Pings both public Render URLs every 3 minutes to permanently prevent Render free tier sleep."""
+    urls = [
+        "https://nexuspro-terminal.onrender.com/api/status",
+        "https://smc-ai-agent.onrender.com/api/status"
+    ]
+    await asyncio.sleep(20)
+    while True:
+        for u in urls:
+            try:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(u, timeout=20) as resp:
+                        pass
+            except Exception:
+                pass
+        await asyncio.sleep(180)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Start background BB 3.0 scanner and position monitor
     init_db()
     reconcile_sections_ledger()
     sniper_task = asyncio.create_task(bb20_sniper.start_loop())
+    keepalive_task = asyncio.create_task(keepalive_loop())
     yield
     # Shutdown
     bb20_sniper.stop_loop()
     sniper_task.cancel()
+    keepalive_task.cancel()
 
 app = FastAPI(title=f"{BRAND_NAME} Institutional Terminal", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 # ----------------- PAGE ROUTES -----------------
 
-@app.get("/", response_class=HTMLResponse)
-@app.get("/trade", response_class=HTMLResponse)
-@app.get("/futures", response_class=HTMLResponse)
-@app.get("/nexus/trade", response_class=HTMLResponse)
+@app.api_route("/ping", methods=["GET", "HEAD"])
+@app.api_route("/health", methods=["GET", "HEAD"])
+async def ping_health():
+    return {"status": "ok", "service": "NexusPro", "timestamp": time.time()}
+
+@app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
+@app.api_route("/trade", methods=["GET", "HEAD"], response_class=HTMLResponse)
+@app.api_route("/futures", methods=["GET", "HEAD"], response_class=HTMLResponse)
+@app.api_route("/nexus/trade", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def serve_trade_page():
     return FileResponse(STATIC_DIR / "trade.html")
 
@@ -103,7 +128,7 @@ async def serve_positions_page():
 
 # ----------------- REST API ENDPOINTS -----------------
 
-@app.get("/api/status")
+@app.api_route("/api/status", methods=["GET", "HEAD"])
 async def get_status():
     summary = get_portfolio_summary()
     return {
