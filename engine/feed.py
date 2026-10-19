@@ -245,7 +245,90 @@ class MarketDataFeed:
         spot_sym, mult = self._get_spot_symbol_and_mult(symbol)
         session = await self.get_session()
 
-        # Tier 1: Binance Vision
+        # Tier 1: MEXC Global Futures Klines (Up to 2,000 candles, 1-year history, ZERO GEOBLOCKING on Render)
+        try:
+            mexc_map = {
+                "1m": "Min1",
+                "5m": "Min5",
+                "15m": "Min15",
+                "1h": "Min60",
+                "4h": "Hour4",
+                "1d": "Day1",
+                "1w": "Week1",
+                "1month": "Month1",
+                "1m_month": "Month1"
+            }
+            clean_sym = symbol.upper().replace("1000", "") if "1000" in symbol.upper() else symbol.upper()
+            mexc_sym = clean_sym.replace("USDT", "_USDT")
+            mexc_iv = mexc_map.get(interval.lower(), "Min15")
+            m_mult = 1000.0 if "1000" in symbol.upper() else 1.0
+            
+            url = f"https://contract.mexc.com/api/v1/contract/kline/{mexc_sym}?interval={mexc_iv}"
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=4.0)) as resp:
+                if resp.status == 200:
+                    d = await resp.json()
+                    data = d.get("data", {})
+                    t = data.get("time", [])
+                    o = data.get("open", [])
+                    h = data.get("high", [])
+                    l = data.get("low", [])
+                    c = data.get("close", [])
+                    v = data.get("vol", [])
+                    if t and len(t) > 0:
+                        candles = []
+                        for i in range(len(t)):
+                            candles.append({
+                                "time": int(t[i]),
+                                "open": round(float(o[i]) * m_mult, 6),
+                                "high": round(float(h[i]) * m_mult, 6),
+                                "low": round(float(l[i]) * m_mult, 6),
+                                "close": round(float(c[i]) * m_mult, 6),
+                                "volume": float(v[i])
+                            })
+                        if candles:
+                            return candles[-limit:] if limit > 0 else candles
+        except Exception:
+            pass
+
+        # Tier 2: Bitget Futures Klines (Direct Global Futures, ZERO GEOBLOCKING on Render)
+        try:
+            bitget_map = {
+                "1m": "1m",
+                "5m": "5m",
+                "15m": "15m",
+                "1h": "1H",
+                "4h": "4H",
+                "1d": "1D",
+                "1w": "1W",
+                "1month": "1M",
+                "1m_month": "1M"
+            }
+            bg_sym = symbol.upper().replace("1000", "") if "1000" in symbol.upper() else symbol.upper()
+            bg_iv = bitget_map.get(interval.lower(), "15m")
+            bg_mult = 1000.0 if "1000" in symbol.upper() else 1.0
+            bg_limit = min(limit, 100) if limit > 0 else 100
+            url = f"https://api.bitget.com/api/v2/mix/market/candles?symbol={bg_sym}&granularity={bg_iv}&productType=USDT-FUTURES&limit={bg_limit}"
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=3.5)) as resp:
+                if resp.status == 200:
+                    data = await resp.json()
+                    raw = data.get("data", [])
+                    if raw:
+                        candles = []
+                        for k in raw:
+                            candles.append({
+                                "time": int(int(k[0]) / 1000),
+                                "open": round(float(k[1]) * bg_mult, 6),
+                                "high": round(float(k[2]) * bg_mult, 6),
+                                "low": round(float(k[3]) * bg_mult, 6),
+                                "close": round(float(k[4]) * bg_mult, 6),
+                                "volume": float(k[5])
+                            })
+                        if candles:
+                            return candles
+        except Exception:
+            pass
+
+        # Tier 3: Binance Vision
         try:
             url = f"{BINANCE_VISION_URL}/api/v3/klines"
             params = {"symbol": spot_sym, "interval": interval, "limit": limit}
@@ -267,7 +350,7 @@ class MarketDataFeed:
         except Exception:
             pass
 
-        # Tier 2: Bybit Linear Klines
+        # Tier 4: Bybit Linear Klines
         try:
             bybit_iv = BYBIT_INTERVAL_MAP.get(interval.lower(), "15")
             url = f"{BYBIT_API_URL}/v5/market/kline"
@@ -291,7 +374,7 @@ class MarketDataFeed:
         except Exception:
             pass
 
-        # Tier 3: Peer Render Fallback
+        # Tier 5: Peer Render Fallback
         try:
             peer_url = f"https://smc-ai-agent.onrender.com/api/klines/{symbol.upper()}"
             params = {"interval": interval, "limit": limit}
@@ -302,28 +385,6 @@ class MarketDataFeed:
                         return data["candles"]
                     elif isinstance(data, list) and data:
                         return data
-        except Exception:
-            pass
-
-        # Tier 4: Binance Futures
-        try:
-            url = f"{BINANCE_FUTURES_URL}/fapi/v1/klines"
-            params = {"symbol": symbol.upper(), "interval": interval, "limit": limit}
-            async with session.get(url, params=params, timeout=aiohttp.ClientTimeout(total=3.5)) as resp:
-                if resp.status == 200:
-                    raw = await resp.json()
-                    candles = []
-                    for k in raw:
-                        candles.append({
-                            "time": int(k[0] / 1000),
-                            "open": float(k[1]),
-                            "high": float(k[2]),
-                            "low": float(k[3]),
-                            "close": float(k[4]),
-                            "volume": float(k[5])
-                        })
-                    if candles:
-                        return candles
         except Exception:
             pass
 
