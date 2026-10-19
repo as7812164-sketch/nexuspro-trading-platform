@@ -34,14 +34,22 @@ FEE_FRICTION_R = 0.06         # 0.06 R Taker fee + slippage deduction
 MAX_LIMIT_WAIT_BARS = 32      # Bars to wait for 50% MT retest fill
 INFINITE_TRAILING_ENABLED = True
 
-# Infinite Stepped Trailing SL Ladder (BB 3.0 Model 2)
-# Milestone 1: At +1.0R -> Move SL to +0.2R (Fee Shield / Risk Free)
-# Milestone 2: At +1.5R -> Move SL to +1.0R (Profit Locked)
-# Milestone 3+: For every +0.5R additional gain, trail SL by +0.5R without rigid cap!
-TRAILING_TIER_1_TRIGGER_R = 1.0
-TRAILING_TIER_1_LOCK_R = 0.2
-TRAILING_STEP_R = 0.5
-TRAILING_OFFSET_R = 0.5
+# Infinite Stepped Trailing SL Ladder (BB 3.0 Continuous ROI Model)
+# User Defined Trailing Ladder (5x Leverage):
+# Tier 1: At +4.80% ROI -> Move SL to +1.00% ROI (Fee Shield / Risk Free)
+# Tier 2: At +9.80% ROI -> Move SL to +5.10% ROI
+# Tier 3: At +14.80% ROI -> Move SL to +10.10% ROI
+# Tier 4: At +19.80% ROI -> Move SL to +15.10% ROI
+# Tier 5: At +24.80% ROI -> Move SL to +20.10% ROI
+# Tier 6: At +29.80% ROI -> Move SL to +25.10% ROI
+# Tier 7: At +34.80% ROI -> Move SL to +30.10% ROI
+# Continuous: Every +5.00% additional ROI peak shifts SL forward by +5.00% ROI indefinitely!
+TRAILING_TIER_1_TRIGGER_ROI = 4.80
+TRAILING_TIER_1_LOCK_ROI = 1.00
+TRAILING_STEP_ROI = 5.00
+TRAILING_BUFFER_ROI = 4.70
+DEFAULT_RRR = 3.0
+
 
 # Top-30 Champions mapped across 10 Isolated Deca Sections (3 Proven Champions per Section)
 PAIR_MAPPING = {

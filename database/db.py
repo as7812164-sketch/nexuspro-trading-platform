@@ -208,7 +208,14 @@ def enrich_trade_metadata(item: Dict[str, Any]) -> Dict[str, Any]:
     reason = str(t.get("exit_reason", ""))
     if not t.get("be_status_str"):
         if "WIN" in reason or "TRAILING" in reason or "PROFIT" in reason:
-            if "+6.5R" in reason: t["be_status_str"] = "🛡️ Trailing Lock (+6.0R)"
+            if "ROI" in reason:
+                import re
+                m_roi = re.search(r'\+([0-9\.]+)%', reason)
+                if m_roi:
+                    t["be_status_str"] = f"🛡️ Trailing Lock (+{m_roi.group(1)}% ROI)"
+                else:
+                    t["be_status_str"] = "🛡️ Trailing Protected"
+            elif "+6.5R" in reason: t["be_status_str"] = "🛡️ Trailing Lock (+6.0R)"
             elif "+6.0R" in reason: t["be_status_str"] = "🛡️ Trailing Lock (+5.5R)"
             elif "+4.0R" in reason: t["be_status_str"] = "🛡️ Trailing Lock (+3.5R)"
             elif "+3.5R" in reason: t["be_status_str"] = "🛡️ Trailing Lock (+3.0R)"
@@ -218,7 +225,10 @@ def enrich_trade_metadata(item: Dict[str, Any]) -> Dict[str, Any]:
             elif "+1.0R" in reason: t["be_status_str"] = "🛡️ BE Locked (+0.2R)"
             else: t["be_status_str"] = "🛡️ Trailing Protected"
         elif "SAVE" in reason or "FEE SHIELD" in reason:
-            t["be_status_str"] = "🛡️ BE Locked (+0.2R Shield)"
+            if "ROI" in reason:
+                t["be_status_str"] = "🛡️ BE Locked (+1.0% ROI Shield)"
+            else:
+                t["be_status_str"] = "🛡️ BE Locked (+0.2R Shield)"
         elif "MANUAL" in reason:
             t["be_status_str"] = "⚡ Manual Protection"
         elif "LOSS" in reason or "SL" in reason:

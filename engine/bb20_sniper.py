@@ -18,14 +18,63 @@ from config import (
     SL_ANTI_HUNT_BUFFER,
     MEAN_THRESHOLD_RATIO,
     DEFAULT_LEVERAGE,
-    TRAILING_TIER_1_TRIGGER_R,
-    TRAILING_TIER_1_LOCK_R,
-    TRAILING_STEP_R,
-    TRAILING_OFFSET_R,
+    TRAILING_TIER_1_TRIGGER_ROI,
+    TRAILING_TIER_1_LOCK_ROI,
+    TRAILING_STEP_ROI,
+    TRAILING_BUFFER_ROI,
+    DEFAULT_RRR,
     STRATEGY_NAME,
     STRATEGY_VERSION,
     STRATEGY_MODEL
 )
+
+# ROI Stepped Trailing SL Calculation Functions (Continuous Ladder)
+def get_roi_trailing_tier(peak_roi_pct: float) -> int:
+    """
+    Returns the trailing tier based on peak ROI%:
+    < 4.80%   -> Tier 0 (Initial SL active)
+    >= 4.80%  -> Tier 1 (SL to +1.00% ROI - Risk-Free Fee Shield)
+    >= 9.80%  -> Tier 2 (SL to +5.10% ROI)
+    >= 14.80% -> Tier 3 (SL to +10.10% ROI)
+    >= 19.80% -> Tier 4 (SL to +15.10% ROI)
+    >= 24.80% -> Tier 5 (SL to +20.10% ROI)
+    >= 29.80% -> Tier 6 (SL to +25.10% ROI)
+    >= 34.80% -> Tier 7 (SL to +30.10% ROI)
+    General: Every +5.0% additional ROI peak shifts SL forward by +5.0% ROI indefinitely!
+    """
+    if peak_roi_pct < 4.80:
+        return 0
+    return int(round((peak_roi_pct - 4.80) / 5.0 + 1e-5, 4)) + 1
+
+def get_locked_roi(tier: int) -> float:
+    """
+    Returns the locked ROI% for a given tier:
+    Tier 0 -> 0.0%
+    Tier 1 -> 1.00%
+    Tier 2 -> 5.10%
+    Tier 3 -> 10.10%
+    Tier 4 -> 15.10%
+    Tier k -> 5.10 + (k - 2) * 5.0%
+    """
+    if tier <= 0:
+        return 0.0
+    if tier == 1:
+        return 1.00
+    return round(5.10 + (tier - 2) * 5.0, 2)
+
+def calculate_trailing_sl_price(entry: float, side: str, locked_roi_pct: float, leverage: float = 5.0) -> float:
+    """
+    Translates locked ROI% to exact stop-loss spot price at given leverage:
+    Spot Move % = ROI% / Leverage
+    LONG:  SL = Entry * (1 + locked_roi / (leverage * 100))
+    SHORT: SL = Entry * (1 - locked_roi / (leverage * 100))
+    """
+    spot_fraction = locked_roi_pct / (leverage * 100.0)
+    if side == "LONG":
+        return round(entry * (1.0 + spot_fraction), 6)
+    else:
+        return round(entry * (1.0 - spot_fraction), 6)
+
 from engine.feed import market_feed
 from database.db import (
     get_all_sections,
@@ -211,47 +260,34 @@ class BB20SniperEngine:
             if side == "LONG":
                 price_diff = curr_price - entry
                 sl_hit = curr_price <= sl
-                tp_hit = curr_price >= tp
             else:
                 price_diff = entry - curr_price
                 sl_hit = curr_price >= sl
-                tp_hit = curr_price <= tp
 
-            pnl_pct = (price_diff / entry) * leverage * 100.0
+            pnl_pct = (price_diff / entry) * leverage * 100.0  # Current ROI %
             u_pnl = round((pnl_pct / 100.0) * margin, 2)
 
-            # R-Multiple Calculation
-            risk_dist = abs(entry - pos["sl_price"])
-            r_multiple = (price_diff / risk_dist) if risk_dist > 0 else 0.0
-
-            # BB 3.0 Infinite Stepped Trailing SL Ladder (Model 2)
+            # BB 3.0 Infinite Stepped Trailing SL Ladder (Continuous ROI Model)
             new_trailing = pos["trailing_sl_price"]
             new_stage = pos["trailing_stage"]
 
-            if r_multiple >= 1.0:
-                if r_multiple >= 1.5:
-                    # Dynamic Infinite Trailing: Tier candidate increments every 0.5R
-                    tier_candidate = int((r_multiple - 1.0) / 0.5) + 1
-                    if tier_candidate > new_stage:
-                        new_stage = tier_candidate
-                        locked_r = (new_stage - 1) * 0.5
-                        new_trailing = entry + (risk_dist * locked_r) if side == "LONG" else entry - (risk_dist * locked_r)
-                elif new_stage < 1:
-                    # Tier 1 (+1.0R): Move SL to +0.2R (Fee Shield / Risk-Free)
-                    new_trailing = entry + (risk_dist * TRAILING_TIER_1_LOCK_R) if side == "LONG" else entry - (risk_dist * TRAILING_TIER_1_LOCK_R)
-                    new_stage = 1
+            tier_cand = get_roi_trailing_tier(pnl_pct)
+            if tier_cand > new_stage:
+                new_stage = tier_cand
+                locked_roi = get_locked_roi(tier_cand)
+                new_trailing = calculate_trailing_sl_price(entry, side, locked_roi, leverage)
 
             # Check Exit Conditions:
-            # In BB 3.0, winners are NEVER prematurely capped at 2.0R.
+            # In BB 3.0, winners are NEVER capped at static targets.
             # Positions ride dynamically until trailing stop loss or initial SL is hit!
             if sl_hit:
                 if new_stage == 0:
-                    reason = "STOP_LOSS (-1.0R)"
+                    reason = "STOP_LOSS (INITIAL SL HIT)"
                 elif new_stage == 1:
-                    reason = "FEE_SHIELD_SAVED (+0.2R)"
+                    reason = "FEE_SHIELD_SAVED (+1.0% ROI)"
                 else:
-                    locked_r = (new_stage - 1) * 0.5
-                    reason = f"BB 3.0 TRAILING PROFIT (+{locked_r:.1f}R)"
+                    locked_roi = get_locked_roi(new_stage)
+                    reason = f"BB 3.0 TRAILING PROFIT (+{locked_roi:.1f}% ROI)"
                 close_position_in_db(pos["id"], sl, u_pnl, reason)
             else:
                 update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage)
