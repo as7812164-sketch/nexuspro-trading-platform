@@ -77,6 +77,7 @@ def calculate_trailing_sl_price(entry: float, side: str, locked_roi_pct: float, 
 
 from engine.feed import market_feed
 from database.db import (
+    get_db_connection,
     get_all_sections,
     get_section,
     get_open_positions,
@@ -91,6 +92,25 @@ class BB20SniperEngine:
         self._is_running = False
         self.invalidated_setups: set = set()
         self.cooldown_tracker: Dict[str, float] = {}
+        self.init_cooldowns_from_db()
+
+    def init_cooldowns_from_db(self):
+        """Loads recent closed trades from SQLite into memory to persist anti-churn across server restarts."""
+        try:
+            conn = get_db_connection()
+            c = conn.cursor()
+            now = time.time()
+            rows = c.execute("SELECT symbol, side, entry_price, close_time FROM trade_history WHERE close_time > ?", (now - 7200,)).fetchall()
+            for r in rows:
+                sym = r["symbol"]
+                side = r["side"]
+                entry = float(r["entry_price"])
+                c_time = float(r["close_time"] or now)
+                self.cooldown_tracker[sym] = max(self.cooldown_tracker.get(sym, 0), c_time)
+                self.invalidated_setups.add((sym, side, round(entry, 4)))
+            conn.close()
+        except Exception:
+            pass
 
     async def scan_symbol_bb20(self, symbol: str) -> Optional[Dict[str, Any]]:
         """Scans a single champion for BB 2.0 PDH/PDL sweeps and 15m Extreme OBs."""
@@ -313,13 +333,18 @@ class BB20SniperEngine:
             sl = pos["trailing_sl_price"] if pos["trailing_sl_price"] > 0 else pos["sl_price"]
             tp = pos["tp_price"]
 
-            # Calculate Price Return & Dollar PnL
+            # Calculate Price Return & Dollar PnL (Zero-Division Safe)
+            if entry <= 0:
+                continue
+
             if side == "LONG":
                 price_diff = curr_price - entry
                 sl_hit = curr_price <= sl
+                tp_hit = curr_price >= tp
             else:
                 price_diff = entry - curr_price
                 sl_hit = curr_price >= sl
+                tp_hit = curr_price <= tp
 
             pnl_pct = (price_diff / entry) * leverage * 100.0  # Current ROI %
             u_pnl = round((pnl_pct / 100.0) * margin, 2)
@@ -335,6 +360,20 @@ class BB20SniperEngine:
                 new_trailing = calculate_trailing_sl_price(entry, side, locked_roi, leverage)
 
             # Check Exit Conditions:
+            # 1. Take Profit Target Hit
+            if tp_hit:
+                reason = "TAKE_PROFIT (TARGET REACHED)"
+                self.cooldown_tracker[sym] = time.time()
+                self.invalidated_setups.add((sym, side, round(entry, 4)))
+
+                exit_p = tp
+                exit_diff = (exit_p - entry) if side == "LONG" else (entry - exit_p)
+                realized_roi = (exit_diff / entry) * leverage * 100.0
+                realized_dollar_pnl = round((realized_roi / 100.0) * margin, 2)
+                close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
+                continue
+
+            # 2. Stop Loss (Initial or Trailing) Hit
             if sl_hit:
                 if new_stage == 0:
                     reason = "STOP_LOSS (INITIAL SL HIT)"
@@ -348,7 +387,13 @@ class BB20SniperEngine:
                 self.cooldown_tracker[sym] = time.time()
                 self.invalidated_setups.add((sym, side, round(entry, 4)))
 
-                close_position_in_db(pos["id"], sl, u_pnl, reason)
+                # Exact mathematical alignment for exit price and dollar PnL
+                exit_p = sl if abs(curr_price - sl) / entry < 0.005 else curr_price
+                exit_diff = (exit_p - entry) if side == "LONG" else (entry - exit_p)
+                realized_roi = (exit_diff / entry) * leverage * 100.0
+                realized_dollar_pnl = round((realized_roi / 100.0) * margin, 2)
+
+                close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
             else:
                 update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage)
 
