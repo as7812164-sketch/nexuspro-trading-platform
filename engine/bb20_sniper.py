@@ -341,7 +341,7 @@ class BB20SniperEngine:
             margin = pos["margin_usdt"]
             leverage = pos["leverage"]
             sl = pos["trailing_sl_price"] if pos["trailing_sl_price"] > 0 else pos["sl_price"]
-            tp = pos["tp_price"]
+            tp = float(pos.get("tp_price") or 0.0)
 
             # Calculate Price Return & Dollar PnL (Zero-Division Safe)
             if entry <= 0:
@@ -349,12 +349,12 @@ class BB20SniperEngine:
 
             if side == "LONG":
                 price_diff = curr_price - entry
-                sl_hit = curr_price <= sl
-                tp_hit = curr_price >= tp
+                sl_hit = (curr_price <= sl) if sl > 0 else False
+                tp_hit = (curr_price >= tp) if tp > 0 else False
             else:
                 price_diff = entry - curr_price
-                sl_hit = curr_price >= sl
-                tp_hit = curr_price <= tp
+                sl_hit = (curr_price >= sl) if sl > 0 else False
+                tp_hit = (curr_price <= tp) if tp > 0 else False
 
             pnl_pct = (price_diff / entry) * leverage * 100.0  # Current ROI %
             u_pnl = round((pnl_pct / 100.0) * margin, 2)
@@ -370,21 +370,24 @@ class BB20SniperEngine:
                 new_trailing = calculate_trailing_sl_price(entry, side, locked_roi, leverage)
 
             # Check Exit Conditions:
-            # 1. Take Profit Target Hit
-            if tp_hit:
+            # 1. Take Profit Target Hit (Only valid if tp > 0!)
+            if tp_hit and tp > 0:
                 reason = "TAKE_PROFIT (TARGET REACHED)"
                 self.cooldown_tracker[sym] = time.time()
                 self.invalidated_setups.add((sym, side, round(entry, 4)))
 
                 exit_p = tp
+                if exit_p <= 0:
+                    continue  # Safety guard: NEVER exit at zero
                 exit_diff = (exit_p - entry) if side == "LONG" else (entry - exit_p)
                 realized_roi = (exit_diff / entry) * leverage * 100.0
-                realized_dollar_pnl = round((realized_roi / 100.0) * margin, 2)
+                realized_roi = max(-100.0, realized_roi)
+                realized_dollar_pnl = max(-margin, round((realized_roi / 100.0) * margin, 2))
                 close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
                 continue
 
             # 2. Stop Loss (Initial or Trailing) Hit
-            if sl_hit:
+            if sl_hit and sl > 0:
                 if new_stage == 0:
                     reason = "STOP_LOSS (INITIAL SL HIT)"
                 elif new_stage == 1:
@@ -398,10 +401,13 @@ class BB20SniperEngine:
                 self.invalidated_setups.add((sym, side, round(entry, 4)))
 
                 # Exact mathematical alignment for exit price and dollar PnL
-                exit_p = sl if abs(curr_price - sl) / entry < 0.005 else curr_price
+                exit_p = sl if (abs(curr_price - sl) / entry < 0.005 and sl > 0) else curr_price
+                if exit_p <= 0:
+                    continue  # Safety guard: NEVER exit at zero
                 exit_diff = (exit_p - entry) if side == "LONG" else (entry - exit_p)
                 realized_roi = (exit_diff / entry) * leverage * 100.0
-                realized_dollar_pnl = round((realized_roi / 100.0) * margin, 2)
+                realized_roi = max(-100.0, realized_roi)
+                realized_dollar_pnl = max(-margin, round((realized_roi / 100.0) * margin, 2))
 
                 close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
             else:

@@ -253,6 +253,7 @@ def enrich_trade_metadata(item: Dict[str, Any]) -> Dict[str, Any]:
 def purge_phantom_churn_trades() -> int:
     """
     Purges rapid phantom churn trades (< 60 seconds duration from rapid loop re-entries)
+    and zero-exit glitch trades (where exit_price <= 0 or fake negative take-profit),
     and restores Deca Section balances to their genuine institutional ledger values.
     """
     conn = get_db_connection()
@@ -266,6 +267,16 @@ def purge_phantom_churn_trades() -> int:
         AND exit_reason LIKE '%INITIAL SL HIT%'
     """)
     deleted_count = c.rowcount
+
+    # Also purge zero-exit glitch trades and corrupted take-profit losses
+    c.execute("""
+        DELETE FROM trade_history
+        WHERE exit_price <= 0.0
+           OR roi_pct <= -100.0
+           OR (exit_reason LIKE '%TAKE_PROFIT%' AND realized_pnl < 0)
+    """)
+    deleted_count += c.rowcount
+
     conn.commit()
     conn.close()
 
@@ -378,6 +389,17 @@ def open_position(pos_data: Dict[str, Any]) -> int:
     conn = get_db_connection()
     c = conn.cursor()
     now = time.time()
+    
+    # Mathematical sanity guards for TP & SL
+    entry_p = float(pos_data["entry_price"])
+    side = pos_data["side"].upper()
+    sl_p = float(pos_data.get("sl_price", 0.0))
+    tp_p = float(pos_data.get("tp_price", 0.0))
+    if tp_p <= 0.0 and entry_p > 0:
+        risk = abs(entry_p - sl_p) if sl_p > 0 else (entry_p * 0.015)
+        tp_p = round(entry_p + (risk * 3.0) if side == "LONG" else entry_p - (risk * 3.0), 6)
+        pos_data["tp_price"] = tp_p
+
     c.execute("""
         INSERT INTO positions (
             section_id, symbol, side, entry_price, mark_price, position_size_usdt,
@@ -439,7 +461,15 @@ def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, ex
     now = time.time()
     open_t = pos["open_time"]
     dur_min = round((now - open_t) / 60.0, 1)
-    pnl_pct = round((realized_pnl / pos["margin_usdt"]) * 100.0, 2) if pos["margin_usdt"] > 0 else 0.0
+
+    # Mathematical safety clamps: never exit at 0, never lose more than 100% of isolated margin
+    if exit_price <= 0.0:
+        exit_price = pos["entry_price"]
+
+    margin = pos["margin_usdt"]
+    realized_pnl = max(-margin, realized_pnl)
+    pnl_pct = round((realized_pnl / margin) * 100.0, 2) if margin > 0 else 0.0
+    pnl_pct = max(-100.0, min(1000.0, pnl_pct))
 
     meta = enrich_trade_metadata({
         "open_time": open_t,
@@ -538,6 +568,10 @@ def sync_external_trade_open(trade_data: Dict[str, Any]) -> int:
     entry = float(trade_data.get("entry_price", trade_data.get("mt_entry", 0.0)))
     sl = float(trade_data.get("sl_price", trade_data.get("sl", 0.0)))
     tp = float(trade_data.get("tp_price", trade_data.get("target_1r", 0.0)))
+    if tp <= 0.0 and entry > 0:
+        risk = abs(entry - sl) if sl > 0 else (entry * 0.015)
+        tp = round(entry + (risk * 3.0) if side == "LONG" else entry - (risk * 3.0), 6)
+
     margin = float(trade_data.get("margin_usdt", 50.0))
     pos_size = float(trade_data.get("position_size_usdt", margin * 5))
     lev = int(trade_data.get("leverage", 5))
@@ -579,11 +613,15 @@ def sync_external_trade_close(trade_data: Dict[str, Any]):
     side = trade_data.get("side", "LONG")
     entry = float(trade_data.get("entry_price", trade_data.get("mt_entry", 0.0)))
     exit_p = float(trade_data.get("exit_price", entry))
+    if exit_p <= 0.0:
+        exit_p = entry
     margin = float(trade_data.get("margin_usdt", 50.0))
     pos_size = float(trade_data.get("position_size_usdt", margin * 5))
     lev = int(trade_data.get("leverage", 5))
     pnl = float(trade_data.get("dollar_pnl", trade_data.get("realized_pnl", 0.0)))
+    pnl = max(-margin, pnl)
     pnl_pct = float(trade_data.get("pnl_pct", round((pnl / margin) * 100.0, 2) if margin > 0 else 0.0))
+    pnl_pct = max(-100.0, min(1000.0, pnl_pct))
     reason = trade_data.get("outcome", trade_data.get("exit_reason", "TP Hit"))
     
     # Parse open/close timestamps if ISO string or int ms
