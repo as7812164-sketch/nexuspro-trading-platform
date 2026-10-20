@@ -359,11 +359,18 @@ class BB20SniperEngine:
             pnl_pct = (price_diff / entry) * leverage * 100.0  # Current ROI %
             u_pnl = round((pnl_pct / 100.0) * margin, 2)
 
+            # Dynamic MFE (Peak Profit) & MAE (Peak Drawdown) Tracking
+            cur_mfe = float(pos.get("mfe_pct") or 0.0)
+            cur_mae = float(pos.get("mae_pct") or 0.0)
+            new_mfe = max(cur_mfe, max(0.0, pnl_pct))
+            new_mae = max(cur_mae, max(0.0, -pnl_pct))
+
             # BB 3.0 Infinite Stepped Trailing SL Ladder (Continuous ROI Model)
             new_trailing = pos["trailing_sl_price"]
             new_stage = pos["trailing_stage"]
 
-            tier_cand = get_roi_trailing_tier(pnl_pct)
+            # Evaluate trailing progression against peak favorable excursion
+            tier_cand = get_roi_trailing_tier(new_mfe)
             if tier_cand > new_stage:
                 new_stage = tier_cand
                 locked_roi = get_locked_roi(tier_cand)
@@ -395,7 +402,7 @@ class BB20SniperEngine:
 
                 close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
             else:
-                update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage)
+                update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage, new_mfe, new_mae)
 
     async def start_loop(self):
         """Continuous background execution loop."""

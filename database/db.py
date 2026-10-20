@@ -429,7 +429,7 @@ def open_position(pos_data: Dict[str, Any]) -> int:
     set_section_status(pos_data["section_id"], "IN_TRADE", pos_data["symbol"])
     return pos_id
 
-def update_position_mark_price(pos_id: int, mark_price: float, u_pnl: float, pnl_pct: float, trailing_sl: float = 0.0, stage: int = 0):
+def update_position_mark_price(pos_id: int, mark_price: float, u_pnl: float, pnl_pct: float, trailing_sl: float = 0.0, stage: int = 0, mfe_pct: float = None, mae_pct: float = None):
     conn = get_db_connection()
     c = conn.cursor()
     c.execute("""
@@ -439,9 +439,11 @@ def update_position_mark_price(pos_id: int, mark_price: float, u_pnl: float, pnl
             pnl_pct = ?,
             trailing_sl_price = CASE WHEN ? > 0 THEN ? ELSE trailing_sl_price END,
             trailing_stage = CASE WHEN ? > 0 THEN ? ELSE trailing_stage END,
+            mfe_pct = CASE WHEN ? IS NOT NULL THEN MAX(COALESCE(mfe_pct, 0.0), ?) ELSE MAX(COALESCE(mfe_pct, 0.0), MAX(0.0, ?)) END,
+            mae_pct = CASE WHEN ? IS NOT NULL THEN MAX(COALESCE(mae_pct, 0.0), ?) ELSE MAX(COALESCE(mae_pct, 0.0), MAX(0.0, -?)) END,
             updated_at = ?
         WHERE id = ?
-    """, (mark_price, u_pnl, pnl_pct, trailing_sl, trailing_sl, stage, stage, time.time(), pos_id))
+    """, (mark_price, u_pnl, pnl_pct, trailing_sl, trailing_sl, stage, stage, mfe_pct, mfe_pct, pnl_pct, mae_pct, mae_pct, pnl_pct, time.time(), pos_id))
     conn.commit()
     conn.close()
 
@@ -468,13 +470,20 @@ def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, ex
     pnl_pct = round((realized_pnl / margin) * 100.0, 2) if margin > 0 else 0.0
     pnl_pct = max(-100.0, min(1000.0, pnl_pct))
 
+    cur_mfe = float(pos.get("mfe_pct") or 0.0)
+    cur_mae = float(pos.get("mae_pct") or 0.0)
+    final_mfe = max(cur_mfe, max(0.0, pnl_pct))
+    final_mae = max(cur_mae, max(0.0, -pnl_pct))
+
     meta = enrich_trade_metadata({
         "open_time": open_t,
         "close_time": now,
         "duration_minutes": dur_min,
         "realized_pnl": realized_pnl,
         "roi_pct": pnl_pct,
-        "exit_reason": exit_reason
+        "exit_reason": exit_reason,
+        "mfe_pct": f"+{final_mfe:.2f}%",
+        "mae_pct": f"-{final_mae:.2f}%"
     })
 
     # Mark position closed
