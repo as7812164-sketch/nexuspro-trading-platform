@@ -591,16 +591,18 @@ def sync_external_trade_open(trade_data: Dict[str, Any]) -> int:
     set_section_status(sec_id, "IN_TRADE", sym)
     return pos_id
 
-def sync_external_trailing_update(sym: str, new_sl: float, stage: int, highest_r: float = 0.0):
+def sync_external_trailing_update(sym: str, new_sl: float, stage: int, highest_r: float = 0.0, mfe_pct: float = 0.0, mae_pct: float = 0.0):
     conn = get_db_connection()
     c = conn.cursor()
     c.execute("""
         UPDATE positions SET
             trailing_sl_price = ?,
             trailing_stage = ?,
+            mfe_pct = CASE WHEN ? > mfe_pct THEN ? ELSE mfe_pct END,
+            mae_pct = CASE WHEN ? > mae_pct THEN ? ELSE mae_pct END,
             updated_at = ?
         WHERE symbol = ? AND status = 'OPEN'
-    """, (new_sl, stage, time.time(), sym))
+    """, (new_sl, stage, mfe_pct, mfe_pct, mae_pct, mae_pct, time.time(), sym))
     conn.commit()
     conn.close()
 

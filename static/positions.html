@@ -846,8 +846,9 @@
                     const marginUsdt = Number(p.margin_usdt || 50).toFixed(2);
                     const entryP = Number(p.entry_price || 0).toFixed(4);
                     const markP = Number(p.mark_price || entryP).toFixed(4);
-                    const mae = Number(p.mae_pct || 0).toFixed(2);
-                    const mfe = Math.max(Number(p.mfe_pct || 0), roe).toFixed(2);
+                    const currentDrawdown = roe < 0 ? Math.abs(roe) : 0;
+                    const mae = Math.max(Number(p.mae_pct || 0), currentDrawdown).toFixed(2);
+                    const mfe = Math.max(Number(p.mfe_pct || 0), Math.max(0, roe)).toFixed(2);
 
                     return `
                         <div class="pos-card">

@@ -300,25 +300,51 @@ async def get_positions():
             item["unrealized_pnl"] = u_pnl
             item["pnl_pct"] = pnl_pct
 
-            # Dynamic MFE (Peak Profit) Tracking:
-            # MFE is peak favorable excursion and must ALWAYS be >= current ROE (pnl_pct)
+            # Dynamic MFE (Peak Profit) & MAE (Peak Drawdown) Tracking
             cur_mfe = float(item.get("mfe_pct") or 0.0)
-            if pnl_pct > cur_mfe:
-                item["mfe_pct"] = pnl_pct
+            cur_mae = float(item.get("mae_pct") or 0.0)
+
+            # MFE is peak favorable excursion and must ALWAYS be >= current ROE (if positive)
+            new_mfe = max(cur_mfe, max(0.0, pnl_pct))
+
+            # MAE is peak adverse excursion (drawdown) and must ALWAYS be >= current loss (if negative)
+            current_drawdown = max(0.0, -pnl_pct)
+            new_mae = max(cur_mae, current_drawdown)
+
+            # Check 24h ticker high / low for candle-level adverse excursion
+            high_24h = float(ticker.get("high_price") or cur_price)
+            low_24h = float(ticker.get("low_price") or cur_price)
+            if side in ("BUY", "LONG"):
+                if low_24h > 0 and low_24h < entry:
+                    cand_mae = round(((entry - low_24h) / entry) * leverage * 100.0, 2)
+                    new_mae = max(new_mae, min(cand_mae, 15.0))
+            else:
+                if high_24h > entry:
+                    cand_mae = round(((high_24h - entry) / entry) * leverage * 100.0, 2)
+                    new_mae = max(new_mae, min(cand_mae, 15.0))
+
+            item["mfe_pct"] = round(new_mfe, 2)
+            item["mae_pct"] = round(new_mae, 2)
+
+            if new_mfe > cur_mfe or new_mae > cur_mae:
                 try:
                     conn = get_db_connection()
                     cur = conn.cursor()
-                    cur.execute("UPDATE positions SET mfe_pct = ?, updated_at = ? WHERE id = ?", (pnl_pct, time.time(), p["id"]))
+                    cur.execute("""
+                        UPDATE positions 
+                        SET mfe_pct = ?, mae_pct = ?, mark_price = ?, unrealized_pnl = ?, pnl_pct = ?, updated_at = ? 
+                        WHERE id = ?
+                    """, (new_mfe, new_mae, cur_price, u_pnl, pnl_pct, time.time(), p["id"]))
                     conn.commit()
                     conn.close()
                 except Exception:
                     pass
-            else:
-                item["mfe_pct"] = cur_mfe
         else:
             cur_mfe = float(item.get("mfe_pct") or 0.0)
+            cur_mae = float(item.get("mae_pct") or 0.0)
             cur_roe = float(item.get("pnl_pct") or 0.0)
-            item["mfe_pct"] = max(cur_mfe, cur_roe)
+            item["mfe_pct"] = max(cur_mfe, max(0.0, cur_roe))
+            item["mae_pct"] = max(cur_mae, max(0.0, -cur_roe))
 
         if "size_usdt" not in item or not item["size_usdt"]:
             item["size_usdt"] = item.get("position_size_usdt", item.get("margin_usdt", 50.0) * 5.0)
@@ -463,7 +489,9 @@ async def sync_trade_from_sniper(body: Dict[str, Any] = Body(...)):
             new_sl = float(data.get("trailing_sl", data.get("new_sl", 0.0)))
             stage = int(data.get("stage", data.get("tier", 1)))
             highest_r = float(data.get("highest_r", 0.0))
-            sync_external_trailing_update(sym, new_sl, stage, highest_r)
+            mfe_pct = float(data.get("peak_roi", data.get("mfe_pct", 0.0)))
+            mae_pct = float(data.get("mae_pct", 0.0))
+            sync_external_trailing_update(sym, new_sl, stage, highest_r, mfe_pct, mae_pct)
             return {"status": "SUCCESS", "action": "TRAILING", "symbol": sym}
         elif action == "CLOSE":
             remove_external_setup(data.get("symbol", ""))
