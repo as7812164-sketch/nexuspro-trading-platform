@@ -25,8 +25,11 @@ from config import (
     DEFAULT_RRR,
     STRATEGY_NAME,
     STRATEGY_VERSION,
-    STRATEGY_MODEL
+    STRATEGY_MODEL,
+    BB20_TELEGRAM_BOT_TOKEN,
+    BB20_TELEGRAM_CHAT_ID
 )
+import aiohttp
 
 # ROI Stepped Trailing SL Calculation Functions (Continuous Ladder)
 def get_roi_trailing_tier(peak_roi_pct: float) -> int:
@@ -94,6 +97,22 @@ class BB20SniperEngine:
         self.cooldown_tracker: Dict[str, float] = {}
         self._scan_lock = asyncio.Lock()
         self.init_cooldowns_from_db()
+
+    async def send_telegram_alert(self, text: str):
+        if not BB20_TELEGRAM_BOT_TOKEN or not BB20_TELEGRAM_CHAT_ID:
+            return
+        url = f"https://api.telegram.org/bot{BB20_TELEGRAM_BOT_TOKEN}/sendMessage"
+        payload = {
+            "chat_id": BB20_TELEGRAM_CHAT_ID,
+            "text": text,
+            "parse_mode": "HTML"
+        }
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.post(url, json=payload, timeout=aiohttp.ClientTimeout(total=8)) as resp:
+                    pass
+        except Exception as e:
+            print(f"[Telegram Alert Error]: {e}")
 
     def register_cooldown(self, symbol: str, side: str = "", entry_price: float = 0.0):
         """Registers a 60-minute anti-churn cooldown on a symbol and blacklists the setup."""
@@ -313,6 +332,25 @@ class BB20SniperEngine:
                                 })
                                 busy_symbols.add(symbol)
                                 busy_sections.add(sec_id)
+
+                                # Alert 1 of 2: Position Open & Live Alert to Telegram
+                                emoji = "🟢 LONG (BUY)" if setup["side"] == "LONG" else "🔴 SHORT (SELL)"
+                                trigger_t1 = calculate_trailing_sl_price(entry_p, setup["side"], 4.80, DEFAULT_LEVERAGE)
+                                alert_msg = (
+                                    f"⚡ <b>BB 3.0 • ENTRY FILLED & POSITION LIVE</b>\n"
+                                    f"━━━━━━━━━━━━━━━━━━━━\n"
+                                    f"🪙 <b>#{symbol}</b> {emoji} ({DEFAULT_LEVERAGE}x Isolated)\n\n"
+                                    f"🎯 <b>Fill Price</b> : <code>${entry_p:.4f}</code> (50% MT Tap Confirmed)\n"
+                                    f"🛑 <b>Active SL</b>  : <code>${sl_p:.4f}</code>\n"
+                                    f"💰 <b>Margin</b>     : ${margin:.2f} USDT (Section #{sec_id})\n\n"
+                                    f"🛡️ <b>Trailing Plan</b>: Continuous Stepped ROI Armor Active (Silent Background Protection)\n"
+                                    f"🪜 <b>Milestones</b>:\n"
+                                    f"• +4.8% ROI (<code>${trigger_t1:.4f}</code>) ➔ Move SL to +1.0% (Risk-Free Fee Shield)\n"
+                                    f"• +9.8% ROI ➔ Lock +5.1% Pure Profit\n\n"
+                                    f"🟢 <i>Position Officially Open & Live | Alert 1 of 2</i>\n"
+                                    f"━━━━━━━━━━━━━━━━━━━━"
+                                )
+                                asyncio.create_task(self.send_telegram_alert(alert_msg))
                 except Exception:
                     pass
 
@@ -401,6 +439,28 @@ class BB20SniperEngine:
                 realized_dollar_pnl = max(-margin, round((realized_roi / 100.0) * margin, 2))
 
                 close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
+
+                # Alert 2 of 2: Trade Closed & Result Alert to Telegram
+                if new_stage > 1:
+                    title_tag = "🏆 TRADE CLOSED • WIN"
+                elif new_stage == 1:
+                    title_tag = "🛡️ TRADE CLOSED • RISK-FREE SAVE"
+                else:
+                    title_tag = "🛑 TRADE CLOSED • LOSS"
+
+                sign = "+" if realized_dollar_pnl >= 0 else ""
+                alert_msg_close = (
+                    f"<b>{title_tag}</b>\n"
+                    f"━━━━━━━━━━━━━━━━━━━━\n"
+                    f"🪙 <b>#{sym}</b> ({side})\n\n"
+                    f"💰 <b>Net Profit</b>: <b>{sign}${realized_dollar_pnl:.2f} USDT</b> ({sign}{realized_roi:.1f}% ROE)\n"
+                    f"📈 <b>Entry</b>   : <code>${entry:.4f}</code>\n"
+                    f"🏁 <b>Exit</b>    : <code>${exit_p:.4f}</code> ({reason})\n\n"
+                    f"💼 <b>Section #{pos['section_id']}</b>: 5x Isolated\n\n"
+                    f"🏁 <i>Trade Finalized | Compounding Slot Available | Alert 2 of 2</i>\n"
+                    f"━━━━━━━━━━━━━━━━━━━━"
+                )
+                asyncio.create_task(self.send_telegram_alert(alert_msg_close))
             else:
                 update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage, new_mfe, new_mae)
 

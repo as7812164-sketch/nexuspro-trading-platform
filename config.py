@@ -51,6 +51,10 @@ TRAILING_BUFFER_ROI = 4.70
 FIXED_TP_ENABLED = False       # Fixed TP strictly disabled per user mandate (Pure Trailing SL only)
 DEFAULT_RRR = 0.0             # No fixed TP: trades ride infinitely via Stepped Trailing SL ladder
 
+# Dedicated BB 3.0 Telegram Bot Integration (2-Alert Discipline)
+BB20_TELEGRAM_BOT_TOKEN = "8685685362:AAFWkKvRIs6cJ70gegcJVFyKB5soDtEttbU"
+BB20_TELEGRAM_CHAT_ID = "752247227"
+
 
 # Top-30 Champions mapped across 10 Isolated Deca Sections (3 Proven Champions per Section)
 PAIR_MAPPING = {
