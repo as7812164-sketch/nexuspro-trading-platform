@@ -370,9 +370,8 @@ async def place_order(order: Dict[str, Any] = Body(...)):
 
     if sl_price <= 0:
         sl_price = round(entry_price * (0.985 if side == "LONG" else 1.015), 6)
-    if tp_price <= 0:
-        risk = abs(entry_price - sl_price)
-        tp_price = round(entry_price + (risk * 2.0) if side == "LONG" else entry_price - (risk * 2.0), 6)
+    # Pure Trailing SL Mode: Fixed TP disabled per user mandate
+    tp_price = 0.0
 
     sec_id = PAIR_MAPPING.get(symbol, 1)
     pos_size = round(margin * leverage, 2)

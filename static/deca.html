@@ -218,7 +218,7 @@
                         <th>Assigned Section</th>
                         <th>Entry (50% MT)</th>
                         <th>Stop Loss</th>
-                        <th>Take Profit</th>
+                        <th>Target (Exit Mode)</th>
                         <th>Proximity to Entry</th>
                         <th>Status</th>
                     </tr>
@@ -484,7 +484,7 @@
                             <td>Section ${s.section_id}</td>
                             <td style="font-family:var(--font-mono); font-weight:700;">$${Number(s.entry_price).toFixed(4)}</td>
                             <td style="color:var(--sell-red); font-family:var(--font-mono);">$${Number(s.sl_price).toFixed(4)}</td>
-                            <td style="color:var(--buy-green); font-family:var(--font-mono);">$${Number(s.tp_price).toFixed(4)}</td>
+                            <td style="color:var(--buy-green); font-family:var(--font-mono);">${Number(s.tp_price || 0) > 0 ? "$" + Number(s.tp_price).toFixed(4) : `<span style="color:var(--brand-teal); font-weight:800; font-size:11px;"><i class="fa-solid fa-infinity"></i> Trailing SL</span>`}</td>
                             <td style="font-weight:800; color:${roeColor};">${roeSign}${roe.toFixed(2)}% ROE</td>
                             <td><span class="sec-badge" style="background:rgba(0,245,155,0.2); color:var(--buy-green); border:1px solid rgba(0,245,155,0.4);">🔴 LIVE POSITION</span></td>
                         </tr>
@@ -502,7 +502,7 @@
                         <td>Section ${s.section_id}</td>
                         <td style="font-family:var(--font-mono); font-weight:700;">$${Number(s.entry_price).toFixed(4)}</td>
                         <td style="color:var(--sell-red); font-family:var(--font-mono);">$${Number(s.sl_price).toFixed(4)}</td>
-                        <td style="color:var(--buy-green); font-family:var(--font-mono);">$${Number(s.tp_price).toFixed(4)}</td>
+                        <td style="color:var(--buy-green); font-family:var(--font-mono);">${Number(s.tp_price || 0) > 0 ? "$" + Number(s.tp_price).toFixed(4) : `<span style="color:var(--brand-teal); font-weight:800; font-size:11px;"><i class="fa-solid fa-infinity"></i> Trailing SL</span>`}</td>
                         <td>
                             <div style="display:flex; align-items:center; gap:6px;">
                                 <div style="flex:1; height:4px; background:var(--bg-surface-elevated); border-radius:2px; overflow:hidden; min-width:35px;">

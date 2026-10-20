@@ -48,7 +48,8 @@ TRAILING_TIER_1_TRIGGER_ROI = 4.80
 TRAILING_TIER_1_LOCK_ROI = 1.00
 TRAILING_STEP_ROI = 5.00
 TRAILING_BUFFER_ROI = 4.70
-DEFAULT_RRR = 3.0
+FIXED_TP_ENABLED = False       # Fixed TP strictly disabled per user mandate (Pure Trailing SL only)
+DEFAULT_RRR = 0.0             # No fixed TP: trades ride infinitely via Stepped Trailing SL ladder
 
 
 # Top-30 Champions mapped across 10 Isolated Deca Sections (3 Proven Champions per Section)

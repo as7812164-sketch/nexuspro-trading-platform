@@ -165,15 +165,16 @@ class BB20SniperEngine:
                         if (symbol, "LONG", round(mt_entry, 4)) in self.invalidated_setups:
                             continue
 
-                        tp_price = round(mt_entry + (risk * DEFAULT_RRR), 6)
+                        # Fixed TP completely disabled per user mandate: Pure Trailing SL Mode
+                        tp_price = 0.0
 
-                        # 2. Invalidation Check: Did ANY subsequent candle breach SL or already hit TP?
+                        # 2. Invalidation Check: Setup invalidated only if SL was breached before limit fill
                         is_invalidated = False
                         for past_c in candles_15m[i + 1:]:
-                            if float(past_c["low"]) <= sl_price or float(past_c["high"]) >= tp_price:
+                            if float(past_c["low"]) <= sl_price:
                                 is_invalidated = True
                                 break
-                        if is_invalidated or curr_price <= sl_price or curr_price >= tp_price:
+                        if is_invalidated or curr_price <= sl_price:
                             self.invalidated_setups.add((symbol, "LONG", round(mt_entry, 4)))
                             continue
 
@@ -191,7 +192,7 @@ class BB20SniperEngine:
                             "current_price": curr_price,
                             "proximity_pct": proximity_pct,
                             "status": "ARMED_RETEST" if proximity_pct <= 0.6 else "SCANNING",
-                            "strategy": "BB 2.0 PDL Sweep + 50% MT Demand",
+                            "strategy": "BB 2.0 PDL Sweep + 50% MT Demand (Infinite Trailing)",
                             "timestamp": time.time()
                         }
 
@@ -215,15 +216,16 @@ class BB20SniperEngine:
                         if (symbol, "SHORT", round(mt_entry, 4)) in self.invalidated_setups:
                             continue
 
-                        tp_price = round(mt_entry - (risk * DEFAULT_RRR), 6)
+                        # Fixed TP completely disabled per user mandate: Pure Trailing SL Mode
+                        tp_price = 0.0
 
-                        # 2. Invalidation Check: Did ANY subsequent candle breach SL or already hit TP?
+                        # 2. Invalidation Check: Setup invalidated only if SL was breached before limit fill
                         is_invalidated = False
                         for past_c in candles_15m[i + 1:]:
-                            if float(past_c["high"]) >= sl_price or float(past_c["low"]) <= tp_price:
+                            if float(past_c["high"]) >= sl_price:
                                 is_invalidated = True
                                 break
-                        if is_invalidated or curr_price >= sl_price or curr_price <= tp_price:
+                        if is_invalidated or curr_price >= sl_price:
                             self.invalidated_setups.add((symbol, "SHORT", round(mt_entry, 4)))
                             continue
 
@@ -241,7 +243,7 @@ class BB20SniperEngine:
                             "current_price": curr_price,
                             "proximity_pct": proximity_pct,
                             "status": "ARMED_RETEST" if proximity_pct <= 0.6 else "SCANNING",
-                            "strategy": "BB 2.0 PDH Sweep + 50% MT Supply",
+                            "strategy": "BB 2.0 PDH Sweep + 50% MT Supply (Infinite Trailing)",
                             "timestamp": time.time()
                         }
 
@@ -350,11 +352,9 @@ class BB20SniperEngine:
             if side == "LONG":
                 price_diff = curr_price - entry
                 sl_hit = (curr_price <= sl) if sl > 0 else False
-                tp_hit = (curr_price >= tp) if tp > 0 else False
             else:
                 price_diff = entry - curr_price
                 sl_hit = (curr_price >= sl) if sl > 0 else False
-                tp_hit = (curr_price <= tp) if tp > 0 else False
 
             pnl_pct = (price_diff / entry) * leverage * 100.0  # Current ROI %
             u_pnl = round((pnl_pct / 100.0) * margin, 2)
@@ -369,24 +369,8 @@ class BB20SniperEngine:
                 locked_roi = get_locked_roi(tier_cand)
                 new_trailing = calculate_trailing_sl_price(entry, side, locked_roi, leverage)
 
-            # Check Exit Conditions:
-            # 1. Take Profit Target Hit (Only valid if tp > 0!)
-            if tp_hit and tp > 0:
-                reason = "TAKE_PROFIT (TARGET REACHED)"
-                self.cooldown_tracker[sym] = time.time()
-                self.invalidated_setups.add((sym, side, round(entry, 4)))
-
-                exit_p = tp
-                if exit_p <= 0:
-                    continue  # Safety guard: NEVER exit at zero
-                exit_diff = (exit_p - entry) if side == "LONG" else (entry - exit_p)
-                realized_roi = (exit_diff / entry) * leverage * 100.0
-                realized_roi = max(-100.0, realized_roi)
-                realized_dollar_pnl = max(-margin, round((realized_roi / 100.0) * margin, 2))
-                close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
-                continue
-
-            # 2. Stop Loss (Initial or Trailing) Hit
+            # PURE TRAILING SL EXIT: Fixed TP is completely removed per user mandate.
+            # Trades ride trends infinitely and exit strictly when Stop Loss (Initial SL or Trailing SL) is hit.
             if sl_hit and sl > 0:
                 if new_stage == 0:
                     reason = "STOP_LOSS (INITIAL SL HIT)"

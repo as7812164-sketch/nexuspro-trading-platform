@@ -390,15 +390,12 @@ def open_position(pos_data: Dict[str, Any]) -> int:
     c = conn.cursor()
     now = time.time()
     
-    # Mathematical sanity guards for TP & SL
+    # Pure Trailing SL Mode: Fixed TP disabled per user mandate
     entry_p = float(pos_data["entry_price"])
     side = pos_data["side"].upper()
     sl_p = float(pos_data.get("sl_price", 0.0))
-    tp_p = float(pos_data.get("tp_price", 0.0))
-    if tp_p <= 0.0 and entry_p > 0:
-        risk = abs(entry_p - sl_p) if sl_p > 0 else (entry_p * 0.015)
-        tp_p = round(entry_p + (risk * 3.0) if side == "LONG" else entry_p - (risk * 3.0), 6)
-        pos_data["tp_price"] = tp_p
+    tp_p = 0.0  # No fixed TP: Position rides with continuous Stepped Trailing SL
+    pos_data["tp_price"] = 0.0
 
     c.execute("""
         INSERT INTO positions (
@@ -567,10 +564,7 @@ def sync_external_trade_open(trade_data: Dict[str, Any]) -> int:
     side = trade_data["side"]
     entry = float(trade_data.get("entry_price", trade_data.get("mt_entry", 0.0)))
     sl = float(trade_data.get("sl_price", trade_data.get("sl", 0.0)))
-    tp = float(trade_data.get("tp_price", trade_data.get("target_1r", 0.0)))
-    if tp <= 0.0 and entry > 0:
-        risk = abs(entry - sl) if sl > 0 else (entry * 0.015)
-        tp = round(entry + (risk * 3.0) if side == "LONG" else entry - (risk * 3.0), 6)
+    tp = 0.0  # Pure Trailing SL Mode: Fixed TP disabled
 
     margin = float(trade_data.get("margin_usdt", 50.0))
     pos_size = float(trade_data.get("position_size_usdt", margin * 5))
@@ -710,7 +704,7 @@ def sync_external_setup(setup_data: Dict[str, Any]):
     side = setup_data.get("side", "LONG")
     entry = float(setup_data.get("mt_entry", setup_data.get("entry_price", 0.0)))
     sl = float(setup_data.get("sl", setup_data.get("sl_price", 0.0)))
-    tp = float(setup_data.get("target_1r", setup_data.get("tp_price", 0.0)))
+    tp = 0.0  # Pure Trailing SL Mode
     risk = float(setup_data.get("risk", abs(entry - sl)))
     curr_p = float(setup_data.get("current_price", entry))
     prox = float(setup_data.get("proximity_pct", round(abs(curr_p - entry) / entry * 100.0, 2) if entry > 0 else 0.0))

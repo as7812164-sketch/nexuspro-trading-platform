@@ -1758,7 +1758,7 @@ async function pollDockRadar() {
                             <td><span style="color:var(--brand-teal); font-weight:700;">Section ${s.section_id}</span></td>
                             <td><b style="color:#fff;">$${Number(s.entry_price).toFixed(4)}</b></td>
                             <td><span style="color:var(--sell-red);">$${Number(s.sl_price).toFixed(4)}</span></td>
-                            <td><span style="color:var(--buy-green);">$${Number(s.tp_price).toFixed(4)}</span></td>
+                            <td><span style="color:var(--buy-green);">${Number(s.tp_price || 0) > 0 ? "$" + Number(s.tp_price).toFixed(4) : `<span style="color:var(--brand-teal); font-weight:800; font-size:11px;"><i class="fa-solid fa-infinity"></i> Trailing SL</span>`}</span></td>
                             <td><b style="color:${roeColor};">${roeSign}${roe.toFixed(2)}% ROE</b></td>
                             <td><span style="font-size:10px; background:rgba(0,245,155,0.2); color:var(--buy-green); border:1px solid rgba(0,245,155,0.4); padding:2px 6px; border-radius:4px; font-weight:800;">🔴 LIVE POSITION</span></td>
                         </tr>
@@ -1776,7 +1776,7 @@ async function pollDockRadar() {
                         <td><span style="color:var(--brand-teal); font-weight:700;">Section ${s.section_id}</span></td>
                         <td><b style="color:#fff;">$${Number(s.entry_price).toFixed(4)}</b></td>
                         <td><span style="color:var(--sell-red);">$${Number(s.sl_price).toFixed(4)}</span></td>
-                        <td><span style="color:var(--buy-green);">$${Number(s.tp_price).toFixed(4)}</span></td>
+                        <td><span style="color:var(--buy-green);">${Number(s.tp_price || 0) > 0 ? "$" + Number(s.tp_price).toFixed(4) : `<span style="color:var(--brand-teal); font-weight:800; font-size:11px;"><i class="fa-solid fa-infinity"></i> Trailing SL</span>`}</span></td>
                         <td>
                             <div style="display:flex; align-items:center; gap:6px;">
                                 <div style="flex:1; height:4px; background:var(--bg-surface-elevated); border-radius:2px; overflow:hidden; min-width:35px;">
