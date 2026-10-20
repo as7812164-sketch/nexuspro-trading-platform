@@ -45,7 +45,8 @@ from database.db import (
     remove_external_setup,
     get_pending_setups,
     enrich_trade_metadata,
-    reconcile_sections_ledger
+    reconcile_sections_ledger,
+    purge_phantom_churn_trades
 )
 from engine.feed import market_feed
 from engine.bb20_sniper import bb20_sniper
@@ -73,6 +74,12 @@ async def keepalive_loop():
 async def lifespan(app: FastAPI):
     # Startup: Start background BB 3.0 scanner and position monitor
     init_db()
+    try:
+        purged = purge_phantom_churn_trades()
+        if purged > 0:
+            print(f"[RECONCILIATION] Cleaned {purged} rapid phantom churn trades and restored section capital!")
+    except Exception as e:
+        print(f"[RECONCILIATION ERROR] {e}")
     reconcile_sections_ledger()
     asyncio.create_task(market_feed.get_all_tickers())
     sniper_task = asyncio.create_task(bb20_sniper.start_loop())
@@ -258,6 +265,17 @@ async def get_deca_setups():
 
     all_setups = active_list + pending_list
     return {"count": len(all_setups), "setups": all_setups}
+
+@app.post("/api/admin/heal_ledger")
+@app.get("/api/admin/heal_ledger")
+async def heal_ledger():
+    purged = purge_phantom_churn_trades()
+    reconcile_sections_ledger()
+    return {
+        "status": "ok",
+        "purged_phantoms": purged,
+        "message": f"Successfully purged {purged} rapid phantom churn trades and restored Deca sections equity!"
+    }
 
 @app.get("/api/trade/positions")
 @app.get("/api/paper/positions")

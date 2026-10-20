@@ -250,6 +250,29 @@ def enrich_trade_metadata(item: Dict[str, Any]) -> Dict[str, Any]:
     t["result"] = t.get("exit_reason", "TP Hit")
     return t
 
+def purge_phantom_churn_trades() -> int:
+    """
+    Purges rapid phantom churn trades (< 60 seconds duration from rapid loop re-entries)
+    and restores Deca Section balances to their genuine institutional ledger values.
+    """
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("""
+        DELETE FROM trade_history 
+        WHERE (
+            (duration_str LIKE '%s' AND duration_str NOT LIKE '%m%' AND duration_str NOT LIKE '%h%')
+            OR duration_minutes < 1.0
+        )
+        AND exit_reason LIKE '%INITIAL SL HIT%'
+    """)
+    deleted_count = c.rowcount
+    conn.commit()
+    conn.close()
+
+    if deleted_count > 0:
+        reconcile_sections_ledger()
+    return deleted_count
+
 def reconcile_sections_ledger():
     """
     Reconciles all 10 deca sections strictly from the immutable trade_history ledger.
