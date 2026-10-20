@@ -1292,13 +1292,15 @@ body {
     stroke: #2962FF;
     stroke-width: 2.5px;
     pointer-events: auto;
-    cursor: pointer;
+    cursor: grab;
+    touch-action: none;
     transition: transform 0.1s ease, fill 0.1s ease;
 }
 
 .measure-handle:hover, .measure-handle:active {
-    transform: scale(1.25);
+    transform: scale(1.35);
     fill: #2962FF;
+    cursor: grabbing;
 }
 
 .measure-badge {
