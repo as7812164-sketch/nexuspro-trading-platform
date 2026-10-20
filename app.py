@@ -390,6 +390,7 @@ async def close_trade(pos_id: int):
         pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
         close_position_in_db(pos_id, curr_price, pnl, "MANUAL_CLOSE")
+        bb20_sniper.register_cooldown(target["symbol"], target["side"], target["entry_price"])
         return {"status": "CLOSED", "success": True, "position_id": pos_id, "realized_pnl": pnl}
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
@@ -420,6 +421,7 @@ async def close_trade_body(body: Dict[str, Any] = Body(...)):
         pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
         close_position_in_db(target["id"], curr_price, pnl, "MANUAL_CLOSE")
+        bb20_sniper.register_cooldown(target["symbol"], target["side"], target["entry_price"])
         return {"status": "CLOSED", "success": True, "position_id": target["id"], "realized_pnl": pnl}
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
@@ -466,6 +468,7 @@ async def sync_trade_from_sniper(body: Dict[str, Any] = Body(...)):
         elif action == "CLOSE":
             remove_external_setup(data.get("symbol", ""))
             sync_external_trade_close(data)
+            bb20_sniper.register_cooldown(data.get("symbol", ""), data.get("side", ""), float(data.get("entry_price", 0.0)))
             return {"status": "SUCCESS", "action": "CLOSE", "symbol": data.get("symbol")}
         elif action == "BATCH_HISTORY":
             trades = data if isinstance(data, list) else body.get("trades", [])

@@ -92,7 +92,14 @@ class BB20SniperEngine:
         self._is_running = False
         self.invalidated_setups: set = set()
         self.cooldown_tracker: Dict[str, float] = {}
+        self._scan_lock = asyncio.Lock()
         self.init_cooldowns_from_db()
+
+    def register_cooldown(self, symbol: str, side: str = "", entry_price: float = 0.0):
+        """Registers a 60-minute anti-churn cooldown on a symbol and blacklists the setup."""
+        self.cooldown_tracker[symbol] = time.time()
+        if side and entry_price > 0:
+            self.invalidated_setups.add((symbol, side, round(entry_price, 4)))
 
     def init_cooldowns_from_db(self):
         """Loads recent closed trades from SQLite into memory to persist anti-churn across server restarts."""
@@ -136,8 +143,8 @@ class BB20SniperEngine:
         curr_price = float(curr_candle["close"])
         n = len(candles_15m)
 
-        # A. Bullish Setup: PDL Sweep + Extreme Demand OB
-        for i in range(n - 10, n - 2):
+        # A. Bullish Setup: PDL Sweep + Extreme Demand OB (freshest candle first)
+        for i in range(n - 3, max(n - 15, 0), -1):
             c_sweep = candles_15m[i]
             # Candle pierces below PDL or approaches within 0.8% and leaves lower rejection wick
             if float(c_sweep["low"]) <= pdl * 1.008:
@@ -158,17 +165,18 @@ class BB20SniperEngine:
                         if (symbol, "LONG", round(mt_entry, 4)) in self.invalidated_setups:
                             continue
 
-                        # 2. Invalidation Check: Did ANY subsequent candle breach SL or is current price below SL?
+                        tp_price = round(mt_entry + (risk * DEFAULT_RRR), 6)
+
+                        # 2. Invalidation Check: Did ANY subsequent candle breach SL or already hit TP?
                         is_invalidated = False
                         for past_c in candles_15m[i + 1:]:
-                            if float(past_c["low"]) <= sl_price:
+                            if float(past_c["low"]) <= sl_price or float(past_c["high"]) >= tp_price:
                                 is_invalidated = True
                                 break
-                        if is_invalidated or curr_price <= sl_price:
+                        if is_invalidated or curr_price <= sl_price or curr_price >= tp_price:
                             self.invalidated_setups.add((symbol, "LONG", round(mt_entry, 4)))
                             continue
 
-                        tp_price = round(mt_entry + (risk * DEFAULT_RRR), 6)
                         proximity_pct = round(abs(curr_price - mt_entry) / mt_entry * 100.0, 2)
                         return {
                             "symbol": symbol,
@@ -187,8 +195,8 @@ class BB20SniperEngine:
                             "timestamp": time.time()
                         }
 
-        # B. Bearish Setup: PDH Sweep + Extreme Supply OB
-        for i in range(n - 10, n - 2):
+        # B. Bearish Setup: PDH Sweep + Extreme Supply OB (freshest candle first)
+        for i in range(n - 3, max(n - 15, 0), -1):
             c_sweep = candles_15m[i]
             if float(c_sweep["high"]) >= pdh * 0.992:
                 c_disp1 = candles_15m[i + 1]
@@ -207,17 +215,18 @@ class BB20SniperEngine:
                         if (symbol, "SHORT", round(mt_entry, 4)) in self.invalidated_setups:
                             continue
 
-                        # 2. Invalidation Check: Did ANY subsequent candle breach SL or is current price above SL?
+                        tp_price = round(mt_entry - (risk * DEFAULT_RRR), 6)
+
+                        # 2. Invalidation Check: Did ANY subsequent candle breach SL or already hit TP?
                         is_invalidated = False
                         for past_c in candles_15m[i + 1:]:
-                            if float(past_c["high"]) >= sl_price:
+                            if float(past_c["high"]) >= sl_price or float(past_c["low"]) <= tp_price:
                                 is_invalidated = True
                                 break
-                        if is_invalidated or curr_price >= sl_price:
+                        if is_invalidated or curr_price >= sl_price or curr_price <= tp_price:
                             self.invalidated_setups.add((symbol, "SHORT", round(mt_entry, 4)))
                             continue
 
-                        tp_price = round(mt_entry - (risk * DEFAULT_RRR), 6)
                         proximity_pct = round(abs(curr_price - mt_entry) / mt_entry * 100.0, 2)
                         return {
                             "symbol": symbol,
@@ -240,71 +249,72 @@ class BB20SniperEngine:
 
     async def run_scan_cycle(self):
         """Scans all Top-20 Champions and auto-executes qualified setups into Deca sections."""
-        setups = []
-        open_pos = get_open_positions()
-        busy_symbols = {p["symbol"] for p in open_pos}
-        busy_sections = {p["section_id"] for p in open_pos}
+        async with self._scan_lock:
+            setups = []
+            open_pos = get_open_positions()
+            busy_symbols = {p["symbol"] for p in open_pos}
+            busy_sections = {p["section_id"] for p in open_pos}
 
-        for symbol in CHAMPIONS:
-            try:
-                # Skip symbol if currently in post-exit cooldown
-                if time.time() - self.cooldown_tracker.get(symbol, 0) < 3600:
-                    continue
+            for symbol in CHAMPIONS:
+                try:
+                    # Skip symbol if currently in post-exit cooldown
+                    if time.time() - self.cooldown_tracker.get(symbol, 0) < 3600:
+                        continue
 
-                setup = await self.scan_symbol_bb20(symbol)
-                if setup:
-                    setups.append(setup)
-                    sec_id = setup["section_id"]
-                    curr_p = setup["current_price"]
-                    entry_p = setup["entry_price"]
-                    sl_p = setup["sl_price"]
+                    setup = await self.scan_symbol_bb20(symbol)
+                    if setup:
+                        setups.append(setup)
+                        sec_id = setup["section_id"]
+                        curr_p = setup["current_price"]
+                        entry_p = setup["entry_price"]
+                        sl_p = setup["sl_price"]
 
-                    # Strict Directional Limit Retest Tap Logic:
-                    # - For LONG: price approaches from above, touches 50% MT, and remains strictly above SL
-                    # - For SHORT: price approaches from below, touches 50% MT, and remains strictly below SL
-                    can_execute = False
-                    if setup["side"] == "LONG":
-                        if curr_p <= entry_p * 1.0010 and curr_p > sl_p:
-                            can_execute = True
-                    elif setup["side"] == "SHORT":
-                        if curr_p >= entry_p * 0.9990 and curr_p < sl_p:
-                            can_execute = True
+                        # Strict Directional Limit Retest Tap Logic:
+                        # - For LONG: price approaches from above; must be within 0.20% of MT and strictly above SL
+                        # - For SHORT: price approaches from below; must be within 0.20% of MT and strictly below SL
+                        can_execute = False
+                        if setup["side"] == "LONG":
+                            if entry_p * 0.9980 <= curr_p <= entry_p * 1.0015 and curr_p > sl_p:
+                                can_execute = True
+                        elif setup["side"] == "SHORT":
+                            if entry_p * 0.9985 <= curr_p <= entry_p * 1.0020 and curr_p < sl_p:
+                                can_execute = True
 
-                    if (can_execute and
-                        symbol not in busy_symbols and
-                        sec_id not in busy_sections):
+                        if (can_execute and
+                            symbol not in busy_symbols and
+                            sec_id not in busy_sections):
 
-                        sec = get_section(sec_id)
-                        if sec and sec["current_balance"] >= 5.0:
-                            margin = round(sec["current_balance"], 2)
-                            pos_size = round(margin * DEFAULT_LEVERAGE, 2)
-                            liq_price = round(
-                                entry_p * (1.0 - 0.18) if setup["side"] == "LONG"
-                                else entry_p * (1.0 + 0.18), 6
-                            )
+                            sec = get_section(sec_id)
+                            if sec and sec["current_balance"] >= 5.0:
+                                margin = round(sec["current_balance"], 2)
+                                pos_size = round(margin * DEFAULT_LEVERAGE, 2)
+                                liq_price = round(
+                                    entry_p * (1.0 - 0.18) if setup["side"] == "LONG"
+                                    else entry_p * (1.0 + 0.18), 6
+                                )
 
-                            pos_id = open_position({
-                                "section_id": sec_id,
-                                "symbol": symbol,
-                                "side": setup["side"],
-                                "entry_price": entry_p,
-                                "mark_price": curr_p,
-                                "position_size_usdt": pos_size,
-                                "margin_usdt": margin,
-                                "leverage": DEFAULT_LEVERAGE,
-                                "sl_price": sl_p,
-                                "tp_price": setup["tp_price"],
-                                "trailing_sl_price": sl_p,
-                                "trailing_stage": 0,
-                                "liquidation_price": liq_price,
-                                "order_type": "LIMIT"
-                            })
-                            busy_symbols.add(symbol)
-                            busy_sections.add(sec_id)
-            except Exception:
-                pass
+                                pos_id = open_position({
+                                    "section_id": sec_id,
+                                    "symbol": symbol,
+                                    "side": setup["side"],
+                                    "entry_price": entry_p,
+                                    "mark_price": curr_p,
+                                    "position_size_usdt": pos_size,
+                                    "margin_usdt": margin,
+                                    "leverage": DEFAULT_LEVERAGE,
+                                    "sl_price": sl_p,
+                                    "tp_price": setup["tp_price"],
+                                    "trailing_sl_price": sl_p,
+                                    "trailing_stage": 0,
+                                    "liquidation_price": liq_price,
+                                    "order_type": "LIMIT"
+                                })
+                                busy_symbols.add(symbol)
+                                busy_sections.add(sec_id)
+                except Exception:
+                    pass
 
-        self.scanned_setups = setups
+            self.scanned_setups = setups
 
     async def update_open_positions(self):
         """Monitors open positions, manages Stepped Trailing SL, and exits at TP/SL."""
