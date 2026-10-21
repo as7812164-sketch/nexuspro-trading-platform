@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792568169245,
-  "updated_at_str": "2026-10-21 07:36:09 IST",
-  "total_trades": 44,
+  "updated_at": 1792568470937,
+  "updated_at_str": "2026-10-21 07:41:10 IST",
+  "total_trades": 45,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 2,
@@ -36,24 +36,24 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 3,
       "name": "Section 3 (AVAXUSDT, DOGEUSDT, KAVAUSDT)",
       "assigned_coins": "AVAXUSDT, DOGEUSDT, KAVAUSDT",
       "initial_balance": 50.0,
-      "current_balance": 48.87,
+      "current_balance": 49.31,
       "vault_balance": 0.0,
-      "equity": 48.87,
-      "total_pnl": -1.13,
-      "pnl_pct": -2.26,
-      "win_count": 1,
+      "equity": 49.31,
+      "total_pnl": -0.69,
+      "pnl_pct": -1.38,
+      "win_count": 2,
       "loss_count": 1,
-      "win_rate": 50.0,
+      "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 80.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 85.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 80.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "FETUSDT",
-      "updated_at": 1792568154.0110087
+      "updated_at": 1792568470.2176437
     }
   ],
   "trade_history": [
@@ -1231,6 +1231,30 @@
       "mae_pct": "-2.72%",
       "mfe_pct": "+0.00%",
       "roi_pct": -2.7
+    },
+    {
+      "id": 50,
+      "section_id": 3,
+      "symbol": "KAVAUSDT",
+      "side": "SHORT",
+      "entry_price": 0.071,
+      "exit_price": 0.0709,
+      "margin_usdt": 54.8,
+      "position_size_usdt": 274.0,
+      "leverage": 5,
+      "realized_pnl": 0.44,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1792513873.6173697,
+      "close_time": 1792568461.8599331,
+      "duration_minutes": 909.8,
+      "entry_time_str": "20 Oct, 22:01:13 IST",
+      "exit_time_str": "21 Oct, 13:11:01 IST",
+      "duration_str": "15h 9m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+0.80%",
+      "roi_pct": 0.8
     }
   ],
   "positions": [
@@ -1240,7 +1264,7 @@
       "symbol": "FETUSDT",
       "side": "SHORT",
       "entry_price": 0.1991,
-      "mark_price": 0.1993,
+      "mark_price": 0.1988,
       "position_size_usdt": 327.1,
       "margin_usdt": 65.42,
       "leverage": 5,
@@ -1248,15 +1272,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.2003,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.33,
-      "pnl_pct": -0.5,
+      "unrealized_pnl": 0.49,
+      "pnl_pct": 0.75,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792567781.407315,
-      "updated_at": 1792568160.9933193,
+      "updated_at": 1792568455.8267856,
       "mae_pct": 1.76,
-      "mfe_pct": 0.5,
+      "mfe_pct": 1.0045203415369448,
       "size_usdt": 0.0
     },
     {
@@ -1265,7 +1289,7 @@
       "symbol": "SUIUSDT",
       "side": "SHORT",
       "entry_price": 1.0372,
-      "mark_price": 1.0358,
+      "mark_price": 1.0337,
       "position_size_usdt": 288.05,
       "margin_usdt": 57.61,
       "leverage": 5,
@@ -1273,15 +1297,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.0426,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.39,
-      "pnl_pct": 0.67,
+      "unrealized_pnl": 0.97,
+      "pnl_pct": 1.69,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792568040.9349284,
-      "updated_at": 1792568160.7786453,
+      "updated_at": 1792568455.8210728,
       "mae_pct": 0.0,
-      "mfe_pct": 1.35,
+      "mfe_pct": 1.69,
       "size_usdt": 0.0
     }
   ],
