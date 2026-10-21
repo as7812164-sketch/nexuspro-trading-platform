@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792568470937,
-  "updated_at_str": "2026-10-21 07:41:10 IST",
+  "updated_at": 1792568772783,
+  "updated_at_str": "2026-10-21 07:46:12 IST",
   "total_trades": 45,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 80.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 85.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 80.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "FETUSDT",
-      "updated_at": 1792568470.2176437
+      "updated_at": 1792568772.0194802
     }
   ],
   "trade_history": [
@@ -1253,7 +1253,7 @@
       "duration_str": "15h 9m",
       "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
       "mae_pct": "-0.15%",
-      "mfe_pct": "+0.80%",
+      "mfe_pct": "+5.50%",
       "roi_pct": 0.8
     }
   ],
@@ -1264,7 +1264,7 @@
       "symbol": "FETUSDT",
       "side": "SHORT",
       "entry_price": 0.1991,
-      "mark_price": 0.1988,
+      "mark_price": 0.1989,
       "position_size_usdt": 327.1,
       "margin_usdt": 65.42,
       "leverage": 5,
@@ -1272,13 +1272,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.2003,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.49,
-      "pnl_pct": 0.75,
+      "unrealized_pnl": 0.33,
+      "pnl_pct": 0.5,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792567781.407315,
-      "updated_at": 1792568455.8267856,
+      "updated_at": 1792568756.537456,
       "mae_pct": 1.76,
       "mfe_pct": 1.0045203415369448,
       "size_usdt": 0.0
@@ -1289,7 +1289,7 @@
       "symbol": "SUIUSDT",
       "side": "SHORT",
       "entry_price": 1.0372,
-      "mark_price": 1.0337,
+      "mark_price": 1.0366,
       "position_size_usdt": 288.05,
       "margin_usdt": 57.61,
       "leverage": 5,
@@ -1297,15 +1297,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.0426,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.97,
-      "pnl_pct": 1.69,
+      "unrealized_pnl": 0.17,
+      "pnl_pct": 0.29,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792568040.9349284,
-      "updated_at": 1792568455.8210728,
+      "updated_at": 1792568756.5333226,
       "mae_pct": 0.0,
-      "mfe_pct": 1.69,
+      "mfe_pct": 2.02,
       "size_usdt": 0.0
     }
   ],
@@ -1369,6 +1369,18 @@
       "lesson_learned": "Always anchor Deca section balance to Starting Balance + sum(Realized Net PnL).",
       "timestamp": 1792557464.5199578,
       "created_at_str": "Foundational Architecture"
+    },
+    {
+      "id": 6,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "KAVAUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #50 (KAVAUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +5.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1792568477.5235639,
+      "created_at_str": "21 Oct, 13:11:17 IST"
     }
   ]
 }
