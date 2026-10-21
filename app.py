@@ -54,6 +54,17 @@ from engine.bb20_sniper import bb20_sniper
 
 STATIC_DIR = BASE_DIR / "static"
 
+async def vault_periodic_sync_loop():
+    """Periodically pushes full ledger state to GitHub data-vault branch every 5 minutes."""
+    await asyncio.sleep(60)
+    while True:
+        try:
+            from database.cloud_vault import push_vault_state
+            push_vault_state()
+        except Exception as _ve:
+            print(f"[PERIODIC VAULT SYNC NOTE] {_ve}")
+        await asyncio.sleep(300)
+
 async def keepalive_loop():
     """Pings both public Render URLs every 3 minutes to permanently prevent Render free tier sleep."""
     urls = [
@@ -95,6 +106,7 @@ async def lifespan(app: FastAPI):
     sniper_task = asyncio.create_task(bb20_sniper.start_loop())
     sentinel_task = asyncio.create_task(nexus_sentinel.start_loop())
     keepalive_task = asyncio.create_task(keepalive_loop())
+    vault_task = asyncio.create_task(vault_periodic_sync_loop())
     yield
     # Shutdown
     bb20_sniper.stop_loop()
@@ -102,6 +114,7 @@ async def lifespan(app: FastAPI):
     sniper_task.cancel()
     sentinel_task.cancel()
     keepalive_task.cancel()
+    vault_task.cancel()
 
 app = FastAPI(title=f"{BRAND_NAME} Institutional Terminal", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
