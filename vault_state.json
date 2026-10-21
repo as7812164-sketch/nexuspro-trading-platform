@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792587475248,
-  "updated_at_str": "2026-10-21 12:57:55 IST",
-  "total_trades": 53,
+  "updated_at": 1792587708532,
+  "updated_at_str": "2026-10-21 13:01:48 IST",
+  "total_trades": 54,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 7,
@@ -121,24 +121,24 @@
       "win_rate": 83.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 8,
       "name": "Section 8 (UNIUSDT, XRPUSDT, SNXUSDT)",
       "assigned_coins": "UNIUSDT, XRPUSDT, SNXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 52.6,
+      "current_balance": 51.78,
       "vault_balance": 0.0,
-      "equity": 52.6,
-      "total_pnl": 2.6,
-      "pnl_pct": 5.2,
+      "equity": 51.78,
+      "total_pnl": 1.78,
+      "pnl_pct": 3.56,
       "win_count": 6,
-      "loss_count": 1,
-      "win_rate": 85.7,
-      "status": "IN_TRADE",
-      "active_symbol": "UNIUSDT",
-      "updated_at": 1792587398.7981613
+      "loss_count": 2,
+      "win_rate": 75.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 80.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792587398.7981613
+      "updated_at": 1792587708.5236661
     }
   ],
   "trade_history": [
@@ -1447,35 +1447,33 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+5.50%",
       "roi_pct": 0.8
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 14,
+      "id": 59,
       "section_id": 8,
       "symbol": "UNIUSDT",
       "side": "SHORT",
       "entry_price": 7.508,
-      "mark_price": 7.478,
-      "position_size_usdt": 263.0,
+      "exit_price": 7.53128,
       "margin_usdt": 52.6,
+      "position_size_usdt": 263.0,
       "leverage": 5,
-      "sl_price": 7.53128,
-      "tp_price": 0.0,
-      "trailing_sl_price": 7.53128,
-      "trailing_stage": 0,
-      "unrealized_pnl": 1.05,
-      "pnl_pct": 2.0,
-      "liquidation_price": 8.85944,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": -0.82,
+      "pnl_pct": -1.56,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
       "open_time": 1792581513.7791324,
-      "updated_at": 1792587462.225409,
-      "mae_pct": 1.66,
-      "mfe_pct": 2.6638252530634015,
-      "size_usdt": 0.0
+      "close_time": 1792587708.5186675,
+      "duration_minutes": 103.2,
+      "entry_time_str": "21 Oct, 16:48:33 IST",
+      "exit_time_str": "21 Oct, 18:31:48 IST",
+      "duration_str": "1h 43m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.00%",
+      "mfe_pct": "+2.66%",
+      "roi_pct": -1.56
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
