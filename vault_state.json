@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792573298236,
-  "updated_at_str": "2026-10-21 09:01:38 IST",
-  "total_trades": 46,
+  "updated_at": 1792573599482,
+  "updated_at_str": "2026-10-21 09:06:39 IST",
+  "total_trades": 47,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 80.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 85.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 9,
@@ -155,24 +155,24 @@
       "win_rate": 80.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792573292.598818
+      "updated_at": 1792573521.1039145
     },
     {
       "id": 10,
       "name": "Section 10 (ARBUSDT, FETUSDT, ONDOUSDT)",
       "assigned_coins": "ARBUSDT, FETUSDT, ONDOUSDT",
       "initial_balance": 50.0,
-      "current_balance": 80.6,
+      "current_balance": 81.12,
       "vault_balance": 0.0,
-      "equity": 80.6,
-      "total_pnl": 30.6,
-      "pnl_pct": 61.2,
-      "win_count": 7,
+      "equity": 81.12,
+      "total_pnl": 31.12,
+      "pnl_pct": 62.24,
+      "win_count": 8,
       "loss_count": 0,
       "win_rate": 100.0,
-      "status": "IN_TRADE",
-      "active_symbol": "FETUSDT",
-      "updated_at": 1792573292.598818
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792573521.1039145
     }
   ],
   "trade_history": [
@@ -1279,41 +1279,40 @@
       "mae_pct": "-4.07%",
       "mfe_pct": "+0.33%",
       "roi_pct": -3.2
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 6,
+      "id": 52,
       "section_id": 10,
       "symbol": "FETUSDT",
       "side": "SHORT",
       "entry_price": 0.1991,
-      "mark_price": 0.1974,
-      "position_size_usdt": 327.1,
+      "exit_price": 0.1987,
       "margin_usdt": 65.42,
+      "position_size_usdt": 327.1,
       "leverage": 5,
-      "sl_price": 0.2003,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.2003,
-      "trailing_stage": 0,
-      "unrealized_pnl": 2.79,
-      "pnl_pct": 4.27,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1792567781.407315,
-      "updated_at": 1792573286.1213286,
-      "mae_pct": 1.76,
-      "mfe_pct": 4.269211451531911,
-      "size_usdt": 0.0
-    },
+      "realized_pnl": 0.52,
+      "pnl_pct": 0.79,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1792567781.288629,
+      "close_time": 1792573520.9246228,
+      "duration_minutes": 95.7,
+      "entry_time_str": "21 Oct, 12:59:41 IST",
+      "exit_time_str": "21 Oct, 14:35:20 IST",
+      "duration_str": "1h 35m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+0.79%",
+      "roi_pct": 0.79
+    }
+  ],
+  "positions": [
     {
       "id": 7,
       "section_id": 7,
       "symbol": "SUIUSDT",
       "side": "SHORT",
       "entry_price": 1.0372,
-      "mark_price": 1.0299,
+      "mark_price": 1.0302,
       "position_size_usdt": 288.05,
       "margin_usdt": 57.61,
       "leverage": 5,
@@ -1321,15 +1320,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.0426,
       "trailing_stage": 0,
-      "unrealized_pnl": 2.03,
-      "pnl_pct": 3.52,
+      "unrealized_pnl": 1.94,
+      "pnl_pct": 3.37,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792568040.9349284,
-      "updated_at": 1792573286.1154423,
+      "updated_at": 1792573596.4205613,
       "mae_pct": 0.63,
-      "mfe_pct": 3.9529502506748875,
+      "mfe_pct": 4.097570381797124,
       "size_usdt": 0.0
     }
   ],
