@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792610131156,
-  "updated_at_str": "2026-10-21 19:15:31 IST",
-  "total_trades": 81,
+  "updated_at": 1792610157246,
+  "updated_at_str": "2026-10-21 19:15:57 IST",
+  "total_trades": 82,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 25.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 58.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 71.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 9,
@@ -155,24 +155,24 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792609981.6061757
+      "updated_at": 1792610157.2391348
     },
     {
       "id": 10,
       "name": "Section 10 (ARBUSDT, FETUSDT, ONDOUSDT)",
       "assigned_coins": "ARBUSDT, FETUSDT, ONDOUSDT",
       "initial_balance": 50.0,
-      "current_balance": 77.07,
+      "current_balance": 81.0,
       "vault_balance": 0.0,
-      "equity": 77.07,
-      "total_pnl": 27.07,
-      "pnl_pct": 54.14,
-      "win_count": 8,
+      "equity": 81.0,
+      "total_pnl": 31.0,
+      "pnl_pct": 62.0,
+      "win_count": 9,
       "loss_count": 2,
-      "win_rate": 80.0,
-      "status": "IN_TRADE",
-      "active_symbol": "ARBUSDT",
-      "updated_at": 1792609981.6061757
+      "win_rate": 81.8,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792610157.2391348
     }
   ],
   "trade_history": [
@@ -2119,35 +2119,33 @@
       "mae_pct": "-2.38%",
       "mfe_pct": "+0.00%",
       "roi_pct": -2.37
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 40,
+      "id": 87,
       "section_id": 10,
       "symbol": "ARBUSDT",
       "side": "SHORT",
       "entry_price": 0.197385,
-      "mark_price": 0.195,
-      "position_size_usdt": 385.35,
+      "exit_price": 0.195372,
       "margin_usdt": 77.07,
+      "position_size_usdt": 385.35,
       "leverage": 5,
-      "sl_price": 0.198437,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.195372,
-      "trailing_stage": 2,
-      "unrealized_pnl": 4.66,
-      "pnl_pct": 6.04,
-      "liquidation_price": 0.232914,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 3.93,
+      "pnl_pct": 5.1,
+      "exit_reason": "BB 3.0 TRAILING PROFIT (+5.1% ROI)",
       "open_time": 1792606977.8891456,
-      "updated_at": 1792610120.9297104,
-      "mae_pct": 2.06,
-      "mfe_pct": 10.347797451680739,
-      "size_usdt": 0.0
+      "close_time": 1792610157.2231984,
+      "duration_minutes": 53.0,
+      "entry_time_str": "21 Oct, 23:52:57 IST",
+      "exit_time_str": "22 Oct, 00:45:57 IST",
+      "duration_str": "52m 59s",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Lock (+5.1% ROI)",
+      "mae_pct": "-2.06%",
+      "mfe_pct": "+10.35%",
+      "roi_pct": 5.1
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
