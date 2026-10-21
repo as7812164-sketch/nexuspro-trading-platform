@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792582348067,
-  "updated_at_str": "2026-10-21 11:32:28 IST",
-  "total_trades": 52,
+  "updated_at": 1792582649906,
+  "updated_at_str": "2026-10-21 11:37:29 IST",
+  "total_trades": 53,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 48.4,
+      "current_balance": 48.81,
       "vault_balance": 0.0,
-      "equity": 48.4,
-      "total_pnl": -1.6,
-      "pnl_pct": -3.2,
-      "win_count": 0,
+      "equity": 48.81,
+      "total_pnl": -1.19,
+      "pnl_pct": -2.38,
+      "win_count": 1,
       "loss_count": 1,
-      "win_rate": 0.0,
-      "status": "IN_TRADE",
-      "active_symbol": "NEARUSDT",
-      "updated_at": 1792582289.2624524
+      "win_rate": 50.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 83.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 85.7,
       "status": "IN_TRADE",
       "active_symbol": "UNIUSDT",
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 80.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792582289.2624524
+      "updated_at": 1792582649.6638262
     }
   ],
   "trade_history": [
@@ -1423,41 +1423,40 @@
       "mae_pct": "-0.63%",
       "mfe_pct": "+7.04%",
       "roi_pct": 1.01
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 13,
+      "id": 58,
       "section_id": 5,
       "symbol": "NEARUSDT",
       "side": "SHORT",
-      "entry_price": 5.2037,
-      "mark_price": 5.175,
-      "position_size_usdt": 242.0,
-      "margin_usdt": 48.4,
+      "entry_price": 5.2075,
+      "exit_price": 5.1971,
+      "margin_usdt": 51.23,
+      "position_size_usdt": 256.15,
       "leverage": 5,
-      "sl_price": 5.221621,
-      "tp_price": 0.0,
-      "trailing_sl_price": 5.221621,
-      "trailing_stage": 0,
-      "unrealized_pnl": 1.33,
-      "pnl_pct": 2.76,
-      "liquidation_price": 6.140366,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1792580697.5359962,
-      "updated_at": 1792582345.8321283,
-      "mae_pct": 1.37,
-      "mfe_pct": 2.757653208294157,
-      "size_usdt": 0.0
-    },
+      "realized_pnl": 0.41,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1792580967.1035137,
+      "close_time": 1792582601.6397,
+      "duration_minutes": 27.2,
+      "entry_time_str": "21 Oct, 16:39:27 IST",
+      "exit_time_str": "21 Oct, 17:06:41 IST",
+      "duration_str": "27m 14s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+5.50%",
+      "roi_pct": 0.8
+    }
+  ],
+  "positions": [
     {
       "id": 14,
       "section_id": 8,
       "symbol": "UNIUSDT",
       "side": "SHORT",
       "entry_price": 7.508,
-      "mark_price": 7.511,
+      "mark_price": 7.489,
       "position_size_usdt": 263.0,
       "margin_usdt": 52.6,
       "leverage": 5,
@@ -1465,15 +1464,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 7.53128,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.11,
-      "pnl_pct": -0.2,
+      "unrealized_pnl": 0.67,
+      "pnl_pct": 1.27,
       "liquidation_price": 8.85944,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792581513.7791324,
-      "updated_at": 1792582345.8211057,
+      "updated_at": 1792582633.3030274,
       "mae_pct": 1.66,
-      "mfe_pct": 0.47,
+      "mfe_pct": 1.997868939797566,
       "size_usdt": 0.0
     }
   ],
@@ -1585,6 +1584,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1792577186.9214635,
       "created_at_str": "21 Oct, 15:36:26 IST"
+    },
+    {
+      "id": 10,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "NEARUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #58 (NEARUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +5.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1792582611.8339741,
+      "created_at_str": "21 Oct, 17:06:51 IST"
     }
   ]
 }
