@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792567867944,
-  "updated_at_str": "2026-10-21 07:31:07 IST",
+  "updated_at": 1792568169245,
+  "updated_at_str": "2026-10-21 07:36:09 IST",
   "total_trades": 44,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 7,
@@ -119,9 +119,9 @@
       "win_count": 4,
       "loss_count": 1,
       "win_rate": 80.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "status": "IN_TRADE",
+      "active_symbol": "SUIUSDT",
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 85.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 80.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "FETUSDT",
-      "updated_at": 1792567859.9596543
+      "updated_at": 1792568154.0110087
     }
   ],
   "trade_history": [
@@ -1240,7 +1240,7 @@
       "symbol": "FETUSDT",
       "side": "SHORT",
       "entry_price": 0.1991,
-      "mark_price": 0.1995,
+      "mark_price": 0.1993,
       "position_size_usdt": 327.1,
       "margin_usdt": 65.42,
       "leverage": 5,
@@ -1248,15 +1248,40 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.2003,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.66,
-      "pnl_pct": -1.0,
+      "unrealized_pnl": -0.33,
+      "pnl_pct": -0.5,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792567781.407315,
-      "updated_at": 1792567862.221466,
+      "updated_at": 1792568160.9933193,
       "mae_pct": 1.76,
-      "mfe_pct": 0.0,
+      "mfe_pct": 0.5,
+      "size_usdt": 0.0
+    },
+    {
+      "id": 7,
+      "section_id": 7,
+      "symbol": "SUIUSDT",
+      "side": "SHORT",
+      "entry_price": 1.0372,
+      "mark_price": 1.0358,
+      "position_size_usdt": 288.05,
+      "margin_usdt": 57.61,
+      "leverage": 5,
+      "sl_price": 1.0426,
+      "tp_price": 0.0,
+      "trailing_sl_price": 1.0426,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.39,
+      "pnl_pct": 0.67,
+      "liquidation_price": 0.0,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1792568040.9349284,
+      "updated_at": 1792568160.7786453,
+      "mae_pct": 0.0,
+      "mfe_pct": 1.35,
       "size_usdt": 0.0
     }
   ],
