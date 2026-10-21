@@ -19,8 +19,13 @@ from config import (
     PAIR_MAPPING
 )
 
-def get_db_connection() -> sqlite3.Connection:
-    conn = sqlite3.connect(str(DB_PATH))
+def get_db_connection(timeout: float = 30.0) -> sqlite3.Connection:
+    conn = sqlite3.connect(str(DB_PATH), timeout=timeout)
+    try:
+        conn.execute('PRAGMA journal_mode=WAL')
+        conn.execute('PRAGMA busy_timeout=30000')
+    except Exception:
+        pass
     conn.row_factory = sqlite3.Row
     return conn
 
