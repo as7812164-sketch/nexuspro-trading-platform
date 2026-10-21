@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792612243374,
-  "updated_at_str": "2026-10-21 19:50:43 IST",
+  "updated_at": 1792612545306,
+  "updated_at_str": "2026-10-21 19:55:45 IST",
   "total_trades": 82,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 25.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 58.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 71.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 8,
@@ -136,9 +136,9 @@
       "win_count": 6,
       "loss_count": 4,
       "win_rate": 60.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "status": "IN_TRADE",
+      "active_symbol": "XRPUSDT",
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 81.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792612144.6801953
+      "updated_at": 1792612505.1170292
     }
   ],
   "trade_history": [
@@ -2145,7 +2145,33 @@
       "roi_pct": 5.1
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 41,
+      "section_id": 8,
+      "symbol": "XRPUSDT",
+      "side": "SHORT",
+      "entry_price": 1.3909,
+      "mark_price": 1.3899,
+      "position_size_usdt": 276.7,
+      "margin_usdt": 55.34,
+      "leverage": 5,
+      "sl_price": 1.3979,
+      "tp_price": 0.0,
+      "trailing_sl_price": 1.3979,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.2,
+      "pnl_pct": 0.36,
+      "liquidation_price": 0.0,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1792612440.7664108,
+      "updated_at": 1792612535.027393,
+      "mae_pct": 0.0,
+      "mfe_pct": 0.36,
+      "size_usdt": 0.0
+    }
+  ],
   "sentinel_knowledge_base": [
     {
       "id": 1,
