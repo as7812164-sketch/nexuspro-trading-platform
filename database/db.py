@@ -201,6 +201,12 @@ def init_db():
              "Implemented purge_phantom_churn_trades and reconcile_sections_ledger.",
              "Always anchor Deca section balance to Starting Balance + sum(Realized Net PnL).",
              time.time(), "Foundational Architecture")
+            ,("ACTIVE_LIFECYCLE_MFE", "GLOBAL", "CRITICAL",
+             "Position trailing SL prematurely locked or stopped out within seconds of opening.",
+             "Trailing SL auditor evaluated 24h ticker high/low which occurred hours before trade entry.",
+             "Strictly isolated excursion tracking to live ROE and post-entry price action only.",
+             "Excursion and trailing locks must strictly measure price action occurring after trade entry.",
+             time.time(), "Foundational Architecture")
         ]
         c.executemany("""
             INSERT INTO sentinel_knowledge_base (

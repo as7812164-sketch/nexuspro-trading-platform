@@ -147,26 +147,14 @@ class NexusProSentinel:
                         continue
 
                     last_p = float(ticker.get("last_price") or entry)
-                    high_24h = float(ticker.get("high_24h") or ticker.get("high_price") or last_p)
-                    low_24h = float(ticker.get("low_24h") or ticker.get("low_price") or last_p)
 
-                    # Calculate current live ROI
+                    # Calculate current live ROI strictly during active trade lifecycle
+                    # NEVER use 24h ticker highs/lows because they occurred before the trade opened!
                     spot_diff = (last_p - entry) if side == "LONG" else (entry - last_p)
                     live_roe = (spot_diff / entry) * lev * 100.0
 
-                    # Dynamic candle excursion check
-                    if side == "LONG":
-                        cand_peak_gain = ((high_24h - entry) / entry) * lev * 100.0 if high_24h > entry else 0.0
-                        cand_adv_loss = ((entry - low_24h) / entry) * lev * 100.0 if low_24h < entry else 0.0
-                    else:
-                        cand_peak_gain = ((entry - low_24h) / entry) * lev * 100.0 if low_24h < entry else 0.0
-                        cand_adv_loss = ((high_24h - entry) / entry) * lev * 100.0 if high_24h > entry else 0.0
-
-                    cand_peak_gain = min(cand_peak_gain, 45.0)
-                    cand_adv_loss = min(cand_adv_loss, 20.0)
-
-                    new_mfe = max(cur_mfe, max(0.0, live_roe), cand_peak_gain)
-                    new_mae = max(cur_mae, max(0.0, -live_roe), cand_adv_loss)
+                    new_mfe = max(cur_mfe, max(0.0, live_roe))
+                    new_mae = max(cur_mae, max(0.0, -live_roe))
 
                     # Check 1: Trailing SL Progression Audit
                     target_tier = get_roi_trailing_tier(new_mfe)
