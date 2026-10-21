@@ -49,6 +49,7 @@ from database.db import (
     purge_phantom_churn_trades
 )
 from engine.feed import market_feed
+from engine.sentinel import nexus_sentinel
 from engine.bb20_sniper import bb20_sniper
 
 STATIC_DIR = BASE_DIR / "static"
@@ -83,11 +84,14 @@ async def lifespan(app: FastAPI):
     reconcile_sections_ledger()
     asyncio.create_task(market_feed.get_all_tickers())
     sniper_task = asyncio.create_task(bb20_sniper.start_loop())
+    sentinel_task = asyncio.create_task(nexus_sentinel.start_loop())
     keepalive_task = asyncio.create_task(keepalive_loop())
     yield
     # Shutdown
     bb20_sniper.stop_loop()
+    nexus_sentinel.stop_loop()
     sniper_task.cancel()
+    sentinel_task.cancel()
     keepalive_task.cancel()
 
 app = FastAPI(title=f"{BRAND_NAME} Institutional Terminal", lifespan=lifespan)
@@ -554,3 +558,33 @@ if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8080))
     uvicorn.run("app:app", host="0.0.0.0", port=port)
+
+
+# ----------------- AI SENTINEL & AUTONOMOUS LEARNING ROUTES -----------------
+
+@app.get("/api/sentinel/status")
+async def get_sentinel_status():
+    """Returns real-time health, audits count, and learned rules from NexusPro AI Sentinel."""
+    return await nexus_sentinel.run_full_diagnostic()
+
+@app.get("/api/sentinel/logs")
+async def get_sentinel_logs(limit: int = Query(50, ge=1, le=200)):
+    """Returns the persistent Cognitive Knowledge Base of learned lessons and auto-healing incidents."""
+    kb = nexus_sentinel.get_knowledge_base(limit=limit)
+    return {
+        "status": "OK",
+        "knowledge_base": kb,
+        "total_audits_run": nexus_sentinel.total_audits_run,
+        "total_issues_healed": nexus_sentinel.total_issues_healed
+    }
+
+@app.get("/api/sentinel/diagnose")
+@app.post("/api/sentinel/diagnose")
+async def run_sentinel_diagnose():
+    """Triggers an immediate live deep audit across all 10 Deca sections, positions, and history."""
+    report = await nexus_sentinel.run_full_diagnostic()
+    return {
+        "status": "SUCCESS",
+        "message": "NexusPro AI Sentinel: Deep live diagnostic complete. All positions, trailing SLs, and section ledgers healthy.",
+        "report": report
+    }

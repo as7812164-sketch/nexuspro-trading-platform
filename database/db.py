@@ -126,6 +126,22 @@ def init_db():
         )
     """)
 
+    # 6. Sentinel Knowledge Base (Continuous Cognitive Learning Registry)
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS sentinel_knowledge_base (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            incident_type TEXT NOT NULL,
+            symbol TEXT,
+            severity TEXT DEFAULT 'INFO',
+            detected_issue TEXT NOT NULL,
+            root_cause TEXT NOT NULL,
+            resolution_applied TEXT NOT NULL,
+            lesson_learned TEXT NOT NULL,
+            timestamp REAL NOT NULL,
+            created_at_str TEXT NOT NULL
+        )
+    """)
+
     # Safe column migration for positions and trade_history (zero data loss)
     pos_cols = [d[1] for d in c.execute("PRAGMA table_info(positions)").fetchall()]
     for col, ctype in [("mae_pct", "REAL DEFAULT 0.0"), ("mfe_pct", "REAL DEFAULT 0.0"), ("size_usdt", "REAL DEFAULT 0.0")]:
@@ -144,6 +160,49 @@ def init_db():
     ]:
         if col not in hist_cols:
             c.execute(f"ALTER TABLE trade_history ADD COLUMN {col} {ctype}")
+
+    
+    # Pre-seed foundational cognitive learning lessons
+    c.execute("SELECT COUNT(*) FROM sentinel_knowledge_base")
+    if c.fetchone()[0] == 0:
+        foundational_rules = [
+            ("MFE_MILESTONE_ALIGNMENT", "GLOBAL", "INFO",
+             "Closed trades displaying exit ROI instead of peak excursion.",
+             "Database default in close_position_in_db fell back to realized PnL.",
+             "Enforced milestone baseline guarantee (Fee Shield requires MFE >= 4.80%) and direct peak excursion passing.",
+             "Never allow trade closing logic to overwrite historical candle peak with final exit tick.",
+             time.time(), "Foundational Architecture"),
+            ("MICRO_COIN_PRECISION", "1000PEPEUSDT", "INFO",
+             "Sub-cent coin prices displayed as $0.0046 -> $0.0046 due to 4-decimal truncation.",
+             "Standard toFixed(4) formatting is too coarse for coins trading under $0.01.",
+             "Implemented dynamic precision formatCoinPrice (6-7 decimals for sub-cent assets).",
+             "Always scale decimal precision dynamically based on asset spot price magnitude.",
+             time.time(), "Foundational Architecture"),
+            ("PURE_TRAILING_NO_FIXED_TP", "GLOBAL", "INFO",
+             "Micro-OB setups had tight 0.4% TP targets that exited trades in 30 seconds.",
+             "Fixed 3R Take Profit formula on ultra-small Order Block wicks limits runner potential.",
+             "Disabled fixed TP cap completely, letting trades ride infinitely via Stepped Trailing SL.",
+             "Let compounding trades ride momentum indefinitely until Trailing SL locks profit.",
+             time.time(), "Foundational Architecture"),
+            ("TELEGRAM_CLOUD_FAILSAFE", "GLOBAL", "INFO",
+             "Trades opened on Render cloud without sending Telegram alerts.",
+             "Telegram bot was only configured in local runner rather than cloud sniper engine.",
+             "Directly integrated Telegram Bot (@SMC_1H_Trigger_Bot) with strict 2-alert discipline.",
+             "Cloud backend must dispatch Alert 1 (Entry Filled) and Alert 2 (Closed) autonomously.",
+             time.time(), "Foundational Architecture"),
+            ("SECTIONS_AUTO_RECONCILE", "DECA_MATRIX", "INFO",
+             "Section equity drift from rapid loop churn or phantom re-entries.",
+             "Lack of atomic reconciliation across SQLite positions and Deca sections ledger.",
+             "Implemented purge_phantom_churn_trades and reconcile_sections_ledger.",
+             "Always anchor Deca section balance to Starting Balance + sum(Realized Net PnL).",
+             time.time(), "Foundational Architecture")
+        ]
+        c.executemany("""
+            INSERT INTO sentinel_knowledge_base (
+                incident_type, symbol, severity, detected_issue, root_cause,
+                resolution_applied, lesson_learned, timestamp, created_at_str
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, foundational_rules)
 
     conn.commit()
 
@@ -779,3 +838,29 @@ def get_pending_setups() -> List[Dict[str, Any]]:
 init_db()
 reconcile_sections_ledger()
 
+
+
+def get_sentinel_knowledge_base(limit: int = 50) -> List[Dict[str, Any]]:
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("""
+        SELECT id, incident_type, symbol, severity, detected_issue, root_cause,
+               resolution_applied, lesson_learned, timestamp, created_at_str
+        FROM sentinel_knowledge_base
+        ORDER BY id DESC LIMIT ?
+    """, (limit,))
+    rows = [dict(r) for r in c.fetchall()]
+    conn.close()
+    return rows
+
+def get_sentinel_stats() -> Dict[str, Any]:
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("SELECT COUNT(*) FROM sentinel_knowledge_base")
+    total_incidents = c.fetchone()[0]
+    conn.close()
+    return {
+        "status": "ONLINE",
+        "total_knowledge_entries": total_incidents,
+        "engine_state": "ACTIVE_LEARNING"
+    }

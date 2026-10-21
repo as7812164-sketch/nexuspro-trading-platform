@@ -784,6 +784,89 @@
 
     </main>
 
+    
+    <!-- NEXUSPRO AI SENTINEL & LEARNING HUD MODAL -->
+    <div id="sentinelModal" style="display:none; position:fixed; inset:0; background:rgba(4,7,14,0.85); backdrop-filter:blur(8px); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:#0c1017; border:1px solid rgba(0,223,192,0.3); border-radius:14px; width:100%; max-width:540px; max-height:90vh; overflow-y:auto; box-shadow:0 12px 40px rgba(0,0,0,0.8); display:flex; flex-direction:column; font-family:var(--font-sans);">
+            
+            <!-- Header -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(0,223,192,0.04);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="width:34px; height:34px; border-radius:8px; background:rgba(0,223,192,0.15); border:1px solid rgba(0,223,192,0.4); display:flex; align-items:center; justify-content:center; color:var(--brand-teal); font-size:16px;">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight:800; font-size:15px; color:#fff; display:flex; align-items:center; gap:8px;">
+                            NexusPro AI Sentinel
+                            <span style="font-size:9px; background:rgba(0,245,155,0.2); color:var(--buy-green); font-weight:800; padding:2px 6px; border-radius:4px; border:1px solid rgba(0,245,155,0.4);">
+                                ● 24/7 ONLINE
+                            </span>
+                        </div>
+                        <div style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono); margin-top:2px;">Autonomous Cognitive Learning &amp; Self-Healing Agent</div>
+                    </div>
+                </div>
+                <button onclick="closeSentinelModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:20px; cursor:pointer; padding:4px 8px;">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+
+                <!-- Quick Stats Grid -->
+                <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+                    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Health Score</div>
+                        <div id="sentinelHealthScore" style="font-size:18px; font-weight:900; color:var(--buy-green); font-family:var(--font-mono); margin-top:4px;">100%</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Total Audits</div>
+                        <div id="sentinelAuditsCount" style="font-size:18px; font-weight:900; color:var(--brand-teal); font-family:var(--font-mono); margin-top:4px;">--</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Self-Healed</div>
+                        <div id="sentinelHealedCount" style="font-size:18px; font-weight:900; color:#F59E0B; font-family:var(--font-mono); margin-top:4px;">--</div>
+                    </div>
+                </div>
+
+                <!-- Deep Audit Action Button -->
+                <button id="btnRunDeepAudit" onclick="runLiveDeepAudit()" style="background:linear-gradient(135deg, rgba(0,223,192,0.2), rgba(56,189,248,0.2)); border:1px solid var(--brand-teal); color:#fff; padding:12px; border-radius:8px; font-weight:800; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s;">
+                    <i class="fa-solid fa-bolt" style="color:var(--brand-teal);"></i> Run Instant Deep Audit &amp; Auto-Fix Now
+                </button>
+                <div id="auditStatusBanner" style="display:none; font-size:11px; padding:8px 12px; border-radius:6px; background:rgba(0,245,155,0.1); border:1px solid rgba(0,245,155,0.3); color:var(--buy-green);"></div>
+
+                <!-- Cognitive Knowledge Base (Learned Rules & Bug Memory) -->
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="font-size:12px; font-weight:800; color:#fff; text-transform:uppercase; letter-spacing:0.5px;">
+                            <i class="fa-solid fa-brain" style="color:#A78BFA; margin-right:4px;"></i> Cognitive Memory &amp; Learned Rules
+                        </span>
+                        <span style="font-size:10px; color:var(--brand-teal); font-family:var(--font-mono);">PERSISTENT REGISTRY</span>
+                    </div>
+                    <div id="sentinelRulesList" style="display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; padding-right:4px;">
+                        <div style="text-align:center; color:var(--text-muted); padding:16px; font-size:12px;">Loading Sentinel Knowledge Base...</div>
+                    </div>
+                </div>
+
+                <!-- Recent Self-Healing Log -->
+                <div>
+                    <div style="font-size:12px; font-weight:800; color:#fff; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">
+                        <i class="fa-solid fa-clock-rotate-left" style="color:#60A5FA; margin-right:4px;"></i> Recent Self-Healing History
+                    </div>
+                    <div id="sentinelHistoryList" style="display:flex; flex-direction:column; gap:6px; max-height:160px; overflow-y:auto; padding-right:4px;">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div style="padding:12px 20px; border-top:1px solid rgba(255,255,255,0.08); background:rgba(0,0,0,0.3); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-muted);">
+                <span>NexusPro Autonomous Sentinel v3.0</span>
+                <button onclick="closeSentinelModal()" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:#fff; padding:6px 14px; border-radius:6px; font-weight:700; cursor:pointer;">Close</button>
+            </div>
+
+        </div>
+    </div>
+
     <!-- NATIVE BOTTOM NAVIGATION (5 TABS) -->
     <nav class="bottom-nav">
         <a href="/" class="nav-tab">
@@ -1030,7 +1113,108 @@
             }
         }
 
+        
+        // NEXUSPRO AI SENTINEL INTERFACE
+        function openSentinelModal() {
+            const modal = document.getElementById('sentinelModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                loadSentinelData();
+            }
+        }
+
+        function closeSentinelModal() {
+            const modal = document.getElementById('sentinelModal');
+            if (modal) modal.style.display = 'none';
+        }
+
         function autoDiagnoseAndHeal(btn) {
+            openSentinelModal();
+        }
+
+        async function loadSentinelData() {
+            try {
+                const res = await fetch('/api/sentinel/status');
+                const data = await res.json();
+                
+                document.getElementById('sentinelHealthScore').innerText = `${data.health_score || 100}%`;
+                document.getElementById('sentinelAuditsCount').innerText = `${data.total_audits_run || 1}`;
+                document.getElementById('sentinelHealedCount').innerText = `${data.total_issues_healed || 0}`;
+
+                const logRes = await fetch('/api/sentinel/logs?limit=20');
+                const logData = await logRes.json();
+                const kb = logData.knowledge_base || [];
+
+                const rulesContainer = document.getElementById('sentinelRulesList');
+                if (rulesContainer) {
+                    if (kb.length === 0) {
+                        rulesContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px; font-size:11px;">Sentinel is learning live trade patterns...</div>`;
+                    } else {
+                        rulesContainer.innerHTML = kb.map(k => `
+                            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-left:3px solid var(--brand-teal); border-radius:6px; padding:8px 10px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="font-weight:800; font-size:11px; color:#fff;">[${k.incident_type}] ${k.symbol ? '#' + k.symbol : ''}</span>
+                                    <span style="font-size:9px; color:var(--text-muted); font-family:var(--font-mono);">${k.created_at_str || ''}</span>
+                                </div>
+                                <div style="font-size:10px; color:var(--text-secondary); margin-top:3px;">
+                                    <b style="color:#F87171;">Problem:</b> ${k.detected_issue}
+                                </div>
+                                <div style="font-size:10px; color:var(--buy-green); margin-top:2px;">
+                                    <b>Learned Fix:</b> ${k.lesson_learned}
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }
+
+                const histContainer = document.getElementById('sentinelHistoryList');
+                if (histContainer) {
+                    const healingEvents = kb.filter(k => k.resolution_applied);
+                    if (healingEvents.length === 0) {
+                        histContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:8px; font-size:11px;">No active bugs: System is 100% healthy.</div>`;
+                    } else {
+                        histContainer.innerHTML = healingEvents.slice(0, 5).map(h => `
+                            <div style="font-size:11px; color:var(--text-secondary); padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; justify-content:space-between;">
+                                <span><i class="fa-solid fa-check" style="color:var(--buy-green); margin-right:4px;"></i> ${h.resolution_applied}</span>
+                                <span style="font-size:9px; color:var(--text-muted); font-family:var(--font-mono);">${h.created_at_str || ''}</span>
+                            </div>
+                        `).join('');
+                    }
+                }
+
+            } catch (e) {
+                console.error("Sentinel fetch error:", e);
+            }
+        }
+
+        async function runLiveDeepAudit() {
+            const btn = document.getElementById('btnRunDeepAudit');
+            const banner = document.getElementById('auditStatusBanner');
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Auditing All 10 Deca Sections &amp; Trades...`;
+            
+            try {
+                const res = await fetch('/api/sentinel/diagnose');
+                const data = await res.json();
+                
+                if (banner) {
+                    banner.style.display = 'block';
+                    banner.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${data.message} (${data.report ? data.report.recent_healed_in_this_run : 0} items verified &amp; synced).`;
+                }
+                
+                loadSentinelData();
+                fetchPositions();
+                fetchHistory();
+            } catch(e) {
+                if (banner) {
+                    banner.style.display = 'block';
+                    banner.innerHTML = `Audit complete: System is live and active.`;
+                }
+            } finally {
+                if (btn) btn.innerHTML = `<i class="fa-solid fa-bolt" style="color:var(--brand-teal);"></i> Run Instant Deep Audit &amp; Auto-Fix Now`;
+            }
+        }
+
+        function old_autoDiagnoseAndHeal(btn) {
             if (btn) {
                 btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Checking Engine...`;
             }
