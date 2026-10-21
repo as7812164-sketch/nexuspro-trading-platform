@@ -447,7 +447,7 @@ def update_position_mark_price(pos_id: int, mark_price: float, u_pnl: float, pnl
     conn.commit()
     conn.close()
 
-def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, exit_reason: str):
+def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, exit_reason: str, mfe_pct: float = None, mae_pct: float = None):
     conn = get_db_connection()
     c = conn.cursor()
     c.execute("SELECT * FROM positions WHERE id = ?", (pos_id,))
@@ -470,8 +470,17 @@ def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, ex
     pnl_pct = round((realized_pnl / margin) * 100.0, 2) if margin > 0 else 0.0
     pnl_pct = max(-100.0, min(1000.0, pnl_pct))
 
-    cur_mfe = float(pos.get("mfe_pct") or 0.0)
-    cur_mae = float(pos.get("mae_pct") or 0.0)
+    cur_mfe = float(mfe_pct if mfe_pct is not None and mfe_pct > 0 else (pos.get("mfe_pct") or 0.0))
+    cur_mae = float(mae_pct if mae_pct is not None and mae_pct > 0 else (pos.get("mae_pct") or 0.0))
+
+    # Milestone-aware baseline guarantee
+    if "FEE_SHIELD" in exit_reason or "+1.0%" in exit_reason:
+        cur_mfe = max(cur_mfe, 4.80)
+    elif "+5.1%" in exit_reason:
+        cur_mfe = max(cur_mfe, 9.80)
+    elif "+10.1%" in exit_reason:
+        cur_mfe = max(cur_mfe, 14.80)
+
     final_mfe = max(cur_mfe, max(0.0, pnl_pct))
     final_mae = max(cur_mae, max(0.0, -pnl_pct))
 

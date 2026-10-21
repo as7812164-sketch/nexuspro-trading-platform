@@ -438,7 +438,7 @@ class BB20SniperEngine:
                 realized_roi = max(-100.0, realized_roi)
                 realized_dollar_pnl = max(-margin, round((realized_roi / 100.0) * margin, 2))
 
-                close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason)
+                close_position_in_db(pos["id"], exit_p, realized_dollar_pnl, reason, new_mfe, new_mae)
 
                 # Alert 2 of 2: Trade Closed & Result Alert to Telegram
                 if new_stage > 1:
