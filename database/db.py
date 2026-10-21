@@ -589,6 +589,13 @@ def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, ex
     # Reconcile sections ledger immediately
     reconcile_sections_ledger()
 
+    # Auto-sync state with Cloud Vault for zero data loss
+    try:
+        from database.cloud_vault import push_vault_state
+        push_vault_state()
+    except Exception as _e:
+        print(f"[CloudVault Sync Note] {_e}")
+
 # ----------------- TRADE HISTORY & SUMMARY -----------------
 
 def get_trade_history(limit: int = 50) -> List[Dict[str, Any]]:

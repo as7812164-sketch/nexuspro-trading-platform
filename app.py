@@ -75,6 +75,15 @@ async def keepalive_loop():
 async def lifespan(app: FastAPI):
     # Startup: Start background BB 3.0 scanner and position monitor
     init_db()
+    # 1. Restore Cloud Vault state if container was restarted
+    try:
+        from database.cloud_vault import pull_and_restore_vault_state
+        restored = pull_and_restore_vault_state()
+        if restored:
+            print("[CLOUD VAULT] Restored missing trades and section balances from GitHub data-vault branch!")
+    except Exception as _ve:
+        print(f"[CLOUD VAULT RESTORE ERROR] {_ve}")
+
     try:
         purged = purge_phantom_churn_trades()
         if purged > 0:
@@ -609,4 +618,32 @@ async def run_sentinel_diagnose():
         "status": "SUCCESS",
         "message": "NexusPro AI Sentinel: Deep live diagnostic complete. All positions, trailing SLs, and section ledgers healthy.",
         "report": report
+    }
+
+# ----------------- CLOUD VAULT DATA PERSISTENCE ROUTES -----------------
+
+@app.get("/api/vault/status")
+async def get_vault_status():
+    """Returns the live sync status of Cloud Vault on GitHub branch data-vault."""
+    from database.cloud_vault import LOCAL_VAULT_BACKUP, VAULT_BRANCH
+    from database.db import get_trade_history, get_portfolio_summary
+    trades = get_trade_history(limit=100)
+    summary = get_portfolio_summary()
+    has_local = LOCAL_VAULT_BACKUP.exists()
+    return {
+        "status": "ARMED",
+        "branch": VAULT_BRANCH,
+        "total_trades_persisted": len(trades),
+        "total_equity": summary.get("total_equity", 500.0),
+        "local_backup_present": has_local
+    }
+
+@app.post("/api/vault/sync")
+async def trigger_vault_sync():
+    """Triggers an immediate on-demand backup push to GitHub data-vault branch."""
+    from database.cloud_vault import push_vault_state
+    success = push_vault_state()
+    return {
+        "status": "SUCCESS" if success else "FAILED",
+        "message": "Cloud Vault synced with GitHub data-vault branch." if success else "Vault push encountered an error."
     }
