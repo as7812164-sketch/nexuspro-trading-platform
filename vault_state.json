@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792613751675,
-  "updated_at_str": "2026-10-21 20:15:51 IST",
+  "updated_at": 1792614053510,
+  "updated_at_str": "2026-10-21 20:20:53 IST",
   "total_trades": 82,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 33.3,
       "status": "IN_TRADE",
       "active_symbol": "LINKUSDT",
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 25.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 58.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 71.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 60.0,
       "status": "IN_TRADE",
       "active_symbol": "XRPUSDT",
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 81.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792613749.8807976
+      "updated_at": 1792613947.6173718
     }
   ],
   "trade_history": [
@@ -2152,7 +2152,7 @@
       "symbol": "XRPUSDT",
       "side": "SHORT",
       "entry_price": 1.3909,
-      "mark_price": 1.3927,
+      "mark_price": 1.3911,
       "position_size_usdt": 276.7,
       "margin_usdt": 55.34,
       "leverage": 5,
@@ -2160,13 +2160,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.3979,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.36,
-      "pnl_pct": -0.65,
+      "unrealized_pnl": -0.04,
+      "pnl_pct": -0.07,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792612440.7664108,
-      "updated_at": 1792613746.8353946,
+      "updated_at": 1792614037.1310298,
       "mae_pct": 0.93,
       "mfe_pct": 1.65360557912141,
       "size_usdt": 0.0
@@ -2177,7 +2177,7 @@
       "symbol": "LINKUSDT",
       "side": "SHORT",
       "entry_price": 12.723,
-      "mark_price": 12.734,
+      "mark_price": 12.65,
       "position_size_usdt": 252.3,
       "margin_usdt": 50.46,
       "leverage": 5,
@@ -2185,15 +2185,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 12.7912,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.22,
-      "pnl_pct": -0.43,
+      "unrealized_pnl": 1.45,
+      "pnl_pct": 2.87,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792613470.0849323,
-      "updated_at": 1792613746.8268754,
-      "mae_pct": 0.7859781498074185,
-      "mfe_pct": 0.0,
+      "updated_at": 1792614037.1265967,
+      "mae_pct": 0.79,
+      "mfe_pct": 2.986716969268274,
       "size_usdt": 0.0
     }
   ],
