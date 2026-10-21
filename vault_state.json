@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792589287845,
-  "updated_at_str": "2026-10-21 13:28:07 IST",
+  "updated_at": 1792589590842,
+  "updated_at_str": "2026-10-21 13:33:10 IST",
   "total_trades": 54,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 83.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 80.0,
       "status": "IN_TRADE",
       "active_symbol": "ARKMUSDT",
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792589202.6225777
+      "updated_at": 1792589563.2198884
     }
   ],
   "trade_history": [
@@ -1480,23 +1480,23 @@
       "symbol": "ARKMUSDT",
       "side": "SHORT",
       "entry_price": 0.1296,
-      "mark_price": 0.1293,
+      "mark_price": 0.1286,
       "position_size_usdt": 296.3,
       "margin_usdt": 59.26,
       "leverage": 5,
       "sl_price": 0.1307,
       "tp_price": 0.0,
-      "trailing_sl_price": 0.1307,
-      "trailing_stage": 0,
-      "unrealized_pnl": 0.69,
-      "pnl_pct": 1.16,
+      "trailing_sl_price": 0.129341,
+      "trailing_stage": 1,
+      "unrealized_pnl": 2.29,
+      "pnl_pct": 3.86,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792587747.1803508,
-      "updated_at": 1792589277.4208617,
-      "mae_pct": 0.0,
-      "mfe_pct": 2.7,
+      "updated_at": 1792589576.6289055,
+      "mae_pct": 0.39,
+      "mfe_pct": 5.79,
       "size_usdt": 0.0
     }
   ],
