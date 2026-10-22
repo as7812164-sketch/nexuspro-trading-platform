@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792633670917,
-  "updated_at_str": "2026-10-22 01:47:50 IST",
-  "total_trades": 89,
+  "updated_at": 1792633731427,
+  "updated_at_str": "2026-10-22 01:48:51 IST",
+  "total_trades": 90,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 58.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 71.4,
       "status": "IN_TRADE",
       "active_symbol": "TRBUSDT",
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 63.6,
       "status": "IN_TRADE",
       "active_symbol": "UNIUSDT",
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 9,
@@ -155,24 +155,24 @@
       "win_rate": 66.7,
       "status": "IN_TRADE",
       "active_symbol": "ARKMUSDT",
-      "updated_at": 1792633600.2928305
+      "updated_at": 1792633731.4226422
     },
     {
       "id": 10,
       "name": "Section 10 (ARBUSDT, FETUSDT, ONDOUSDT)",
       "assigned_coins": "ARBUSDT, FETUSDT, ONDOUSDT",
       "initial_balance": 50.0,
-      "current_balance": 93.23,
+      "current_balance": 91.98,
       "vault_balance": 0.0,
-      "equity": 93.23,
-      "total_pnl": 43.23,
-      "pnl_pct": 86.46,
+      "equity": 91.98,
+      "total_pnl": 41.98,
+      "pnl_pct": 83.96,
       "win_count": 10,
-      "loss_count": 2,
-      "win_rate": 83.3,
-      "status": "IN_TRADE",
-      "active_symbol": "ARBUSDT",
-      "updated_at": 1792633600.2928305
+      "loss_count": 3,
+      "win_rate": 76.9,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792633731.4226422
     }
   ],
   "trade_history": [
@@ -2311,6 +2311,30 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+5.53%",
       "roi_pct": 0.81
+    },
+    {
+      "id": 95,
+      "section_id": 10,
+      "symbol": "ARBUSDT",
+      "side": "LONG",
+      "entry_price": 0.1893,
+      "exit_price": 0.1886,
+      "margin_usdt": 67.61,
+      "position_size_usdt": 338.05,
+      "leverage": 5,
+      "realized_pnl": -1.25,
+      "pnl_pct": -1.85,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
+      "open_time": 1792633576.4484408,
+      "close_time": 1792633731.4173963,
+      "duration_minutes": 2.6,
+      "entry_time_str": "22 Oct, 07:16:16 IST",
+      "exit_time_str": "22 Oct, 07:18:51 IST",
+      "duration_str": "2m 34s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-1.85%",
+      "mfe_pct": "+0.53%",
+      "roi_pct": -1.85
     }
   ],
   "positions": [
@@ -2334,7 +2358,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792615096.823529,
-      "updated_at": 1792633657.7378047,
+      "updated_at": 1792633713.5358236,
       "mae_pct": 2.33,
       "mfe_pct": 12.45,
       "size_usdt": 0.0
@@ -2359,7 +2383,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792618675.506748,
-      "updated_at": 1792633657.7342641,
+      "updated_at": 1792633713.5317175,
       "mae_pct": 0.0,
       "mfe_pct": 15.02,
       "size_usdt": 0.0
@@ -2370,7 +2394,7 @@
       "symbol": "UNIUSDT",
       "side": "LONG",
       "entry_price": 7.435,
-      "mark_price": 7.479,
+      "mark_price": 7.462,
       "position_size_usdt": 250.2,
       "margin_usdt": 50.04,
       "leverage": 5,
@@ -2378,40 +2402,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 7.409869,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.48,
-      "pnl_pct": 2.96,
+      "unrealized_pnl": 0.91,
+      "pnl_pct": 1.82,
       "liquidation_price": 6.0967,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792633259.1853092,
-      "updated_at": 1792633657.7306683,
+      "updated_at": 1792633713.5278723,
       "mae_pct": 1.41,
       "mfe_pct": 3.3,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 50,
-      "section_id": 10,
-      "symbol": "ARBUSDT",
-      "side": "LONG",
-      "entry_price": 0.1893,
-      "mark_price": 0.1891,
-      "position_size_usdt": 338.05,
-      "margin_usdt": 67.61,
-      "leverage": 5,
-      "sl_price": 0.1886,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.1886,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.36,
-      "pnl_pct": -0.53,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1792633576.4484408,
-      "updated_at": 1792633657.7263808,
-      "mae_pct": 1.06,
-      "mfe_pct": 0.53,
       "size_usdt": 0.0
     }
   ],
