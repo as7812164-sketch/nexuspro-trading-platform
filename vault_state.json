@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792654790584,
-  "updated_at_str": "2026-10-22 07:39:50 IST",
+  "updated_at": 1792655091991,
+  "updated_at_str": "2026-10-22 07:44:51 IST",
   "total_trades": 92,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 58.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 71.4,
       "status": "IN_TRADE",
       "active_symbol": "TRBUSDT",
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 58.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 76.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792654723.8580549
+      "updated_at": 1792655084.3175507
     }
   ],
   "trade_history": [
@@ -2392,23 +2392,23 @@
       "symbol": "TRBUSDT",
       "side": "SHORT",
       "entry_price": 18.671,
-      "mark_price": 17.98,
+      "mark_price": 17.96,
       "position_size_usdt": 265.15,
       "margin_usdt": 53.03,
       "leverage": 5,
       "sl_price": 18.744074,
       "tp_price": 0.0,
-      "trailing_sl_price": 18.293846,
-      "trailing_stage": 3,
-      "unrealized_pnl": 9.81,
-      "pnl_pct": 18.5,
+      "trailing_sl_price": 18.107136,
+      "trailing_stage": 4,
+      "unrealized_pnl": 10.1,
+      "pnl_pct": 19.04,
       "liquidation_price": 22.03178,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792618675.506748,
-      "updated_at": 1792654770.6289964,
+      "updated_at": 1792655086.9265018,
       "mae_pct": 0.0,
-      "mfe_pct": 19.040222805420132,
+      "mfe_pct": 20.11,
       "size_usdt": 0.0
     }
   ],
@@ -2628,6 +2628,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1792639996.0208442,
       "created_at_str": "22 Oct, 09:03:16 IST"
+    },
+    {
+      "id": 19,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "TRBUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +20.11% ROI peak but was at Tier 3 (SL: $18.2938).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted TRBUSDT to Tier 4 (Locked +15.1% ROI | SL \u2794 $18.1071).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1792655068.722694,
+      "created_at_str": "22 Oct, 13:14:28 IST"
     }
   ]
 }
