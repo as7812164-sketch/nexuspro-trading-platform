@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792687706550,
-  "updated_at_str": "2026-10-22 16:48:26 IST",
-  "total_trades": 114,
+  "updated_at": 1792687881139,
+  "updated_at_str": "2026-10-22 16:51:21 IST",
+  "total_trades": 115,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 45.5,
       "status": "IN_TRADE",
       "active_symbol": "SEIUSDT",
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 66.7,
       "status": "IN_TRADE",
       "active_symbol": "DOTUSDT",
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 5,
@@ -87,24 +87,24 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 6,
       "name": "Section 6 (OPUSDT, RENDERUSDT, WLDUSDT)",
       "assigned_coins": "OPUSDT, RENDERUSDT, WLDUSDT",
       "initial_balance": 50.0,
-      "current_balance": 60.84,
+      "current_balance": 58.37,
       "vault_balance": 0.0,
-      "equity": 60.84,
-      "total_pnl": 10.84,
-      "pnl_pct": 21.68,
+      "equity": 58.37,
+      "total_pnl": 8.37,
+      "pnl_pct": 16.74,
       "win_count": 7,
-      "loss_count": 8,
-      "win_rate": 46.7,
-      "status": "IN_TRADE",
-      "active_symbol": "WLDUSDT",
-      "updated_at": 1792687675.656244
+      "loss_count": 9,
+      "win_rate": 43.8,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 60.0,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 56.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792687675.656244
+      "updated_at": 1792687881.1325092
     }
   ],
   "trade_history": [
@@ -2911,6 +2911,30 @@
       "mae_pct": "-5.44%",
       "mfe_pct": "+0.19%",
       "roi_pct": -4.69
+    },
+    {
+      "id": 120,
+      "section_id": 6,
+      "symbol": "WLDUSDT",
+      "side": "LONG",
+      "entry_price": 0.5286,
+      "exit_price": 0.524312,
+      "margin_usdt": 60.84,
+      "position_size_usdt": 304.2,
+      "leverage": 5,
+      "realized_pnl": -2.47,
+      "pnl_pct": -4.06,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
+      "open_time": 1792687661.9884627,
+      "close_time": 1792687881.0315917,
+      "duration_minutes": 3.7,
+      "entry_time_str": "22 Oct, 22:17:41 IST",
+      "exit_time_str": "22 Oct, 22:21:21 IST",
+      "duration_str": "3m 39s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-4.45%",
+      "mfe_pct": "+0.47%",
+      "roi_pct": -4.06
     }
   ],
   "positions": [
@@ -2934,7 +2958,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792687568.2167456,
-      "updated_at": 1792687692.817777,
+      "updated_at": 1792687863.6303847,
       "mae_pct": 0.7,
       "mfe_pct": 1.1,
       "size_usdt": 0.0
@@ -2945,7 +2969,7 @@
       "symbol": "SEIUSDT",
       "side": "LONG",
       "entry_price": 0.057535,
-      "mark_price": 0.05741,
+      "mark_price": 0.05734,
       "position_size_usdt": 269.4,
       "margin_usdt": 53.88,
       "leverage": 5,
@@ -2953,14 +2977,14 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.057254,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.59,
-      "pnl_pct": -1.09,
+      "unrealized_pnl": -0.91,
+      "pnl_pct": -1.69,
       "liquidation_price": 0.047179,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792687585.4192207,
-      "updated_at": 1792687692.7351336,
-      "mae_pct": 1.086295298513949,
+      "updated_at": 1792687863.6265764,
+      "mae_pct": 2.13,
       "mfe_pct": 1.09,
       "size_usdt": 0.0
     },
@@ -2970,7 +2994,7 @@
       "symbol": "TIAUSDT",
       "side": "LONG",
       "entry_price": 0.565,
-      "mark_price": 0.5652,
+      "mark_price": 0.5648,
       "position_size_usdt": 249.85,
       "margin_usdt": 49.97,
       "leverage": 5,
@@ -2978,40 +3002,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.560758,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.09,
-      "pnl_pct": 0.18,
+      "unrealized_pnl": -0.09,
+      "pnl_pct": -0.18,
       "liquidation_price": 0.4633,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792687608.4181967,
-      "updated_at": 1792687692.731378,
-      "mae_pct": 0.0,
+      "updated_at": 1792687863.6228564,
+      "mae_pct": 0.44,
       "mfe_pct": 1.24,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 72,
-      "section_id": 6,
-      "symbol": "WLDUSDT",
-      "side": "LONG",
-      "entry_price": 0.5286,
-      "mark_price": 0.5278,
-      "position_size_usdt": 304.2,
-      "margin_usdt": 60.84,
-      "leverage": 5,
-      "sl_price": 0.524312,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.524312,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.46,
-      "pnl_pct": -0.76,
-      "liquidation_price": 0.433452,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1792687661.9884627,
-      "updated_at": 1792687692.727343,
-      "mae_pct": 0.76,
-      "mfe_pct": 0.0,
       "size_usdt": 0.0
     }
   ],
