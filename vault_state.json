@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792676220650,
-  "updated_at_str": "2026-10-22 13:37:00 IST",
-  "total_trades": 99,
+  "updated_at": 1792676237921,
+  "updated_at_str": "2026-10-22 13:37:17 IST",
+  "total_trades": 100,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 40.0,
       "status": "IN_TRADE",
       "active_symbol": "SEIUSDT",
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 46.58,
+      "current_balance": 48.96,
       "vault_balance": 0.0,
-      "equity": 46.58,
-      "total_pnl": -3.42,
-      "pnl_pct": -6.84,
-      "win_count": 2,
+      "equity": 48.96,
+      "total_pnl": -1.04,
+      "pnl_pct": -2.08,
+      "win_count": 3,
       "loss_count": 3,
-      "win_rate": 40.0,
-      "status": "IN_TRADE",
-      "active_symbol": "NEARUSDT",
-      "updated_at": 1792676193.857914
+      "win_rate": 50.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 53.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 58.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 78.6,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1792676193.857914
+      "updated_at": 1792676237.8847463
     }
   ],
   "trade_history": [
@@ -2551,6 +2551,30 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+5.50%",
       "roi_pct": 0.8
+    },
+    {
+      "id": 105,
+      "section_id": 5,
+      "symbol": "NEARUSDT",
+      "side": "LONG",
+      "entry_price": 4.9465,
+      "exit_price": 4.996954,
+      "margin_usdt": 46.58,
+      "position_size_usdt": 232.9,
+      "leverage": 5,
+      "realized_pnl": 2.38,
+      "pnl_pct": 5.11,
+      "exit_reason": "BB 3.0 TRAILING PROFIT (+5.1% ROI)",
+      "open_time": 1792674644.3607104,
+      "close_time": 1792676237.8288279,
+      "duration_minutes": 26.6,
+      "entry_time_str": "22 Oct, 18:40:44 IST",
+      "exit_time_str": "22 Oct, 19:07:17 IST",
+      "duration_str": "26m 33s",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Lock (+5.1% ROI)",
+      "mae_pct": "-0.45%",
+      "mfe_pct": "+10.36%",
+      "roi_pct": 5.11
     }
   ],
   "positions": [
@@ -2602,31 +2626,6 @@
       "updated_at": 1792676217.635034,
       "mae_pct": 0.0,
       "mfe_pct": 5.81,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 58,
-      "section_id": 5,
-      "symbol": "NEARUSDT",
-      "side": "LONG",
-      "entry_price": 4.9465,
-      "mark_price": 5.01,
-      "position_size_usdt": 232.9,
-      "margin_usdt": 46.58,
-      "leverage": 5,
-      "sl_price": 4.917612,
-      "tp_price": 0.0,
-      "trailing_sl_price": 4.996954,
-      "trailing_stage": 2,
-      "unrealized_pnl": 2.99,
-      "pnl_pct": 6.42,
-      "liquidation_price": 4.05613,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1792674644.3607104,
-      "updated_at": 1792676217.6244488,
-      "mae_pct": 0.45,
-      "mfe_pct": 10.36,
       "size_usdt": 0.0
     }
   ],
