@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792683914121,
-  "updated_at_str": "2026-10-22 15:45:14 IST",
-  "total_trades": 112,
+  "updated_at": 1792684076656,
+  "updated_at_str": "2026-10-22 15:47:56 IST",
+  "total_trades": 113,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 45.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 46.72,
+      "current_balance": 45.65,
       "vault_balance": 0.0,
-      "equity": 46.72,
-      "total_pnl": -3.28,
-      "pnl_pct": -6.56,
+      "equity": 45.65,
+      "total_pnl": -4.35,
+      "pnl_pct": -8.7,
       "win_count": 3,
-      "loss_count": 5,
-      "win_rate": 37.5,
+      "loss_count": 6,
+      "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 46.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792683914.0323927
+      "updated_at": 1792684069.704719
     }
   ],
   "trade_history": [
@@ -2863,6 +2863,30 @@
       "mae_pct": "-1.88%",
       "mfe_pct": "+4.41%",
       "roi_pct": -1.81
+    },
+    {
+      "id": 118,
+      "section_id": 5,
+      "symbol": "NEARUSDT",
+      "side": "LONG",
+      "entry_price": 4.9325,
+      "exit_price": 4.9146,
+      "margin_usdt": 50.39,
+      "position_size_usdt": 251.95,
+      "leverage": 5,
+      "realized_pnl": -1.07,
+      "pnl_pct": -2.12,
+      "exit_reason": "LOSS (SL HIT)",
+      "open_time": 1792682177.8737793,
+      "close_time": 1792683988.275887,
+      "duration_minutes": 30.2,
+      "entry_time_str": "22 Oct, 20:46:17 IST",
+      "exit_time_str": "22 Oct, 21:16:28 IST",
+      "duration_str": "30m 10s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.12%",
+      "mfe_pct": "+0.20%",
+      "roi_pct": -2.12
     }
   ],
   "positions": [],
