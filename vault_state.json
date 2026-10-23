@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792765002017,
-  "updated_at_str": "2026-10-23 14:16:42 IST",
-  "total_trades": 136,
+  "updated_at": 1792765021336,
+  "updated_at_str": "2026-10-23 14:17:01 IST",
+  "total_trades": 137,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 45.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 6,
@@ -104,24 +104,24 @@
       "win_rate": 47.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 7,
       "name": "Section 7 (SUIUSDT, TIAUSDT, TRBUSDT)",
       "assigned_coins": "SUIUSDT, TIAUSDT, TRBUSDT",
       "initial_balance": 50.0,
-      "current_balance": 50.97,
+      "current_balance": 56.12,
       "vault_balance": 0.0,
-      "equity": 50.97,
-      "total_pnl": 0.97,
-      "pnl_pct": 1.94,
-      "win_count": 8,
+      "equity": 56.12,
+      "total_pnl": 6.12,
+      "pnl_pct": 12.24,
+      "win_count": 9,
       "loss_count": 4,
-      "win_rate": 66.7,
-      "status": "IN_TRADE",
-      "active_symbol": "TRBUSDT",
-      "updated_at": 1792764973.4997406
+      "win_rate": 69.2,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 55.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792764973.4997406
+      "updated_at": 1792765021.3306644
     }
   ],
   "trade_history": [
@@ -3439,35 +3439,33 @@
       "mae_pct": "-2.32%",
       "mfe_pct": "+6.57%",
       "roi_pct": 1.0
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 81,
+      "id": 142,
       "section_id": 7,
       "symbol": "TRBUSDT",
       "side": "LONG",
       "entry_price": 17.905,
-      "mark_price": 18.29,
-      "position_size_usdt": 254.85,
+      "exit_price": 18.266681,
       "margin_usdt": 50.97,
+      "position_size_usdt": 254.85,
       "leverage": 5,
-      "sl_price": 17.834209,
-      "tp_price": 0.0,
-      "trailing_sl_price": 18.266681,
-      "trailing_stage": 3,
-      "unrealized_pnl": 5.48,
-      "pnl_pct": 10.75,
-      "liquidation_price": 14.6821,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 5.15,
+      "pnl_pct": 10.1,
+      "exit_reason": "BB 3.0 TRAILING PROFIT (+10.1% ROI)",
       "open_time": 1792710081.8546662,
-      "updated_at": 1792764999.5462706,
-      "mae_pct": 0.0,
-      "mfe_pct": 19.407986595922935,
-      "size_usdt": 0.0
+      "close_time": 1792765021.3262582,
+      "duration_minutes": 915.7,
+      "entry_time_str": "23 Oct, 04:31:21 IST",
+      "exit_time_str": "23 Oct, 19:47:01 IST",
+      "duration_str": "15h 15m",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Lock (+10.1% ROI)",
+      "mae_pct": "-0.00%",
+      "mfe_pct": "+19.41%",
+      "roi_pct": 10.1
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
