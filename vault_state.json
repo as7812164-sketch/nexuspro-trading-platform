@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792781002481,
-  "updated_at_str": "2026-10-23 18:43:22 IST",
-  "total_trades": 142,
+  "updated_at": 1792781258828,
+  "updated_at_str": "2026-10-23 18:47:38 IST",
+  "total_trades": 143,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 51.56,
+      "current_balance": 50.32,
       "vault_balance": 0.0,
-      "equity": 51.56,
-      "total_pnl": 1.56,
-      "pnl_pct": 3.12,
+      "equity": 50.32,
+      "total_pnl": 0.32,
+      "pnl_pct": 0.64,
       "win_count": 7,
-      "loss_count": 6,
-      "win_rate": 53.8,
-      "status": "IN_TRADE",
-      "active_symbol": "NEARUSDT",
-      "updated_at": 1792780993.751564
+      "loss_count": 7,
+      "win_rate": 50.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 47.4,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 64.3,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 57.1,
       "status": "IN_TRADE",
       "active_symbol": "XRPUSDT",
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 55.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 76.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792780976.9132352
+      "updated_at": 1792781258.8223035
     }
   ],
   "trade_history": [
@@ -3583,6 +3583,30 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+5.50%",
       "roi_pct": 0.8
+    },
+    {
+      "id": 148,
+      "section_id": 5,
+      "symbol": "NEARUSDT",
+      "side": "LONG",
+      "entry_price": 4.829,
+      "exit_price": 4.805781,
+      "margin_usdt": 51.56,
+      "position_size_usdt": 257.8,
+      "leverage": 5,
+      "realized_pnl": -1.24,
+      "pnl_pct": -2.4,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
+      "open_time": 1792780993.7464063,
+      "close_time": 1792781258.8175552,
+      "duration_minutes": 4.4,
+      "entry_time_str": "24 Oct, 00:13:13 IST",
+      "exit_time_str": "24 Oct, 00:17:38 IST",
+      "duration_str": "4m 25s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.69%",
+      "mfe_pct": "+0.52%",
+      "roi_pct": -2.4
     }
   ],
   "positions": [
@@ -3592,7 +3616,7 @@
       "symbol": "XRPUSDT",
       "side": "LONG",
       "entry_price": 1.3086,
-      "mark_price": 1.3107,
+      "mark_price": 1.3091,
       "position_size_usdt": 281.15,
       "margin_usdt": 56.23,
       "leverage": 5,
@@ -3600,13 +3624,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.3005,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.45,
-      "pnl_pct": 0.8,
+      "unrealized_pnl": 0.11,
+      "pnl_pct": 0.19,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792768261.0835238,
-      "updated_at": 1792780986.6438882,
+      "updated_at": 1792781240.1252828,
       "mae_pct": 1.15,
       "mfe_pct": 2.7510316368638605,
       "size_usdt": 0.0
@@ -3617,7 +3641,7 @@
       "symbol": "RENDERUSDT",
       "side": "LONG",
       "entry_price": 1.756,
-      "mark_price": 1.772,
+      "mark_price": 1.767,
       "position_size_usdt": 284.4,
       "margin_usdt": 56.88,
       "leverage": 5,
@@ -3625,13 +3649,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.759512,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.59,
-      "pnl_pct": 4.56,
+      "unrealized_pnl": 1.78,
+      "pnl_pct": 3.13,
       "liquidation_price": 1.43992,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792770221.089091,
-      "updated_at": 1792780986.6354408,
+      "updated_at": 1792781240.120837,
       "mae_pct": 0.85,
       "mfe_pct": 7.687927107061479,
       "size_usdt": 0.0
@@ -3642,7 +3666,7 @@
       "symbol": "TIAUSDT",
       "side": "LONG",
       "entry_price": 0.5425,
-      "mark_price": 0.553,
+      "mark_price": 0.5536,
       "position_size_usdt": 272.85,
       "margin_usdt": 54.57,
       "leverage": 5,
@@ -3650,40 +3674,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.548033,
       "trailing_stage": 2,
-      "unrealized_pnl": 5.28,
-      "pnl_pct": 9.68,
+      "unrealized_pnl": 5.58,
+      "pnl_pct": 10.23,
       "liquidation_price": 0.44485,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792777070.3805642,
-      "updated_at": 1792780986.6311524,
+      "updated_at": 1792781240.1171925,
       "mae_pct": 0.0,
       "mfe_pct": 11.89,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 100,
-      "section_id": 5,
-      "symbol": "NEARUSDT",
-      "side": "LONG",
-      "entry_price": 4.829,
-      "mark_price": 4.829,
-      "position_size_usdt": 257.8,
-      "margin_usdt": 51.56,
-      "leverage": 5,
-      "sl_price": 4.805781,
-      "tp_price": 0.0,
-      "trailing_sl_price": 4.805781,
-      "trailing_stage": 0,
-      "unrealized_pnl": 0.0,
-      "pnl_pct": 0.0,
-      "liquidation_price": 3.95978,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1792780993.7464063,
-      "updated_at": 1792780993.7464063,
-      "mae_pct": 0.0,
-      "mfe_pct": 0.0,
       "size_usdt": 0.0
     }
   ],
