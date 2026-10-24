@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792826583328,
-  "updated_at_str": "2026-10-24 07:23:03 IST",
-  "total_trades": 172,
+  "updated_at": 1792826599845,
+  "updated_at_str": "2026-10-24 07:23:19 IST",
+  "total_trades": 173,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 36.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IN_TRADE",
       "active_symbol": "DOGEUSDT",
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 6,
@@ -104,24 +104,24 @@
       "win_rate": 45.8,
       "status": "IN_TRADE",
       "active_symbol": "OPUSDT",
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 7,
       "name": "Section 7 (SUIUSDT, TIAUSDT, TRBUSDT)",
       "assigned_coins": "SUIUSDT, TIAUSDT, TRBUSDT",
       "initial_balance": 50.0,
-      "current_balance": 57.06,
+      "current_balance": 57.63,
       "vault_balance": 0.0,
-      "equity": 57.06,
-      "total_pnl": 7.06,
-      "pnl_pct": 14.12,
-      "win_count": 13,
+      "equity": 57.63,
+      "total_pnl": 7.63,
+      "pnl_pct": 15.26,
+      "win_count": 14,
       "loss_count": 6,
-      "win_rate": 68.4,
-      "status": "IN_TRADE",
-      "active_symbol": "SUIUSDT",
-      "updated_at": 1792826483.6019702
+      "win_rate": 70.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 58.8,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 54.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 69.6,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1792826483.6019702
+      "updated_at": 1792826599.8357422
     }
   ],
   "trade_history": [
@@ -4303,6 +4303,30 @@
       "mae_pct": "-0.00%",
       "mfe_pct": "+12.72%",
       "roi_pct": 5.1
+    },
+    {
+      "id": 178,
+      "section_id": 7,
+      "symbol": "SUIUSDT",
+      "side": "LONG",
+      "entry_price": 0.9529,
+      "exit_price": 0.954806,
+      "margin_usdt": 57.06,
+      "position_size_usdt": 285.3,
+      "leverage": 5,
+      "realized_pnl": 0.57,
+      "pnl_pct": 1.0,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
+      "open_time": 1792802696.6736522,
+      "close_time": 1792826599.8272371,
+      "duration_minutes": 398.4,
+      "entry_time_str": "24 Oct, 06:14:56 IST",
+      "exit_time_str": "24 Oct, 12:53:19 IST",
+      "duration_str": "6h 38m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.94%",
+      "mfe_pct": "+8.19%",
+      "roi_pct": 1.0
     }
   ],
   "positions": [
@@ -4357,37 +4381,12 @@
       "size_usdt": 0.0
     },
     {
-      "id": 126,
-      "section_id": 7,
-      "symbol": "SUIUSDT",
-      "side": "LONG",
-      "entry_price": 0.9529,
-      "mark_price": 0.9552,
-      "position_size_usdt": 285.3,
-      "margin_usdt": 57.06,
-      "leverage": 5,
-      "sl_price": 0.946378,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.954806,
-      "trailing_stage": 1,
-      "unrealized_pnl": 0.69,
-      "pnl_pct": 1.21,
-      "liquidation_price": 0.781378,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1792802696.6736522,
-      "updated_at": 1792826579.232969,
-      "mae_pct": 0.94,
-      "mfe_pct": 8.185538881309718,
-      "size_usdt": 0.0
-    },
-    {
       "id": 127,
       "section_id": 8,
       "symbol": "SNXUSDT",
       "side": "LONG",
       "entry_price": 0.203,
-      "mark_price": 0.2024,
+      "mark_price": 0.2021,
       "position_size_usdt": 271.6,
       "margin_usdt": 54.32,
       "leverage": 5,
@@ -4395,14 +4394,14 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.2019,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.8,
-      "pnl_pct": -1.48,
+      "unrealized_pnl": -1.2,
+      "pnl_pct": -2.22,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792809678.2768662,
-      "updated_at": 1792826579.2255247,
-      "mae_pct": 1.48,
+      "updated_at": 1792826599.8197937,
+      "mae_pct": 2.2167487684729354,
       "mfe_pct": 4.68,
       "size_usdt": 0.0
     },
@@ -4412,7 +4411,7 @@
       "symbol": "OPUSDT",
       "side": "LONG",
       "entry_price": 0.114,
-      "mark_price": 0.1138,
+      "mark_price": 0.1136,
       "position_size_usdt": 213.0,
       "margin_usdt": 42.6,
       "leverage": 5,
@@ -4420,14 +4419,14 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.1135,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.37,
-      "pnl_pct": -0.88,
+      "unrealized_pnl": -0.75,
+      "pnl_pct": -1.75,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792825838.480202,
-      "updated_at": 1792826579.2170682,
-      "mae_pct": 1.32,
+      "updated_at": 1792826599.7295103,
+      "mae_pct": 1.7543859649122702,
       "mfe_pct": 0.88,
       "size_usdt": 0.0
     }
