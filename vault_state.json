@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792801327143,
-  "updated_at_str": "2026-10-24 00:22:07 IST",
-  "total_trades": 161,
+  "updated_at": 1792801328894,
+  "updated_at_str": "2026-10-24 00:22:08 IST",
+  "total_trades": 162,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 64.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 43.8,
       "status": "IN_TRADE",
       "active_symbol": "DYDXUSDT",
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 45.5,
       "status": "IN_TRADE",
       "active_symbol": "WLDUSDT",
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 70.6,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 56.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 54.2,
+      "current_balance": 54.74,
       "vault_balance": 0.0,
-      "equity": 54.2,
-      "total_pnl": 4.2,
-      "pnl_pct": 8.4,
-      "win_count": 10,
+      "equity": 54.74,
+      "total_pnl": 4.74,
+      "pnl_pct": 9.48,
+      "win_count": 11,
       "loss_count": 9,
-      "win_rate": 52.6,
-      "status": "IN_TRADE",
-      "active_symbol": "APTUSDT",
-      "updated_at": 1792801327.134427
+      "win_rate": 55.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792801328.8887525
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 69.6,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1792801327.134427
+      "updated_at": 1792801328.8887525
     }
   ],
   "trade_history": [
@@ -4039,41 +4039,40 @@
       "mae_pct": "-0.00%",
       "mfe_pct": "+7.10%",
       "roi_pct": 1.0
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 111,
+      "id": 167,
       "section_id": 9,
       "symbol": "APTUSDT",
       "side": "LONG",
       "entry_price": 0.7259,
-      "mark_price": 0.7279,
-      "position_size_usdt": 271.0,
+      "exit_price": 0.727352,
       "margin_usdt": 54.2,
+      "position_size_usdt": 271.0,
       "leverage": 5,
-      "sl_price": 0.713928,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.727352,
-      "trailing_stage": 1,
-      "unrealized_pnl": 0.75,
-      "pnl_pct": 1.38,
-      "liquidation_price": 0.595238,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 0.54,
+      "pnl_pct": 1.0,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
       "open_time": 1792797319.3230686,
-      "updated_at": 1792801306.1990118,
-      "mae_pct": 0.34,
-      "mfe_pct": 7.783441245350583,
-      "size_usdt": 0.0
-    },
+      "close_time": 1792801328.8835108,
+      "duration_minutes": 66.8,
+      "entry_time_str": "24 Oct, 04:45:19 IST",
+      "exit_time_str": "24 Oct, 05:52:08 IST",
+      "duration_str": "1h 6m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.34%",
+      "mfe_pct": "+7.78%",
+      "roi_pct": 1.0
+    }
+  ],
+  "positions": [
     {
       "id": 112,
       "section_id": 7,
       "symbol": "TRBUSDT",
       "side": "LONG",
       "entry_price": 17.7905,
-      "mark_price": 17.93,
+      "mark_price": 17.92,
       "position_size_usdt": 291.6,
       "margin_usdt": 58.32,
       "leverage": 5,
@@ -4081,13 +4080,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 17.826081,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.29,
-      "pnl_pct": 3.92,
+      "unrealized_pnl": 2.12,
+      "pnl_pct": 3.64,
       "liquidation_price": 14.58821,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792797372.0391,
-      "updated_at": 1792801306.1894343,
+      "updated_at": 1792801328.8795676,
       "mae_pct": 0.3,
       "mfe_pct": 9.260560411455536,
       "size_usdt": 0.0
@@ -4098,7 +4097,7 @@
       "symbol": "DYDXUSDT",
       "side": "LONG",
       "entry_price": 0.11085,
-      "mark_price": 0.11199,
+      "mark_price": 0.11192,
       "position_size_usdt": 234.45,
       "margin_usdt": 46.89,
       "leverage": 5,
@@ -4106,13 +4105,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.111072,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.41,
-      "pnl_pct": 5.14,
+      "unrealized_pnl": 2.26,
+      "pnl_pct": 4.83,
       "liquidation_price": 0.090897,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1792797388.6252506,
-      "updated_at": 1792801306.181057,
+      "updated_at": 1792801328.8751864,
       "mae_pct": 0.0,
       "mfe_pct": 9.29183581416325,
       "size_usdt": 0.0
