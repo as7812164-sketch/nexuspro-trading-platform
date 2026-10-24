@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1792847109981,
-  "updated_at_str": "2026-10-24 13:05:09 IST",
-  "total_trades": 182,
+  "updated_at": 1792847272737,
+  "updated_at_str": "2026-10-24 13:07:52 IST",
+  "total_trades": 183,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 36.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 49.28,
+      "current_balance": 48.26,
       "vault_balance": 0.0,
-      "equity": 49.28,
-      "total_pnl": -0.72,
-      "pnl_pct": -1.44,
+      "equity": 48.26,
+      "total_pnl": -1.74,
+      "pnl_pct": -3.48,
       "win_count": 8,
-      "loss_count": 9,
-      "win_rate": 47.1,
-      "status": "IN_TRADE",
-      "active_symbol": "NEARUSDT",
-      "updated_at": 1792847048.8284361
+      "loss_count": 10,
+      "win_rate": 44.4,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1792847272.727366
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 44.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 52.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 56.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 64.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1792847048.8284361
+      "updated_at": 1792847272.727366
     }
   ],
   "trade_history": [
@@ -4543,35 +4543,33 @@
       "mae_pct": "-0.00%",
       "mfe_pct": "+5.48%",
       "roi_pct": 1.01
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 136,
+      "id": 188,
       "section_id": 5,
       "symbol": "NEARUSDT",
       "side": "LONG",
       "entry_price": 4.47695,
-      "mark_price": 4.471,
-      "position_size_usdt": 246.4,
+      "exit_price": 4.458402,
       "margin_usdt": 49.28,
+      "position_size_usdt": 246.4,
       "leverage": 5,
-      "sl_price": 4.458402,
-      "tp_price": 0.0,
-      "trailing_sl_price": 4.458402,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.33,
-      "pnl_pct": -0.66,
-      "liquidation_price": 3.671099,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": -1.02,
+      "pnl_pct": -2.07,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
       "open_time": 1792843592.547689,
-      "updated_at": 1792847093.517062,
-      "mae_pct": 1.78,
-      "mfe_pct": 3.8,
-      "size_usdt": 0.0
+      "close_time": 1792847272.7179105,
+      "duration_minutes": 61.3,
+      "entry_time_str": "24 Oct, 17:36:32 IST",
+      "exit_time_str": "24 Oct, 18:37:52 IST",
+      "duration_str": "1h 1m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.34%",
+      "mfe_pct": "+3.80%",
+      "roi_pct": -2.07
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
