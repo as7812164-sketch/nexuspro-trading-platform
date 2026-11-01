@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793561260186,
-  "updated_at_str": "2026-11-01 19:27:40 IST",
+  "updated_at": 1793561562068,
+  "updated_at_str": "2026-11-01 19:32:42 IST",
   "total_trades": 202,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 41.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 63.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 9,
@@ -153,9 +153,9 @@
       "win_count": 16,
       "loss_count": 9,
       "win_rate": 64.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "status": "IN_TRADE",
+      "active_symbol": "APTUSDT",
+      "updated_at": 1793561527.2106173
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793561166.0846415
+      "updated_at": 1793561527.2106173
     }
   ],
   "trade_history": [
@@ -5025,7 +5025,33 @@
       "roi_pct": -2.55
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 10,
+      "section_id": 9,
+      "symbol": "APTUSDT",
+      "side": "LONG",
+      "entry_price": 0.6231,
+      "mark_price": 0.6245,
+      "position_size_usdt": 339.35,
+      "margin_usdt": 67.87,
+      "leverage": 5,
+      "sl_price": 0.615376,
+      "tp_price": 0.0,
+      "trailing_sl_price": 0.615376,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.76,
+      "pnl_pct": 1.12,
+      "liquidation_price": 0.510942,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1793561463.6500304,
+      "updated_at": 1793561548.043534,
+      "mae_pct": 0.0,
+      "mfe_pct": 1.2839030653186052,
+      "size_usdt": 0.0
+    }
+  ],
   "sentinel_knowledge_base": [
     {
       "id": 1,
