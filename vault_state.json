@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793571518249,
-  "updated_at_str": "2026-11-01 22:18:38 IST",
-  "total_trades": 202,
+  "updated_at": 1793571615184,
+  "updated_at_str": "2026-11-01 22:20:15 IST",
+  "total_trades": 203,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 41.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 63.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 67.87,
+      "current_balance": 68.55,
       "vault_balance": 0.0,
-      "equity": 67.87,
-      "total_pnl": 17.87,
-      "pnl_pct": 35.74,
-      "win_count": 16,
+      "equity": 68.55,
+      "total_pnl": 18.55,
+      "pnl_pct": 37.1,
+      "win_count": 17,
       "loss_count": 9,
-      "win_rate": 64.0,
-      "status": "IN_TRADE",
-      "active_symbol": "APTUSDT",
-      "updated_at": 1793571490.3459895
+      "win_rate": 65.4,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793571615.1677825
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793571490.3459895
+      "updated_at": 1793571615.1677825
     }
   ],
   "trade_history": [
@@ -5023,35 +5023,33 @@
       "mae_pct": "-3.77%",
       "mfe_pct": "+3.17%",
       "roi_pct": -2.55
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 10,
+      "id": 213,
       "section_id": 9,
       "symbol": "APTUSDT",
       "side": "LONG",
       "entry_price": 0.6231,
-      "mark_price": 0.6244,
-      "position_size_usdt": 339.35,
+      "exit_price": 0.624346,
       "margin_usdt": 67.87,
+      "position_size_usdt": 339.35,
       "leverage": 5,
-      "sl_price": 0.615376,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.624346,
-      "trailing_stage": 1,
-      "unrealized_pnl": 0.71,
-      "pnl_pct": 1.04,
-      "liquidation_price": 0.510942,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 0.68,
+      "pnl_pct": 1.0,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
       "open_time": 1793561463.6500304,
-      "updated_at": 1793571503.2441285,
-      "mae_pct": 0.0,
-      "mfe_pct": 5.135612261274243,
-      "size_usdt": 0.0
+      "close_time": 1793571615.1541448,
+      "duration_minutes": 169.2,
+      "entry_time_str": "02 Nov, 01:01:03 IST",
+      "exit_time_str": "02 Nov, 03:50:15 IST",
+      "duration_str": "2h 49m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.00%",
+      "mfe_pct": "+5.14%",
+      "roi_pct": 1.0
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
