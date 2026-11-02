@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793622856286,
-  "updated_at_str": "2026-11-02 12:34:16 IST",
-  "total_trades": 225,
+  "updated_at": 1793623095071,
+  "updated_at_str": "2026-11-02 12:38:15 IST",
+  "total_trades": 226,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 41.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 47.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 70.0,
       "status": "IN_TRADE",
       "active_symbol": "AVAXUSDT",
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 44.23,
+      "current_balance": 44.67,
       "vault_balance": 0.0,
-      "equity": 44.23,
-      "total_pnl": -5.77,
-      "pnl_pct": -11.54,
-      "win_count": 9,
+      "equity": 44.67,
+      "total_pnl": -5.33,
+      "pnl_pct": -10.66,
+      "win_count": 10,
       "loss_count": 14,
-      "win_rate": 39.1,
-      "status": "IN_TRADE",
-      "active_symbol": "NEARUSDT",
-      "updated_at": 1793622806.081149
+      "win_rate": 41.7,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 52.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 69.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793622806.081149
+      "updated_at": 1793623095.0604231
     }
   ],
   "trade_history": [
@@ -5575,6 +5575,30 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+5.50%",
       "roi_pct": 0.8
+    },
+    {
+      "id": 236,
+      "section_id": 5,
+      "symbol": "NEARUSDT",
+      "side": "LONG",
+      "entry_price": 4.09385,
+      "exit_price": 4.102038,
+      "margin_usdt": 44.23,
+      "position_size_usdt": 221.15,
+      "leverage": 5,
+      "realized_pnl": 0.44,
+      "pnl_pct": 0.99,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
+      "open_time": 1793616168.1526594,
+      "close_time": 1793623094.95368,
+      "duration_minutes": 115.4,
+      "entry_time_str": "02 Nov, 16:12:48 IST",
+      "exit_time_str": "02 Nov, 18:08:14 IST",
+      "duration_str": "1h 55m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.00%",
+      "mfe_pct": "+7.35%",
+      "roi_pct": 0.99
     }
   ],
   "positions": [
@@ -5584,7 +5608,7 @@
       "symbol": "AVAXUSDT",
       "side": "LONG",
       "entry_price": 8.5605,
-      "mark_price": 8.608,
+      "mark_price": 8.6,
       "position_size_usdt": 270.45,
       "margin_usdt": 54.09,
       "leverage": 5,
@@ -5592,40 +5616,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 8.5352,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.5,
-      "pnl_pct": 2.77,
+      "unrealized_pnl": 1.25,
+      "pnl_pct": 2.31,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793613697.702303,
-      "updated_at": 1793622847.957535,
+      "updated_at": 1793623076.1799986,
       "mae_pct": 1.37,
       "mfe_pct": 4.176157934700096,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 32,
-      "section_id": 5,
-      "symbol": "NEARUSDT",
-      "side": "LONG",
-      "entry_price": 4.09385,
-      "mark_price": 4.12,
-      "position_size_usdt": 221.15,
-      "margin_usdt": 44.23,
-      "leverage": 5,
-      "sl_price": 4.080071,
-      "tp_price": 0.0,
-      "trailing_sl_price": 4.102038,
-      "trailing_stage": 1,
-      "unrealized_pnl": 1.41,
-      "pnl_pct": 3.19,
-      "liquidation_price": 3.356957,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793616168.1526594,
-      "updated_at": 1793622847.9534469,
-      "mae_pct": 0.0,
-      "mfe_pct": 7.35,
       "size_usdt": 0.0
     }
   ],
