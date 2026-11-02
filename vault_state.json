@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793635096749,
-  "updated_at_str": "2026-11-02 15:58:16 IST",
-  "total_trades": 236,
+  "updated_at": 1793635117248,
+  "updated_at_str": "2026-11-02 15:58:37 IST",
+  "total_trades": 237,
   "sections": [
     {
       "id": 1,
@@ -19,24 +19,24 @@
       "win_rate": 38.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 2,
       "name": "Section 2 (SOLUSDT, BNBUSDT, SEIUSDT)",
       "assigned_coins": "SOLUSDT, BNBUSDT, SEIUSDT",
       "initial_balance": 50.0,
-      "current_balance": 50.89,
+      "current_balance": 51.4,
       "vault_balance": 0.0,
-      "equity": 50.89,
-      "total_pnl": 0.89,
-      "pnl_pct": 1.78,
-      "win_count": 9,
+      "equity": 51.4,
+      "total_pnl": 1.4,
+      "pnl_pct": 2.8,
+      "win_count": 10,
       "loss_count": 10,
-      "win_rate": 47.4,
-      "status": "IN_TRADE",
-      "active_symbol": "SEIUSDT",
-      "updated_at": 1793635096.7429671
+      "win_rate": 50.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 57.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 44.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 61.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 8,
@@ -136,9 +136,9 @@
       "win_count": 13,
       "loss_count": 12,
       "win_rate": 52.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "status": "IN_TRADE",
+      "active_symbol": "SNXUSDT",
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 71.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 58.8,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1793635096.7429671
+      "updated_at": 1793635117.1660335
     }
   ],
   "trade_history": [
@@ -5839,34 +5839,33 @@
       "mae_pct": "-0.00%",
       "mfe_pct": "+5.74%",
       "roi_pct": 1.01
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 38,
+      "id": 247,
       "section_id": 2,
       "symbol": "SEIUSDT",
       "side": "LONG",
       "entry_price": 0.047345,
-      "mark_price": 0.04753,
-      "position_size_usdt": 254.45,
+      "exit_price": 0.04744,
       "margin_usdt": 50.89,
+      "position_size_usdt": 254.45,
       "leverage": 5,
-      "sl_price": 0.047159,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.04744,
-      "trailing_stage": 1,
-      "unrealized_pnl": 0.99,
-      "pnl_pct": 1.95,
-      "liquidation_price": 0.038823,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 0.51,
+      "pnl_pct": 1.0,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
       "open_time": 1793629347.1542099,
-      "updated_at": 1793635078.466447,
-      "mae_pct": 0.0,
-      "mfe_pct": 7.0229168866828475,
-      "size_usdt": 0.0
-    },
+      "close_time": 1793635117.159897,
+      "duration_minutes": 96.2,
+      "entry_time_str": "02 Nov, 19:52:27 IST",
+      "exit_time_str": "02 Nov, 21:28:37 IST",
+      "duration_str": "1h 36m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.00%",
+      "mfe_pct": "+7.02%",
+      "roi_pct": 1.0
+    }
+  ],
+  "positions": [
     {
       "id": 42,
       "section_id": 10,
@@ -5887,9 +5886,34 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793634861.8364103,
-      "updated_at": 1793635096.6536002,
-      "mae_pct": 1.2162335168352405,
+      "updated_at": 1793635117.153521,
+      "mae_pct": 1.6,
       "mfe_pct": 0.58,
+      "size_usdt": 0.0
+    },
+    {
+      "id": 43,
+      "section_id": 8,
+      "symbol": "SNXUSDT",
+      "side": "LONG",
+      "entry_price": 0.17805,
+      "mark_price": 0.178,
+      "position_size_usdt": 213.75,
+      "margin_usdt": 42.75,
+      "leverage": 5,
+      "sl_price": 0.177533,
+      "tp_price": 0.0,
+      "trailing_sl_price": 0.177533,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.0,
+      "pnl_pct": 0.0,
+      "liquidation_price": 0.146001,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1793635106.767806,
+      "updated_at": 1793635106.767806,
+      "mae_pct": 0.0,
+      "mfe_pct": 0.0,
       "size_usdt": 0.0
     }
   ],
