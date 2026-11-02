@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793595067233,
-  "updated_at_str": "2026-11-02 04:51:07 IST",
-  "total_trades": 215,
+  "updated_at": 1793595092557,
+  "updated_at_str": "2026-11-02 04:51:32 IST",
+  "total_trades": 216,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 41.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 47.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 5,
@@ -85,9 +85,9 @@
       "win_count": 9,
       "loss_count": 12,
       "win_rate": 42.9,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "status": "IN_TRADE",
+      "active_symbol": "NEARUSDT",
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 41.4,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 7,
@@ -121,24 +121,24 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 8,
       "name": "Section 8 (UNIUSDT, XRPUSDT, SNXUSDT)",
       "assigned_coins": "UNIUSDT, XRPUSDT, SNXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 42.33,
+      "current_balance": 42.75,
       "vault_balance": 0.0,
-      "equity": 42.33,
-      "total_pnl": -7.67,
-      "pnl_pct": -15.34,
-      "win_count": 12,
+      "equity": 42.75,
+      "total_pnl": -7.25,
+      "pnl_pct": -14.5,
+      "win_count": 13,
       "loss_count": 12,
-      "win_rate": 50.0,
-      "status": "IN_TRADE",
-      "active_symbol": "SNXUSDT",
-      "updated_at": 1793595045.19338
+      "win_rate": 52.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 67.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 59.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793595045.19338
+      "updated_at": 1793595092.5515983
     }
   ],
   "trade_history": [
@@ -5335,6 +5335,30 @@
       "mae_pct": "-2.22%",
       "mfe_pct": "+5.83%",
       "roi_pct": 0.99
+    },
+    {
+      "id": 226,
+      "section_id": 8,
+      "symbol": "SNXUSDT",
+      "side": "LONG",
+      "entry_price": 0.1793,
+      "exit_price": 0.179659,
+      "margin_usdt": 42.33,
+      "position_size_usdt": 211.65,
+      "leverage": 5,
+      "realized_pnl": 0.42,
+      "pnl_pct": 0.99,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
+      "open_time": 1793588090.708191,
+      "close_time": 1793595092.5470107,
+      "duration_minutes": 116.7,
+      "entry_time_str": "02 Nov, 08:24:50 IST",
+      "exit_time_str": "02 Nov, 10:21:32 IST",
+      "duration_str": "1h 56m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.00%",
+      "mfe_pct": "+6.41%",
+      "roi_pct": 0.99
     }
   ],
   "positions": [
@@ -5344,7 +5368,7 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.5865,
-      "mark_price": 1.576,
+      "mark_price": 1.574,
       "position_size_usdt": 197.95,
       "margin_usdt": 39.59,
       "leverage": 5,
@@ -5352,40 +5376,40 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.5964,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.31,
-      "pnl_pct": 3.31,
+      "unrealized_pnl": 1.56,
+      "pnl_pct": 3.94,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793581713.46435,
-      "updated_at": 1793595056.7518914,
+      "updated_at": 1793595075.4534519,
       "mae_pct": 1.73,
       "mfe_pct": 4.25464859754178,
       "size_usdt": 0.0
     },
     {
-      "id": 21,
-      "section_id": 8,
-      "symbol": "SNXUSDT",
+      "id": 25,
+      "section_id": 5,
+      "symbol": "NEARUSDT",
       "side": "LONG",
-      "entry_price": 0.1793,
-      "mark_price": 0.1798,
-      "position_size_usdt": 211.65,
-      "margin_usdt": 42.33,
+      "entry_price": 4.2615,
+      "mark_price": 4.257,
+      "position_size_usdt": 223.35,
+      "margin_usdt": 44.67,
       "leverage": 5,
-      "sl_price": 0.178632,
+      "sl_price": 4.2436,
       "tp_price": 0.0,
-      "trailing_sl_price": 0.179659,
-      "trailing_stage": 1,
-      "unrealized_pnl": 0.59,
-      "pnl_pct": 1.39,
-      "liquidation_price": 0.147026,
+      "trailing_sl_price": 4.2436,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.24,
+      "pnl_pct": -0.53,
+      "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
-      "open_time": 1793588090.708191,
-      "updated_at": 1793595056.7437375,
-      "mae_pct": 0.0,
-      "mfe_pct": 6.413831567205869,
+      "open_time": 1793595069.6903,
+      "updated_at": 1793595092.5429487,
+      "mae_pct": 0.53,
+      "mfe_pct": 0.06,
       "size_usdt": 0.0
     }
   ],
