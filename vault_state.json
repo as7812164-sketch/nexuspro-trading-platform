@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793599808422,
-  "updated_at_str": "2026-11-02 06:10:08 IST",
-  "total_trades": 221,
+  "updated_at": 1793599902460,
+  "updated_at_str": "2026-11-02 06:11:42 IST",
+  "total_trades": 222,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 41.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 5,
@@ -87,24 +87,24 @@
       "win_rate": 40.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 6,
       "name": "Section 6 (OPUSDT, RENDERUSDT, WLDUSDT)",
       "assigned_coins": "OPUSDT, RENDERUSDT, WLDUSDT",
       "initial_balance": 50.0,
-      "current_balance": 46.62,
+      "current_balance": 45.68,
       "vault_balance": 0.0,
-      "equity": 46.62,
-      "total_pnl": -3.38,
-      "pnl_pct": -6.76,
+      "equity": 45.68,
+      "total_pnl": -4.32,
+      "pnl_pct": -8.64,
       "win_count": 13,
-      "loss_count": 18,
-      "win_rate": 41.9,
+      "loss_count": 19,
+      "win_rate": 40.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 52.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 67.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793599808.402794
+      "updated_at": 1793599892.6509714
     }
   ],
   "trade_history": [
@@ -5479,6 +5479,30 @@
       "mae_pct": "-2.07%",
       "mfe_pct": "+2.97%",
       "roi_pct": -2.05
+    },
+    {
+      "id": 232,
+      "section_id": 6,
+      "symbol": "WLDUSDT",
+      "side": "LONG",
+      "entry_price": 0.3872,
+      "exit_price": 0.3856,
+      "margin_usdt": 39.91,
+      "position_size_usdt": 199.55,
+      "leverage": 5,
+      "realized_pnl": -0.94,
+      "pnl_pct": -2.36,
+      "exit_reason": "LOSS (SL HIT)",
+      "open_time": 1793596484.277023,
+      "close_time": 1793599874.3615952,
+      "duration_minutes": 56.5,
+      "entry_time_str": "02 Nov, 10:44:44 IST",
+      "exit_time_str": "02 Nov, 11:41:14 IST",
+      "duration_str": "56m 30s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.36%",
+      "mfe_pct": "+0.20%",
+      "roi_pct": -2.36
     }
   ],
   "positions": [],
