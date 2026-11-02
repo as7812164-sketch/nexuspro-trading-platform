@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793621044049,
-  "updated_at_str": "2026-11-02 12:04:04 IST",
-  "total_trades": 224,
+  "updated_at": 1793621346178,
+  "updated_at_str": "2026-11-02 12:09:06 IST",
+  "total_trades": 225,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 41.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 47.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 70.0,
       "status": "IN_TRADE",
       "active_symbol": "AVAXUSDT",
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 39.1,
       "status": "IN_TRADE",
       "active_symbol": "NEARUSDT",
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 52.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 69.46,
+      "current_balance": 69.92,
       "vault_balance": 0.0,
-      "equity": 69.46,
-      "total_pnl": 19.46,
-      "pnl_pct": 38.92,
-      "win_count": 19,
+      "equity": 69.92,
+      "total_pnl": 19.92,
+      "pnl_pct": 39.84,
+      "win_count": 20,
       "loss_count": 9,
-      "win_rate": 67.9,
-      "status": "IN_TRADE",
-      "active_symbol": "APTUSDT",
-      "updated_at": 1793621003.1219683
+      "win_rate": 69.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793621265.7270932
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793621003.1219683
+      "updated_at": 1793621265.7270932
     }
   ],
   "trade_history": [
@@ -5551,41 +5551,40 @@
       "mae_pct": "-1.67%",
       "mfe_pct": "+0.98%",
       "roi_pct": -1.58
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 29,
+      "id": 235,
       "section_id": 9,
       "symbol": "APTUSDT",
       "side": "LONG",
       "entry_price": 0.6251,
-      "mark_price": 0.6303,
-      "position_size_usdt": 286.7,
+      "exit_price": 0.6263,
       "margin_usdt": 57.34,
+      "position_size_usdt": 286.7,
       "leverage": 5,
-      "sl_price": 0.623,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.623,
-      "trailing_stage": 0,
-      "unrealized_pnl": 2.38,
-      "pnl_pct": 4.16,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793601267.9000146,
-      "updated_at": 1793621039.4607377,
-      "mae_pct": 1.2,
-      "mfe_pct": 4.32,
-      "size_usdt": 0.0
-    },
+      "realized_pnl": 0.46,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1793601267.8003912,
+      "close_time": 1793621181.5133512,
+      "duration_minutes": 331.9,
+      "entry_time_str": "02 Nov, 12:04:27 IST",
+      "exit_time_str": "02 Nov, 17:36:21 IST",
+      "duration_str": "5h 31m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+5.50%",
+      "roi_pct": 0.8
+    }
+  ],
+  "positions": [
     {
       "id": 30,
       "section_id": 3,
       "symbol": "AVAXUSDT",
       "side": "LONG",
       "entry_price": 8.5605,
-      "mark_price": 8.579,
+      "mark_price": 8.6,
       "position_size_usdt": 270.45,
       "margin_usdt": 54.09,
       "leverage": 5,
@@ -5593,15 +5592,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 8.5352,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.58,
-      "pnl_pct": 1.08,
+      "unrealized_pnl": 1.25,
+      "pnl_pct": 2.31,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793613697.702303,
-      "updated_at": 1793621039.4569664,
+      "updated_at": 1793621341.551735,
       "mae_pct": 1.37,
-      "mfe_pct": 1.14,
+      "mfe_pct": 2.8911862624846743,
       "size_usdt": 0.0
     },
     {
@@ -5610,7 +5609,7 @@
       "symbol": "NEARUSDT",
       "side": "LONG",
       "entry_price": 4.09385,
-      "mark_price": 4.13,
+      "mark_price": 4.136,
       "position_size_usdt": 221.15,
       "margin_usdt": 44.23,
       "leverage": 5,
@@ -5618,13 +5617,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 4.102038,
       "trailing_stage": 1,
-      "unrealized_pnl": 1.95,
-      "pnl_pct": 4.42,
+      "unrealized_pnl": 2.28,
+      "pnl_pct": 5.15,
       "liquidation_price": 3.356957,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793616168.1526594,
-      "updated_at": 1793621039.4529495,
+      "updated_at": 1793621341.542988,
       "mae_pct": 0.0,
       "mfe_pct": 6.002906799223229,
       "size_usdt": 0.0
@@ -5786,6 +5785,18 @@
       "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
       "timestamp": 1793596485.7715647,
       "created_at_str": "02 Nov, 10:44:45 IST"
+    },
+    {
+      "id": 14,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "APTUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #235 (APTUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +5.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1793621186.7641666,
+      "created_at_str": "02 Nov, 17:36:26 IST"
     }
   ]
 }
