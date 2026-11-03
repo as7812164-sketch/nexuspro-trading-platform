@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793736781210,
-  "updated_at_str": "2026-11-03 20:13:01 IST",
+  "updated_at": 1793737082738,
+  "updated_at_str": "2026-11-03 20:18:02 IST",
   "total_trades": 291,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "ENSUSDT",
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 45.5,
       "status": "IN_TRADE",
       "active_symbol": "NEARUSDT",
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 36.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 57.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 58.5,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1793736760.7211828
+      "updated_at": 1793737064.7152395
     }
   ],
   "trade_history": [
@@ -7168,7 +7168,7 @@
       "symbol": "ENSUSDT",
       "side": "SHORT",
       "entry_price": 4.9085,
-      "mark_price": 4.88,
+      "mark_price": 4.87,
       "position_size_usdt": 269.75,
       "margin_usdt": 53.95,
       "leverage": 5,
@@ -7176,13 +7176,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 4.898683,
       "trailing_stage": 1,
-      "unrealized_pnl": 1.57,
-      "pnl_pct": 2.9,
+      "unrealized_pnl": 2.12,
+      "pnl_pct": 3.92,
       "liquidation_price": 5.79203,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793721659.3499157,
-      "updated_at": 1793736773.3031013,
+      "updated_at": 1793737071.970543,
       "mae_pct": 0.15,
       "mfe_pct": 5.959050626464342,
       "size_usdt": 0.0
@@ -7193,7 +7193,7 @@
       "symbol": "ONDOUSDT",
       "side": "SHORT",
       "entry_price": 0.3921,
-      "mark_price": 0.3882,
+      "mark_price": 0.3881,
       "position_size_usdt": 451.1,
       "margin_usdt": 90.22,
       "leverage": 5,
@@ -7201,13 +7201,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.391316,
       "trailing_stage": 1,
-      "unrealized_pnl": 4.49,
-      "pnl_pct": 4.97,
+      "unrealized_pnl": 4.6,
+      "pnl_pct": 5.1,
       "liquidation_price": 0.462678,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793729194.9684384,
-      "updated_at": 1793736773.267141,
+      "updated_at": 1793737071.9599469,
       "mae_pct": 0.26,
       "mfe_pct": 5.74,
       "size_usdt": 0.0
@@ -7232,8 +7232,8 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793733884.4124792,
-      "updated_at": 1793736773.1686866,
-      "mae_pct": 1.5,
+      "updated_at": 1793737071.9529812,
+      "mae_pct": 1.504251144538894,
       "mfe_pct": 1.3734466971877566,
       "size_usdt": 0.0
     }
