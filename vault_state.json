@@ -1,25 +1,25 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793670896866,
-  "updated_at_str": "2026-11-03 01:54:56 IST",
-  "total_trades": 255,
+  "updated_at": 1793671101164,
+  "updated_at_str": "2026-11-03 01:58:21 IST",
+  "total_trades": 257,
   "sections": [
     {
       "id": 1,
       "name": "Section 1 (BTCUSDT, ETHUSDT, BCHUSDT)",
       "assigned_coins": "BTCUSDT, ETHUSDT, BCHUSDT",
       "initial_balance": 50.0,
-      "current_balance": 61.14,
+      "current_balance": 61.48,
       "vault_balance": 0.0,
-      "equity": 61.14,
-      "total_pnl": 11.14,
-      "pnl_pct": 22.28,
-      "win_count": 5,
+      "equity": 61.48,
+      "total_pnl": 11.48,
+      "pnl_pct": 22.96,
+      "win_count": 6,
       "loss_count": 8,
-      "win_rate": 38.5,
-      "status": "IN_TRADE",
-      "active_symbol": "BCHUSDT",
-      "updated_at": 1793670757.9867945
+      "win_rate": 42.9,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 43.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 5,
@@ -87,24 +87,24 @@
       "win_rate": 46.2,
       "status": "IN_TRADE",
       "active_symbol": "DYDXUSDT",
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 6,
       "name": "Section 6 (OPUSDT, RENDERUSDT, WLDUSDT)",
       "assigned_coins": "OPUSDT, RENDERUSDT, WLDUSDT",
       "initial_balance": 50.0,
-      "current_balance": 44.76,
+      "current_balance": 43.94,
       "vault_balance": 0.0,
-      "equity": 44.76,
-      "total_pnl": -5.24,
-      "pnl_pct": -10.48,
+      "equity": 43.94,
+      "total_pnl": -6.06,
+      "pnl_pct": -12.12,
       "win_count": 13,
-      "loss_count": 20,
-      "win_rate": 39.4,
-      "status": "IN_TRADE",
-      "active_symbol": "RENDERUSDT",
-      "updated_at": 1793670757.9867945
+      "loss_count": 21,
+      "win_rate": 38.2,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 57.1,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 46.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 74.3,
       "status": "IN_TRADE",
       "active_symbol": "APTUSDT",
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 55.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793670757.9867945
+      "updated_at": 1793671101.1574948
     }
   ],
   "trade_history": [
@@ -6295,6 +6295,54 @@
       "mae_pct": "-1.40%",
       "mfe_pct": "+3.97%",
       "roi_pct": -1.4
+    },
+    {
+      "id": 266,
+      "section_id": 1,
+      "symbol": "BCHUSDT",
+      "side": "LONG",
+      "entry_price": 276.05,
+      "exit_price": 276.6021,
+      "margin_usdt": 42.73,
+      "position_size_usdt": 213.65,
+      "leverage": 5,
+      "realized_pnl": 0.34,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1793664698.3341882,
+      "close_time": 1793670916.7459,
+      "duration_minutes": 103.6,
+      "entry_time_str": "03 Nov, 05:41:38 IST",
+      "exit_time_str": "03 Nov, 07:25:16 IST",
+      "duration_str": "1h 43m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+5.50%",
+      "roi_pct": 0.8
+    },
+    {
+      "id": 267,
+      "section_id": 6,
+      "symbol": "RENDERUSDT",
+      "side": "LONG",
+      "entry_price": 1.50205,
+      "exit_price": 1.496552,
+      "margin_usdt": 44.76,
+      "position_size_usdt": 223.8,
+      "leverage": 5,
+      "realized_pnl": -0.82,
+      "pnl_pct": -1.83,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
+      "open_time": 1793658649.9548697,
+      "close_time": 1793671101.1524205,
+      "duration_minutes": 207.5,
+      "entry_time_str": "03 Nov, 04:00:49 IST",
+      "exit_time_str": "03 Nov, 07:28:21 IST",
+      "duration_str": "3h 27m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.01%",
+      "mfe_pct": "+4.31%",
+      "roi_pct": -1.83
     }
   ],
   "positions": [
@@ -6304,7 +6352,7 @@
       "symbol": "DYDXUSDT",
       "side": "LONG",
       "entry_price": 0.10015,
-      "mark_price": 0.10147,
+      "mark_price": 0.10136,
       "position_size_usdt": 225.6,
       "margin_usdt": 45.12,
       "leverage": 5,
@@ -6312,13 +6360,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.10035,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.97,
-      "pnl_pct": 6.59,
+      "unrealized_pnl": 2.73,
+      "pnl_pct": 6.04,
       "liquidation_price": 0.082123,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793652016.8745847,
-      "updated_at": 1793670896.8569303,
+      "updated_at": 1793671082.2637157,
       "mae_pct": 0.85,
       "mfe_pct": 8.487269096355432,
       "size_usdt": 0.0
@@ -6329,7 +6377,7 @@
       "symbol": "SUIUSDT",
       "side": "LONG",
       "entry_price": 0.8677,
-      "mark_price": 0.873,
+      "mark_price": 0.871,
       "position_size_usdt": 248.1,
       "margin_usdt": 49.62,
       "leverage": 5,
@@ -6337,40 +6385,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.869435,
       "trailing_stage": 1,
-      "unrealized_pnl": 1.52,
-      "pnl_pct": 3.05,
+      "unrealized_pnl": 0.94,
+      "pnl_pct": 1.9,
       "liquidation_price": 0.711514,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793654670.0347977,
-      "updated_at": 1793670896.8529077,
+      "updated_at": 1793671082.2596052,
       "mae_pct": 0.0,
       "mfe_pct": 7.15,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 55,
-      "section_id": 6,
-      "symbol": "RENDERUSDT",
-      "side": "LONG",
-      "entry_price": 1.50205,
-      "mark_price": 1.501,
-      "position_size_usdt": 223.8,
-      "margin_usdt": 44.76,
-      "leverage": 5,
-      "sl_price": 1.496552,
-      "tp_price": 0.0,
-      "trailing_sl_price": 1.496552,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.16,
-      "pnl_pct": -0.35,
-      "liquidation_price": 1.231681,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793658649.9548697,
-      "updated_at": 1793670896.8483255,
-      "mae_pct": 1.02,
-      "mfe_pct": 4.31,
       "size_usdt": 0.0
     },
     {
@@ -6379,7 +6402,7 @@
       "symbol": "ARKMUSDT",
       "side": "LONG",
       "entry_price": 0.11175,
-      "mark_price": 0.1129,
+      "mark_price": 0.1126,
       "position_size_usdt": 382.5,
       "margin_usdt": 76.5,
       "leverage": 5,
@@ -6387,40 +6410,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.111974,
       "trailing_stage": 1,
-      "unrealized_pnl": 3.94,
-      "pnl_pct": 5.15,
+      "unrealized_pnl": 2.91,
+      "pnl_pct": 3.8,
       "liquidation_price": 0.091635,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793658781.0856955,
-      "updated_at": 1793670896.8422844,
+      "updated_at": 1793671101.1476896,
       "mae_pct": 0.22,
       "mfe_pct": 8.277404921700244,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 58,
-      "section_id": 1,
-      "symbol": "BCHUSDT",
-      "side": "LONG",
-      "entry_price": 276.37,
-      "mark_price": 278.4,
-      "position_size_usdt": 305.7,
-      "margin_usdt": 61.14,
-      "leverage": 5,
-      "sl_price": 274.56753,
-      "tp_price": 0.0,
-      "trailing_sl_price": 276.6021,
-      "trailing_stage": 1,
-      "unrealized_pnl": 2.25,
-      "pnl_pct": 3.67,
-      "liquidation_price": 226.6234,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793658791.5601943,
-      "updated_at": 1793670896.7755148,
-      "mae_pct": 0.85,
-      "mfe_pct": 4.8,
       "size_usdt": 0.0
     },
     {
@@ -6429,7 +6427,7 @@
       "symbol": "APTUSDT",
       "side": "LONG",
       "entry_price": 0.6166,
-      "mark_price": 0.6178,
+      "mark_price": 0.6165,
       "position_size_usdt": 293.65,
       "margin_usdt": 58.73,
       "leverage": 5,
@@ -6437,15 +6435,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.6129,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.57,
-      "pnl_pct": 0.97,
+      "unrealized_pnl": -0.05,
+      "pnl_pct": -0.08,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793670503.521795,
-      "updated_at": 1793670896.7576613,
-      "mae_pct": 0.0,
-      "mfe_pct": 1.7839766461238886,
+      "updated_at": 1793671101.1433313,
+      "mae_pct": 0.243269542653323,
+      "mfe_pct": 1.78,
       "size_usdt": 0.0
     }
   ],
@@ -6713,6 +6711,18 @@
       "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
       "timestamp": 1793667135.9668512,
       "created_at_str": "03 Nov, 06:22:15 IST"
+    },
+    {
+      "id": 23,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "BCHUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #266 (BCHUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +5.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1793670927.1479633,
+      "created_at_str": "03 Nov, 07:25:27 IST"
     }
   ]
 }
