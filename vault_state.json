@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793706292356,
-  "updated_at_str": "2026-11-03 11:44:52 IST",
+  "updated_at": 1793706542483,
+  "updated_at_str": "2026-11-03 11:49:02 IST",
   "total_trades": 269,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 43.5,
       "status": "IN_TRADE",
       "active_symbol": "SEIUSDT",
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 52.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 44.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 36.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 56.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 44.8,
       "status": "IN_TRADE",
       "active_symbol": "UNIUSDT",
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 71.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 55.3,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1793706292.3440132
+      "updated_at": 1793706463.6470976
     }
   ],
   "trade_history": [
@@ -6640,23 +6640,23 @@
       "symbol": "ARBUSDT",
       "side": "LONG",
       "entry_price": 0.1523,
-      "mark_price": 0.1587,
+      "mark_price": 0.1599,
       "position_size_usdt": 354.9,
       "margin_usdt": 70.98,
       "leverage": 5,
       "sl_price": 0.151582,
       "tp_price": 0.0,
-      "trailing_sl_price": 0.156899,
-      "trailing_stage": 4,
-      "unrealized_pnl": 14.91,
-      "pnl_pct": 21.01,
+      "trailing_sl_price": 0.158422,
+      "trailing_stage": 5,
+      "unrealized_pnl": 17.71,
+      "pnl_pct": 24.95,
       "liquidation_price": 0.124886,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793682286.0567262,
-      "updated_at": 1793706272.7765133,
+      "updated_at": 1793706527.94709,
       "mae_pct": 0.66,
-      "mfe_pct": 23.637557452396628,
+      "mfe_pct": 25.28,
       "size_usdt": 0.0
     },
     {
@@ -6665,7 +6665,7 @@
       "symbol": "SEIUSDT",
       "side": "LONG",
       "entry_price": 0.04636,
-      "mark_price": 0.04753,
+      "mark_price": 0.04763,
       "position_size_usdt": 246.9,
       "margin_usdt": 49.38,
       "leverage": 5,
@@ -6673,15 +6673,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.046833,
       "trailing_stage": 2,
-      "unrealized_pnl": 6.23,
-      "pnl_pct": 12.62,
+      "unrealized_pnl": 6.76,
+      "pnl_pct": 13.7,
       "liquidation_price": 0.038015,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793689479.7003436,
-      "updated_at": 1793706272.7684963,
+      "updated_at": 1793706527.862632,
       "mae_pct": 0.86,
-      "mfe_pct": 12.62,
+      "mfe_pct": 13.697152717860227,
       "size_usdt": 0.0
     },
     {
@@ -6690,7 +6690,7 @@
       "symbol": "UNIUSDT",
       "side": "LONG",
       "entry_price": 6.9915,
-      "mark_price": 7.202,
+      "mark_price": 7.221,
       "position_size_usdt": 194.9,
       "margin_usdt": 38.98,
       "leverage": 5,
@@ -6698,13 +6698,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 7.132728,
       "trailing_stage": 3,
-      "unrealized_pnl": 5.87,
-      "pnl_pct": 15.05,
+      "unrealized_pnl": 6.4,
+      "pnl_pct": 16.41,
       "liquidation_price": 5.73303,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793694432.695662,
-      "updated_at": 1793706292.2551177,
+      "updated_at": 1793706527.856541,
       "mae_pct": 0.0,
       "mfe_pct": 18.13,
       "size_usdt": 0.0
@@ -7022,6 +7022,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1793702983.758404,
       "created_at_str": "03 Nov, 16:19:43 IST"
+    },
+    {
+      "id": 27,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "ARBUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +25.28% ROI peak but was at Tier 4 (SL: $0.1569).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted ARBUSDT to Tier 5 (Locked +20.1% ROI | SL \u2794 $0.1584).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793706510.358151,
+      "created_at_str": "03 Nov, 17:18:30 IST"
     }
   ]
 }
