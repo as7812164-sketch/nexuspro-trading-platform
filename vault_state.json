@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793714126044,
-  "updated_at_str": "2026-11-03 13:55:26 IST",
+  "updated_at": 1793714408502,
+  "updated_at_str": "2026-11-03 14:00:08 IST",
   "total_trades": 273,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 43.5,
       "status": "IN_TRADE",
       "active_symbol": "SEIUSDT",
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 52.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 46.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 35.1,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 58.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 44.8,
       "status": "IN_TRADE",
       "active_symbol": "UNIUSDT",
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 71.1,
       "status": "IN_TRADE",
       "active_symbol": "APTUSDT",
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 56.4,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1793714125.9760997
+      "updated_at": 1793714395.811319
     }
   ],
   "trade_history": [
@@ -6736,7 +6736,7 @@
       "symbol": "SEIUSDT",
       "side": "LONG",
       "entry_price": 0.04636,
-      "mark_price": 0.04813,
+      "mark_price": 0.04816,
       "position_size_usdt": 246.9,
       "margin_usdt": 49.38,
       "leverage": 5,
@@ -6744,13 +6744,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.04776,
       "trailing_stage": 4,
-      "unrealized_pnl": 9.43,
-      "pnl_pct": 19.09,
+      "unrealized_pnl": 9.59,
+      "pnl_pct": 19.41,
       "liquidation_price": 0.038015,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793689479.7003436,
-      "updated_at": 1793714105.4179604,
+      "updated_at": 1793714394.9816155,
       "mae_pct": 0.86,
       "mfe_pct": 22.11,
       "size_usdt": 0.0
@@ -6761,7 +6761,7 @@
       "symbol": "UNIUSDT",
       "side": "LONG",
       "entry_price": 6.9915,
-      "mark_price": 7.36,
+      "mark_price": 7.361,
       "position_size_usdt": 194.9,
       "margin_usdt": 38.98,
       "leverage": 5,
@@ -6769,13 +6769,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 7.272558,
       "trailing_stage": 5,
-      "unrealized_pnl": 10.27,
-      "pnl_pct": 26.35,
+      "unrealized_pnl": 10.3,
+      "pnl_pct": 26.42,
       "liquidation_price": 5.73303,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793694432.695662,
-      "updated_at": 1793714105.4086516,
+      "updated_at": 1793714394.9762964,
       "mae_pct": 0.0,
       "mfe_pct": 29.36,
       "size_usdt": 0.0
@@ -6786,7 +6786,7 @@
       "symbol": "RENDERUSDT",
       "side": "LONG",
       "entry_price": 1.511,
-      "mark_price": 1.526,
+      "mark_price": 1.528,
       "position_size_usdt": 205.25,
       "margin_usdt": 41.05,
       "leverage": 5,
@@ -6794,13 +6794,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.514022,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.04,
-      "pnl_pct": 4.96,
+      "unrealized_pnl": 2.31,
+      "pnl_pct": 5.63,
       "liquidation_price": 1.23902,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793712163.706558,
-      "updated_at": 1793714105.4002037,
+      "updated_at": 1793714394.9706652,
       "mae_pct": 0.0,
       "mfe_pct": 8.272667107875623,
       "size_usdt": 0.0
@@ -6811,7 +6811,7 @@
       "symbol": "FETUSDT",
       "side": "LONG",
       "entry_price": 0.15515,
-      "mark_price": 0.1566,
+      "mark_price": 0.1568,
       "position_size_usdt": 443.95,
       "margin_usdt": 88.79,
       "leverage": 5,
@@ -6819,13 +6819,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.15546,
       "trailing_stage": 1,
-      "unrealized_pnl": 4.15,
-      "pnl_pct": 4.67,
+      "unrealized_pnl": 4.72,
+      "pnl_pct": 5.32,
       "liquidation_price": 0.127223,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793712268.7211854,
-      "updated_at": 1793714125.9641757,
+      "updated_at": 1793714394.9636486,
       "mae_pct": 0.48,
       "mfe_pct": 8.862391234289404,
       "size_usdt": 0.0
@@ -6836,7 +6836,7 @@
       "symbol": "ONDOUSDT",
       "side": "LONG",
       "entry_price": 0.3861,
-      "mark_price": 0.3897,
+      "mark_price": 0.3899,
       "position_size_usdt": 271.7,
       "margin_usdt": 54.34,
       "leverage": 5,
@@ -6844,13 +6844,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.386872,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.53,
-      "pnl_pct": 4.66,
+      "unrealized_pnl": 2.67,
+      "pnl_pct": 4.92,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793712303.631628,
-      "updated_at": 1793714125.958015,
+      "updated_at": 1793714394.9584029,
       "mae_pct": 0.39,
       "mfe_pct": 8.676508676508655,
       "size_usdt": 0.0
@@ -6861,7 +6861,7 @@
       "symbol": "APTUSDT",
       "side": "LONG",
       "entry_price": 0.62,
-      "mark_price": 0.623,
+      "mark_price": 0.6242,
       "position_size_usdt": 402.05,
       "margin_usdt": 80.41,
       "leverage": 5,
@@ -6869,13 +6869,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.62124,
       "trailing_stage": 1,
-      "unrealized_pnl": 1.95,
-      "pnl_pct": 2.42,
+      "unrealized_pnl": 2.72,
+      "pnl_pct": 3.39,
       "liquidation_price": 0.5084,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793712406.015631,
-      "updated_at": 1793714125.9506583,
+      "updated_at": 1793714394.9519062,
       "mae_pct": 0.0,
       "mfe_pct": 7.661290322580608,
       "size_usdt": 0.0
