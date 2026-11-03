@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793665457651,
-  "updated_at_str": "2026-11-03 00:24:17 IST",
+  "updated_at": 1793665759291,
+  "updated_at_str": "2026-11-03 00:29:19 IST",
   "total_trades": 252,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 38.5,
       "status": "IN_TRADE",
       "active_symbol": "BCHUSDT",
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 45.5,
       "status": "IN_TRADE",
       "active_symbol": "SEIUSDT",
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 44.0,
       "status": "IN_TRADE",
       "active_symbol": "NEARUSDT",
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.4,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 57.1,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 48.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 74.3,
       "status": "IN_TRADE",
       "active_symbol": "ARKMUSDT",
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 55.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793665421.3807282
+      "updated_at": 1793665710.2118905
     }
   ],
   "trade_history": [
@@ -6246,7 +6246,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793652016.8745847,
-      "updated_at": 1793665440.0028017,
+      "updated_at": 1793665737.0592568,
       "mae_pct": 0.85,
       "mfe_pct": 8.287568647029431,
       "size_usdt": 0.0
@@ -6257,7 +6257,7 @@
       "symbol": "SUIUSDT",
       "side": "LONG",
       "entry_price": 0.8677,
-      "mark_price": 0.8782,
+      "mark_price": 0.8776,
       "position_size_usdt": 248.1,
       "margin_usdt": 49.62,
       "leverage": 5,
@@ -6265,13 +6265,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.869435,
       "trailing_stage": 1,
-      "unrealized_pnl": 3.0,
-      "pnl_pct": 6.05,
+      "unrealized_pnl": 2.83,
+      "pnl_pct": 5.7,
       "liquidation_price": 0.711514,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793654670.0347977,
-      "updated_at": 1793665439.993799,
+      "updated_at": 1793665737.0484757,
       "mae_pct": 0.0,
       "mfe_pct": 7.15,
       "size_usdt": 0.0
@@ -6282,7 +6282,7 @@
       "symbol": "RENDERUSDT",
       "side": "LONG",
       "entry_price": 1.50205,
-      "mark_price": 1.51,
+      "mark_price": 1.509,
       "position_size_usdt": 223.8,
       "margin_usdt": 44.76,
       "leverage": 5,
@@ -6290,13 +6290,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.496552,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.18,
-      "pnl_pct": 2.65,
+      "unrealized_pnl": 1.04,
+      "pnl_pct": 2.31,
       "liquidation_price": 1.231681,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793658649.9548697,
-      "updated_at": 1793665439.9827604,
+      "updated_at": 1793665736.9941027,
       "mae_pct": 0.0,
       "mfe_pct": 4.310775273792415,
       "size_usdt": 0.0
@@ -6307,7 +6307,7 @@
       "symbol": "ARKMUSDT",
       "side": "LONG",
       "entry_price": 0.11175,
-      "mark_price": 0.1135,
+      "mark_price": 0.1132,
       "position_size_usdt": 382.5,
       "margin_usdt": 76.5,
       "leverage": 5,
@@ -6315,13 +6315,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.111974,
       "trailing_stage": 1,
-      "unrealized_pnl": 5.99,
-      "pnl_pct": 7.83,
+      "unrealized_pnl": 4.96,
+      "pnl_pct": 6.49,
       "liquidation_price": 0.091635,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793658781.0856955,
-      "updated_at": 1793665439.9746304,
+      "updated_at": 1793665736.9834304,
       "mae_pct": 0.22,
       "mfe_pct": 8.277404921700244,
       "size_usdt": 0.0
@@ -6332,7 +6332,7 @@
       "symbol": "BCHUSDT",
       "side": "LONG",
       "entry_price": 276.37,
-      "mark_price": 277.4,
+      "mark_price": 277.1,
       "position_size_usdt": 305.7,
       "margin_usdt": 61.14,
       "leverage": 5,
@@ -6340,13 +6340,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 274.56753,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.14,
-      "pnl_pct": 1.86,
+      "unrealized_pnl": 0.81,
+      "pnl_pct": 1.32,
       "liquidation_price": 226.6234,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793658791.5601943,
-      "updated_at": 1793665439.9666264,
+      "updated_at": 1793665736.9729414,
       "mae_pct": 0.850309367876447,
       "mfe_pct": 2.23,
       "size_usdt": 0.0
@@ -6357,7 +6357,7 @@
       "symbol": "SEIUSDT",
       "side": "LONG",
       "entry_price": 0.04662,
-      "mark_price": 0.04699,
+      "mark_price": 0.04695,
       "position_size_usdt": 250.4,
       "margin_usdt": 50.08,
       "leverage": 5,
@@ -6365,13 +6365,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.04649,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.99,
-      "pnl_pct": 3.97,
+      "unrealized_pnl": 1.77,
+      "pnl_pct": 3.54,
       "liquidation_price": 0.038228,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793658811.8534951,
-      "updated_at": 1793665439.9585378,
+      "updated_at": 1793665736.9619224,
       "mae_pct": 0.0,
       "mfe_pct": 3.97,
       "size_usdt": 0.0
@@ -6382,7 +6382,7 @@
       "symbol": "NEARUSDT",
       "side": "LONG",
       "entry_price": 3.864,
-      "mark_price": 3.899,
+      "mark_price": 3.89,
       "position_size_usdt": 218.0,
       "margin_usdt": 43.6,
       "leverage": 5,
@@ -6390,13 +6390,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 3.871728,
       "trailing_stage": 1,
-      "unrealized_pnl": 1.97,
-      "pnl_pct": 4.53,
+      "unrealized_pnl": 1.47,
+      "pnl_pct": 3.36,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793664275.5944707,
-      "updated_at": 1793665439.9497762,
+      "updated_at": 1793665736.950433,
       "mae_pct": 0.39,
       "mfe_pct": 5.43,
       "size_usdt": 0.0
