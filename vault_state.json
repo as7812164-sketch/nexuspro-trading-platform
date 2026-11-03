@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793688114847,
-  "updated_at_str": "2026-11-03 06:41:54 IST",
-  "total_trades": 265,
+  "updated_at": 1793688301544,
+  "updated_at_str": "2026-11-03 06:45:01 IST",
+  "total_trades": 266,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 43.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 52.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 5,
@@ -87,24 +87,24 @@
       "win_rate": 46.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 6,
       "name": "Section 6 (OPUSDT, RENDERUSDT, WLDUSDT)",
       "assigned_coins": "OPUSDT, RENDERUSDT, WLDUSDT",
       "initial_balance": 50.0,
-      "current_balance": 42.46,
+      "current_balance": 41.75,
       "vault_balance": 0.0,
-      "equity": 42.46,
-      "total_pnl": -7.54,
-      "pnl_pct": -15.08,
+      "equity": 41.75,
+      "total_pnl": -8.25,
+      "pnl_pct": -16.5,
       "win_count": 13,
-      "loss_count": 22,
-      "win_rate": 37.1,
-      "status": "IN_TRADE",
-      "active_symbol": "OPUSDT",
-      "updated_at": 1793688108.3013482
+      "loss_count": 23,
+      "win_rate": 36.1,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 56.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 46.4,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 73.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 55.3,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1793688108.3013482
+      "updated_at": 1793688301.4746113
     }
   ],
   "trade_history": [
@@ -6535,6 +6535,30 @@
       "mae_pct": "-2.35%",
       "mfe_pct": "+1.32%",
       "roi_pct": -1.92
+    },
+    {
+      "id": 276,
+      "section_id": 6,
+      "symbol": "OPUSDT",
+      "side": "LONG",
+      "entry_price": 0.1077,
+      "exit_price": 0.107339,
+      "margin_usdt": 42.46,
+      "position_size_usdt": 212.3,
+      "leverage": 5,
+      "realized_pnl": -0.71,
+      "pnl_pct": -1.67,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
+      "open_time": 1793682773.1194677,
+      "close_time": 1793688301.4657655,
+      "duration_minutes": 92.1,
+      "entry_time_str": "03 Nov, 10:42:53 IST",
+      "exit_time_str": "03 Nov, 12:15:01 IST",
+      "duration_str": "1h 32m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-1.86%",
+      "mfe_pct": "+2.32%",
+      "roi_pct": -1.67
     }
   ],
   "positions": [
@@ -6544,7 +6568,7 @@
       "symbol": "ARBUSDT",
       "side": "LONG",
       "entry_price": 0.1523,
-      "mark_price": 0.1528,
+      "mark_price": 0.1526,
       "position_size_usdt": 354.9,
       "margin_usdt": 70.98,
       "leverage": 5,
@@ -6552,40 +6576,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.151582,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.17,
-      "pnl_pct": 1.64,
+      "unrealized_pnl": 0.7,
+      "pnl_pct": 0.98,
       "liquidation_price": 0.124886,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793682286.0567262,
-      "updated_at": 1793688103.5520322,
+      "updated_at": 1793688282.567387,
       "mae_pct": 0.66,
       "mfe_pct": 2.6263952724885846,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 69,
-      "section_id": 6,
-      "symbol": "OPUSDT",
-      "side": "LONG",
-      "entry_price": 0.1077,
-      "mark_price": 0.1077,
-      "position_size_usdt": 212.3,
-      "margin_usdt": 42.46,
-      "leverage": 5,
-      "sl_price": 0.107339,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.107339,
-      "trailing_stage": 0,
-      "unrealized_pnl": 0.0,
-      "pnl_pct": 0.0,
-      "liquidation_price": 0.088314,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793682773.1194677,
-      "updated_at": 1793688103.5417938,
-      "mae_pct": 0.93,
-      "mfe_pct": 2.32126276694522,
       "size_usdt": 0.0
     },
     {
@@ -6594,7 +6593,7 @@
       "symbol": "SNXUSDT",
       "side": "LONG",
       "entry_price": 0.1743,
-      "mark_price": 0.1746,
+      "mark_price": 0.1739,
       "position_size_usdt": 199.85,
       "margin_usdt": 39.97,
       "leverage": 5,
@@ -6602,15 +6601,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.173439,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.34,
-      "pnl_pct": 0.86,
+      "unrealized_pnl": -0.46,
+      "pnl_pct": -1.15,
       "liquidation_price": 0.142926,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793683951.0571241,
-      "updated_at": 1793688103.4646688,
-      "mae_pct": 0.0,
-      "mfe_pct": 3.4423407917383213,
+      "updated_at": 1793688301.4537735,
+      "mae_pct": 1.15,
+      "mfe_pct": 3.44,
       "size_usdt": 0.0
     }
   ],
