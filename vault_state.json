@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793732846714,
-  "updated_at_str": "2026-11-03 19:07:26 IST",
+  "updated_at": 1793733148681,
+  "updated_at_str": "2026-11-03 19:12:28 IST",
   "total_trades": 291,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "ENSUSDT",
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 45.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 36.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 57.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 70.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 58.5,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1793732789.1927629
+      "updated_at": 1793733128.6916473
     }
   ],
   "trade_history": [
@@ -7168,7 +7168,7 @@
       "symbol": "ENSUSDT",
       "side": "SHORT",
       "entry_price": 4.9085,
-      "mark_price": 4.87,
+      "mark_price": 4.88,
       "position_size_usdt": 269.75,
       "margin_usdt": 53.95,
       "leverage": 5,
@@ -7176,13 +7176,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 4.898683,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.12,
-      "pnl_pct": 3.92,
+      "unrealized_pnl": 1.57,
+      "pnl_pct": 2.9,
       "liquidation_price": 5.79203,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793721659.3499157,
-      "updated_at": 1793732843.451965,
+      "updated_at": 1793733141.455122,
       "mae_pct": 0.15,
       "mfe_pct": 5.959050626464342,
       "size_usdt": 0.0
@@ -7193,23 +7193,23 @@
       "symbol": "ONDOUSDT",
       "side": "SHORT",
       "entry_price": 0.3921,
-      "mark_price": 0.3889,
+      "mark_price": 0.3883,
       "position_size_usdt": 451.1,
       "margin_usdt": 90.22,
       "leverage": 5,
       "sl_price": 0.39379,
       "tp_price": 0.0,
-      "trailing_sl_price": 0.39379,
-      "trailing_stage": 0,
-      "unrealized_pnl": 3.68,
-      "pnl_pct": 4.08,
+      "trailing_sl_price": 0.391316,
+      "trailing_stage": 1,
+      "unrealized_pnl": 4.37,
+      "pnl_pct": 4.85,
       "liquidation_price": 0.462678,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793729194.9684384,
-      "updated_at": 1793732843.4423852,
+      "updated_at": 1793733141.444314,
       "mae_pct": 0.26,
-      "mfe_pct": 4.21,
+      "mfe_pct": 4.973221117061993,
       "size_usdt": 0.0
     }
   ],
@@ -7657,6 +7657,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1793729054.3559372,
       "created_at_str": "03 Nov, 23:34:14 IST"
+    },
+    {
+      "id": 38,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "ONDOUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +4.85% ROI peak but was at Tier 0 (SL: $0.3938).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted ONDOUSDT to Tier 1 (Locked +1.0% ROI | SL \u2794 $0.3913).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793733028.8484845,
+      "created_at_str": "04 Nov, 00:40:28 IST"
     }
   ]
 }
