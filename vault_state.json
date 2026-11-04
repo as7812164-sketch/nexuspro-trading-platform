@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793788465875,
-  "updated_at_str": "2026-11-04 10:34:25 IST",
-  "total_trades": 321,
+  "updated_at": 1793788768545,
+  "updated_at_str": "2026-11-04 10:39:28 IST",
+  "total_trades": 322,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 3,
@@ -53,24 +53,24 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 4,
       "name": "Section 4 (DOTUSDT, LINKUSDT, ENSUSDT)",
       "assigned_coins": "DOTUSDT, LINKUSDT, ENSUSDT",
       "initial_balance": 50.0,
-      "current_balance": 53.46,
+      "current_balance": 52.59,
       "vault_balance": 0.0,
-      "equity": 53.46,
-      "total_pnl": 3.46,
-      "pnl_pct": 6.92,
+      "equity": 52.59,
+      "total_pnl": 2.59,
+      "pnl_pct": 5.18,
       "win_count": 12,
-      "loss_count": 12,
-      "win_rate": 50.0,
-      "status": "IN_TRADE",
-      "active_symbol": "ENSUSDT",
-      "updated_at": 1793788346.2233589
+      "loss_count": 13,
+      "win_rate": 48.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 46.9,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 67.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793788346.2233589
+      "updated_at": 1793788707.0175197
     }
   ],
   "trade_history": [
@@ -7879,6 +7879,30 @@
       "mae_pct": "-2.22%",
       "mfe_pct": "+0.44%",
       "roi_pct": -2.22
+    },
+    {
+      "id": 332,
+      "section_id": 4,
+      "symbol": "ENSUSDT",
+      "side": "SHORT",
+      "entry_price": 4.98,
+      "exit_price": 4.9975,
+      "margin_usdt": 42.4,
+      "position_size_usdt": 212.0,
+      "leverage": 5,
+      "realized_pnl": -0.87,
+      "pnl_pct": -2.05,
+      "exit_reason": "LOSS (SL HIT)",
+      "open_time": 1793788300.8489199,
+      "close_time": 1793788484.3598576,
+      "duration_minutes": 3.1,
+      "entry_time_str": "04 Nov, 16:01:40 IST",
+      "exit_time_str": "04 Nov, 16:04:44 IST",
+      "duration_str": "3m 3s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.05%",
+      "mfe_pct": "+0.20%",
+      "roi_pct": -2.05
     }
   ],
   "positions": [
@@ -7902,34 +7926,9 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766930.355305,
-      "updated_at": 1793788463.0591922,
+      "updated_at": 1793788756.7544827,
       "mae_pct": 0.0,
       "mfe_pct": 21.26120914087358,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 121,
-      "section_id": 4,
-      "symbol": "ENSUSDT",
-      "side": "SHORT",
-      "entry_price": 4.98,
-      "mark_price": 4.99,
-      "position_size_usdt": 212.0,
-      "margin_usdt": 42.4,
-      "leverage": 5,
-      "sl_price": 4.9975,
-      "tp_price": 0.0,
-      "trailing_sl_price": 4.9975,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.43,
-      "pnl_pct": -1.0,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793788300.974308,
-      "updated_at": 1793788463.0507338,
-      "mae_pct": 1.0040160642570066,
-      "mfe_pct": 0.0,
       "size_usdt": 0.0
     }
   ],
