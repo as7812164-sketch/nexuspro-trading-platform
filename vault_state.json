@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793782095709,
-  "updated_at_str": "2026-11-04 08:48:15 IST",
-  "total_trades": 317,
+  "updated_at": 1793782210165,
+  "updated_at_str": "2026-11-04 08:50:10 IST",
+  "total_trades": 318,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 7,
@@ -121,24 +121,24 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 8,
       "name": "Section 8 (UNIUSDT, XRPUSDT, SNXUSDT)",
       "assigned_coins": "UNIUSDT, XRPUSDT, SNXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 48.15,
+      "current_balance": 47.17,
       "vault_balance": 0.0,
-      "equity": 48.15,
-      "total_pnl": -1.85,
-      "pnl_pct": -3.7,
+      "equity": 47.17,
+      "total_pnl": -2.83,
+      "pnl_pct": -5.66,
       "win_count": 15,
-      "loss_count": 16,
-      "win_rate": 48.4,
+      "loss_count": 17,
+      "win_rate": 46.9,
       "status": "IN_TRADE",
-      "active_symbol": "XRPUSDT",
-      "updated_at": 1793782030.0646968
+      "active_symbol": "SNXUSDT",
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 65.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793782030.0646968
+      "updated_at": 1793782210.1511538
     }
   ],
   "trade_history": [
@@ -7783,6 +7783,30 @@
       "mae_pct": "-1.80%",
       "mfe_pct": "+0.20%",
       "roi_pct": -1.32
+    },
+    {
+      "id": 328,
+      "section_id": 8,
+      "symbol": "XRPUSDT",
+      "side": "SHORT",
+      "entry_price": 1.2788,
+      "exit_price": 1.2838,
+      "margin_usdt": 49.89,
+      "position_size_usdt": 249.45,
+      "leverage": 5,
+      "realized_pnl": -0.98,
+      "pnl_pct": -1.96,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
+      "open_time": 1793771018.3725388,
+      "close_time": 1793782210.1417227,
+      "duration_minutes": 186.5,
+      "entry_time_str": "04 Nov, 11:13:38 IST",
+      "exit_time_str": "04 Nov, 14:20:10 IST",
+      "duration_str": "3h 6m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-1.96%",
+      "mfe_pct": "+2.66%",
+      "roi_pct": -1.96
     }
   ],
   "positions": [
@@ -7806,34 +7830,9 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766930.355305,
-      "updated_at": 1793782089.052862,
+      "updated_at": 1793782193.4505658,
       "mae_pct": 0.0,
       "mfe_pct": 21.26120914087358,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 111,
-      "section_id": 8,
-      "symbol": "XRPUSDT",
-      "side": "SHORT",
-      "entry_price": 1.2788,
-      "mark_price": 1.2825,
-      "position_size_usdt": 249.45,
-      "margin_usdt": 49.89,
-      "leverage": 5,
-      "sl_price": 1.2838,
-      "tp_price": 0.0,
-      "trailing_sl_price": 1.2838,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.72,
-      "pnl_pct": -1.45,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793771018.3725388,
-      "updated_at": 1793782089.0432875,
-      "mae_pct": 1.6030653737879237,
-      "mfe_pct": 2.66,
       "size_usdt": 0.0
     }
   ],
