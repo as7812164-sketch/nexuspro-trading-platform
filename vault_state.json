@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793803472954,
-  "updated_at_str": "2026-11-04 14:44:32 IST",
-  "total_trades": 337,
+  "updated_at": 1793803475191,
+  "updated_at_str": "2026-11-04 14:44:35 IST",
+  "total_trades": 338,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 46.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 61.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 44.4,
       "status": "IN_TRADE",
       "active_symbol": "DOTUSDT",
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 45.9,
       "status": "IN_TRADE",
       "active_symbol": "DYDXUSDT",
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.6,
       "status": "IN_TRADE",
       "active_symbol": "WLDUSDT",
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 7,
@@ -121,24 +121,24 @@
       "win_rate": 52.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 8,
       "name": "Section 8 (UNIUSDT, XRPUSDT, SNXUSDT)",
       "assigned_coins": "UNIUSDT, XRPUSDT, SNXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 53.23,
+      "current_balance": 51.93,
       "vault_balance": 0.0,
-      "equity": 53.23,
-      "total_pnl": 3.23,
-      "pnl_pct": 6.46,
+      "equity": 51.93,
+      "total_pnl": 1.93,
+      "pnl_pct": 3.86,
       "win_count": 16,
-      "loss_count": 18,
-      "win_rate": 47.1,
-      "status": "IN_TRADE",
-      "active_symbol": "UNIUSDT",
-      "updated_at": 1793803472.9447982
+      "loss_count": 19,
+      "win_rate": 45.7,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 52.1,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1793803472.9447982
+      "updated_at": 1793803475.1809676
     }
   ],
   "trade_history": [
@@ -8263,41 +8263,40 @@
       "mae_pct": "-2.81%",
       "mfe_pct": "+0.00%",
       "roi_pct": -1.83
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 133,
+      "id": 348,
       "section_id": 8,
       "symbol": "UNIUSDT",
       "side": "SHORT",
       "entry_price": 7.43,
-      "mark_price": 7.461,
-      "position_size_usdt": 266.15,
+      "exit_price": 7.466183,
       "margin_usdt": 53.23,
+      "position_size_usdt": 266.15,
       "leverage": 5,
-      "sl_price": 7.466183,
-      "tp_price": 0.0,
-      "trailing_sl_price": 7.466183,
-      "trailing_stage": 0,
-      "unrealized_pnl": -1.11,
-      "pnl_pct": -2.09,
-      "liquidation_price": 8.7674,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": -1.3,
+      "pnl_pct": -2.44,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
       "open_time": 1793803269.2220216,
-      "updated_at": 1793803471.0464287,
-      "mae_pct": 2.76,
-      "mfe_pct": 1.75,
-      "size_usdt": 0.0
-    },
+      "close_time": 1793803475.1761346,
+      "duration_minutes": 3.4,
+      "entry_time_str": "04 Nov, 20:11:09 IST",
+      "exit_time_str": "04 Nov, 20:14:35 IST",
+      "duration_str": "3m 25s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.76%",
+      "mfe_pct": "+1.75%",
+      "roi_pct": -2.44
+    }
+  ],
+  "positions": [
     {
       "id": 136,
       "section_id": 4,
       "symbol": "DOTUSDT",
       "side": "SHORT",
       "entry_price": 0.96615,
-      "mark_price": 0.969,
+      "mark_price": 0.97,
       "position_size_usdt": 254.55,
       "margin_usdt": 50.91,
       "leverage": 5,
@@ -8305,14 +8304,14 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.973258,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.75,
-      "pnl_pct": -1.47,
+      "unrealized_pnl": -1.01,
+      "pnl_pct": -1.99,
       "liquidation_price": 1.140057,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793803367.1861954,
-      "updated_at": 1793803471.0453513,
-      "mae_pct": 1.99,
+      "updated_at": 1793803475.1709738,
+      "mae_pct": 1.9924442374372617,
       "mfe_pct": 0.0,
       "size_usdt": 0.0
     },
@@ -8336,7 +8335,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793803368.2632923,
-      "updated_at": 1793803457.949377,
+      "updated_at": 1793803475.1666017,
       "mae_pct": 1.7069701280227556,
       "mfe_pct": 0.0,
       "size_usdt": 0.0
@@ -8347,7 +8346,7 @@
       "symbol": "ONDOUSDT",
       "side": "SHORT",
       "entry_price": 0.4068,
-      "mark_price": 0.4069,
+      "mark_price": 0.4084,
       "position_size_usdt": 406.35,
       "margin_usdt": 81.27,
       "leverage": 5,
@@ -8355,13 +8354,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.408712,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.1,
-      "pnl_pct": -0.12,
+      "unrealized_pnl": -1.6,
+      "pnl_pct": -1.97,
       "liquidation_price": 0.480024,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793803373.8807702,
-      "updated_at": 1793803471.0442338,
+      "updated_at": 1793803475.1622937,
       "mae_pct": 1.97,
       "mfe_pct": 0.25,
       "size_usdt": 0.0
