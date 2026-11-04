@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793768805893,
-  "updated_at_str": "2026-11-04 05:06:45 IST",
+  "updated_at": 1793769108218,
+  "updated_at_str": "2026-11-04 05:11:48 IST",
   "total_trades": 300,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 52.2,
       "status": "IN_TRADE",
       "active_symbol": "DOTUSDT",
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.1,
       "status": "IN_TRADE",
       "active_symbol": "NEARUSDT",
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.5,
       "status": "IN_TRADE",
       "active_symbol": "OPUSDT",
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 54.3,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 48.4,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 68.3,
       "status": "IN_TRADE",
       "active_symbol": "ARKMUSDT",
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 58.1,
       "status": "IN_TRADE",
       "active_symbol": "ONDOUSDT",
-      "updated_at": 1793768712.8102763
+      "updated_at": 1793769075.2674923
     }
   ],
   "trade_history": [
@@ -7384,7 +7384,7 @@
       "symbol": "ARKMUSDT",
       "side": "LONG",
       "entry_price": 0.11295,
-      "mark_price": 0.1153,
+      "mark_price": 0.1156,
       "position_size_usdt": 382.75,
       "margin_usdt": 76.55,
       "leverage": 5,
@@ -7392,15 +7392,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.114102,
       "trailing_stage": 2,
-      "unrealized_pnl": 7.96,
-      "pnl_pct": 10.4,
+      "unrealized_pnl": 8.98,
+      "pnl_pct": 11.73,
       "liquidation_price": 0.092619,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766476.22658,
-      "updated_at": 1793768792.2575114,
+      "updated_at": 1793769097.9799225,
       "mae_pct": 0.0,
-      "mfe_pct": 10.40283311199648,
+      "mfe_pct": 12.62,
       "size_usdt": 0.0
     },
     {
@@ -7409,23 +7409,23 @@
       "symbol": "NEARUSDT",
       "side": "LONG",
       "entry_price": 3.7365,
-      "mark_price": 3.842,
+      "mark_price": 3.847,
       "position_size_usdt": 221.45,
       "margin_usdt": 44.29,
       "leverage": 5,
       "sl_price": 3.715419,
       "tp_price": 0.0,
-      "trailing_sl_price": 3.774612,
-      "trailing_stage": 2,
-      "unrealized_pnl": 6.25,
-      "pnl_pct": 14.12,
+      "trailing_sl_price": 3.811977,
+      "trailing_stage": 3,
+      "unrealized_pnl": 6.55,
+      "pnl_pct": 14.79,
       "liquidation_price": 3.06393,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766773.189404,
-      "updated_at": 1793768792.2466633,
+      "updated_at": 1793769097.9739196,
       "mae_pct": 1.81,
-      "mfe_pct": 14.12,
+      "mfe_pct": 15.59,
       "size_usdt": 0.0
     },
     {
@@ -7434,7 +7434,7 @@
       "symbol": "TIAUSDT",
       "side": "LONG",
       "entry_price": 0.42535,
-      "mark_price": 0.4316,
+      "mark_price": 0.4336,
       "position_size_usdt": 217.2,
       "margin_usdt": 43.44,
       "leverage": 5,
@@ -7442,15 +7442,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.429689,
       "trailing_stage": 2,
-      "unrealized_pnl": 3.19,
-      "pnl_pct": 7.35,
+      "unrealized_pnl": 4.21,
+      "pnl_pct": 9.7,
       "liquidation_price": 0.348787,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766794.9927683,
-      "updated_at": 1793768792.2387464,
+      "updated_at": 1793769097.9688568,
       "mae_pct": 0.76,
-      "mfe_pct": 9.82,
+      "mfe_pct": 9.93,
       "size_usdt": 0.0
     },
     {
@@ -7459,7 +7459,7 @@
       "symbol": "DOTUSDT",
       "side": "LONG",
       "entry_price": 0.91965,
-      "mark_price": 0.932,
+      "mark_price": 0.934,
       "position_size_usdt": 272.45,
       "margin_usdt": 54.49,
       "leverage": 5,
@@ -7467,13 +7467,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.921489,
       "trailing_stage": 1,
-      "unrealized_pnl": 3.66,
-      "pnl_pct": 6.71,
+      "unrealized_pnl": 4.25,
+      "pnl_pct": 7.8,
       "liquidation_price": 0.754113,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766925.125395,
-      "updated_at": 1793768792.2309108,
+      "updated_at": 1793769097.963713,
       "mae_pct": 0.0,
       "mfe_pct": 8.89,
       "size_usdt": 0.0
@@ -7484,7 +7484,7 @@
       "symbol": "OPUSDT",
       "side": "LONG",
       "entry_price": 0.10675,
-      "mark_price": 0.1091,
+      "mark_price": 0.1093,
       "position_size_usdt": 196.1,
       "margin_usdt": 39.22,
       "leverage": 5,
@@ -7492,13 +7492,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.107839,
       "trailing_stage": 2,
-      "unrealized_pnl": 4.32,
-      "pnl_pct": 11.01,
+      "unrealized_pnl": 4.68,
+      "pnl_pct": 11.94,
       "liquidation_price": 0.087535,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766927.5190318,
-      "updated_at": 1793768792.2232974,
+      "updated_at": 1793769097.9583943,
       "mae_pct": 0.0,
       "mfe_pct": 14.29,
       "size_usdt": 0.0
@@ -7523,7 +7523,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766930.355305,
-      "updated_at": 1793768792.2155082,
+      "updated_at": 1793769097.9536436,
       "mae_pct": 0.0,
       "mfe_pct": 9.69048307781311,
       "size_usdt": 0.0
@@ -7534,7 +7534,7 @@
       "symbol": "ONDOUSDT",
       "side": "SHORT",
       "entry_price": 0.3912,
-      "mark_price": 0.3906,
+      "mark_price": 0.3914,
       "position_size_usdt": 266.0,
       "margin_usdt": 53.2,
       "leverage": 5,
@@ -7542,15 +7542,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.3929,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.41,
-      "pnl_pct": 0.77,
+      "unrealized_pnl": -0.14,
+      "pnl_pct": -0.26,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793768235.4157367,
-      "updated_at": 1793768792.2072082,
-      "mae_pct": 0.26,
-      "mfe_pct": 1.5337423312883165,
+      "updated_at": 1793769097.9453866,
+      "mae_pct": 0.64,
+      "mfe_pct": 1.53,
       "size_usdt": 0.0
     }
   ],
@@ -8082,6 +8082,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1793768056.9664223,
       "created_at_str": "04 Nov, 10:24:16 IST"
+    },
+    {
+      "id": 45,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "NEARUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +15.59% ROI peak but was at Tier 2 (SL: $3.7746).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted NEARUSDT to Tier 3 (Locked +10.1% ROI | SL \u2794 $3.8120).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793769057.2607038,
+      "created_at_str": "04 Nov, 10:40:57 IST"
     }
   ]
 }
