@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793799350805,
-  "updated_at_str": "2026-11-04 13:35:50 IST",
-  "total_trades": 323,
+  "updated_at": 1793799652543,
+  "updated_at_str": "2026-11-04 13:40:52 IST",
+  "total_trades": 324,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 5,
@@ -87,24 +87,24 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 6,
       "name": "Section 6 (OPUSDT, RENDERUSDT, WLDUSDT)",
       "assigned_coins": "OPUSDT, RENDERUSDT, WLDUSDT",
       "initial_balance": 50.0,
-      "current_balance": 45.47,
+      "current_balance": 52.34,
       "vault_balance": 0.0,
-      "equity": 45.47,
-      "total_pnl": -4.53,
-      "pnl_pct": -9.06,
-      "win_count": 18,
+      "equity": 52.34,
+      "total_pnl": 2.34,
+      "pnl_pct": 4.68,
+      "win_count": 19,
       "loss_count": 28,
-      "win_rate": 39.1,
-      "status": "IN_TRADE",
-      "active_symbol": "WLDUSDT",
-      "updated_at": 1793799345.022516
+      "win_rate": 40.4,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 48.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 67.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793799345.022516
+      "updated_at": 1793799652.4558346
     }
   ],
   "trade_history": [
@@ -7927,35 +7927,33 @@
       "mae_pct": "-0.00%",
       "mfe_pct": "+21.84%",
       "roi_pct": 15.1
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 122,
+      "id": 334,
       "section_id": 6,
       "symbol": "WLDUSDT",
       "side": "SHORT",
       "entry_price": 0.3926,
-      "mark_price": 0.3793,
-      "position_size_usdt": 227.35,
+      "exit_price": 0.380743,
       "margin_usdt": 45.47,
+      "position_size_usdt": 227.35,
       "leverage": 5,
-      "sl_price": 0.394992,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.380743,
-      "trailing_stage": 4,
-      "unrealized_pnl": 7.7,
-      "pnl_pct": 16.94,
-      "liquidation_price": 0.463268,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 6.87,
+      "pnl_pct": 15.11,
+      "exit_reason": "BB 3.0 TRAILING PROFIT (+15.1% ROI)",
       "open_time": 1793790595.9782686,
-      "updated_at": 1793799347.4545622,
-      "mae_pct": 0.89,
-      "mfe_pct": 20.376974019358144,
-      "size_usdt": 0.0
+      "close_time": 1793799652.4504735,
+      "duration_minutes": 150.9,
+      "entry_time_str": "04 Nov, 16:39:55 IST",
+      "exit_time_str": "04 Nov, 19:10:52 IST",
+      "duration_str": "2h 30m",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Lock (+15.1% ROI)",
+      "mae_pct": "-0.89%",
+      "mfe_pct": "+20.38%",
+      "roi_pct": 15.11
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
