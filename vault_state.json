@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793803689509,
-  "updated_at_str": "2026-11-04 14:48:09 IST",
-  "total_trades": 340,
+  "updated_at": 1793803692079,
+  "updated_at_str": "2026-11-04 14:48:12 IST",
+  "total_trades": 341,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 46.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 3,
@@ -53,24 +53,24 @@
       "win_rate": 61.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 4,
       "name": "Section 4 (DOTUSDT, LINKUSDT, ENSUSDT)",
       "assigned_coins": "DOTUSDT, LINKUSDT, ENSUSDT",
       "initial_balance": 50.0,
-      "current_balance": 50.91,
+      "current_balance": 47.52,
       "vault_balance": 0.0,
-      "equity": 50.91,
-      "total_pnl": 0.91,
-      "pnl_pct": 1.82,
+      "equity": 47.52,
+      "total_pnl": -2.48,
+      "pnl_pct": -4.96,
       "win_count": 12,
-      "loss_count": 15,
-      "win_rate": 44.4,
-      "status": "IN_TRADE",
-      "active_symbol": "DOTUSDT",
-      "updated_at": 1793803689.4971702
+      "loss_count": 16,
+      "win_rate": 42.9,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793803692.067588
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 44.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.6,
       "status": "IN_TRADE",
       "active_symbol": "WLDUSDT",
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 52.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 51.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793803689.4971702
+      "updated_at": 1793803692.067588
     }
   ],
   "trade_history": [
@@ -8335,34 +8335,33 @@
       "mae_pct": "-4.22%",
       "mfe_pct": "+0.33%",
       "roi_pct": -2.89
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 136,
+      "id": 351,
       "section_id": 4,
       "symbol": "DOTUSDT",
       "side": "SHORT",
       "entry_price": 0.96615,
-      "mark_price": 0.972,
-      "position_size_usdt": 254.55,
+      "exit_price": 0.979,
       "margin_usdt": 50.91,
+      "position_size_usdt": 254.55,
       "leverage": 5,
-      "sl_price": 0.973258,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.973258,
-      "trailing_stage": 0,
-      "unrealized_pnl": -1.54,
-      "pnl_pct": -3.03,
-      "liquidation_price": 1.140057,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": -3.39,
+      "pnl_pct": -6.66,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
       "open_time": 1793803367.1861954,
-      "updated_at": 1793803676.9415271,
-      "mae_pct": 3.54,
-      "mfe_pct": 0.0,
-      "size_usdt": 0.0
-    },
+      "close_time": 1793803692.0583699,
+      "duration_minutes": 5.4,
+      "entry_time_str": "04 Nov, 20:12:47 IST",
+      "exit_time_str": "04 Nov, 20:18:12 IST",
+      "duration_str": "5m 24s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-6.66%",
+      "mfe_pct": "+0.00%",
+      "roi_pct": -6.66
+    }
+  ],
+  "positions": [
     {
       "id": 140,
       "section_id": 6,
