@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793783303924,
-  "updated_at_str": "2026-11-04 09:08:23 IST",
-  "total_trades": 318,
+  "updated_at": 1793783543775,
+  "updated_at_str": "2026-11-04 09:12:23 IST",
+  "total_trades": 319,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 46.9,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 81.02,
+      "current_balance": 81.56,
       "vault_balance": 0.0,
-      "equity": 81.02,
-      "total_pnl": 31.02,
-      "pnl_pct": 62.04,
-      "win_count": 29,
+      "equity": 81.56,
+      "total_pnl": 31.56,
+      "pnl_pct": 63.12,
+      "win_count": 30,
       "loss_count": 15,
-      "win_rate": 65.9,
+      "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783294.2335155
+      "updated_at": 1793783543.7613916
     }
   ],
   "trade_history": [
@@ -7807,6 +7807,30 @@
       "mae_pct": "-1.96%",
       "mfe_pct": "+2.66%",
       "roi_pct": -1.96
+    },
+    {
+      "id": 329,
+      "section_id": 9,
+      "symbol": "1000PEPEUSDT",
+      "side": "SHORT",
+      "entry_price": 0.0051,
+      "exit_price": 0.00509,
+      "margin_usdt": 55.16,
+      "position_size_usdt": 275.8,
+      "leverage": 5,
+      "realized_pnl": 0.54,
+      "pnl_pct": 0.98,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
+      "open_time": 1793783430.243691,
+      "close_time": 1793783543.7493043,
+      "duration_minutes": 1.9,
+      "entry_time_str": "04 Nov, 14:40:30 IST",
+      "exit_time_str": "04 Nov, 14:42:23 IST",
+      "duration_str": "1m 53s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.98%",
+      "mfe_pct": "+4.90%",
+      "roi_pct": 0.98
     }
   ],
   "positions": [
@@ -7816,7 +7840,7 @@
       "symbol": "SNXUSDT",
       "side": "LONG",
       "entry_price": 0.17285,
-      "mark_price": 0.1792,
+      "mark_price": 0.1793,
       "position_size_usdt": 240.75,
       "margin_usdt": 48.15,
       "leverage": 5,
@@ -7824,13 +7848,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.17807,
       "trailing_stage": 4,
-      "unrealized_pnl": 8.84,
-      "pnl_pct": 18.37,
+      "unrealized_pnl": 8.98,
+      "pnl_pct": 18.66,
       "liquidation_price": 0.141737,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766930.355305,
-      "updated_at": 1793783294.7113547,
+      "updated_at": 1793783526.2473629,
       "mae_pct": 0.0,
       "mfe_pct": 21.26120914087358,
       "size_usdt": 0.0
