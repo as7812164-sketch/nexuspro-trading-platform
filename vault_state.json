@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793794517060,
-  "updated_at_str": "2026-11-04 12:15:17 IST",
-  "total_trades": 322,
+  "updated_at": 1793794532588,
+  "updated_at_str": "2026-11-04 12:15:32 IST",
+  "total_trades": 323,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.1,
       "status": "IN_TRADE",
       "active_symbol": "WLDUSDT",
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 7,
@@ -121,24 +121,24 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 8,
       "name": "Section 8 (UNIUSDT, XRPUSDT, SNXUSDT)",
       "assigned_coins": "UNIUSDT, XRPUSDT, SNXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 47.17,
+      "current_balance": 54.44,
       "vault_balance": 0.0,
-      "equity": 47.17,
-      "total_pnl": -2.83,
-      "pnl_pct": -5.66,
-      "win_count": 15,
+      "equity": 54.44,
+      "total_pnl": 4.44,
+      "pnl_pct": 8.88,
+      "win_count": 16,
       "loss_count": 17,
-      "win_rate": 46.9,
-      "status": "IN_TRADE",
-      "active_symbol": "SNXUSDT",
-      "updated_at": 1793794476.401661
+      "win_rate": 48.5,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793794532.572652
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 67.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793794476.401661
+      "updated_at": 1793794532.572652
     }
   ],
   "trade_history": [
@@ -7903,41 +7903,40 @@
       "mae_pct": "-2.05%",
       "mfe_pct": "+0.20%",
       "roi_pct": -2.05
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 106,
+      "id": 333,
       "section_id": 8,
       "symbol": "SNXUSDT",
       "side": "LONG",
       "entry_price": 0.17285,
-      "mark_price": 0.1781,
-      "position_size_usdt": 240.75,
+      "exit_price": 0.17807,
       "margin_usdt": 48.15,
+      "position_size_usdt": 240.75,
       "leverage": 5,
-      "sl_price": 0.172441,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.17807,
-      "trailing_stage": 4,
-      "unrealized_pnl": 7.31,
-      "pnl_pct": 15.19,
-      "liquidation_price": 0.141737,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 7.27,
+      "pnl_pct": 15.1,
+      "exit_reason": "BB 3.0 TRAILING PROFIT (+15.1% ROI)",
       "open_time": 1793766930.355305,
-      "updated_at": 1793794510.8564546,
-      "mae_pct": 0.0,
-      "mfe_pct": 21.84,
-      "size_usdt": 0.0
-    },
+      "close_time": 1793794532.5587769,
+      "duration_minutes": 460.0,
+      "entry_time_str": "04 Nov, 10:05:30 IST",
+      "exit_time_str": "04 Nov, 17:45:32 IST",
+      "duration_str": "7h 40m",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Lock (+15.1% ROI)",
+      "mae_pct": "-0.00%",
+      "mfe_pct": "+21.84%",
+      "roi_pct": 15.1
+    }
+  ],
+  "positions": [
     {
       "id": 122,
       "section_id": 6,
       "symbol": "WLDUSDT",
       "side": "SHORT",
       "entry_price": 0.3926,
-      "mark_price": 0.379,
+      "mark_price": 0.3786,
       "position_size_usdt": 227.35,
       "margin_usdt": 45.47,
       "leverage": 5,
@@ -7945,15 +7944,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.384669,
       "trailing_stage": 3,
-      "unrealized_pnl": 7.88,
-      "pnl_pct": 17.32,
+      "unrealized_pnl": 8.11,
+      "pnl_pct": 17.83,
       "liquidation_price": 0.463268,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793790595.9782686,
-      "updated_at": 1793794510.851713,
+      "updated_at": 1793794532.5472653,
       "mae_pct": 0.89,
-      "mfe_pct": 17.7024961793174,
+      "mfe_pct": 17.829852266938374,
       "size_usdt": 0.0
     }
   ],
