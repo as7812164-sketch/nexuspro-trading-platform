@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793806001124,
-  "updated_at_str": "2026-11-04 15:26:41 IST",
+  "updated_at": 1793806303327,
+  "updated_at_str": "2026-11-04 15:31:43 IST",
   "total_trades": 342,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     },
     {
       "id": 2,
@@ -34,9 +34,9 @@
       "win_count": 12,
       "loss_count": 14,
       "win_rate": 46.2,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "status": "IN_TRADE",
+      "active_symbol": "SEIUSDT",
+      "updated_at": 1793806215.338558
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 61.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 44.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     },
     {
       "id": 6,
@@ -102,9 +102,9 @@
       "win_count": 19,
       "loss_count": 30,
       "win_rate": 38.8,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "status": "IN_TRADE",
+      "active_symbol": "OPUSDT",
+      "updated_at": 1793806215.338558
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 52.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 51.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793805983.4842262
+      "updated_at": 1793806215.338558
     }
   ],
   "trade_history": [
@@ -8385,7 +8385,58 @@
       "roi_pct": -3.07
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 141,
+      "section_id": 2,
+      "symbol": "SEIUSDT",
+      "side": "SHORT",
+      "entry_price": 0.050615,
+      "mark_price": 0.05049,
+      "position_size_usdt": 279.75,
+      "margin_usdt": 55.95,
+      "leverage": 5,
+      "sl_price": 0.051357,
+      "tp_price": 0.0,
+      "trailing_sl_price": 0.051357,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.69,
+      "pnl_pct": 1.23,
+      "liquidation_price": 0.059726,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1793806210.8820353,
+      "updated_at": 1793806298.5617075,
+      "mae_pct": 0.0,
+      "mfe_pct": 1.3335967598538296,
+      "size_usdt": 0.0
+    },
+    {
+      "id": 142,
+      "section_id": 6,
+      "symbol": "OPUSDT",
+      "side": "SHORT",
+      "entry_price": 0.115045,
+      "mark_price": 0.1152,
+      "position_size_usdt": 248.05,
+      "margin_usdt": 49.61,
+      "leverage": 5,
+      "sl_price": 0.116825,
+      "tp_price": 0.0,
+      "trailing_sl_price": 0.116825,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.33,
+      "pnl_pct": -0.67,
+      "liquidation_price": 0.135753,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1793806212.395147,
+      "updated_at": 1793806298.5505176,
+      "mae_pct": 1.5428745273588949,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0
+    }
+  ],
   "sentinel_knowledge_base": [
     {
       "id": 1,
