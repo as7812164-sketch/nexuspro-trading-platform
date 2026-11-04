@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793790586867,
-  "updated_at_str": "2026-11-04 11:09:46 IST",
+  "updated_at": 1793790888767,
+  "updated_at_str": "2026-11-04 11:14:48 IST",
   "total_trades": 322,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 6,
@@ -102,9 +102,9 @@
       "win_count": 18,
       "loss_count": 28,
       "win_rate": 39.1,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "status": "IN_TRADE",
+      "active_symbol": "WLDUSDT",
+      "updated_at": 1793790871.526973
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 46.9,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 67.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793790584.1225526
+      "updated_at": 1793790871.526973
     }
   ],
   "trade_history": [
@@ -7912,7 +7912,7 @@
       "symbol": "SNXUSDT",
       "side": "LONG",
       "entry_price": 0.17285,
-      "mark_price": 0.1798,
+      "mark_price": 0.1793,
       "position_size_usdt": 240.75,
       "margin_usdt": 48.15,
       "leverage": 5,
@@ -7920,15 +7920,40 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.17807,
       "trailing_stage": 4,
-      "unrealized_pnl": 9.68,
-      "pnl_pct": 20.1,
+      "unrealized_pnl": 8.98,
+      "pnl_pct": 18.66,
       "liquidation_price": 0.141737,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766930.355305,
-      "updated_at": 1793790572.2553148,
+      "updated_at": 1793790887.4612844,
       "mae_pct": 0.0,
       "mfe_pct": 21.84,
+      "size_usdt": 0.0
+    },
+    {
+      "id": 122,
+      "section_id": 6,
+      "symbol": "WLDUSDT",
+      "side": "SHORT",
+      "entry_price": 0.3926,
+      "mark_price": 0.3923,
+      "position_size_usdt": 227.35,
+      "margin_usdt": 45.47,
+      "leverage": 5,
+      "sl_price": 0.394992,
+      "tp_price": 0.0,
+      "trailing_sl_price": 0.394992,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.17,
+      "pnl_pct": 0.38,
+      "liquidation_price": 0.463268,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1793790595.9782686,
+      "updated_at": 1793790887.4529283,
+      "mae_pct": 0.25471217524194845,
+      "mfe_pct": 0.38206826286299345,
       "size_usdt": 0.0
     }
   ],
