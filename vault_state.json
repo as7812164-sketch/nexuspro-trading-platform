@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793778771442,
-  "updated_at_str": "2026-11-04 07:52:51 IST",
-  "total_trades": 312,
+  "updated_at": 1793778779475,
+  "updated_at_str": "2026-11-04 07:52:59 IST",
+  "total_trades": 313,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 52.6,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 48.4,
       "status": "IN_TRADE",
       "active_symbol": "XRPUSDT",
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 75.09,
+      "current_balance": 86.65,
       "vault_balance": 0.0,
-      "equity": 75.09,
-      "total_pnl": 25.09,
-      "pnl_pct": 50.18,
-      "win_count": 28,
+      "equity": 86.65,
+      "total_pnl": 36.65,
+      "pnl_pct": 73.3,
+      "win_count": 29,
       "loss_count": 14,
-      "win_rate": 66.7,
-      "status": "IN_TRADE",
-      "active_symbol": "ARKMUSDT",
-      "updated_at": 1793778742.008273
+      "win_rate": 67.4,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793778779.464332
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793778742.008273
+      "updated_at": 1793778779.464332
     }
   ],
   "trade_history": [
@@ -7663,34 +7663,33 @@
       "mae_pct": "-2.18%",
       "mfe_pct": "+0.31%",
       "roi_pct": -2.18
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 101,
+      "id": 323,
       "section_id": 9,
       "symbol": "ARKMUSDT",
       "side": "LONG",
       "entry_price": 0.11295,
-      "mark_price": 0.1165,
-      "position_size_usdt": 382.75,
+      "exit_price": 0.116361,
       "margin_usdt": 76.55,
+      "position_size_usdt": 382.75,
       "leverage": 5,
-      "sl_price": 0.111832,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.116361,
-      "trailing_stage": 4,
-      "unrealized_pnl": 12.03,
-      "pnl_pct": 15.71,
-      "liquidation_price": 0.092619,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": 11.56,
+      "pnl_pct": 15.1,
+      "exit_reason": "BB 3.0 TRAILING PROFIT (+15.1% ROI)",
       "open_time": 1793766476.22658,
-      "updated_at": 1793778759.9729736,
-      "mae_pct": 0.0,
-      "mfe_pct": 23.68304559539623,
-      "size_usdt": 0.0
-    },
+      "close_time": 1793778779.4561656,
+      "duration_minutes": 205.1,
+      "entry_time_str": "04 Nov, 09:57:56 IST",
+      "exit_time_str": "04 Nov, 13:22:59 IST",
+      "duration_str": "3h 25m",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Lock (+15.1% ROI)",
+      "mae_pct": "-0.00%",
+      "mfe_pct": "+23.68%",
+      "roi_pct": 15.1
+    }
+  ],
+  "positions": [
     {
       "id": 106,
       "section_id": 8,
@@ -7711,7 +7710,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766930.355305,
-      "updated_at": 1793778759.9646218,
+      "updated_at": 1793778779.448338,
       "mae_pct": 0.0,
       "mfe_pct": 19.23633207983798,
       "size_usdt": 0.0
@@ -7722,7 +7721,7 @@
       "symbol": "XRPUSDT",
       "side": "SHORT",
       "entry_price": 1.2788,
-      "mark_price": 1.2752,
+      "mark_price": 1.2754,
       "position_size_usdt": 249.45,
       "margin_usdt": 49.89,
       "leverage": 5,
@@ -7730,13 +7729,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.2838,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.7,
-      "pnl_pct": 1.41,
+      "unrealized_pnl": 0.66,
+      "pnl_pct": 1.33,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793771018.3725388,
-      "updated_at": 1793778759.9562683,
+      "updated_at": 1793778779.3626668,
       "mae_pct": 1.6,
       "mfe_pct": 2.66,
       "size_usdt": 0.0
@@ -7761,7 +7760,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793776717.9018955,
-      "updated_at": 1793778759.947323,
+      "updated_at": 1793778779.355122,
       "mae_pct": 2.650762094102069,
       "mfe_pct": 2.76,
       "size_usdt": 0.0
