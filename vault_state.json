@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793783605648,
-  "updated_at_str": "2026-11-04 09:13:25 IST",
-  "total_trades": 319,
+  "updated_at": 1793783908151,
+  "updated_at_str": "2026-11-04 09:18:28 IST",
+  "total_trades": 320,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 55.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 46.9,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 81.56,
+      "current_balance": 82.0,
       "vault_balance": 0.0,
-      "equity": 81.56,
-      "total_pnl": 31.56,
-      "pnl_pct": 63.12,
-      "win_count": 30,
+      "equity": 82.0,
+      "total_pnl": 32.0,
+      "pnl_pct": 64.0,
+      "win_count": 31,
       "loss_count": 15,
-      "win_rate": 66.7,
+      "win_rate": 67.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 54.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793783549.4092464
+      "updated_at": 1793783835.1048305
     }
   ],
   "trade_history": [
@@ -7831,6 +7831,30 @@
       "mae_pct": "-0.98%",
       "mfe_pct": "+4.90%",
       "roi_pct": 0.98
+    },
+    {
+      "id": 330,
+      "section_id": 9,
+      "symbol": "1000PEPEUSDT",
+      "side": "SHORT",
+      "entry_price": 0.0051,
+      "exit_price": 0.0051,
+      "margin_usdt": 55.16,
+      "position_size_usdt": 275.8,
+      "leverage": 5,
+      "realized_pnl": 0.44,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1793783430.0756402,
+      "close_time": 1793783629.080783,
+      "duration_minutes": 3.3,
+      "entry_time_str": "04 Nov, 14:40:30 IST",
+      "exit_time_str": "04 Nov, 14:43:49 IST",
+      "duration_str": "3m 19s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+6.50%",
+      "roi_pct": 0.8
     }
   ],
   "positions": [
@@ -7840,7 +7864,7 @@
       "symbol": "SNXUSDT",
       "side": "LONG",
       "entry_price": 0.17285,
-      "mark_price": 0.1793,
+      "mark_price": 0.1792,
       "position_size_usdt": 240.75,
       "margin_usdt": 48.15,
       "leverage": 5,
@@ -7848,13 +7872,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.17807,
       "trailing_stage": 4,
-      "unrealized_pnl": 8.98,
-      "pnl_pct": 18.66,
+      "unrealized_pnl": 8.84,
+      "pnl_pct": 18.37,
       "liquidation_price": 0.141737,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793766930.355305,
-      "updated_at": 1793783600.3542783,
+      "updated_at": 1793783888.2521734,
       "mae_pct": 0.0,
       "mfe_pct": 21.26120914087358,
       "size_usdt": 0.0
@@ -8508,6 +8532,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1793774516.1625218,
       "created_at_str": "04 Nov, 12:11:56 IST"
+    },
+    {
+      "id": 55,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "1000PEPEUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #330 (1000PEPEUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +6.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1793783642.3537068,
+      "created_at_str": "04 Nov, 14:44:02 IST"
     }
   ]
 }
