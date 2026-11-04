@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793751520345,
-  "updated_at_str": "2026-11-04 00:18:40 IST",
-  "total_trades": 296,
+  "updated_at": 1793751588105,
+  "updated_at_str": "2026-11-04 00:19:48 IST",
+  "total_trades": 297,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 72.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 52.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 47.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 36.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 55.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 9,
@@ -155,24 +155,24 @@
       "win_rate": 68.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793751520.2770166
+      "updated_at": 1793751555.3987713
     },
     {
       "id": 10,
       "name": "Section 10 (ARBUSDT, FETUSDT, ONDOUSDT)",
       "assigned_coins": "ARBUSDT, FETUSDT, ONDOUSDT",
       "initial_balance": 50.0,
-      "current_balance": 91.12,
+      "current_balance": 89.55,
       "vault_balance": 0.0,
-      "equity": 91.12,
-      "total_pnl": 41.12,
-      "pnl_pct": 82.24,
+      "equity": 89.55,
+      "total_pnl": 39.55,
+      "pnl_pct": 79.1,
       "win_count": 25,
-      "loss_count": 17,
-      "win_rate": 59.5,
-      "status": "IN_TRADE",
-      "active_symbol": "FETUSDT",
-      "updated_at": 1793751520.2770166
+      "loss_count": 18,
+      "win_rate": 58.1,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793751555.3987713
     }
   ],
   "trade_history": [
@@ -7279,35 +7279,33 @@
       "mae_pct": "-2.55%",
       "mfe_pct": "+1.66%",
       "roi_pct": -2.25
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 98,
+      "id": 307,
       "section_id": 10,
       "symbol": "FETUSDT",
       "side": "LONG",
       "entry_price": 0.1553,
-      "mark_price": 0.155,
-      "position_size_usdt": 273.85,
+      "exit_price": 0.1545,
       "margin_usdt": 54.77,
+      "position_size_usdt": 273.85,
       "leverage": 5,
-      "sl_price": 0.1545,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.1545,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.53,
-      "pnl_pct": -0.97,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793751292.3421268,
-      "updated_at": 1793751520.2514718,
-      "mae_pct": 0.97,
-      "mfe_pct": 0.97,
-      "size_usdt": 0.0
+      "realized_pnl": -1.57,
+      "pnl_pct": -2.87,
+      "exit_reason": "LOSS (SL HIT)",
+      "open_time": 1793751292.2428591,
+      "close_time": 1793751555.2338579,
+      "duration_minutes": 4.4,
+      "entry_time_str": "04 Nov, 05:44:52 IST",
+      "exit_time_str": "04 Nov, 05:49:15 IST",
+      "duration_str": "4m 22s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-2.87%",
+      "mfe_pct": "+0.20%",
+      "roi_pct": -2.87
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
