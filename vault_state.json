@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793831686329,
-  "updated_at_str": "2026-11-04 22:34:46 IST",
-  "total_trades": 362,
+  "updated_at": 1793831691561,
+  "updated_at_str": "2026-11-04 22:34:51 IST",
+  "total_trades": 363,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 43.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 61.5,
       "status": "IN_TRADE",
       "active_symbol": "AVAXUSDT",
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 45.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 46.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 6,
@@ -104,24 +104,24 @@
       "win_rate": 38.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 7,
       "name": "Section 7 (SUIUSDT, TIAUSDT, TRBUSDT)",
       "assigned_coins": "SUIUSDT, TIAUSDT, TRBUSDT",
       "initial_balance": 50.0,
-      "current_balance": 68.54,
+      "current_balance": 72.04,
       "vault_balance": 0.0,
-      "equity": 68.54,
-      "total_pnl": 18.54,
-      "pnl_pct": 37.08,
-      "win_count": 22,
+      "equity": 72.04,
+      "total_pnl": 22.04,
+      "pnl_pct": 44.08,
+      "win_count": 23,
       "loss_count": 20,
-      "win_rate": 52.4,
-      "status": "IN_TRADE",
-      "active_symbol": "SUIUSDT",
-      "updated_at": 1793831641.5259094
+      "win_rate": 53.5,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.9,
       "status": "IN_TRADE",
       "active_symbol": "UNIUSDT",
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793831641.5259094
+      "updated_at": 1793831691.5525541
     }
   ],
   "trade_history": [
@@ -8863,6 +8863,30 @@
       "mae_pct": "-2.50%",
       "mfe_pct": "+0.31%",
       "roi_pct": -2.31
+    },
+    {
+      "id": 373,
+      "section_id": 7,
+      "symbol": "SUIUSDT",
+      "side": "SHORT",
+      "entry_price": 0.94415,
+      "exit_price": 0.93452,
+      "margin_usdt": 68.54,
+      "position_size_usdt": 342.7,
+      "leverage": 5,
+      "realized_pnl": 3.5,
+      "pnl_pct": 5.11,
+      "exit_reason": "BB 3.0 TRAILING PROFIT (+5.1% ROI)",
+      "open_time": 1793807004.1851575,
+      "close_time": 1793831691.5474763,
+      "duration_minutes": 411.5,
+      "entry_time_str": "04 Nov, 21:13:24 IST",
+      "exit_time_str": "05 Nov, 04:04:51 IST",
+      "duration_str": "6h 51m",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Lock (+5.1% ROI)",
+      "mae_pct": "-3.10%",
+      "mfe_pct": "+14.59%",
+      "roi_pct": 5.11
     }
   ],
   "positions": [
@@ -8892,37 +8916,12 @@
       "size_usdt": 0.0
     },
     {
-      "id": 146,
-      "section_id": 7,
-      "symbol": "SUIUSDT",
-      "side": "SHORT",
-      "entry_price": 0.94415,
-      "mark_price": 0.9345,
-      "position_size_usdt": 342.7,
-      "margin_usdt": 68.54,
-      "leverage": 5,
-      "sl_price": 0.958235,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.93452,
-      "trailing_stage": 2,
-      "unrealized_pnl": 3.5,
-      "pnl_pct": 5.11,
-      "liquidation_price": 1.114097,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793807004.1851575,
-      "updated_at": 1793831676.6518188,
-      "mae_pct": 3.1,
-      "mfe_pct": 14.59,
-      "size_usdt": 0.0
-    },
-    {
       "id": 163,
       "section_id": 8,
       "symbol": "UNIUSDT",
       "side": "SHORT",
       "entry_price": 7.727,
-      "mark_price": 7.754,
+      "mark_price": 7.757,
       "position_size_usdt": 243.85,
       "margin_usdt": 48.77,
       "leverage": 5,
@@ -8930,13 +8929,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 7.7686,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.85,
-      "pnl_pct": -1.75,
+      "unrealized_pnl": -0.95,
+      "pnl_pct": -1.94,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793830957.1827524,
-      "updated_at": 1793831676.647975,
+      "updated_at": 1793831691.5429986,
       "mae_pct": 2.2,
       "mfe_pct": 0.45,
       "size_usdt": 0.0
