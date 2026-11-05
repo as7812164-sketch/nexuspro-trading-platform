@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793919969346,
-  "updated_at_str": "2026-11-05 23:06:09 IST",
-  "total_trades": 412,
+  "updated_at": 1793920107346,
+  "updated_at_str": "2026-11-05 23:08:27 IST",
+  "total_trades": 413,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 57.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 44.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 6,
@@ -104,24 +104,24 @@
       "win_rate": 39.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 7,
       "name": "Section 7 (SUIUSDT, TIAUSDT, TRBUSDT)",
       "assigned_coins": "SUIUSDT, TIAUSDT, TRBUSDT",
       "initial_balance": 50.0,
-      "current_balance": 66.11,
+      "current_balance": 63.85,
       "vault_balance": 0.0,
-      "equity": 66.11,
-      "total_pnl": 16.11,
-      "pnl_pct": 32.22,
+      "equity": 63.85,
+      "total_pnl": 13.85,
+      "pnl_pct": 27.7,
       "win_count": 27,
-      "loss_count": 24,
-      "win_rate": 52.9,
-      "status": "IN_TRADE",
-      "active_symbol": "TIAUSDT",
-      "updated_at": 1793919969.269661
+      "loss_count": 25,
+      "win_rate": 51.9,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 46.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793919969.269661
+      "updated_at": 1793920107.2626555
     }
   ],
   "trade_history": [
@@ -10063,35 +10063,33 @@
       "mae_pct": "-3.50%",
       "mfe_pct": "+1.66%",
       "roi_pct": -3.4
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 208,
+      "id": 423,
       "section_id": 7,
       "symbol": "TIAUSDT",
       "side": "LONG",
       "entry_price": 0.4107,
-      "mark_price": 0.4093,
-      "position_size_usdt": 299.4,
+      "exit_price": 0.4076,
       "margin_usdt": 59.88,
+      "position_size_usdt": 299.4,
       "leverage": 5,
-      "sl_price": 0.4076,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.4076,
-      "trailing_stage": 0,
-      "unrealized_pnl": -1.02,
-      "pnl_pct": -1.7,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": -2.26,
+      "pnl_pct": -3.77,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
       "open_time": 1793919782.229405,
-      "updated_at": 1793919969.252114,
-      "mae_pct": 2.8,
-      "mfe_pct": 1.46,
-      "size_usdt": 0.0
+      "close_time": 1793920107.253223,
+      "duration_minutes": 5.4,
+      "entry_time_str": "06 Nov, 04:33:02 IST",
+      "exit_time_str": "06 Nov, 04:38:27 IST",
+      "duration_str": "5m 25s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-4.14%",
+      "mfe_pct": "+1.46%",
+      "roi_pct": -3.77
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
