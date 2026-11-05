@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793920361849,
-  "updated_at_str": "2026-11-05 23:12:41 IST",
-  "total_trades": 416,
+  "updated_at": 1793920529076,
+  "updated_at_str": "2026-11-05 23:15:29 IST",
+  "total_trades": 418,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 57.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 44.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 48.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 6,
@@ -104,24 +104,24 @@
       "win_rate": 39.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 7,
       "name": "Section 7 (SUIUSDT, TIAUSDT, TRBUSDT)",
       "assigned_coins": "SUIUSDT, TIAUSDT, TRBUSDT",
       "initial_balance": 50.0,
-      "current_balance": 64.42,
+      "current_balance": 64.88,
       "vault_balance": 0.0,
-      "equity": 64.42,
-      "total_pnl": 14.42,
-      "pnl_pct": 28.84,
-      "win_count": 28,
+      "equity": 64.88,
+      "total_pnl": 14.88,
+      "pnl_pct": 29.76,
+      "win_count": 29,
       "loss_count": 25,
-      "win_rate": 52.8,
+      "win_rate": 53.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 46.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 88.97,
+      "current_balance": 89.41,
       "vault_balance": 0.0,
-      "equity": 88.97,
-      "total_pnl": 38.97,
-      "pnl_pct": 77.94,
-      "win_count": 35,
+      "equity": 89.41,
+      "total_pnl": 39.41,
+      "pnl_pct": 78.82,
+      "win_count": 36,
       "loss_count": 19,
-      "win_rate": 64.8,
+      "win_rate": 65.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920361.8389738
+      "updated_at": 1793920528.0361037
     }
   ],
   "trade_history": [
@@ -10159,6 +10159,54 @@
       "mae_pct": "-0.82%",
       "mfe_pct": "+7.36%",
       "roi_pct": 0.99
+    },
+    {
+      "id": 427,
+      "section_id": 7,
+      "symbol": "TRBUSDT",
+      "side": "LONG",
+      "entry_price": 15.285,
+      "exit_price": 15.3156,
+      "margin_usdt": 57.44,
+      "position_size_usdt": 287.2,
+      "leverage": 5,
+      "realized_pnl": 0.46,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1793920251.3527007,
+      "close_time": 1793920434.9444666,
+      "duration_minutes": 3.1,
+      "entry_time_str": "06 Nov, 04:40:51 IST",
+      "exit_time_str": "06 Nov, 04:43:54 IST",
+      "duration_str": "3m 3s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+5.50%",
+      "roi_pct": 0.8
+    },
+    {
+      "id": 428,
+      "section_id": 9,
+      "symbol": "APTUSDT",
+      "side": "LONG",
+      "entry_price": 0.5785,
+      "exit_price": 0.5797,
+      "margin_usdt": 55.6,
+      "position_size_usdt": 278.0,
+      "leverage": 5,
+      "realized_pnl": 0.44,
+      "pnl_pct": 0.79,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1793920260.4332778,
+      "close_time": 1793920448.9872975,
+      "duration_minutes": 3.1,
+      "entry_time_str": "06 Nov, 04:41:00 IST",
+      "exit_time_str": "06 Nov, 04:44:08 IST",
+      "duration_str": "3m 8s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+0.79%",
+      "roi_pct": 0.79
     }
   ],
   "positions": [],
@@ -11206,6 +11254,18 @@
       "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
       "timestamp": 1793914766.7122295,
       "created_at_str": "06 Nov, 03:09:26 IST"
+    },
+    {
+      "id": 88,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "TRBUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #427 (TRBUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +5.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1793920444.5202699,
+      "created_at_str": "06 Nov, 04:44:04 IST"
     }
   ]
 }
