@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793868838870,
-  "updated_at_str": "2026-11-05 08:53:58 IST",
-  "total_trades": 370,
+  "updated_at": 1793869109859,
+  "updated_at_str": "2026-11-05 08:58:29 IST",
+  "total_trades": 371,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 43.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 2,
@@ -36,24 +36,24 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 3,
       "name": "Section 3 (AVAXUSDT, DOGEUSDT, KAVAUSDT)",
       "assigned_coins": "AVAXUSDT, DOGEUSDT, KAVAUSDT",
       "initial_balance": 50.0,
-      "current_balance": 47.82,
+      "current_balance": 47.43,
       "vault_balance": 0.0,
-      "equity": 47.82,
-      "total_pnl": -2.18,
-      "pnl_pct": -4.36,
+      "equity": 47.43,
+      "total_pnl": -2.57,
+      "pnl_pct": -5.14,
       "win_count": 9,
-      "loss_count": 5,
-      "win_rate": 64.3,
-      "status": "IN_TRADE",
-      "active_symbol": "KAVAUSDT",
-      "updated_at": 1793868801.0678222
+      "loss_count": 6,
+      "win_rate": 60.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 45.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 46.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 54.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793868801.0678222
+      "updated_at": 1793869109.8428411
     }
   ],
   "trade_history": [
@@ -9055,35 +9055,33 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+5.50%",
       "roi_pct": 0.8
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 169,
+      "id": 381,
       "section_id": 3,
       "symbol": "KAVAUSDT",
       "side": "SHORT",
       "entry_price": 0.0688,
-      "mark_price": 0.06883,
-      "position_size_usdt": 270.3,
+      "exit_price": 0.0689,
       "margin_usdt": 54.06,
+      "position_size_usdt": 270.3,
       "leverage": 5,
-      "sl_price": 0.0689,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.0689,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.12,
-      "pnl_pct": -0.22,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": -0.39,
+      "pnl_pct": -0.72,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
       "open_time": 1793865173.4802046,
-      "updated_at": 1793868826.742735,
-      "mae_pct": 0.21802325581396984,
-      "mfe_pct": 1.816860465116281,
-      "size_usdt": 0.0
+      "close_time": 1793869109.7563682,
+      "duration_minutes": 65.6,
+      "entry_time_str": "05 Nov, 13:22:53 IST",
+      "exit_time_str": "05 Nov, 14:28:29 IST",
+      "duration_str": "1h 5m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-1.02%",
+      "mfe_pct": "+1.82%",
+      "roi_pct": -0.72
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
