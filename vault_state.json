@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793853430666,
-  "updated_at_str": "2026-11-05 04:37:10 IST",
-  "total_trades": 369,
+  "updated_at": 1793853733004,
+  "updated_at_str": "2026-11-05 04:42:13 IST",
+  "total_trades": 370,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 43.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 64.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 45.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 46.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 6,
@@ -104,24 +104,24 @@
       "win_rate": 39.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 7,
       "name": "Section 7 (SUIUSDT, TIAUSDT, TRBUSDT)",
       "assigned_coins": "SUIUSDT, TIAUSDT, TRBUSDT",
       "initial_balance": 50.0,
-      "current_balance": 72.04,
+      "current_balance": 72.51,
       "vault_balance": 0.0,
-      "equity": 72.04,
-      "total_pnl": 22.04,
-      "pnl_pct": 44.08,
-      "win_count": 23,
+      "equity": 72.51,
+      "total_pnl": 22.51,
+      "pnl_pct": 45.02,
+      "win_count": 24,
       "loss_count": 20,
-      "win_rate": 53.5,
-      "status": "IN_TRADE",
-      "active_symbol": "TIAUSDT",
-      "updated_at": 1793853411.627965
+      "win_rate": 54.5,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793853698.114729
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793853411.627965
+      "updated_at": 1793853698.114729
     }
   ],
   "trade_history": [
@@ -9031,35 +9031,33 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+5.60%",
       "roi_pct": 0.8
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 168,
+      "id": 380,
       "section_id": 7,
       "symbol": "TIAUSDT",
       "side": "SHORT",
       "entry_price": 0.4636,
-      "mark_price": 0.4616,
-      "position_size_usdt": 294.65,
+      "exit_price": 0.4627,
       "margin_usdt": 58.93,
+      "position_size_usdt": 294.65,
       "leverage": 5,
-      "sl_price": 0.4659,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.462673,
-      "trailing_stage": 1,
-      "unrealized_pnl": 1.27,
-      "pnl_pct": 2.16,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793853333.479451,
-      "updated_at": 1793853425.2086236,
-      "mae_pct": 0.22,
-      "mfe_pct": 5.18,
-      "size_usdt": 0.0
+      "realized_pnl": 0.47,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1793853333.3511617,
+      "close_time": 1793853511.2608373,
+      "duration_minutes": 3.0,
+      "entry_time_str": "05 Nov, 10:05:33 IST",
+      "exit_time_str": "05 Nov, 10:08:31 IST",
+      "duration_str": "2m 57s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+5.50%",
+      "roi_pct": 0.8
     }
   ],
+  "positions": [],
   "sentinel_knowledge_base": [
     {
       "id": 1,
@@ -9912,6 +9910,18 @@
       "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
       "timestamp": 1793851374.8555543,
       "created_at_str": "05 Nov, 09:32:54 IST"
+    },
+    {
+      "id": 72,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "TIAUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #380 (TIAUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +5.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1793853520.5940263,
+      "created_at_str": "05 Nov, 10:08:40 IST"
     }
   ]
 }
