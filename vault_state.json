@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793913588593,
-  "updated_at_str": "2026-11-05 21:19:48 IST",
-  "total_trades": 399,
+  "updated_at": 1793913591136,
+  "updated_at_str": "2026-11-05 21:19:51 IST",
+  "total_trades": 400,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 47.1,
       "status": "IN_TRADE",
       "active_symbol": "BTCUSDT",
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 64.7,
       "status": "IN_TRADE",
       "active_symbol": "AVAXUSDT",
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 45.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 51.1,
       "status": "IN_TRADE",
       "active_symbol": "LTCUSDT",
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 6,
@@ -104,24 +104,24 @@
       "win_rate": 39.3,
       "status": "IN_TRADE",
       "active_symbol": "WLDUSDT",
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 7,
       "name": "Section 7 (SUIUSDT, TIAUSDT, TRBUSDT)",
       "assigned_coins": "SUIUSDT, TIAUSDT, TRBUSDT",
       "initial_balance": 50.0,
-      "current_balance": 69.76,
+      "current_balance": 67.76,
       "vault_balance": 0.0,
-      "equity": 69.76,
-      "total_pnl": 19.76,
-      "pnl_pct": 39.52,
+      "equity": 67.76,
+      "total_pnl": 17.76,
+      "pnl_pct": 35.52,
       "win_count": 26,
-      "loss_count": 22,
-      "win_rate": 54.2,
-      "status": "IN_TRADE",
-      "active_symbol": "SUIUSDT",
-      "updated_at": 1793913588.566946
+      "loss_count": 23,
+      "win_rate": 53.1,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793913591.116801
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 47.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 65.4,
       "status": "IN_TRADE",
       "active_symbol": "APTUSDT",
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793913588.566946
+      "updated_at": 1793913591.116801
     }
   ],
   "trade_history": [
@@ -9751,6 +9751,30 @@
       "mae_pct": "-2.73%",
       "mfe_pct": "+0.82%",
       "roi_pct": -2.49
+    },
+    {
+      "id": 410,
+      "section_id": 7,
+      "symbol": "SUIUSDT",
+      "side": "LONG",
+      "entry_price": 0.8512,
+      "exit_price": 0.846329,
+      "margin_usdt": 69.76,
+      "position_size_usdt": 348.8,
+      "leverage": 5,
+      "realized_pnl": -2.0,
+      "pnl_pct": -2.87,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
+      "open_time": 1793912513.5135252,
+      "close_time": 1793913591.105854,
+      "duration_minutes": 18.0,
+      "entry_time_str": "06 Nov, 02:31:53 IST",
+      "exit_time_str": "06 Nov, 02:49:51 IST",
+      "duration_str": "17m 57s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-3.35%",
+      "mfe_pct": "+1.41%",
+      "roi_pct": -2.87
     }
   ],
   "positions": [
@@ -9830,31 +9854,6 @@
       "size_usdt": 0.0
     },
     {
-      "id": 196,
-      "section_id": 7,
-      "symbol": "SUIUSDT",
-      "side": "LONG",
-      "entry_price": 0.8512,
-      "mark_price": 0.8465,
-      "position_size_usdt": 348.8,
-      "margin_usdt": 69.76,
-      "leverage": 5,
-      "sl_price": 0.846329,
-      "tp_price": 0.0,
-      "trailing_sl_price": 0.846329,
-      "trailing_stage": 0,
-      "unrealized_pnl": -1.93,
-      "pnl_pct": -2.76,
-      "liquidation_price": 0.697984,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793912513.5135252,
-      "updated_at": 1793913580.4598293,
-      "mae_pct": 3.11,
-      "mfe_pct": 1.41,
-      "size_usdt": 0.0
-    },
-    {
       "id": 197,
       "section_id": 9,
       "symbol": "APTUSDT",
@@ -9874,7 +9873,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793912515.4540992,
-      "updated_at": 1793913567.185119,
+      "updated_at": 1793913591.0979097,
       "mae_pct": 1.44,
       "mfe_pct": 1.69,
       "size_usdt": 0.0
@@ -9885,7 +9884,7 @@
       "symbol": "AVAXUSDT",
       "side": "LONG",
       "entry_price": 8.304,
-      "mark_price": 8.301,
+      "mark_price": 8.293,
       "position_size_usdt": 241.7,
       "margin_usdt": 48.34,
       "leverage": 5,
@@ -9893,14 +9892,14 @@
       "tp_price": 0.0,
       "trailing_sl_price": 8.254599,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.09,
-      "pnl_pct": -0.18,
+      "unrealized_pnl": -0.32,
+      "pnl_pct": -0.66,
       "liquidation_price": 6.80928,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793912760.314669,
-      "updated_at": 1793913580.458446,
-      "mae_pct": 0.66,
+      "updated_at": 1793913591.0892823,
+      "mae_pct": 0.6623314065511204,
       "mfe_pct": 2.65,
       "size_usdt": 0.0
     },
