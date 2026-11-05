@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793848901826,
-  "updated_at_str": "2026-11-05 03:21:41 IST",
-  "total_trades": 366,
+  "updated_at": 1793849102144,
+  "updated_at_str": "2026-11-05 03:25:02 IST",
+  "total_trades": 367,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 43.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.1,
       "status": "IN_TRADE",
       "active_symbol": "SEIUSDT",
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 64.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 45.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 46.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.6,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 7,
@@ -121,24 +121,24 @@
       "win_rate": 53.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 8,
       "name": "Section 8 (UNIUSDT, XRPUSDT, SNXUSDT)",
       "assigned_coins": "UNIUSDT, XRPUSDT, SNXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 47.18,
+      "current_balance": 46.06,
       "vault_balance": 0.0,
-      "equity": 47.18,
-      "total_pnl": -2.82,
-      "pnl_pct": -5.64,
+      "equity": 46.06,
+      "total_pnl": -3.94,
+      "pnl_pct": -7.88,
       "win_count": 17,
-      "loss_count": 21,
-      "win_rate": 44.7,
-      "status": "IN_TRADE",
-      "active_symbol": "UNIUSDT",
-      "updated_at": 1793848778.3099246
+      "loss_count": 22,
+      "win_rate": 43.6,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 64.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793848778.3099246
+      "updated_at": 1793849102.0620303
     }
   ],
   "trade_history": [
@@ -8959,6 +8959,30 @@
       "mae_pct": "-0.15%",
       "mfe_pct": "+0.79%",
       "roi_pct": 0.79
+    },
+    {
+      "id": 377,
+      "section_id": 8,
+      "symbol": "UNIUSDT",
+      "side": "SHORT",
+      "entry_price": 7.711,
+      "exit_price": 7.747604,
+      "margin_usdt": 47.18,
+      "position_size_usdt": 235.9,
+      "leverage": 5,
+      "realized_pnl": -1.12,
+      "pnl_pct": -2.37,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
+      "open_time": 1793838208.521165,
+      "close_time": 1793849102.0523858,
+      "duration_minutes": 181.6,
+      "entry_time_str": "05 Nov, 05:53:28 IST",
+      "exit_time_str": "05 Nov, 08:55:02 IST",
+      "duration_str": "3h 1m",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-2.46%",
+      "mfe_pct": "+6.81%",
+      "roi_pct": -2.37
     }
   ],
   "positions": [
@@ -8968,7 +8992,7 @@
       "symbol": "SEIUSDT",
       "side": "SHORT",
       "entry_price": 0.0494,
-      "mark_price": 0.04922,
+      "mark_price": 0.04919,
       "position_size_usdt": 265.2,
       "margin_usdt": 53.04,
       "leverage": 5,
@@ -8976,40 +9000,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.049301,
       "trailing_stage": 1,
-      "unrealized_pnl": 0.97,
-      "pnl_pct": 1.82,
+      "unrealized_pnl": 1.13,
+      "pnl_pct": 2.13,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793832370.2991245,
-      "updated_at": 1793848899.2466516,
+      "updated_at": 1793849083.563385,
       "mae_pct": 0.61,
       "mfe_pct": 8.400809716599165,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 165,
-      "section_id": 8,
-      "symbol": "UNIUSDT",
-      "side": "SHORT",
-      "entry_price": 7.711,
-      "mark_price": 7.744,
-      "position_size_usdt": 235.9,
-      "margin_usdt": 47.18,
-      "leverage": 5,
-      "sl_price": 7.747604,
-      "tp_price": 0.0,
-      "trailing_sl_price": 7.747604,
-      "trailing_stage": 1,
-      "unrealized_pnl": -1.01,
-      "pnl_pct": -2.14,
-      "liquidation_price": 9.09898,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793838208.521165,
-      "updated_at": 1793848899.1568651,
-      "mae_pct": 2.33,
-      "mfe_pct": 6.808455453248634,
       "size_usdt": 0.0
     }
   ],
