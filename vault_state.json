@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793920226699,
-  "updated_at_str": "2026-11-05 23:10:26 IST",
-  "total_trades": 413,
+  "updated_at": 1793920359456,
+  "updated_at_str": "2026-11-05 23:12:39 IST",
+  "total_trades": 415,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 44.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 57.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 44.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 50.0,
-      "current_balance": 60.78,
+      "current_balance": 59.31,
       "vault_balance": 0.0,
-      "equity": 60.78,
-      "total_pnl": 10.78,
-      "pnl_pct": 21.56,
+      "equity": 59.31,
+      "total_pnl": 9.31,
+      "pnl_pct": 18.62,
       "win_count": 23,
-      "loss_count": 23,
-      "win_rate": 50.0,
-      "status": "IN_TRADE",
-      "active_symbol": "DYDXUSDT",
-      "updated_at": 1793920166.671552
+      "loss_count": 24,
+      "win_rate": 48.9,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 39.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 7,
@@ -119,9 +119,9 @@
       "win_count": 27,
       "loss_count": 25,
       "win_rate": 51.9,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "status": "IN_TRADE",
+      "active_symbol": "TRBUSDT",
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 8,
@@ -138,24 +138,24 @@
       "win_rate": 46.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 9,
       "name": "Section 9 (1000PEPEUSDT, APTUSDT, ARKMUSDT)",
       "assigned_coins": "1000PEPEUSDT, APTUSDT, ARKMUSDT",
       "initial_balance": 50.0,
-      "current_balance": 88.41,
+      "current_balance": 88.97,
       "vault_balance": 0.0,
-      "equity": 88.41,
-      "total_pnl": 38.41,
-      "pnl_pct": 76.82,
-      "win_count": 34,
+      "equity": 88.97,
+      "total_pnl": 38.97,
+      "pnl_pct": 77.94,
+      "win_count": 35,
       "loss_count": 19,
-      "win_rate": 64.2,
+      "win_rate": 64.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793920166.671552
+      "updated_at": 1793920359.4475956
     }
   ],
   "trade_history": [
@@ -10087,32 +10087,80 @@
       "mae_pct": "-4.14%",
       "mfe_pct": "+1.46%",
       "roi_pct": -3.77
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 209,
+      "id": 424,
       "section_id": 5,
       "symbol": "DYDXUSDT",
       "side": "LONG",
       "entry_price": 0.0942,
-      "mark_price": 0.09383,
-      "position_size_usdt": 210.75,
+      "exit_price": 0.0936,
       "margin_usdt": 42.15,
+      "position_size_usdt": 210.75,
       "leverage": 5,
-      "sl_price": 0.0936,
+      "realized_pnl": -1.47,
+      "pnl_pct": -3.49,
+      "exit_reason": "LOSS (SL HIT)",
+      "open_time": 1793920137.1794357,
+      "close_time": 1793920238.993136,
+      "duration_minutes": 1.7,
+      "entry_time_str": "06 Nov, 04:38:57 IST",
+      "exit_time_str": "06 Nov, 04:40:38 IST",
+      "duration_str": "1m 41s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-3.49%",
+      "mfe_pct": "+0.20%",
+      "roi_pct": -3.49
+    },
+    {
+      "id": 425,
+      "section_id": 9,
+      "symbol": "APTUSDT",
+      "side": "LONG",
+      "entry_price": 0.5785,
+      "exit_price": 0.579657,
+      "margin_usdt": 55.6,
+      "position_size_usdt": 278.0,
+      "leverage": 5,
+      "realized_pnl": 0.56,
+      "pnl_pct": 1.01,
+      "exit_reason": "FEE_SHIELD_SAVED (+1.0% ROI)",
+      "open_time": 1793920260.61694,
+      "close_time": 1793920359.4427197,
+      "duration_minutes": 1.6,
+      "entry_time_str": "06 Nov, 04:41:00 IST",
+      "exit_time_str": "06 Nov, 04:42:39 IST",
+      "duration_str": "1m 38s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-1.64%",
+      "mfe_pct": "+9.59%",
+      "roi_pct": 1.01
+    }
+  ],
+  "positions": [
+    {
+      "id": 210,
+      "section_id": 7,
+      "symbol": "TRBUSDT",
+      "side": "LONG",
+      "entry_price": 15.285,
+      "mark_price": 15.31,
+      "position_size_usdt": 287.2,
+      "margin_usdt": 57.44,
+      "leverage": 5,
+      "sl_price": 15.1872,
       "tp_price": 0.0,
-      "trailing_sl_price": 0.0936,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.83,
-      "pnl_pct": -1.96,
+      "trailing_sl_price": 15.31557,
+      "trailing_stage": 1,
+      "unrealized_pnl": 0.47,
+      "pnl_pct": 0.82,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
-      "open_time": 1793920137.2700317,
-      "updated_at": 1793920210.9442933,
-      "mae_pct": 1.963906581741025,
-      "mfe_pct": 0.8492569002122795,
+      "open_time": 1793920251.4492085,
+      "updated_at": 1793920347.9030168,
+      "mae_pct": 0.82,
+      "mfe_pct": 7.36,
       "size_usdt": 0.0
     }
   ],
