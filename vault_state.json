@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793955293270,
-  "updated_at_str": "2026-11-06 08:54:53 IST",
+  "updated_at": 1793955595656,
+  "updated_at_str": "2026-11-06 08:59:55 IST",
   "total_trades": 428,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 40.0,
       "status": "IN_TRADE",
       "active_symbol": "ETHUSDT",
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 53.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 66.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1793955229.4298508
+      "updated_at": 1793955589.923697
     }
   ],
   "trade_history": [
@@ -10456,7 +10456,7 @@
       "symbol": "ETHUSDT",
       "side": "LONG",
       "entry_price": 2224.115,
-      "mark_price": 2228.13,
+      "mark_price": 2227.0,
       "position_size_usdt": 208.15,
       "margin_usdt": 41.63,
       "leverage": 5,
@@ -10464,13 +10464,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 2208.692,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.38,
-      "pnl_pct": 0.9,
+      "unrealized_pnl": 0.27,
+      "pnl_pct": 0.65,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793942150.294432,
-      "updated_at": 1793955281.1574187,
+      "updated_at": 1793955589.1636298,
       "mae_pct": 2.23,
       "mfe_pct": 2.45,
       "size_usdt": 0.0
@@ -10481,7 +10481,7 @@
       "symbol": "ARBUSDT",
       "side": "SHORT",
       "entry_price": 0.167415,
-      "mark_price": 0.1662,
+      "mark_price": 0.1658,
       "position_size_usdt": 375.05,
       "margin_usdt": 75.01,
       "leverage": 5,
@@ -10489,13 +10489,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.16708,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.72,
-      "pnl_pct": 3.63,
+      "unrealized_pnl": 3.62,
+      "pnl_pct": 4.82,
       "liquidation_price": 0.19755,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793952188.6822617,
-      "updated_at": 1793955281.1531916,
+      "updated_at": 1793955589.1483617,
       "mae_pct": 0.0,
       "mfe_pct": 6.017979273063993,
       "size_usdt": 0.0
