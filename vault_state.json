@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1793981195427,
-  "updated_at_str": "2026-11-06 16:06:35 IST",
+  "updated_at": 1793981371193,
+  "updated_at_str": "2026-11-06 16:09:31 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981148.012551
+      "updated_at": 1793981347.22983
     }
   ],
   "trade_history": [],
@@ -183,23 +183,23 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.601,
-      "mark_price": 1.585,
+      "mark_price": 1.586,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
-      "sl_price": 1.6442,
+      "sl_price": 1.649,
       "tp_price": 0.0,
-      "trailing_sl_price": 1.597798,
+      "trailing_sl_price": 1.649,
       "trailing_stage": 1,
-      "unrealized_pnl": 2.498438475952532,
-      "pnl_pct": 5.0,
+      "unrealized_pnl": 2.3422860712054816,
+      "pnl_pct": 4.68,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
-      "open_time": 1793981072.4444852,
-      "updated_at": 1793981193.7639494,
+      "open_time": 1793981314.5134225,
+      "updated_at": 1793981366.6517663,
       "mae_pct": 0.0,
-      "mfe_pct": 5.62,
+      "mfe_pct": 5.0,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
@@ -288,6 +288,30 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1793981161.3372543,
       "created_at_str": "06 Nov, 21:36:01 IST"
+    },
+    {
+      "id": 8,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "RENDERUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +5.00% ROI peak but was at Tier 0 (SL: $1.6490).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted RENDERUSDT to Tier 1 (Locked +1.0% ROI | SL \u2794 $1.5978).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793981332.1673818,
+      "created_at_str": "06 Nov, 21:38:52 IST"
+    },
+    {
+      "id": 9,
+      "incident_type": "FIXED_TP_AUTO_PURGED",
+      "symbol": "RENDERUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position had residual fixed TP target of $1.553.",
+      "root_cause": "Legacy order template or test payload.",
+      "resolution_applied": "Reset tp_price to 0.0 for pure infinite stepped trailing mode.",
+      "lesson_learned": "Pure Trailing SL mode strictly prohibits fixed take-profit caps.",
+      "timestamp": 1793981332.1703835,
+      "created_at_str": "06 Nov, 21:38:52 IST"
     }
   ]
 }
