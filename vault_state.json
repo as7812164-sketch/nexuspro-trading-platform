@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1793981560085,
-  "updated_at_str": "2026-11-06 16:12:40 IST",
+  "updated_at": 1793981861292,
+  "updated_at_str": "2026-11-06 16:17:41 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1793981558.4749477
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793981533.392447
+      "updated_at": 1793981856.1744165
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.601,
-      "mark_price": 1.579,
+      "mark_price": 1.58,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -191,15 +191,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.649,
       "trailing_stage": 1,
-      "unrealized_pnl": 3.435352904434732,
-      "pnl_pct": 6.87,
+      "unrealized_pnl": 3.279200499687681,
+      "pnl_pct": 6.56,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793981503.0155344,
-      "updated_at": 1793981555.264194,
+      "updated_at": 1793981859.6614559,
       "mae_pct": 0.0,
-      "mfe_pct": 6.87,
+      "mfe_pct": 7.5,
       "size_usdt": 0.0,
       "timeframe": "1H"
     },
@@ -209,23 +209,23 @@
       "symbol": "PAXGUSDT",
       "side": "SHORT",
       "entry_price": 4053.11,
-      "mark_price": 4053.11,
+      "mark_price": 4054.79,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
       "sl_price": 4174.7033,
-      "tp_price": 3931.5167,
-      "trailing_sl_price": 0.0,
+      "tp_price": 0.0,
+      "trailing_sl_price": 4174.7033,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.0,
-      "pnl_pct": 0.0,
+      "unrealized_pnl": -0.10362413060587033,
+      "pnl_pct": -0.21,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793981558.4660811,
-      "updated_at": 1793981558.4660811,
-      "mae_pct": 0.0,
-      "mfe_pct": 0.0,
+      "updated_at": 1793981859.5528371,
+      "mae_pct": 0.42,
+      "mfe_pct": 0.14,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
@@ -338,6 +338,18 @@
       "lesson_learned": "Pure Trailing SL mode strictly prohibits fixed take-profit caps.",
       "timestamp": 1793981521.317277,
       "created_at_str": "06 Nov, 21:42:01 IST"
+    },
+    {
+      "id": 10,
+      "incident_type": "FIXED_TP_AUTO_PURGED",
+      "symbol": "PAXGUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position had residual fixed TP target of $3931.5167.",
+      "root_cause": "Legacy order template or test payload.",
+      "resolution_applied": "Reset tp_price to 0.0 for pure infinite stepped trailing mode.",
+      "lesson_learned": "Pure Trailing SL mode strictly prohibits fixed take-profit caps.",
+      "timestamp": 1793981563.484393,
+      "created_at_str": "06 Nov, 21:42:43 IST"
     }
   ]
 }
