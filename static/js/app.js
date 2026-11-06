@@ -9,7 +9,7 @@
  */
 
 let currentSymbol = "BTCUSDT";
-let currentInterval = "15m";
+let currentInterval = "1h";
 let currentLeverage = 5;
 let chart = null;
 let candleSeries = null;
@@ -22,7 +22,7 @@ let currentSmcPriceLines = [];
 let cachedActivePositions = [];
 let cachedRadarSetups = [];
 let activeChartStrategy = null;
-let isHudManuallyHidden = false;
+let isHudManuallyHidden = true;
 
 // Advanced Indicators & Replay Engine State
 let currentFullCandles = [];
@@ -38,6 +38,8 @@ let replaySpeedMs = 800;
 const urlParams = new URLSearchParams(window.location.search);
 const symParam = urlParams.get('symbol');
 if (symParam) currentSymbol = symParam.toUpperCase();
+const tfParam = urlParams.get('tf') || urlParams.get('interval');
+if (tfParam) currentInterval = tfParam.toLowerCase();
 
 const ALL_CHAMPIONS = [
     { s: "BTCUSDT", sec: 1 }, { s: "ETHUSDT", sec: 1 }, { s: "PAXGUSDT", sec: 1 },
@@ -258,7 +260,6 @@ function renderIndicators(candles) {
 // ============================================================================
 
 function computeHermesOrderBlocks(candles) {
-    // Purge any lingering price lines
     if (currentSmcPriceLines && currentSmcPriceLines.length > 0) {
         currentSmcPriceLines.forEach(l => {
             try { candleSeries.removePriceLine(l); } catch(e) {}
@@ -286,28 +287,33 @@ function computeHermesOrderBlocks(candles) {
     if (atr <= 0) return;
 
     const obList = [];
-    // Scan up to 120 most recent bars
-    const scanLookback = Math.min(candles.length - 3, 100);
-    const startIdx = Math.max(3, candles.length - scanLookback);
+    const scanLookback = Math.min(candles.length - 3, 90);
+    const startIdx = Math.max(5, candles.length - scanLookback);
+    let lastObIndex = -999;
 
     for (let i = startIdx; i < candles.length - 1; i++) {
         const c1 = candles[i - 2];
         const c2 = candles[i - 1];
         const c3 = candles[i];
 
+        // Separation filter: ensure at least 3-4 bars between consecutive OBs to prevent badge overlap
+        if ((i - lastObIndex) < 3) continue;
+
+        // Swing Pivots
+        const isSwingHigh = c1.high > (candles[i-3]?.high || 0) && c1.high > (candles[i-4]?.high || 0) && c2.high < c1.high;
+        const isSwingLow = c1.low < (candles[i-3]?.low || 999999) && c1.low < (candles[i-4]?.low || 999999) && c2.low > c1.low;
+
         // ---------------- BULLISH / DEMAND CANDLE EVALUATION ----------------
-        const dispBull = (c2.close - c2.open) >= (atr * 0.75);
+        const dispBull = (c2.close - c2.open) >= (atr * 0.75) || (c3.close - c3.open) >= (atr * 0.75);
+        const sweepLow = c2.low < c1.low || c1.low < (candles[i-3]?.low || c1.low);
         const fvgBull = c3.low > c1.high && (c3.low - c1.high) >= (atr * 0.10);
 
-        if (dispBull && (fvgBull || (c2.close - c2.open) >= (atr * 1.15))) {
+        if (dispBull && (sweepLow || isSwingLow || fvgBull)) {
             const isC1Bear = c1.close < c1.open;
-            const isSweep = c2.low < c1.low;
-            const isOutsideBar = (c1.high >= (candles[i - 3]?.high || 0)) && (c1.low <= (candles[i - 3]?.low || 0));
-
             let obTop = c1.high;
-            let obBottom = isSweep ? c2.low : c1.low;
-            if (obTop - obBottom < atr * 0.15) {
-                obBottom = obTop - (atr * 0.25);
+            let obBottom = sweepLow ? Math.min(c1.low, c2.low) : c1.low;
+            if (obTop - obBottom < atr * 0.20) {
+                obBottom = obTop - (atr * 0.30);
             }
             const obMid = (obTop + obBottom) / 2.0;
 
@@ -315,7 +321,7 @@ function computeHermesOrderBlocks(candles) {
             let badgeTitle = "⚡ COND-OB";
             let modelSubtitle = "Type 6: Sweep+BOS Leg OB";
 
-            if (isSweep) {
+            if (sweepLow && (c2.close > c1.high)) {
                 theme = "COND";
                 badgeTitle = "⚡ COND-OB";
                 modelSubtitle = "Type 6: Sweep+BOS Leg OB";
@@ -323,10 +329,6 @@ function computeHermesOrderBlocks(candles) {
                 theme = "STRONG_BULL";
                 badgeTitle = "🟢 STRONG-OB";
                 modelSubtitle = "Type 2: Classic Opposite-Color OB";
-            } else if (isOutsideBar) {
-                theme = "WEAK";
-                badgeTitle = "🟠 WEAK-OB (SWEEP REQ)";
-                modelSubtitle = "Type 3: Outside Bar OB";
             } else {
                 theme = "WEAK";
                 badgeTitle = "🟠 WEAK-OB (SWEEP REQ)";
@@ -360,21 +362,21 @@ function computeHermesOrderBlocks(candles) {
                 mitIdx: mitIdx,
                 mitTime: mitTime
             });
+            lastObIndex = i;
+            continue;
         }
 
         // ---------------- BEARISH / SUPPLY CANDLE EVALUATION ----------------
-        const dispBear = (c2.open - c2.close) >= (atr * 0.75);
+        const dispBear = (c2.open - c2.close) >= (atr * 0.75) || (c3.open - c3.close) >= (atr * 0.75);
+        const sweepHigh = c2.high > c1.high || c1.high > (candles[i-3]?.high || c1.high);
         const fvgBear = c1.low > c3.high && (c1.low - c3.high) >= (atr * 0.10);
 
-        if (dispBear && (fvgBear || (c2.open - c2.close) >= (atr * 1.15))) {
+        if (dispBear && (sweepHigh || isSwingHigh || fvgBear)) {
             const isC1Bull = c1.close > c1.open;
-            const isSweep = c2.high > c1.high;
-            const isOutsideBar = (c1.high >= (candles[i - 3]?.high || 0)) && (c1.low <= (candles[i - 3]?.low || 0));
-
-            let obTop = isSweep ? c2.high : c1.high;
+            let obTop = sweepHigh ? Math.max(c1.high, c2.high) : c1.high;
             let obBottom = c1.low;
-            if (obTop - obBottom < atr * 0.15) {
-                obTop = obBottom + (atr * 0.25);
+            if (obTop - obBottom < atr * 0.20) {
+                obTop = obBottom + (atr * 0.30);
             }
             const obMid = (obTop + obBottom) / 2.0;
 
@@ -382,18 +384,14 @@ function computeHermesOrderBlocks(candles) {
             let badgeTitle = "🔴 STRONG-OB";
             let modelSubtitle = "Type 2: Classic Opposite-Color OB";
 
-            if (isSweep) {
-                theme = "COND";
-                badgeTitle = "⚡ COND-OB";
-                modelSubtitle = "Type 6: Sweep+BOS Leg OB";
-            } else if (isC1Bull) {
+            if (isSwingHigh && isC1Bull) {
                 theme = "STRONG_BEAR";
                 badgeTitle = "🔴 STRONG-OB";
                 modelSubtitle = "Type 2: Classic Opposite-Color OB";
-            } else if (isOutsideBar) {
-                theme = "WEAK";
-                badgeTitle = "🟠 WEAK-OB (SWEEP REQ)";
-                modelSubtitle = "Type 3: Outside Bar OB";
+            } else if (sweepHigh) {
+                theme = "COND";
+                badgeTitle = "⚡ COND-OB";
+                modelSubtitle = "Type 6: Sweep+BOS Leg OB";
             } else {
                 theme = "WEAK";
                 badgeTitle = "🟠 WEAK-OB (SWEEP REQ)";
@@ -427,11 +425,11 @@ function computeHermesOrderBlocks(candles) {
                 mitIdx: mitIdx,
                 mitTime: mitTime
             });
+            lastObIndex = i;
         }
     }
 
-    // Keep up to 8 of the cleanest recent Order Blocks (both active & mitigated)
-    detectedHermesOrderBlocks = obList.slice(-8);
+    detectedHermesOrderBlocks = obList.slice(-7);
     drawHermesOrderBlocks();
 }
 
@@ -1416,6 +1414,9 @@ function drawStrategyOnChart(item, fitChart = false) {
     const hud = document.getElementById("chartStrategyHUD");
     const toggleBtn = document.getElementById("chartStrategyToggleBtn");
     if (toggleBtn) toggleBtn.style.display = "inline-flex";
+    if (hud && isHudManuallyHidden) {
+        hud.style.display = "none";
+    }
 
     const sideBadge = document.getElementById("hudSideBadge");
     if (sideBadge) {
