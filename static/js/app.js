@@ -252,74 +252,9 @@ function updateSmcLevels(candles) {
         });
         currentSmcPriceLines = [];
     }
-    // Old strategy lines (PDH/PDL Liquidity Trap & 50% MT) permanently excised
-    return;
-
-    // A. PDH & PDL Detection
-    const lookback = Math.min(candles.length - 2, 48);
-    let pdh = -Infinity;
-    let pdl = Infinity;
-    for (let i = candles.length - lookback; i < candles.length - 2; i++) {
-        if (candles[i].high > pdh) pdh = candles[i].high;
-        if (candles[i].low < pdl) pdl = candles[i].low;
-    }
-
-    if (pdh > 0 && isFinite(pdh)) {
-        const pdhLine = candleSeries.createPriceLine({
-            price: pdh,
-            color: '#FF4B55',
-            lineWidth: 1,
-            lineStyle: 2, // Dashed
-            axisLabelVisible: true,
-            title: `PDH (Liquidity Trap): $${pdh.toFixed(4)}`
-        });
-        currentSmcPriceLines.push(pdhLine);
-    }
-
-    if (pdl > 0 && isFinite(pdl)) {
-        const pdlLine = candleSeries.createPriceLine({
-            price: pdl,
-            color: '#00F0FF',
-            lineWidth: 1,
-            lineStyle: 2, // Dashed
-            axisLabelVisible: true,
-            title: `PDL (Liquidity Sweep): $${pdl.toFixed(4)}`
-        });
-        currentSmcPriceLines.push(pdlLine);
-    }
-
-    // B. 15m Extreme Order Block & 50% Mean Threshold
-    let bestDisp = 0;
-    let obCandle = null;
-    let obType = 'DEMAND';
-    for (let i = candles.length - 22; i < candles.length - 3; i++) {
-        if (i < 0 || i + 2 >= candles.length) continue;
-        const move = Math.abs(candles[i+2].close - candles[i].open) / candles[i].open;
-        if (move > bestDisp && move >= 0.012) {
-            bestDisp = move;
-            obCandle = candles[i];
-            obType = candles[i+2].close > candles[i].open ? 'DEMAND' : 'SUPPLY';
-        }
-    }
-
-    if (obCandle) {
-        const obTop = Math.max(obCandle.open, obCandle.close, obCandle.high);
-        const obBottom = Math.min(obCandle.open, obCandle.close, obCandle.low);
-        const mt50 = obBottom + (obTop - obBottom) * 0.5;
-
-        const mtLine = candleSeries.createPriceLine({
-            price: mt50,
-            color: '#FFB800',
-            lineWidth: 2,
-            lineStyle: 1, // Dotted
-            axisLabelVisible: true,
-            title: `50% MT Sniper Entry [${obType}]: $${mt50.toFixed(4)}`
-        });
-        currentSmcPriceLines.push(mtLine);
-    }
+    // Old strategy lines completely purged
 }
 
-// Indicator Toggle Handlers
 function toggleEmaIndicator() {
     indicatorsState.ema = !indicatorsState.ema;
     const btn = document.getElementById("btnToggleEma");
