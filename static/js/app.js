@@ -26,7 +26,7 @@ let isHudManuallyHidden = false;
 
 // Advanced Indicators & Replay Engine State
 let currentFullCandles = [];
-let indicatorsState = { ema: false, vol: true, smc: true };
+let indicatorsState = { ema: false, vol: true, smc: false };
 let isReplayMode = false;
 let replayCandles = [];
 let replayIndex = 0;
@@ -252,7 +252,8 @@ function updateSmcLevels(candles) {
         });
         currentSmcPriceLines = [];
     }
-    if (!indicatorsState.smc || !candleSeries || !candles || candles.length < 20) return;
+    // Old strategy lines (PDH/PDL Liquidity Trap & 50% MT) permanently excised
+    return;
 
     // A. PDH & PDL Detection
     const lookback = Math.min(candles.length - 2, 48);
@@ -1491,7 +1492,7 @@ async function pollPositions() {
 
         if (tbody) {
             if (!data.positions || data.positions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;">No Open Positions • BB 3.0 Autonomous Scanner Standing By</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;">No Open Positions • Standby Mode (Awaiting Strategy Command)</td></tr>`;
             } else {
                 tbody.innerHTML = data.positions.map(p => {
                     const isLong = (p.side_raw || p.side || '').toUpperCase() === 'LONG' || (p.side_raw || p.side || '').toUpperCase() === 'BUY';
