@@ -1,8 +1,8 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793950760100,
-  "updated_at_str": "2026-11-06 07:39:20 IST",
-  "total_trades": 427,
+  "updated_at": 1793951062543,
+  "updated_at_str": "2026-11-06 07:44:22 IST",
+  "total_trades": 428,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 40.0,
       "status": "IN_TRADE",
       "active_symbol": "ETHUSDT",
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 2,
@@ -36,24 +36,24 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 3,
       "name": "Section 3 (AVAXUSDT, DOGEUSDT, KAVAUSDT)",
       "assigned_coins": "AVAXUSDT, DOGEUSDT, KAVAUSDT",
       "initial_balance": 50.0,
-      "current_balance": 45.75,
+      "current_balance": 46.18,
       "vault_balance": 0.0,
-      "equity": 45.75,
-      "total_pnl": -4.25,
-      "pnl_pct": -8.5,
-      "win_count": 11,
+      "equity": 46.18,
+      "total_pnl": -3.82,
+      "pnl_pct": -7.64,
+      "win_count": 12,
       "loss_count": 8,
-      "win_rate": 57.9,
-      "status": "IN_TRADE",
-      "active_symbol": "AVAXUSDT",
-      "updated_at": 1793950720.0298817
+      "win_rate": 60.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 53.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 66.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793950720.0298817
+      "updated_at": 1793951010.7719123
     }
   ],
   "trade_history": [
@@ -10423,6 +10423,30 @@
       "mae_pct": "-10.42%",
       "mfe_pct": "+4.49%",
       "roi_pct": -10.42
+    },
+    {
+      "id": 438,
+      "section_id": 3,
+      "symbol": "AVAXUSDT",
+      "side": "LONG",
+      "entry_price": 8.2035,
+      "exit_price": 8.2199,
+      "margin_usdt": 53.93,
+      "position_size_usdt": 269.65,
+      "leverage": 5,
+      "realized_pnl": 0.43,
+      "pnl_pct": 0.8,
+      "exit_reason": "FEE SHIELD SAVE (+1.0% ROI)",
+      "open_time": 1793950458.740001,
+      "close_time": 1793950977.4321663,
+      "duration_minutes": 8.6,
+      "entry_time_str": "06 Nov, 13:04:18 IST",
+      "exit_time_str": "06 Nov, 13:12:57 IST",
+      "duration_str": "8m 38s",
+      "be_status_str": "\ud83d\udee1\ufe0f BE Locked (+1.0% ROI Shield)",
+      "mae_pct": "-0.15%",
+      "mfe_pct": "+5.50%",
+      "roi_pct": 0.8
     }
   ],
   "positions": [
@@ -10432,7 +10456,7 @@
       "symbol": "ETHUSDT",
       "side": "LONG",
       "entry_price": 2224.115,
-      "mark_price": 2221.48,
+      "mark_price": 2232.69,
       "position_size_usdt": 208.15,
       "margin_usdt": 41.63,
       "leverage": 5,
@@ -10440,40 +10464,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 2208.692,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.25,
-      "pnl_pct": -0.59,
+      "unrealized_pnl": 0.8,
+      "pnl_pct": 1.93,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793942150.294432,
-      "updated_at": 1793950755.2535903,
+      "updated_at": 1793951060.1504285,
       "mae_pct": 2.2312245544856557,
-      "mfe_pct": 2.08,
-      "size_usdt": 0.0
-    },
-    {
-      "id": 222,
-      "section_id": 3,
-      "symbol": "AVAXUSDT",
-      "side": "LONG",
-      "entry_price": 8.2035,
-      "mark_price": 8.231,
-      "position_size_usdt": 269.65,
-      "margin_usdt": 53.93,
-      "leverage": 5,
-      "sl_price": 8.1597,
-      "tp_price": 0.0,
-      "trailing_sl_price": 8.1597,
-      "trailing_stage": 0,
-      "unrealized_pnl": 0.9,
-      "pnl_pct": 1.68,
-      "liquidation_price": 0.0,
-      "order_type": "LIMIT",
-      "status": "OPEN",
-      "open_time": 1793950460.1084206,
-      "updated_at": 1793950755.2494886,
-      "mae_pct": 0.0,
-      "mfe_pct": 1.68,
+      "mfe_pct": 2.345876899351068,
       "size_usdt": 0.0
     }
   ],
@@ -11593,6 +11592,18 @@
       "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
       "timestamp": 1793943753.5542161,
       "created_at_str": "06 Nov, 11:12:33 IST"
+    },
+    {
+      "id": 94,
+      "incident_type": "HISTORY_MFE_RECONCILED",
+      "symbol": "AVAXUSDT",
+      "severity": "INFO",
+      "detected_issue": "Trade #438 (AVAXUSDT) displayed exit ROI +0.80% instead of true peak excursion.",
+      "root_cause": "Fallback in enrich_trade_metadata defaulted mfe_pct to realized ROI upon closing.",
+      "resolution_applied": "Reconciled MFE to verified candle peak of +5.50%.",
+      "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
+      "timestamp": 1793950981.4509017,
+      "created_at_str": "06 Nov, 13:13:01 IST"
     }
   ]
 }
