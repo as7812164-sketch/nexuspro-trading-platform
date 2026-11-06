@@ -103,15 +103,15 @@ async def lifespan(app: FastAPI):
         print(f"[RECONCILIATION ERROR] {e}")
     reconcile_sections_ledger()
     asyncio.create_task(market_feed.get_all_tickers())
-    sniper_task = asyncio.create_task(bb20_sniper.start_loop())
+    # sniper_task = asyncio.create_task(bb20_sniper.start_loop()) # DECOMMISSIONED: Old strategy deleted
     sentinel_task = asyncio.create_task(nexus_sentinel.start_loop())
     keepalive_task = asyncio.create_task(keepalive_loop())
     vault_task = asyncio.create_task(vault_periodic_sync_loop())
     yield
     # Shutdown
-    bb20_sniper.stop_loop()
+    # bb20_sniper.stop_loop()
     nexus_sentinel.stop_loop()
-    sniper_task.cancel()
+    # sniper_task.cancel()
     sentinel_task.cancel()
     keepalive_task.cancel()
     vault_task.cancel()

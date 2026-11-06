@@ -464,18 +464,21 @@ class BB20SniperEngine:
             else:
                 update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage, new_mfe, new_mae)
 
-    async def start_loop(self):
-        """Continuous background execution loop."""
-        self._is_running = True
-        while self._is_running:
-            try:
-                await self.update_open_positions()
-                await self.run_scan_cycle()
-            except Exception:
-                pass
-            await asyncio.sleep(8)  # Fast 8-second evaluation loop
+        async def start_loop(self):
+        """Old BB strategy permanently decommissioned per institutional directive."""
+        self._is_running = False
+        return
+
+    async def run_scan_cycle(self):
+        """Scanning disabled - zero execution."""
+        self.scanned_setups = []
+        return []
+
+    async def update_open_positions(self):
+        return
 
     def stop_loop(self):
         self._is_running = False
+
 
 bb20_sniper = BB20SniperEngine()

@@ -26,7 +26,7 @@ let isHudManuallyHidden = false;
 
 // Advanced Indicators & Replay Engine State
 let currentFullCandles = [];
-let indicatorsState = { ema: true, vol: true, smc: true };
+let indicatorsState = { ema: false, vol: true, smc: true };
 let isReplayMode = false;
 let replayCandles = [];
 let replayIndex = 0;
@@ -158,29 +158,10 @@ function initChart() {
         },
     });
 
-    // 3. EMA 20 (Yellow / Fast Trend)
-    ema20Series = chart.addLineSeries({
-        color: '#FFB800',
-        lineWidth: 1.5,
-        title: 'EMA 20',
-        priceLineVisible: false,
-    });
-
-    // 4. EMA 50 (Cyan / Dynamic Base)
-    ema50Series = chart.addLineSeries({
-        color: '#00DFC0',
-        lineWidth: 1.5,
-        title: 'EMA 50',
-        priceLineVisible: false,
-    });
-
-    // 5. EMA 200 (Purple / Institutional Macro)
-    ema200Series = chart.addLineSeries({
-        color: '#A78BFA',
-        lineWidth: 2,
-        title: 'EMA 200',
-        priceLineVisible: false,
-    });
+    // Retail indicators (EMA 20/50/200) strictly removed per institutional directive
+    ema20Series = null;
+    ema50Series = null;
+    ema200Series = null;
 
     // Crosshair Live Tracker for OHLCV Tooltip Bar
     chart.subscribeCrosshairMove(onCrosshairMove);
@@ -211,20 +192,8 @@ function handleChartResize() {
 // ----------------- INDICATORS & CALCULATIONS -----------------
 
 function calculateEMA(candles, period) {
-    if (!candles || candles.length < period) return [];
-    const k = 2 / (period + 1);
-    let ema = 0;
-    for (let i = 0; i < period; i++) {
-        ema += candles[i].close;
-    }
-    ema /= period;
-
-    const results = [{ time: candles[period - 1].time, value: Number(ema.toFixed(4)) }];
-    for (let i = period; i < candles.length; i++) {
-        ema = (candles[i].close * k) + (ema * (1 - k));
-        results.push({ time: candles[i].time, value: Number(ema.toFixed(4)) });
-    }
-    return results;
+    // Disabled retail indicator calculation
+    return [];
 }
 
 function renderIndicators(candles) {
