@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793969800556,
-  "updated_at_str": "2026-11-06 12:56:40 IST",
+  "updated_at": 1793970103149,
+  "updated_at_str": "2026-11-06 13:01:43 IST",
   "total_trades": 430,
   "sections": [
     {
@@ -17,9 +17,9 @@
       "win_count": 9,
       "loss_count": 12,
       "win_rate": 42.9,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "status": "IN_TRADE",
+      "active_symbol": "BCHUSDT",
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 53.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 66.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 50.8,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793969739.0330675
+      "updated_at": 1793970099.5240045
     }
   ],
   "trade_history": [
@@ -10497,7 +10497,33 @@
       "roi_pct": 0.79
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 224,
+      "section_id": 1,
+      "symbol": "BCHUSDT",
+      "side": "LONG",
+      "entry_price": 267.95,
+      "mark_price": 267.95,
+      "position_size_usdt": 209.8,
+      "margin_usdt": 41.96,
+      "leverage": 5,
+      "sl_price": 266.7992,
+      "tp_price": 0.0,
+      "trailing_sl_price": 266.7992,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.0,
+      "pnl_pct": 0.0,
+      "liquidation_price": 0.0,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1793970080.505255,
+      "updated_at": 1793970084.5443327,
+      "mae_pct": 0.09,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0
+    }
+  ],
   "sentinel_knowledge_base": [
     {
       "id": 1,
