@@ -34,7 +34,8 @@ class HermesMSOBEngine:
         self.margin_per_trade = 50.0          # Flat 5% = $50.00 USDT
         self.max_concurrent_trades = 8        # Max 8 concurrent positions
         self.leverage = DEFAULT_LEVERAGE      # 5x Isolated Margin
-        self.hard_sl_price_pct = 0.03         # 3.0% Price Distance (-15.0% ROI)
+        self.hard_sl_price_pct = 0.03
+        self.sl_buffer_pct = 0.03         # 3.0% Price Distance (-15.0% ROI)
         self.full_tp_price_pct = 0.03         # 3.0% Price Distance (+15.0% ROI Full Book)
         
         self.crypto_timeframes = ["1h", "4h"]

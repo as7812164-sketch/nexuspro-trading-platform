@@ -180,7 +180,9 @@ async def get_status():
         "total_balance": summary["total_balance"],
         "margin_per_trade_usdt": hermes_ms_ob_engine.margin_per_trade,
         "max_concurrent_trades": hermes_ms_ob_engine.max_concurrent_trades,
-        "sl_buffer_pct": hermes_ms_ob_engine.sl_buffer_pct * 100.0,
+        "sl_buffer_pct": getattr(hermes_ms_ob_engine, "hard_sl_price_pct", 0.03) * 100.0,
+        "hard_sl_roi_pct": -15.0,
+        "full_book_tp_roi_pct": 15.0,
         "dynamic_armor": {
             "hard_sl": "-15.0% ROI (-3.0% Price)",
             "full_book_tp": "+15.0% ROI (+3.0% Price)",
