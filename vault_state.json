@@ -1,25 +1,25 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793928185343,
-  "updated_at_str": "2026-11-06 01:23:05 IST",
-  "total_trades": 420,
+  "updated_at": 1793928363568,
+  "updated_at_str": "2026-11-06 01:26:03 IST",
+  "total_trades": 421,
   "sections": [
     {
       "id": 1,
       "name": "Section 1 (BTCUSDT, ETHUSDT, BCHUSDT)",
       "assigned_coins": "BTCUSDT, ETHUSDT, BCHUSDT",
       "initial_balance": 50.0,
-      "current_balance": 65.75,
+      "current_balance": 63.72,
       "vault_balance": 0.0,
-      "equity": 65.75,
-      "total_pnl": 15.75,
-      "pnl_pct": 31.5,
+      "equity": 63.72,
+      "total_pnl": 13.72,
+      "pnl_pct": 27.44,
       "win_count": 8,
-      "loss_count": 10,
-      "win_rate": 44.4,
-      "status": "IN_TRADE",
-      "active_symbol": "BCHUSDT",
-      "updated_at": 1793928185.2746081
+      "loss_count": 11,
+      "win_rate": 42.1,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1793928363.560095
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 57.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 45.7,
       "status": "IN_TRADE",
       "active_symbol": "ENSUSDT",
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 48.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 53.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 46.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 65.5,
       "status": "IN_TRADE",
       "active_symbol": "ARKMUSDT",
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928185.2746081
+      "updated_at": 1793928363.560095
     }
   ],
   "trade_history": [
@@ -10255,41 +10255,40 @@
       "mae_pct": "-0.45%",
       "mfe_pct": "+17.41%",
       "roi_pct": 10.09
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 214,
+      "id": 431,
       "section_id": 1,
       "symbol": "BCHUSDT",
       "side": "LONG",
       "entry_price": 275.57,
-      "mark_price": 274.3,
-      "position_size_usdt": 328.75,
+      "exit_price": 273.86858,
       "margin_usdt": 65.75,
+      "position_size_usdt": 328.75,
       "leverage": 5,
-      "sl_price": 273.86858,
-      "tp_price": 0.0,
-      "trailing_sl_price": 273.86858,
-      "trailing_stage": 0,
-      "unrealized_pnl": -1.52,
-      "pnl_pct": -2.3,
-      "liquidation_price": 225.9674,
-      "order_type": "LIMIT",
-      "status": "OPEN",
+      "realized_pnl": -2.03,
+      "pnl_pct": -3.09,
+      "exit_reason": "STOP_LOSS (INITIAL SL HIT)",
       "open_time": 1793927864.5710862,
-      "updated_at": 1793928185.2595897,
-      "mae_pct": 2.304314693181373,
-      "mfe_pct": 0.0,
-      "size_usdt": 0.0
-    },
+      "close_time": 1793928363.555222,
+      "duration_minutes": 8.3,
+      "entry_time_str": "06 Nov, 06:47:44 IST",
+      "exit_time_str": "06 Nov, 06:56:03 IST",
+      "duration_str": "8m 18s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-3.21%",
+      "mfe_pct": "+0.00%",
+      "roi_pct": -3.09
+    }
+  ],
+  "positions": [
     {
       "id": 215,
       "section_id": 4,
       "symbol": "ENSUSDT",
       "side": "LONG",
       "entry_price": 4.5875,
-      "mark_price": 4.58,
+      "mark_price": 4.57,
       "position_size_usdt": 262.1,
       "margin_usdt": 52.42,
       "leverage": 5,
@@ -10297,14 +10296,14 @@
       "tp_price": 0.0,
       "trailing_sl_price": 4.558153,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.43,
-      "pnl_pct": -0.82,
+      "unrealized_pnl": -1.0,
+      "pnl_pct": -1.91,
       "liquidation_price": 3.76175,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793927907.5519483,
-      "updated_at": 1793928185.2526104,
-      "mae_pct": 0.8174386920981236,
+      "updated_at": 1793928363.5510955,
+      "mae_pct": 1.9073569482288906,
       "mfe_pct": 1.3623978201634104,
       "size_usdt": 0.0
     },
@@ -10314,7 +10313,7 @@
       "symbol": "ARKMUSDT",
       "side": "LONG",
       "entry_price": 0.10245,
-      "mark_price": 0.1026,
+      "mark_price": 0.1025,
       "position_size_usdt": 447.05,
       "margin_usdt": 89.41,
       "leverage": 5,
@@ -10322,13 +10321,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.101747,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.65,
-      "pnl_pct": 0.73,
+      "unrealized_pnl": 0.22,
+      "pnl_pct": 0.24,
       "liquidation_price": 0.084009,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793927971.1192782,
-      "updated_at": 1793928185.2445817,
+      "updated_at": 1793928363.546461,
       "mae_pct": 0.0,
       "mfe_pct": 2.6842362127867005,
       "size_usdt": 0.0
