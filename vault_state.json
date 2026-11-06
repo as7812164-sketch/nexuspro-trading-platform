@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793928698805,
-  "updated_at_str": "2026-11-06 01:31:38 IST",
+  "updated_at": 1793929000533,
+  "updated_at_str": "2026-11-06 01:36:40 IST",
   "total_trades": 421,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 42.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 57.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 45.7,
       "status": "IN_TRADE",
       "active_symbol": "ENSUSDT",
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 48.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 53.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 46.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 65.5,
       "status": "IN_TRADE",
       "active_symbol": "ARKMUSDT",
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 49.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793928679.216904
+      "updated_at": 1793928973.7905095
     }
   ],
   "trade_history": [
@@ -10288,7 +10288,7 @@
       "symbol": "ENSUSDT",
       "side": "LONG",
       "entry_price": 4.5875,
-      "mark_price": 4.61,
+      "mark_price": 4.63,
       "position_size_usdt": 262.1,
       "margin_usdt": 52.42,
       "leverage": 5,
@@ -10296,15 +10296,15 @@
       "tp_price": 0.0,
       "trailing_sl_price": 4.558153,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.29,
-      "pnl_pct": 2.45,
+      "unrealized_pnl": 2.43,
+      "pnl_pct": 4.63,
       "liquidation_price": 3.76175,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793927907.5519483,
-      "updated_at": 1793928684.9634552,
-      "mae_pct": 1.9073569482288906,
-      "mfe_pct": 2.4523160762942737,
+      "updated_at": 1793928983.8423848,
+      "mae_pct": 1.91,
+      "mfe_pct": 4.632152588555808,
       "size_usdt": 0.0
     },
     {
@@ -10313,23 +10313,23 @@
       "symbol": "ARKMUSDT",
       "side": "LONG",
       "entry_price": 0.10245,
-      "mark_price": 0.103,
+      "mark_price": 0.1035,
       "position_size_usdt": 447.05,
       "margin_usdt": 89.41,
       "leverage": 5,
       "sl_price": 0.101747,
       "tp_price": 0.0,
-      "trailing_sl_price": 0.101747,
-      "trailing_stage": 0,
-      "unrealized_pnl": 2.4,
-      "pnl_pct": 2.68,
+      "trailing_sl_price": 0.102655,
+      "trailing_stage": 1,
+      "unrealized_pnl": 4.58,
+      "pnl_pct": 5.12,
       "liquidation_price": 0.084009,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793927971.1192782,
-      "updated_at": 1793928684.9548118,
+      "updated_at": 1793928983.7559748,
       "mae_pct": 0.0,
-      "mfe_pct": 2.6842362127867005,
+      "mfe_pct": 5.612493899463145,
       "size_usdt": 0.0
     }
   ],
@@ -11401,6 +11401,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1793921072.250015,
       "created_at_str": "06 Nov, 04:54:32 IST"
+    },
+    {
+      "id": 90,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "ARKMUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +5.12% ROI peak but was at Tier 0 (SL: $0.1017).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted ARKMUSDT to Tier 1 (Locked +1.0% ROI | SL \u2794 $0.1027).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793928852.5588233,
+      "created_at_str": "06 Nov, 07:04:12 IST"
     }
   ]
 }
