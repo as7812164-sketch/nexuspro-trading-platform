@@ -30,6 +30,7 @@ GITHUB_REPO = os.getenv("GITHUB_REPO", "as7812164-sketch/nexuspro-trading-platfo
 VAULT_BRANCH = "data-vault"
 VAULT_FILE = "vault_state.json"
 LOCAL_VAULT_BACKUP = BASE_DIR / "database" / "local_vault_backup.json"
+CURRENT_VAULT_VERSION = "2.0-hermes-msob"
 
 def get_vault_headers() -> Dict[str, str]:
     return {
@@ -38,7 +39,7 @@ def get_vault_headers() -> Dict[str, str]:
         "Accept": "application/vnd.github.v3+json"
     }
 
-def push_vault_state() -> bool:
+def push_vault_state(force_reset: bool = False) -> bool:
     """
     Dumps all Deca sections, trade history, positions, and Sentinel knowledge base
     to GitHub branch 'data-vault' and local disk backup.
@@ -67,7 +68,7 @@ def push_vault_state() -> bool:
         conn.close()
 
         payload_data = {
-            "version": "3.0-nexuspro",
+            "version": CURRENT_VAULT_VERSION,
             "updated_at": int(time.time() * 1000),
             "updated_at_str": time.strftime("%Y-%m-%d %H:%M:%S IST", time.localtime()),
             "total_trades": len(trade_history),
@@ -106,10 +107,12 @@ def push_vault_state() -> bool:
                     try:
                         existing_vault = json.loads(base64.b64decode(existing_b64).decode("utf-8"))
                         existing_trades = len(existing_vault.get("trade_history", []))
-                        # Anti-Regression Armor: NEVER overwrite if remote has more trades!
-                        if len(trade_history) < existing_trades:
-                            logger.error(f"ABORTED VAULT PUSH: Local trade count ({len(trade_history)}) is smaller than remote ({existing_trades})! Potential data loss blocked.")
-                            return False
+                        existing_ver = existing_vault.get("version", "")
+                        # Anti-Regression Armor: only enforce if same version and not forced reset
+                        if not force_reset and existing_ver == CURRENT_VAULT_VERSION:
+                            if len(trade_history) < existing_trades:
+                                logger.error(f"ABORTED VAULT PUSH: Local trade count ({len(trade_history)}) is smaller than remote ({existing_trades})! Potential data loss blocked.")
+                                return False
                     except Exception as parse_err:
                         logger.warning(f"Could not parse existing vault json: {parse_err}")
         except urllib.error.HTTPError as e:
@@ -175,6 +178,11 @@ def pull_and_restore_vault_state() -> bool:
 
     if not vault_data:
         logger.info("No Cloud Vault data available to restore.")
+        return False
+
+    # Check version compatibility: ignore old decommissioned strategy versions
+    if vault_data.get("version") != CURRENT_VAULT_VERSION:
+        logger.info(f"Ignoring legacy Cloud Vault version {vault_data.get('version')} in favor of fresh {CURRENT_VAULT_VERSION}.")
         return False
 
     # 3. Restore data into SQLite

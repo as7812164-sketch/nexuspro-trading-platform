@@ -39,7 +39,7 @@ const symParam = urlParams.get('symbol');
 if (symParam) currentSymbol = symParam.toUpperCase();
 
 const ALL_CHAMPIONS = [
-    { s: "BTCUSDT", sec: 1 }, { s: "ETHUSDT", sec: 1 },
+    { s: "BTCUSDT", sec: 1 }, { s: "ETHUSDT", sec: 1 }, { s: "PAXGUSDT", sec: 1 },
     { s: "SOLUSDT", sec: 2 }, { s: "BNBUSDT", sec: 2 },
     { s: "AVAXUSDT", sec: 3 }, { s: "DOGEUSDT", sec: 3 },
     { s: "DOTUSDT", sec: 4 }, { s: "LINKUSDT", sec: 4 },
@@ -57,10 +57,10 @@ function renderPairModalList(filter = "") {
     const q = filter.toUpperCase();
     const filtered = ALL_CHAMPIONS.filter(x => x.s.includes(q));
     listEl.innerHTML = filtered.map(x => `
-        <div onclick="selectPair('${x.s}')" style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:6px; cursor:pointer; margin-bottom:4px; background:var(--bg-base); border:1px solid var(--border-subtle); transition:border-color 0.2s;">
+                <div onclick="selectPair('${x.s}')" style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:6px; cursor:pointer; margin-bottom:4px; background:var(--bg-base); border:1px solid ${x.s==='PAXGUSDT' ? 'rgba(245,158,11,0.5)' : 'var(--border-subtle)'}; transition:border-color 0.2s;">
             <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-weight:800; color:#fff; font-size:13px;">${x.s}</span>
-                <span style="font-size:9px; background:var(--bg-surface-elevated); padding:2px 4px; border-radius:3px; color:var(--text-muted);">PERP</span>
+                <span style="font-weight:800; color:${x.s==='PAXGUSDT' ? '#F59E0B' : '#fff'}; font-size:13px;">${x.s==='PAXGUSDT' ? 'PAXGUSDT (Gold)' : x.s}</span>
+                <span style="font-size:9px; background:${x.s==='PAXGUSDT' ? 'rgba(245,158,11,0.2)' : 'var(--bg-surface-elevated)'}; padding:2px 4px; border-radius:3px; color:${x.s==='PAXGUSDT' ? '#F59E0B' : 'var(--text-muted)'}; font-weight:bold;">${x.s==='PAXGUSDT' ? 'GOLD 15M/1H/4H' : 'PERP 1H/4H'}</span>
             </div>
             <span style="font-size:10px; font-weight:800; color:var(--brand-teal);">Section ${x.sec}</span>
         </div>
@@ -1638,7 +1638,7 @@ async function pollDockRadar() {
         }
 
         if (setups.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:24px;">No active setups • Autonomous Scanner Scanning 20 Champions</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:24px;">No active setups • Hermes MS-OB Engine Scanning Crypto (1H/4H) & Gold (15m/1H/4H)</td></tr>`;
         } else {
             tbody.innerHTML = setups.map(s => {
                 const isLong = (s.side || '').toUpperCase() === 'LONG' || (s.side || '').toUpperCase() === 'BUY';

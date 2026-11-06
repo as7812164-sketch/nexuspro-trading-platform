@@ -50,6 +50,7 @@ from database.db import (
 )
 from engine.feed import market_feed
 from engine.sentinel import nexus_sentinel
+from engine.ms_ob_engine import hermes_ms_ob_engine
 from engine.bb20_sniper import bb20_sniper
 
 STATIC_DIR = BASE_DIR / "static"
@@ -104,14 +105,17 @@ async def lifespan(app: FastAPI):
     reconcile_sections_ledger()
     asyncio.create_task(market_feed.get_all_tickers())
     # sniper_task = asyncio.create_task(bb20_sniper.start_loop()) # DECOMMISSIONED: Old strategy deleted
+    ms_ob_task = asyncio.create_task(hermes_ms_ob_engine.start_loop())
     sentinel_task = asyncio.create_task(nexus_sentinel.start_loop())
     keepalive_task = asyncio.create_task(keepalive_loop())
     vault_task = asyncio.create_task(vault_periodic_sync_loop())
     yield
     # Shutdown
     # bb20_sniper.stop_loop()
+    hermes_ms_ob_engine.stop_loop()
     nexus_sentinel.stop_loop()
     # sniper_task.cancel()
+    ms_ob_task.cancel()
     sentinel_task.cancel()
     keepalive_task.cancel()
     vault_task.cancel()
@@ -169,11 +173,22 @@ async def get_status():
         "status": "online",
         "brand": BRAND_NAME,
         "tagline": BRAND_SUBTITLE,
-        "mode": "BB_2.0_DECA_COMPOUNDING",
+        "strategy": "HERMES_MS_OB",
+        "mode": "7-Model Order Block 1st Tap Protocol (1H/4H & Gold 15m/1H/4H)",
         "starting_capital": summary["starting_capital"],
         "total_equity": summary["total_equity"],
+        "total_balance": summary["total_balance"],
+        "margin_per_trade_usdt": hermes_ms_ob_engine.margin_per_trade,
+        "max_concurrent_trades": hermes_ms_ob_engine.max_concurrent_trades,
+        "sl_buffer_pct": hermes_ms_ob_engine.sl_buffer_pct * 100.0,
+        "dynamic_armor": {
+            "breakeven_trigger": "+1.0% (Fee Shield)",
+            "trailing_trigger": "+1.8%",
+            "take_profit": "+2.8%"
+        },
         "win_rate": summary["win_rate"],
         "active_positions": summary["active_positions_count"],
+        "scanned_setups_count": len(hermes_ms_ob_engine.scanned_setups),
         "timestamp": time.time()
     }
 
@@ -228,7 +243,6 @@ async def get_deca_sections():
 
 @app.get("/api/deca/setups")
 async def get_deca_setups():
-    # 1. Live active positions at top
     open_pos = get_open_positions()
     tickers = await market_feed.get_all_tickers()
     active_list = []
@@ -236,58 +250,47 @@ async def get_deca_setups():
     for p in open_pos:
         sym = p["symbol"]
         busy_symbols.add(sym)
-        ticker = tickers.get(sym)
+        ticker = (tickers or {}).get(sym)
         mark = ticker["last_price"] if ticker else p["entry_price"]
         active_list.append({
             "symbol": sym,
             "side": p["side"],
             "section_id": p["section_id"],
-            "timeframe": "15M",
+            "timeframe": p.get("timeframe", "1H"),
             "entry_price": p["entry_price"],
             "mark_price": mark,
-            "sl_price": p["trailing_sl_price"] if p["trailing_sl_price"] > 0 else p["sl_price"],
+            "sl_price": p["trailing_sl_price"] if p.get("trailing_sl_price", 0) > 0 else p["sl_price"],
             "tp_price": p["tp_price"],
             "distance_pct": 0.0,
             "proximity_pct": 0.0,
             "roe_pct": p.get("pnl_pct", 0.0),
-            "status": "LIVE POSITION (BB 3.0)",
+            "status": "LIVE POSITION (HERMES MS-OB)",
             "is_active": True
         })
 
-    # 2. Pending limit setups from database
-    pending = get_pending_setups()
+    msob_setups = hermes_ms_ob_engine.scanned_setups or []
     pending_list = []
-    for s in pending:
+    for s in msob_setups:
         sym = s["symbol"]
         if sym in busy_symbols:
             continue
-        ticker = tickers.get(sym)
-        cur_p = ticker["last_price"] if ticker else s["current_price"]
-        entry = s["entry_price"]
-        dist = round(abs(cur_p - entry) / entry * 100.0, 2) if entry > 0 else s["proximity_pct"]
         pending_list.append({
             "symbol": sym,
             "side": s["side"],
-            "section_id": s["section_id"],
-            "timeframe": "15M",
-            "entry_price": entry,
-            "mark_price": cur_p,
+            "section_id": PAIR_MAPPING.get(sym, 1),
+            "timeframe": s["timeframe"].upper(),
+            "entry_price": s["entry_price"],
+            "mark_price": s["current_price"],
             "sl_price": s["sl_price"],
             "tp_price": s["tp_price"],
-            "distance_pct": dist,
-            "proximity_pct": dist,
-            "probability_pct": 94.0,
-            "status": f"ARMED (50% MT) - {dist}% away",
-            "anchor_name": s.get("anchor_name", "PDH/PDL"),
-            "anchor_price": s.get("anchor_price", 0.0),
+            "distance_pct": s["proximity_pct"],
+            "proximity_pct": s["proximity_pct"],
+            "probability_pct": 92.5,
+            "status": s["status"],
+            "anchor_name": f"{s['category']} OB ({s['model']})",
+            "anchor_price": s["ob_mid"],
             "is_active": False
         })
-
-    # 3. Fallback to internal bb20_sniper setups if pending is empty
-    if not pending_list and bb20_sniper.scanned_setups:
-        for s in bb20_sniper.scanned_setups:
-            if s.get("symbol") not in busy_symbols:
-                pending_list.append(s)
 
     all_setups = active_list + pending_list
     return {"count": len(all_setups), "setups": all_setups}

@@ -149,7 +149,7 @@ def init_db():
 
     # Safe column migration for positions and trade_history (zero data loss)
     pos_cols = [d[1] for d in c.execute("PRAGMA table_info(positions)").fetchall()]
-    for col, ctype in [("mae_pct", "REAL DEFAULT 0.0"), ("mfe_pct", "REAL DEFAULT 0.0"), ("size_usdt", "REAL DEFAULT 0.0")]:
+    for col, ctype in [("mae_pct", "REAL DEFAULT 0.0"), ("mfe_pct", "REAL DEFAULT 0.0"), ("size_usdt", "REAL DEFAULT 0.0"), ("timeframe", "TEXT DEFAULT '1H'")]:
         if col not in pos_cols:
             c.execute(f"ALTER TABLE positions ADD COLUMN {col} {ctype}")
 
@@ -161,7 +161,7 @@ def init_db():
         ("duration_str", "TEXT"),
         ("be_status_str", "TEXT"),
         ("mae_pct", "TEXT DEFAULT '0.00%'"),
-        ("mfe_pct", "TEXT DEFAULT '0.00%'")
+        ("mfe_pct", "TEXT DEFAULT '0.00%'"), ("timeframe", "TEXT DEFAULT '1H'")
     ]:
         if col not in hist_cols:
             c.execute(f"ALTER TABLE trade_history ADD COLUMN {col} {ctype}")
@@ -464,8 +464,7 @@ def open_position(pos_data: Dict[str, Any]) -> int:
     entry_p = float(pos_data["entry_price"])
     side = pos_data["side"].upper()
     sl_p = float(pos_data.get("sl_price", 0.0))
-    tp_p = 0.0  # No fixed TP: Position rides with continuous Stepped Trailing SL
-    pos_data["tp_price"] = 0.0
+    tp_p = float(pos_data.get("tp_price", 0.0))
 
     c.execute("""
         INSERT INTO positions (
@@ -624,7 +623,7 @@ def get_portfolio_summary() -> Dict[str, Any]:
     win_rate = round((tot_wins / tot_trades) * 100.0, 1) if tot_trades > 0 else 0.0
 
     return {
-        "mode": "BB 3.0 (STEPPED TRAILING SL)",
+        "mode": "HERMES_MS_OB_V2 (7-MODEL OB FIRST TAP)",
         "starting_capital": tot_initial,
         "total_balance": round(tot_balance, 2),
         "total_equity": round(tot_equity, 2),
@@ -637,8 +636,8 @@ def get_portfolio_summary() -> Dict[str, Any]:
         "win_rate": win_rate,
         "active_positions_count": len(open_positions),
         "sections_count": len(sections),
-        "target_capital": 47389.77,
-        "progress_pct": round((tot_equity / 47389.77) * 100.0, 2)
+        "target_capital": 2000.0,
+        "progress_pct": round((tot_equity / 2000.0) * 100.0, 2)
     }
 
 # ----------------- REAL-TIME SYNC BRIDGE (BB 3.0 SNIPER & TELEGRAM) -----------------
