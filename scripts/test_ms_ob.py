@@ -10,20 +10,21 @@ from engine.ms_ob_engine import hermes_ms_ob_engine
 from database.db import get_portfolio_summary, get_open_positions
 
 async def main():
-    print("--- Testing Hermes MS-OB Engine & Portfolio ---")
+    print("--- Testing Hermes MS-OB Engine & Portfolio (Zero Compounding) ---")
     summary = get_portfolio_summary()
     print("Portfolio Summary:", summary)
     assert summary["starting_capital"] == 1000.0
     assert summary["total_equity"] == 1000.0
     assert hermes_ms_ob_engine.margin_per_trade == 50.0
     assert hermes_ms_ob_engine.max_concurrent_trades == 8
-    assert hermes_ms_ob_engine.sl_buffer_pct == 0.005
+    assert hermes_ms_ob_engine.hard_sl_price_pct == 0.03
+    assert hermes_ms_ob_engine.full_tp_price_pct == 0.03
 
     print("\n--- Running 1 Scan Cycle across Crypto (1H/4H) & Gold (15m/1H/4H) ---")
     await hermes_ms_ob_engine.run_scan_cycle()
     print(f"Scanned Setups Found: {len(hermes_ms_ob_engine.scanned_setups)}")
     for s in hermes_ms_ob_engine.scanned_setups[:5]:
-        print(f"  [{s['symbol']} {s['timeframe']}] {s['side']} | {s['category']} ({s['model']}) | Entry: {s['entry_price']} | SL: {s['sl_price']} | Status: {s['status']}")
+        print(f"  [{s['symbol']} {s['timeframe']}] {s['side']} | {s['category']} | Entry: {s['entry_price']} | Hard SL: {s['sl_price']} (-15% ROI) | Full TP: {s['tp_price']} (+15% ROI) | Status: {s['status']}")
 
     print("\n[OK] HERMES MS-OB ENGINE VERIFICATION COMPLETED SUCCESSFULLY!")
 

@@ -252,7 +252,118 @@ function updateSmcLevels(candles) {
         });
         currentSmcPriceLines = [];
     }
-    // Old strategy lines completely purged
+    if (!indicatorsState.smc || !candles || candles.length < 25) return;
+
+    // --- HERMES MS-OB 7-MODEL CHART INDICATOR ---
+    // Calculates unmitigated Order Blocks with 50% Mean Threshold on current timeframe
+    const atrPeriod = 14;
+    let trList = [];
+    for (let i = 1; i < candles.length; i++) {
+        const cHigh = candles[i].high;
+        const cLow = candles[i].low;
+        const pClose = candles[i - 1].close;
+        const tr = Math.max(cHigh - cLow, Math.abs(cHigh - pClose), Math.abs(cLow - pClose));
+        trList.push(tr);
+    }
+    const atr = trList.slice(-atrPeriod).reduce((a, b) => a + b, 0) / atrPeriod || 0.0;
+    if (atr <= 0) return;
+
+    const currPrice = candles[candles.length - 1].close;
+    const scanStart = Math.max(2, candles.length - 20);
+
+    for (let i = scanStart; i < candles.length - 1; i++) {
+        const c1 = candles[i - 2];
+        const c2 = candles[i - 1];
+        const c3 = candles[i];
+
+        // Bullish OB
+        const fvgBull = c3.low > c1.high && (c3.low - c1.high) >= (atr * 0.15);
+        const dispBull = (c2.close - c2.open) >= (atr * 1.2);
+        if (fvgBull && dispBull) {
+            const obTop = c1.high;
+            const obBottom = (c2.low < c1.low) ? c2.low : c1.low;
+            const obMid = (obTop + obBottom) / 2.0;
+
+            let isMitigated = false;
+            for (let k = i + 1; k < candles.length; k++) {
+                if (candles[k].close < obBottom) { isMitigated = true; break; }
+                if (candles[k].low <= obTop) { isMitigated = true; }
+            }
+
+            if (!isMitigated) {
+                // Render Unmitigated Bullish Demand OB
+                const topL = candleSeries.createPriceLine({
+                    price: obTop,
+                    color: '#00C087',
+                    lineWidth: 2,
+                    lineStyle: 0,
+                    axisLabelVisible: true,
+                    title: '🟢 BULLISH OB (DEMAND)'
+                });
+                const midL = candleSeries.createPriceLine({
+                    price: obMid,
+                    color: '#F59E0B',
+                    lineWidth: 1,
+                    lineStyle: 2,
+                    axisLabelVisible: true,
+                    title: '⚡ 50% MT'
+                });
+                const botL = candleSeries.createPriceLine({
+                    price: obBottom,
+                    color: '#00C087',
+                    lineWidth: 1,
+                    lineStyle: 1,
+                    axisLabelVisible: false,
+                    title: ''
+                });
+                currentSmcPriceLines.push(topL, midL, botL);
+            }
+        }
+
+        // Bearish OB
+        const fvgBear = c3.high < c1.low && (c1.low - c3.high) >= (atr * 0.15);
+        const dispBear = (c2.open - c2.close) >= (atr * 1.2);
+        if (fvgBear && dispBear) {
+            const obTop = (c2.high > c1.high) ? c2.high : c1.high;
+            const obBottom = c1.low;
+            const obMid = (obTop + obBottom) / 2.0;
+
+            let isMitigated = false;
+            for (let k = i + 1; k < candles.length; k++) {
+                if (candles[k].close > obTop) { isMitigated = true; break; }
+                if (candles[k].high >= obBottom) { isMitigated = true; }
+            }
+
+            if (!isMitigated) {
+                // Render Unmitigated Bearish Supply OB
+                const botL = candleSeries.createPriceLine({
+                    price: obBottom,
+                    color: '#FF4B55',
+                    lineWidth: 2,
+                    lineStyle: 0,
+                    axisLabelVisible: true,
+                    title: '🔴 BEARISH OB (SUPPLY)'
+                });
+                const midL = candleSeries.createPriceLine({
+                    price: obMid,
+                    color: '#F59E0B',
+                    lineWidth: 1,
+                    lineStyle: 2,
+                    axisLabelVisible: true,
+                    title: '⚡ 50% MT'
+                });
+                const topL = candleSeries.createPriceLine({
+                    price: obTop,
+                    color: '#FF4B55',
+                    lineWidth: 1,
+                    lineStyle: 1,
+                    axisLabelVisible: false,
+                    title: ''
+                });
+                currentSmcPriceLines.push(botL, midL, topL);
+            }
+        }
+    }
 }
 
 function toggleEmaIndicator() {
@@ -1064,7 +1175,7 @@ function drawStrategyOnChart(item, fitChart = false) {
             lineWidth: 2,
             lineStyle: 0, // Solid
             axisLabelVisible: true,
-            title: `${isTrailing ? '🛡️ TRAILING SL' : '⛔ STOP LOSS'}: $${slP.toFixed(4)}`
+            title: `⛔ HARD SL (-15% ROI): $${slP.toFixed(4)}`
         });
         currentChartPriceLines.push(slLine);
     }
@@ -1077,7 +1188,7 @@ function drawStrategyOnChart(item, fitChart = false) {
             lineWidth: 2,
             lineStyle: 0, // Solid
             axisLabelVisible: true,
-            title: `🎯 TARGET TP: $${tpP.toFixed(4)} (+3.0R)`
+            title: `🎯 FULL BOOK TP (+15% ROI): $${tpP.toFixed(4)}`
         });
         currentChartPriceLines.push(tpLine);
     }

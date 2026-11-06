@@ -1,9 +1,9 @@
 """
 NEXUSPRO PLATFORM CONFIGURATION
 ===============================
-Brand: NexusPro (Institutional Futures and Deca Compounding Terminal)
+Brand: NexusPro (Institutional Futures Terminal)
 Format: 100% Bitget Pro Layout and UI System
-Engine: Hermes MS-OB 7-Model Order Block Execution Engine v2.0
+Engine: Hermes MS-OB 7-Model Order Block Execution Engine (Zero Compounding)
 """
 
 import os
@@ -17,22 +17,30 @@ BRAND_SUBTITLE = "INSTITUTIONAL FUTURES TERMINAL"
 BRAND_ACCENT = "#00DFC0"  # Bitget Signature Teal/Cyan
 THEME_BG = "#080B11"
 
-# Deca Compounding ($1,000.00 Starting Capital)
+# Standard Futures Trading ($1,000.00 Portfolio - Zero Compounding)
+COMPOUNDING_ENABLED = False  # Compounding permanently disabled per user mandate
+TOTAL_PORTFOLIO_CAPITAL = 1000.0  # USDT Total Portfolio
+FIXED_MARGIN_PER_TRADE = 50.0     # Flat 5% of Whole Portfolio ($50 USDT per trade)
+DEFAULT_LEVERAGE = 5              # 5x Isolated Leverage
+POSITION_SIZE_USDT = 250.0        # $50 * 5x = $250 USDT per trade
+
 TOTAL_DECA_SECTIONS = 10
-INITIAL_CAPITAL_TOTAL = 1000.0  # USDT Total Portfolio
-STARTING_BALANCE_PER_SECTION = 100.0  # $100 each * 10 sections = $1000
-SECTION_RISK_FRACTION = 0.50  # $50 margin per trade = 5% of total portfolio
-DEFAULT_LEVERAGE = 5  # 5x Isolated Leverage
+INITIAL_CAPITAL_TOTAL = 1000.0
+STARTING_BALANCE_PER_SECTION = 100.0
+SECTION_RISK_FRACTION = 0.50
 
 # Strategy Parameters: Hermes MS-OB 7-Model Order Block Engine
 STRATEGY_NAME = "HERMES_MS_OB"
 STRATEGY_VERSION = "2.0"
-STRATEGY_MODEL = "7_MODEL_OB_FIRST_TAP"
-SL_BUFFER_PCT = 0.005  # 0.5% beyond Order Block extreme
-MAX_CONCURRENT_TRADES = 8  # Max 8 concurrent active positions
-DYNAMIC_BE_TRIGGER = 1.0  # +1.0% Breakeven fee shield
-DYNAMIC_TRAIL_TRIGGER = 1.8  # +1.8% Trailing profit lock
-TARGET_TP_PCT = 2.8  # +2.8% Take Profit target
+STRATEGY_MODEL = "7_MODEL_OB_FIRST_TAP_NORMAL_TRADING"
+
+# Risk & Return Architecture (15% ROI SL / 15% ROI Full Book TP)
+HARD_SL_PRICE_PCT = 3.0           # 3.0% Price Move
+HARD_SL_ROI_PCT = 15.0            # 3.0% * 5x = -15.0% ROI Hard SL
+FULL_BOOK_TP_PRICE_PCT = 3.0      # 3.0% Price Move
+FULL_BOOK_TP_ROI_PCT = 15.0       # 3.0% * 5x = +15.0% ROI Full Book TP
+SL_BUFFER_PCT = 0.03              # 3% Price Distance for SL
+MAX_CONCURRENT_TRADES = 8         # Max 8 concurrent active positions
 
 # Dedicated Telegram Bot Integration
 BB20_TELEGRAM_BOT_TOKEN = "8685685362:AAFWkKvRIs6cJ70gegcJVFyKB5soDtEttbU"
@@ -56,8 +64,7 @@ CHAMPIONS = list(PAIR_MAPPING.keys())
 # Storage
 DB_PATH = BASE_DIR / "database" / "nexuspro.db"
 
-
-# Legacy fallback compatibility parameters (decommissioned)
+# Legacy compatibility
 SL_ANTI_HUNT_BUFFER = 0.0
 MEAN_THRESHOLD_RATIO = 0.0
 FEE_FRICTION_R = 0.0
@@ -67,4 +74,4 @@ TRAILING_TIER_1_TRIGGER_ROI = 0.0
 TRAILING_TIER_1_LOCK_ROI = 0.0
 TRAILING_STEP_ROI = 0.0
 TRAILING_BUFFER_ROI = 0.0
-DEFAULT_RRR = 0.0
+DEFAULT_RRR = 1.0

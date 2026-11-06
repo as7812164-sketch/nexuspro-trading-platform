@@ -1,14 +1,17 @@
 """
-HERMES MS ORDER BLOCK INSTITUTIONAL EXECUTION ENGINE v2.0
-=========================================================
+HERMES MS ORDER BLOCK INSTITUTIONAL EXECUTION ENGINE
+===================================================
 - 7-Model Order Block Architecture (Shoaib Khan / MS Trading Masterclass)
-- Strong OB, Weak OB (Wick Swept), Conditional Type 6 & 7
-- 1st Tap Entry Protocol (Sentry 4)
-- 0.5% Buffer Beyond OB Boundary Stop Loss
-- Dynamic Armor: +1.0% Breakeven, +1.8% Trailing SL, +2.8% Take Profit
-- 5% Margin Allocation ($50 USDT on $1,000 Capital), 5x Isolated
-- Concurrency: Max 8 Simultaneous Trades
+- Zero Compounding Mode (Normal Institutional Futures Trading)
+- Total Portfolio: $1,000.00 USDT
+- Margin Deployment: Strictly Fixed 5% ($50.00 USDT) Per Trade
+- Leverage: 5x Isolated ($250.00 USDT Position Size)
+- Hard Stop Loss: 3.0% Price Move = -15.0% ROI
+- Full Book Take Profit: 3.0% Price Move = +15.0% ROI
+- Sentry 4 First Tap Entry Protocol
+- Dual Execution: LONG & SHORT
 - Markets: Crypto on 1H & 4H | Gold (PAXGUSDT) on 15m, 1H & 4H
+- Max Concurrent Trades: 8 Positions ($400 Margin Used, $600 Free Capital Shield)
 """
 
 import time
@@ -16,28 +19,23 @@ import asyncio
 import aiohttp
 from typing import Dict, List, Any, Optional
 from pathlib import Path
-from config import DEFAULT_LEVERAGE, CHAMPIONS, PAIR_MAPPING
+from config import DEFAULT_LEVERAGE, CHAMPIONS, PAIR_MAPPING, HARD_SL_PRICE_PCT, FULL_BOOK_TP_PRICE_PCT
 from database.db import (
     get_open_positions,
     open_position,
     update_position_mark_price,
     close_position_in_db,
-    sync_external_setup,
-    remove_external_setup,
-    get_all_sections,
-    update_section_balance
+    get_all_sections
 )
 
 class HermesMSOBEngine:
     def __init__(self):
-        self.portfolio_capital = 1000.0   # $1,000 Base Portfolio
-        self.margin_per_trade = 50.0      # 5% = $50 USDT
-        self.max_concurrent_trades = 8     # Max 8 concurrent positions
-        self.leverage = DEFAULT_LEVERAGE  # 5x Isolated
-        self.sl_buffer_pct = 0.005         # 0.5% beyond OB boundary
-        self.target_tp_pct = 2.8           # Take Profit +2.8%
-        self.breakeven_trigger = 1.0       # Breakeven fee shield at +1.0%
-        self.trailing_trigger = 1.8        # Trailing profit lock at +1.8%
+        self.portfolio_capital = 1000.0       # $1,000.00 Flat Portfolio (Zero Compounding)
+        self.margin_per_trade = 50.0          # Flat 5% = $50.00 USDT
+        self.max_concurrent_trades = 8        # Max 8 concurrent positions
+        self.leverage = DEFAULT_LEVERAGE      # 5x Isolated Margin
+        self.hard_sl_price_pct = 0.03         # 3.0% Price Distance (-15.0% ROI)
+        self.full_tp_price_pct = 0.03         # 3.0% Price Distance (+15.0% ROI Full Book)
         
         self.crypto_timeframes = ["1h", "4h"]
         self.gold_timeframes = ["15m", "1h", "4h"]
@@ -89,6 +87,7 @@ class HermesMSOBEngine:
     def scan_symbol_order_blocks(self, symbol: str, timeframe: str, candles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
         Classifies unmitigated 7-Model Order Blocks on the specified timeframe.
+        Calculates exact 3% Hard SL (-15% ROI) and 3% Full Book TP (+15% ROI).
         """
         if len(candles) < 25:
             return []
@@ -113,12 +112,11 @@ class HermesMSOBEngine:
             c2 = candles[i - 1]
             c3 = candles[i]
             
-            # --- Bullish OB ---
+            # --- Bullish Order Block ---
             fvg_bull = c3["low"] > c1["high"] and (c3["low"] - c1["high"]) >= (atr * 0.15)
             disp_bull = (c2["close"] - c2["open"]) >= (atr * 1.2)
             
             if fvg_bull and disp_bull:
-                c1_bull = c1["close"] > c1["open"]
                 c1_bear = c1["close"] < c1["open"]
                 c2_breach = c2["low"] < c1["low"]
                 is_swing_origin = abs(c1["low"] - recent_swing_low) < (atr * 0.5)
@@ -142,12 +140,13 @@ class HermesMSOBEngine:
                         is_mitigated = True
                         
                 if not is_invalidated and not is_mitigated:
-                    # SL with 0.5% buffer below OB bottom
-                    sl_p = ob_bottom * (1.0 - self.sl_buffer_pct)
-                    tp_p = ob_top * (1.0 + self.target_tp_pct / 100.0)
+                    entry_p = ob_top
+                    # Hard SL = 3% below entry (-15% ROI at 5x)
+                    sl_p = entry_p * (1.0 - self.hard_sl_price_pct)
+                    # Full Book TP = 3% above entry (+15% ROI at 5x)
+                    tp_p = entry_p * (1.0 + self.full_tp_price_pct)
                     
-                    # Proximity check
-                    dist_pct = ((curr_price - ob_top) / curr_price) * 100.0 if curr_price > ob_top else 0.0
+                    dist_pct = ((curr_price - entry_p) / curr_price) * 100.0 if curr_price > entry_p else 0.0
                     is_tap = curr_low <= ob_top and curr_price >= ob_bottom
                     
                     valid_setups.append({
@@ -159,22 +158,23 @@ class HermesMSOBEngine:
                         "ob_top": round(ob_top, 4),
                         "ob_bottom": round(ob_bottom, 4),
                         "ob_mid": round(ob_mid, 4),
-                        "entry_price": round(ob_top, 4),
+                        "entry_price": round(entry_p, 4),
                         "sl_price": round(sl_p, 4),
                         "tp_price": round(tp_p, 4),
+                        "sl_roi_pct": -15.0,
+                        "tp_roi_pct": 15.0,
                         "proximity_pct": round(dist_pct, 2),
                         "is_first_tap": is_tap,
                         "current_price": round(curr_price, 4),
                         "status": "IMMINENT_FIRST_TAP" if is_tap else "WAITING_1ST_TAP"
                     })
 
-            # --- Bearish OB ---
+            # --- Bearish Order Block ---
             fvg_bear = c3["high"] < c1["low"] and (c1["low"] - c3["high"]) >= (atr * 0.15)
             disp_bear = (c2["open"] - c2["close"]) >= (atr * 1.2)
             
             if fvg_bear and disp_bear:
                 c1_bull = c1["close"] > c1["open"]
-                c1_bear = c1["close"] < c1["open"]
                 c2_breach = c2["high"] > c1["high"]
                 is_swing_origin = abs(c1["high"] - recent_swing_high) < (atr * 0.5)
                 
@@ -197,11 +197,13 @@ class HermesMSOBEngine:
                         is_mitigated = True
                         
                 if not is_invalidated and not is_mitigated:
-                    # SL with 0.5% buffer above OB top
-                    sl_p = ob_top * (1.0 + self.sl_buffer_pct)
-                    tp_p = ob_bottom * (1.0 - self.target_tp_pct / 100.0)
+                    entry_p = ob_bottom
+                    # Hard SL = 3% above entry (-15% ROI at 5x)
+                    sl_p = entry_p * (1.0 + self.hard_sl_price_pct)
+                    # Full Book TP = 3% below entry (+15% ROI at 5x)
+                    tp_p = entry_p * (1.0 - self.full_tp_price_pct)
                     
-                    dist_pct = ((ob_bottom - curr_price) / curr_price) * 100.0 if curr_price < ob_bottom else 0.0
+                    dist_pct = ((entry_p - curr_price) / curr_price) * 100.0 if curr_price < entry_p else 0.0
                     is_tap = curr_high >= ob_bottom and curr_price <= ob_top
                     
                     valid_setups.append({
@@ -213,9 +215,11 @@ class HermesMSOBEngine:
                         "ob_top": round(ob_top, 4),
                         "ob_bottom": round(ob_bottom, 4),
                         "ob_mid": round(ob_mid, 4),
-                        "entry_price": round(ob_bottom, 4),
+                        "entry_price": round(entry_p, 4),
                         "sl_price": round(sl_p, 4),
                         "tp_price": round(tp_p, 4),
+                        "sl_roi_pct": -15.0,
+                        "tp_roi_pct": 15.0,
                         "proximity_pct": round(dist_pct, 2),
                         "is_first_tap": is_tap,
                         "current_price": round(curr_price, 4),
@@ -226,8 +230,8 @@ class HermesMSOBEngine:
 
     async def run_scan_cycle(self):
         """
-        Executes scanning cycle across Crypto & Gold timeframes.
-        Executes First Tap triggers up to max 8 concurrent trades.
+        Executes scanning cycle across Crypto (1H/4H) & Gold (15m/1H/4H).
+        Executes First Tap triggers up to max 8 concurrent trades with flat $50 margin.
         """
         open_pos = get_open_positions()
         active_symbols = {p["symbol"] for p in open_pos}
@@ -258,7 +262,8 @@ class HermesMSOBEngine:
     async def execute_trade_trigger(self, setup: Dict[str, Any]):
         """
         Opens a live position on 1st Tap of Order Block.
-        Allocates exact 5% of Portfolio ($50 USDT) with 5x leverage.
+        Allocates exact Flat 5% of Portfolio ($50 USDT) with 5x leverage ($250 size).
+        Zero compounding.
         """
         sym = setup["symbol"]
         side = setup["side"]
@@ -267,7 +272,7 @@ class HermesMSOBEngine:
         tp_p = setup["tp_price"]
         tf = setup["timeframe"]
         
-        pos_size = self.margin_per_trade * self.leverage # $250 USDT
+        pos_size = self.margin_per_trade * self.leverage # $250.00 USDT
         sec_id = PAIR_MAPPING.get(sym, (len(get_open_positions()) % 8) + 1)
         
         pos_data = {
@@ -287,18 +292,15 @@ class HermesMSOBEngine:
         try:
             pos_id = open_position(pos_data)
             self._cooldowns[f"{sym}_{side}"] = time.time()
-            print(f"🟢 [HERMES MS-OB] 1st Tap Executed: #{pos_id} {side} {sym} @ {entry_p} | SL: {sl_p} (0.5% Buffer) | Margin: ${self.margin_per_trade} (5%)")
+            print(f"🟢 [HERMES MS-OB] 1st Tap Entry: #{pos_id} {side} {sym} @ {entry_p} | Hard SL: {sl_p} (-15% ROI) | Full TP: {tp_p} (+15% ROI)")
         except Exception as e:
             print(f"❌ Trade execution error for {sym}: {e}")
 
     async def update_open_positions(self):
         """
         Monitors active positions against live mark price.
-        Applies Dynamic Profit Armor:
-        - Breakeven shift (+1.0%)
-        - Trailing stop (+1.8%)
-        - SL hit (0.5% buffer)
-        - TP hit (+2.8%)
+        Executes Hard SL (-15% ROI) and Full Book TP (+15% ROI).
+        Zero trailing slippage or compounding re-allocation.
         """
         open_pos = get_open_positions()
         if not open_pos:
@@ -316,7 +318,7 @@ class HermesMSOBEngine:
                             
                             side = pos["side"].upper()
                             entry_p = float(pos["entry_price"])
-                            sl_p = float(pos.get("trailing_sl_price") or pos.get("sl_price") or 0.0)
+                            sl_p = float(pos.get("sl_price") or 0.0)
                             tp_p = float(pos.get("tp_price") or 0.0)
                             margin = float(pos.get("margin_usdt") or self.margin_per_trade)
                             lev = int(pos.get("leverage") or self.leverage)
@@ -327,29 +329,16 @@ class HermesMSOBEngine:
                                 roe_pct = gain_pct * lev
                                 u_pnl = margin * (roe_pct / 100.0)
                                 
-                                # Dynamic Armor
-                                new_sl = sl_p
-                                stage = int(pos.get("trailing_stage") or 0)
-                                
-                                if roe_pct >= self.breakeven_trigger * lev and stage == 0:
-                                    new_sl = entry_p * 1.0005 # Breakeven fee shield
-                                    stage = 1
-                                elif roe_pct >= self.trailing_trigger * lev and stage <= 1:
-                                    trail_candidate = curr_price * (1.0 - 0.005)
-                                    if trail_candidate > new_sl:
-                                        new_sl = trail_candidate
-                                        stage = 2
-                                        
                                 # Check Exit Triggers
-                                if curr_price <= sl_p:
+                                if sl_p > 0 and curr_price <= sl_p:
                                     realized = margin * (((sl_p - entry_p) / entry_p) * lev)
-                                    close_position_in_db(pos["id"], sl_p, realized, "STOP_LOSS_HIT")
-                                    print(f"🛑 [HERMES MS-OB] Long SL Hit: {sym} @ {sl_p}")
+                                    close_position_in_db(pos["id"], sl_p, realized, "HARD_SL_HIT (-15% ROI)")
+                                    print(f"🛑 [HERMES MS-OB] Long Hard SL Hit: {sym} @ {sl_p} (-15% ROI)")
                                     continue
                                 elif tp_p > 0 and curr_price >= tp_p:
                                     realized = margin * (((tp_p - entry_p) / entry_p) * lev)
-                                    close_position_in_db(pos["id"], tp_p, realized, "TAKE_PROFIT_HIT")
-                                    print(f"🎯 [HERMES MS-OB] Long TP Hit: {sym} @ {tp_p}")
+                                    close_position_in_db(pos["id"], tp_p, realized, "FULL_BOOK_TP_HIT (+15% ROI)")
+                                    print(f"🎯 [HERMES MS-OB] Long Full TP Hit: {sym} @ {tp_p} (+15% ROI)")
                                     continue
                                     
                             else: # SHORT / SELL
@@ -357,45 +346,33 @@ class HermesMSOBEngine:
                                 roe_pct = gain_pct * lev
                                 u_pnl = margin * (roe_pct / 100.0)
                                 
-                                new_sl = sl_p
-                                stage = int(pos.get("trailing_stage") or 0)
-                                
-                                if roe_pct >= self.breakeven_trigger * lev and stage == 0:
-                                    new_sl = entry_p * 0.9995
-                                    stage = 1
-                                elif roe_pct >= self.trailing_trigger * lev and stage <= 1:
-                                    trail_candidate = curr_price * (1.0 + 0.005)
-                                    if trail_candidate < new_sl:
-                                        new_sl = trail_candidate
-                                        stage = 2
-                                        
-                                if curr_price >= sl_p:
+                                if sl_p > 0 and curr_price >= sl_p:
                                     realized = margin * (((entry_p - sl_p) / entry_p) * lev)
-                                    close_position_in_db(pos["id"], sl_p, realized, "STOP_LOSS_HIT")
-                                    print(f"🛑 [HERMES MS-OB] Short SL Hit: {sym} @ {sl_p}")
+                                    close_position_in_db(pos["id"], sl_p, realized, "HARD_SL_HIT (-15% ROI)")
+                                    print(f"🛑 [HERMES MS-OB] Short Hard SL Hit: {sym} @ {sl_p} (-15% ROI)")
                                     continue
                                 elif tp_p > 0 and curr_price <= tp_p:
                                     realized = margin * (((entry_p - tp_p) / entry_p) * lev)
-                                    close_position_in_db(pos["id"], tp_p, realized, "TAKE_PROFIT_HIT")
-                                    print(f"🎯 [HERMES MS-OB] Short TP Hit: {sym} @ {tp_p}")
+                                    close_position_in_db(pos["id"], tp_p, realized, "FULL_BOOK_TP_HIT (+15% ROI)")
+                                    print(f"🎯 [HERMES MS-OB] Short Full TP Hit: {sym} @ {tp_p} (+15% ROI)")
                                     continue
                                     
-                            # Update mark price & trailing SL in DB
-                            update_position_mark_price(pos["id"], curr_price, u_pnl, round(roe_pct, 2), new_sl, stage)
+                            # Update mark price in DB
+                            update_position_mark_price(pos["id"], curr_price, u_pnl, round(roe_pct, 2), sl_p, 0)
                 except Exception:
                     pass
 
     async def start_loop(self):
         """Active background execution loop for Hermes MS-OB Engine."""
         self._is_running = True
-        print(f"🏛️ [HERMES MS-OB] Autonomous Engine Active: Portfolio ${self.portfolio_capital} | Margin ${self.margin_per_trade} (5%) | Max 8 Trades")
+        print(f"🏛️ [HERMES MS-OB] Autonomous Engine Active: $1000 Portfolio | Fixed 5% Margin ($50) | 5x Leverage | Hard SL -15% ROI | Full TP +15% ROI")
         while self._is_running:
             try:
                 await self.update_open_positions()
                 await self.run_scan_cycle()
             except Exception as e:
                 print(f"[MS-OB Engine Loop Error]: {e}")
-            await asyncio.sleep(10) # 10s Evaluation Cycle
+            await asyncio.sleep(10)
 
     def stop_loop(self):
         self._is_running = False

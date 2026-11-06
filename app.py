@@ -174,7 +174,7 @@ async def get_status():
         "brand": BRAND_NAME,
         "tagline": BRAND_SUBTITLE,
         "strategy": "HERMES_MS_OB",
-        "mode": "7-Model Order Block 1st Tap Protocol (1H/4H & Gold 15m/1H/4H)",
+        "mode": "HERMES_MS_OB (Normal Futures • Zero Compounding • Hard SL -15% ROI • Full TP +15% ROI)",
         "starting_capital": summary["starting_capital"],
         "total_equity": summary["total_equity"],
         "total_balance": summary["total_balance"],
@@ -182,9 +182,9 @@ async def get_status():
         "max_concurrent_trades": hermes_ms_ob_engine.max_concurrent_trades,
         "sl_buffer_pct": hermes_ms_ob_engine.sl_buffer_pct * 100.0,
         "dynamic_armor": {
-            "breakeven_trigger": "+1.0% (Fee Shield)",
-            "trailing_trigger": "+1.8%",
-            "take_profit": "+2.8%"
+            "hard_sl": "-15.0% ROI (-3.0% Price)",
+            "full_book_tp": "+15.0% ROI (+3.0% Price)",
+            "compounding": "DISABLED (Flat 5% Margin = $50)"
         },
         "win_rate": summary["win_rate"],
         "active_positions": summary["active_positions_count"],
@@ -571,12 +571,18 @@ async def reset_deca():
     conn.close()
     return {"status": "RESET_SUCCESS", "message": "All 10 Deca sections reset to $50.00 ($500.00 total equity)."}
 
+@app.get("/manifest.json")
+async def serve_manifest():
+    return FileResponse(STATIC_DIR / "manifest.json", media_type="application/json")
+
 @app.get("/download/apk")
 @app.get("/apk")
 async def download_apk():
-    apk_path = os.path.join(STATIC_DIR, "NexusPro_BB_Mobile_Terminal.apk")
+    apk_path = os.path.join(STATIC_DIR, "NexusPro_Trading_Terminal.apk")
+    if not os.path.exists(apk_path):
+        apk_path = os.path.join(STATIC_DIR, "NexusPro_BB_Mobile_Terminal.apk")
     if os.path.exists(apk_path):
-        return FileResponse(apk_path, media_type="application/vnd.android.package-archive", filename="NexusPro_BB_Mobile_Terminal.apk")
+        return FileResponse(apk_path, media_type="application/vnd.android.package-archive", filename="NexusPro_Trading_Terminal.apk")
     raise HTTPException(status_code=404, detail="APK file not found")
 
 if __name__ == "__main__":

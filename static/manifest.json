@@ -1,0 +1,16 @@
+{
+  "name": "NexusPro Futures Terminal",
+  "short_name": "NexusPro",
+  "start_url": "/trade?view=mobile&native=1",
+  "display": "standalone",
+  "background_color": "#080B11",
+  "theme_color": "#080B11",
+  "icons": [
+    {
+      "src": "/static/nexus_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
