@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1793996993903,
-  "updated_at_str": "2026-11-06 20:29:53 IST",
+  "updated_at": 1793997295087,
+  "updated_at_str": "2026-11-06 20:34:55 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793996906.9315212
+      "updated_at": 1793997267.634806
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.601,
-      "mark_price": 1.591,
+      "mark_price": 1.592,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -191,13 +191,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.649,
       "trailing_stage": 1,
-      "unrealized_pnl": 1.5615240474703325,
-      "pnl_pct": 3.12,
+      "unrealized_pnl": 1.4053716427232819,
+      "pnl_pct": 2.81,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793984575.9954405,
-      "updated_at": 1793996987.1035538,
+      "updated_at": 1793997293.6983109,
       "mae_pct": 4.37,
       "mfe_pct": 5.0,
       "size_usdt": 0.0,
@@ -209,23 +209,23 @@
       "symbol": "TIAUSDT",
       "side": "LONG",
       "entry_price": 0.4354,
-      "mark_price": 0.438,
+      "mark_price": 0.4399,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
       "sl_price": 0.4223,
       "tp_price": 0.0,
       "trailing_sl_price": 0.4223,
-      "trailing_stage": 0,
-      "unrealized_pnl": 1.492880110243449,
-      "pnl_pct": 2.99,
+      "trailing_stage": 1,
+      "unrealized_pnl": 2.5838309600367504,
+      "pnl_pct": 5.17,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793993771.0872717,
-      "updated_at": 1793996986.998106,
+      "updated_at": 1793997293.592196,
       "mae_pct": 0.0,
-      "mfe_pct": 4.48,
+      "mfe_pct": 5.17,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
@@ -350,6 +350,18 @@
       "lesson_learned": "Pure Trailing SL mode strictly prohibits fixed take-profit caps.",
       "timestamp": 1793993790.8522034,
       "created_at_str": "07 Nov, 01:06:30 IST"
+    },
+    {
+      "id": 11,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "TIAUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +4.82% ROI peak but was at Tier 0 (SL: $0.4223).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted TIAUSDT to Tier 1 (Locked +1.0% ROI | SL \u2794 $0.4363).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793997160.7534919,
+      "created_at_str": "07 Nov, 02:02:40 IST"
     }
   ]
 }
