@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1793980892184,
-  "updated_at_str": "2026-11-06 16:01:32 IST",
+  "updated_at": 1793981195427,
+  "updated_at_str": "2026-11-06 16:06:35 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 6,
@@ -102,9 +102,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "status": "IN_TRADE",
+      "active_symbol": "RENDERUSDT",
+      "updated_at": 1793981148.012551
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     },
     {
       "id": 10,
@@ -172,11 +172,38 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793980844.8298762
+      "updated_at": 1793981148.012551
     }
   ],
   "trade_history": [],
-  "positions": [],
+  "positions": [
+    {
+      "id": 5,
+      "section_id": 6,
+      "symbol": "RENDERUSDT",
+      "side": "SHORT",
+      "entry_price": 1.601,
+      "mark_price": 1.585,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 1.6442,
+      "tp_price": 0.0,
+      "trailing_sl_price": 1.597798,
+      "trailing_stage": 1,
+      "unrealized_pnl": 2.498438475952532,
+      "pnl_pct": 5.0,
+      "liquidation_price": 0.0,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1793981072.4444852,
+      "updated_at": 1793981193.7639494,
+      "mae_pct": 0.0,
+      "mfe_pct": 5.62,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "sentinel_knowledge_base": [
     {
       "id": 1,
@@ -237,6 +264,30 @@
       "lesson_learned": "Always anchor Deca section balance to Starting Balance + sum(Realized Net PnL).",
       "timestamp": 1792557464.5199578,
       "created_at_str": "Foundational Architecture"
+    },
+    {
+      "id": 6,
+      "incident_type": "FIXED_TP_AUTO_PURGED",
+      "symbol": "RENDERUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position had residual fixed TP target of $1.5562.",
+      "root_cause": "Legacy order template or test payload.",
+      "resolution_applied": "Reset tp_price to 0.0 for pure infinite stepped trailing mode.",
+      "lesson_learned": "Pure Trailing SL mode strictly prohibits fixed take-profit caps.",
+      "timestamp": 1793981076.742961,
+      "created_at_str": "06 Nov, 21:34:36 IST"
+    },
+    {
+      "id": 7,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "RENDERUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +5.31% ROI peak but was at Tier 0 (SL: $1.6442).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted RENDERUSDT to Tier 1 (Locked +1.0% ROI | SL \u2794 $1.5978).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793981161.3372543,
+      "created_at_str": "06 Nov, 21:36:01 IST"
     }
   ]
 }
