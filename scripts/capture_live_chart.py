@@ -1,18 +1,20 @@
 import subprocess
-import time
 import os
 
 chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 output_path = r"C:\Users\power\.gemini\antigravity\brain\dcc51f2a-4d4e-4c0e-9f17-414b6ff083d5\nexuspro_hermes_msob_chart.png"
-url = "https://nexuspro-terminal.onrender.com/trade?symbol=PAXGUSDT"
+url = "https://nexuspro-terminal.onrender.com/trade?symbol=PAXGUSDT&interval=1h"
+
+if os.path.exists(output_path):
+    os.remove(output_path)
 
 cmd = [
     chrome_path,
     "--headless=new",
     "--disable-gpu",
     "--no-sandbox",
-    "--window-size=1280,850",
-    "--virtual-time-budget=10000",
+    "--window-size=1280,820",
+    "--virtual-time-budget=9000",
     f"--screenshot={output_path}",
     url
 ]

@@ -287,8 +287,9 @@ function computeHermesOrderBlocks(candles) {
     if (atr <= 0) return;
 
     const obList = [];
-    const scanLookback = Math.min(candles.length - 3, 90);
-    const startIdx = Math.max(5, candles.length - scanLookback);
+    // Scan across the wider visible chart history (up to 180 bars)
+    const scanLookback = Math.min(candles.length - 4, 180);
+    const startIdx = Math.max(6, candles.length - scanLookback);
     let lastObIndex = -999;
 
     for (let i = startIdx; i < candles.length - 1; i++) {
@@ -296,24 +297,34 @@ function computeHermesOrderBlocks(candles) {
         const c2 = candles[i - 1];
         const c3 = candles[i];
 
-        // Separation filter: ensure at least 3-4 bars between consecutive OBs to prevent badge overlap
-        if ((i - lastObIndex) < 3) continue;
+        // Wide separation filter: at least 12 bars between structural OBs across the chart
+        if ((i - lastObIndex) < 12) continue;
 
-        // Swing Pivots
-        const isSwingHigh = c1.high > (candles[i-3]?.high || 0) && c1.high > (candles[i-4]?.high || 0) && c2.high < c1.high;
-        const isSwingLow = c1.low < (candles[i-3]?.low || 999999) && c1.low < (candles[i-4]?.low || 999999) && c2.low > c1.low;
+        // Swing Pivot Windows
+        const win = 4;
+        let isSwingHigh = true;
+        let isSwingLow = true;
+        for (let w = 1; w <= win; w++) {
+            if ((i - 2 - w) >= 0) {
+                if (candles[i - 2 - w].high > c1.high) isSwingHigh = false;
+                if (candles[i - 2 - w].low < c1.low) isSwingLow = false;
+            }
+        }
+        if (c2.high > c1.high) isSwingHigh = false;
+        if (c2.low < c1.low) isSwingLow = false;
+
+        const dispBull = (c2.close - c2.open) >= (atr * 0.85) || (c3.close - c3.open) >= (atr * 0.85);
+        const dispBear = (c2.open - c2.close) >= (atr * 0.85) || (c3.open - c3.close) >= (atr * 0.85);
+        const sweepLow = c2.low < c1.low;
+        const sweepHigh = c2.high > c1.high;
 
         // ---------------- BULLISH / DEMAND CANDLE EVALUATION ----------------
-        const dispBull = (c2.close - c2.open) >= (atr * 0.75) || (c3.close - c3.open) >= (atr * 0.75);
-        const sweepLow = c2.low < c1.low || c1.low < (candles[i-3]?.low || c1.low);
-        const fvgBull = c3.low > c1.high && (c3.low - c1.high) >= (atr * 0.10);
-
-        if (dispBull && (sweepLow || isSwingLow || fvgBull)) {
+        if ((dispBull && (isSwingLow || sweepLow)) || (sweepLow && (c2.close > c1.high))) {
             const isC1Bear = c1.close < c1.open;
             let obTop = c1.high;
             let obBottom = sweepLow ? Math.min(c1.low, c2.low) : c1.low;
-            if (obTop - obBottom < atr * 0.20) {
-                obBottom = obTop - (atr * 0.30);
+            if (obTop - obBottom < atr * 0.25) {
+                obBottom = obTop - (atr * 0.40);
             }
             const obMid = (obTop + obBottom) / 2.0;
 
@@ -367,16 +378,12 @@ function computeHermesOrderBlocks(candles) {
         }
 
         // ---------------- BEARISH / SUPPLY CANDLE EVALUATION ----------------
-        const dispBear = (c2.open - c2.close) >= (atr * 0.75) || (c3.open - c3.close) >= (atr * 0.75);
-        const sweepHigh = c2.high > c1.high || c1.high > (candles[i-3]?.high || c1.high);
-        const fvgBear = c1.low > c3.high && (c1.low - c3.high) >= (atr * 0.10);
-
-        if (dispBear && (sweepHigh || isSwingHigh || fvgBear)) {
+        if ((dispBear && (isSwingHigh || sweepHigh)) || (sweepHigh && (c2.close < c1.low))) {
             const isC1Bull = c1.close > c1.open;
             let obTop = sweepHigh ? Math.max(c1.high, c2.high) : c1.high;
             let obBottom = c1.low;
-            if (obTop - obBottom < atr * 0.20) {
-                obTop = obBottom + (atr * 0.30);
+            if (obTop - obBottom < atr * 0.25) {
+                obTop = obBottom + (atr * 0.40);
             }
             const obMid = (obTop + obBottom) / 2.0;
 
