@@ -1,7 +1,7 @@
 {
   "version": "3.0-nexuspro",
-  "updated_at": 1793953782291,
-  "updated_at_str": "2026-11-06 08:29:42 IST",
+  "updated_at": 1793954084028,
+  "updated_at_str": "2026-11-06 08:34:44 IST",
   "total_trades": 428,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 40.0,
       "status": "IN_TRADE",
       "active_symbol": "ETHUSDT",
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 48.4,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 47.2,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 40.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 53.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 45.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 66.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1793953727.3340137
+      "updated_at": 1793954041.705885
     }
   ],
   "trade_history": [
@@ -10456,7 +10456,7 @@
       "symbol": "ETHUSDT",
       "side": "LONG",
       "entry_price": 2224.115,
-      "mark_price": 2226.53,
+      "mark_price": 2226.47,
       "position_size_usdt": 208.15,
       "margin_usdt": 41.63,
       "leverage": 5,
@@ -10464,13 +10464,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 2208.692,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.23,
-      "pnl_pct": 0.54,
+      "unrealized_pnl": 0.22,
+      "pnl_pct": 0.53,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793942150.294432,
-      "updated_at": 1793953765.768192,
+      "updated_at": 1793954070.0531824,
       "mae_pct": 2.23,
       "mfe_pct": 2.45,
       "size_usdt": 0.0
@@ -10481,23 +10481,23 @@
       "symbol": "ARBUSDT",
       "side": "SHORT",
       "entry_price": 0.167415,
-      "mark_price": 0.166,
+      "mark_price": 0.1655,
       "position_size_usdt": 375.05,
       "margin_usdt": 75.01,
       "leverage": 5,
       "sl_price": 0.168412,
       "tp_price": 0.0,
-      "trailing_sl_price": 0.168412,
-      "trailing_stage": 0,
-      "unrealized_pnl": 3.17,
-      "pnl_pct": 4.23,
+      "trailing_sl_price": 0.16708,
+      "trailing_stage": 1,
+      "unrealized_pnl": 4.29,
+      "pnl_pct": 5.72,
       "liquidation_price": 0.19755,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793952188.6822617,
-      "updated_at": 1793953765.7571473,
+      "updated_at": 1793954070.0440614,
       "mae_pct": 0.0,
-      "mfe_pct": 4.524684168085345,
+      "mfe_pct": 5.719320252068213,
       "size_usdt": 0.0
     }
   ],
@@ -11629,6 +11629,18 @@
       "lesson_learned": "Always enforce milestone baseline guarantee (Fee Shield requires peak >= +4.80% ROI).",
       "timestamp": 1793950981.4509017,
       "created_at_str": "06 Nov, 13:13:01 IST"
+    },
+    {
+      "id": 95,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "ARBUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +5.42% ROI peak but was at Tier 0 (SL: $0.1684).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted ARBUSDT to Tier 1 (Locked +1.0% ROI | SL \u2794 $0.1671).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1793954011.953622,
+      "created_at_str": "06 Nov, 14:03:31 IST"
     }
   ]
 }
