@@ -464,7 +464,7 @@ class BB20SniperEngine:
             else:
                 update_position_mark_price(pos["id"], curr_price, u_pnl, round(pnl_pct, 2), new_trailing, new_stage, new_mfe, new_mae)
 
-        async def start_loop(self):
+    async def start_loop(self):
         """Old BB strategy permanently decommissioned per institutional directive."""
         self._is_running = False
         return
@@ -479,6 +479,5 @@ class BB20SniperEngine:
 
     def stop_loop(self):
         self._is_running = False
-
 
 bb20_sniper = BB20SniperEngine()
