@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1794024419634,
-  "updated_at_str": "2026-11-07 04:06:59 IST",
+  "updated_at": 1794024720771,
+  "updated_at_str": "2026-11-07 04:12:00 IST",
   "total_trades": 1,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794024389.402102
+      "updated_at": 1794024696.1295006
     }
   ],
   "trade_history": [
@@ -209,7 +209,7 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.601,
-      "mark_price": 1.564,
+      "mark_price": 1.56,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -217,13 +217,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.649,
       "trailing_stage": 2,
-      "unrealized_pnl": 5.777638975640213,
-      "pnl_pct": 11.56,
+      "unrealized_pnl": 6.402248594628346,
+      "pnl_pct": 12.8,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793984575.9954405,
-      "updated_at": 1794024414.7954783,
+      "updated_at": 1794024707.1487556,
       "mae_pct": 4.37,
       "mfe_pct": 14.05,
       "size_usdt": 0.0,
@@ -235,7 +235,7 @@
       "symbol": "TIAUSDT",
       "side": "LONG",
       "entry_price": 0.4354,
-      "mark_price": 0.4358,
+      "mark_price": 0.4349,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -243,13 +243,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.4223,
       "trailing_stage": 1,
-      "unrealized_pnl": 0.22967386311438415,
-      "pnl_pct": 0.46,
+      "unrealized_pnl": -0.28709232889297226,
+      "pnl_pct": -0.57,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793993771.0872717,
-      "updated_at": 1794024414.692171,
+      "updated_at": 1794024707.0415487,
       "mae_pct": 3.45,
       "mfe_pct": 7.92,
       "size_usdt": 0.0,
@@ -275,7 +275,7 @@
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1794009669.6920412,
-      "updated_at": 1794024414.5878384,
+      "updated_at": 1794024706.9329712,
       "mae_pct": 0.0,
       "mfe_pct": 1.99,
       "size_usdt": 0.0,
