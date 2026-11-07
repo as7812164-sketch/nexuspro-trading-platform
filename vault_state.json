@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1794086803688,
-  "updated_at_str": "2026-11-07 21:26:43 IST",
+  "updated_at": 1794087104962,
+  "updated_at_str": "2026-11-07 21:31:44 IST",
   "total_trades": 3,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "BNBUSDT",
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "AVAXUSDT",
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794086761.994128
+      "updated_at": 1794087028.4387393
     }
   ],
   "trade_history": [
@@ -259,23 +259,23 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.601,
-      "mark_price": 1.54,
+      "mark_price": 1.534,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
       "sl_price": 1.649,
       "tp_price": 0.0,
       "trailing_sl_price": 1.649,
-      "trailing_stage": 3,
-      "unrealized_pnl": 9.52529668956901,
-      "pnl_pct": 19.05,
+      "trailing_stage": 4,
+      "unrealized_pnl": 10.46221111805121,
+      "pnl_pct": 20.92,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793984575.9954405,
-      "updated_at": 1794086797.1497462,
+      "updated_at": 1794087091.116707,
       "mae_pct": 4.37,
-      "mfe_pct": 19.36,
+      "mfe_pct": 20.92,
       "size_usdt": 0.0,
       "timeframe": "1H"
     },
@@ -285,7 +285,7 @@
       "symbol": "PAXGUSDT",
       "side": "LONG",
       "entry_price": 4055.54,
-      "mark_price": 4064.53,
+      "mark_price": 4064.95,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -293,13 +293,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 3933.8738,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.5541802078145104,
-      "pnl_pct": 1.11,
+      "unrealized_pnl": 0.5800707180794576,
+      "pnl_pct": 1.16,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1794009669.6920412,
-      "updated_at": 1794086797.041259,
+      "updated_at": 1794087091.0114572,
       "mae_pct": 0.0,
       "mfe_pct": 1.99,
       "size_usdt": 0.0,
@@ -311,7 +311,7 @@
       "symbol": "BNBUSDT",
       "side": "SHORT",
       "entry_price": 695.81,
-      "mark_price": 694.54,
+      "mark_price": 694.12,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -319,13 +319,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 716.6843,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.45630272631895996,
-      "pnl_pct": 0.91,
+      "unrealized_pnl": 0.6072059901409657,
+      "pnl_pct": 1.21,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1794041157.878188,
-      "updated_at": 1794086796.93248,
+      "updated_at": 1794087090.9064496,
       "mae_pct": 1.22,
       "mfe_pct": 1.73,
       "size_usdt": 0.0,
@@ -337,7 +337,7 @@
       "symbol": "AVAXUSDT",
       "side": "LONG",
       "entry_price": 8.219,
-      "mark_price": 8.154,
+      "mark_price": 8.153,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -345,13 +345,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 7.9724,
       "trailing_stage": 0,
-      "unrealized_pnl": -1.977126171067025,
-      "pnl_pct": -3.95,
+      "unrealized_pnl": -2.0075434967757317,
+      "pnl_pct": -4.02,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1794078611.8416655,
-      "updated_at": 1794086796.8236651,
+      "updated_at": 1794087104.855491,
       "mae_pct": 5.11,
       "mfe_pct": 0.12,
       "size_usdt": 0.0,
@@ -598,6 +598,18 @@
       "lesson_learned": "Pure Trailing SL mode strictly prohibits fixed take-profit caps.",
       "timestamp": 1794078628.0145838,
       "created_at_str": "08 Nov, 00:40:28 IST"
+    },
+    {
+      "id": 21,
+      "incident_type": "TRAILING_SL_AUTO_PROMOTED",
+      "symbol": "RENDERUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position reached +19.99% ROI peak but was at Tier 3 (SL: $1.6490).",
+      "root_cause": "Tick execution loop slight timing delta before milestone promotion.",
+      "resolution_applied": "Auto-promoted RENDERUSDT to Tier 4 (Locked +15.1% ROI | SL \u2794 $1.5527).",
+      "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
+      "timestamp": 1794086956.8652983,
+      "created_at_str": "08 Nov, 02:59:16 IST"
     }
   ]
 }
