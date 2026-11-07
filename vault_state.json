@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1794040994462,
-  "updated_at_str": "2026-11-07 08:43:14 IST",
+  "updated_at": 1794041295869,
+  "updated_at_str": "2026-11-07 08:48:15 IST",
   "total_trades": 2,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 2,
@@ -34,9 +34,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794040934.6188393
+      "status": "IN_TRADE",
+      "active_symbol": "BNBUSDT",
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "TIAUSDT",
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794040934.6188393
+      "updated_at": 1794041295.0162237
     }
   ],
   "trade_history": [
@@ -234,7 +234,7 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.601,
-      "mark_price": 1.584,
+      "mark_price": 1.587,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -242,13 +242,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 1.649,
       "trailing_stage": 2,
-      "unrealized_pnl": 2.6545908806995477,
-      "pnl_pct": 5.31,
+      "unrealized_pnl": 2.1861336664584656,
+      "pnl_pct": 4.37,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793984575.9954405,
-      "updated_at": 1794040987.2123516,
+      "updated_at": 1794041283.2500687,
       "mae_pct": 4.37,
       "mfe_pct": 14.05,
       "size_usdt": 0.0,
@@ -260,7 +260,7 @@
       "symbol": "TIAUSDT",
       "side": "LONG",
       "entry_price": 0.4354,
-      "mark_price": 0.4429,
+      "mark_price": 0.442,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -268,13 +268,13 @@
       "tp_price": 0.0,
       "trailing_sl_price": 0.4223,
       "trailing_stage": 2,
-      "unrealized_pnl": 4.306384933394583,
-      "pnl_pct": 8.61,
+      "unrealized_pnl": 3.7896187413872267,
+      "pnl_pct": 7.58,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1793993771.0872717,
-      "updated_at": 1794040987.101659,
+      "updated_at": 1794041283.1423182,
       "mae_pct": 3.45,
       "mfe_pct": 14.01,
       "size_usdt": 0.0,
@@ -286,7 +286,7 @@
       "symbol": "PAXGUSDT",
       "side": "LONG",
       "entry_price": 4055.54,
-      "mark_price": 4063.51,
+      "mark_price": 4063.96,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -294,15 +294,41 @@
       "tp_price": 0.0,
       "trailing_sl_price": 3933.8738,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.49130325431386784,
-      "pnl_pct": 0.98,
+      "unrealized_pnl": 0.5190430867406112,
+      "pnl_pct": 1.04,
       "liquidation_price": 0.0,
       "order_type": "LIMIT",
       "status": "OPEN",
       "open_time": 1794009669.6920412,
-      "updated_at": 1794040986.9910696,
+      "updated_at": 1794041283.0325363,
       "mae_pct": 0.0,
       "mfe_pct": 1.99,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    },
+    {
+      "id": 10,
+      "section_id": 2,
+      "symbol": "BNBUSDT",
+      "side": "SHORT",
+      "entry_price": 695.81,
+      "mark_price": 696.51,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 716.6843,
+      "tp_price": 0.0,
+      "trailing_sl_price": 716.6843,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.2515054397033836,
+      "pnl_pct": -0.5,
+      "liquidation_price": 0.0,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1794041157.878188,
+      "updated_at": 1794041282.923843,
+      "mae_pct": 0.5,
+      "mfe_pct": 0.0,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
@@ -499,6 +525,18 @@
       "lesson_learned": "Sentinel guarantees trailing stop progression even if candle spikes between tick cycles.",
       "timestamp": 1794034922.7683845,
       "created_at_str": "07 Nov, 12:32:02 IST"
+    },
+    {
+      "id": 17,
+      "incident_type": "FIXED_TP_AUTO_PURGED",
+      "symbol": "BNBUSDT",
+      "severity": "INFO",
+      "detected_issue": "Position had residual fixed TP target of $674.9357.",
+      "root_cause": "Legacy order template or test payload.",
+      "resolution_applied": "Reset tp_price to 0.0 for pure infinite stepped trailing mode.",
+      "lesson_learned": "Pure Trailing SL mode strictly prohibits fixed take-profit caps.",
+      "timestamp": 1794041179.568762,
+      "created_at_str": "07 Nov, 14:16:19 IST"
     }
   ]
 }
