@@ -1,7 +1,7 @@
 {
   "version": "2.0-hermes-msob",
-  "updated_at": 1794213017262,
-  "updated_at_str": "2026-11-09 08:30:17 IST",
+  "updated_at": 1794213319086,
+  "updated_at_str": "2026-11-09 08:35:19 IST",
   "total_trades": 24,
   "sections": [
     {
@@ -17,9 +17,9 @@
       "win_count": 1,
       "loss_count": 1,
       "win_rate": 50.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "status": "IN_TRADE",
+      "active_symbol": "PAXGUSDT",
+      "updated_at": 1794213305.7955341
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 40.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794212914.6083884
+      "updated_at": 1794213275.301056
     }
   ],
   "trade_history": [
@@ -777,7 +777,34 @@
       "timeframe": "1H"
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 5,
+      "section_id": 1,
+      "symbol": "PAXGUSDT",
+      "side": "SHORT",
+      "entry_price": 4089.37,
+      "mark_price": 4089.46,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 4212.0511,
+      "tp_price": 3966.6889,
+      "trailing_sl_price": 4212.0511,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.005502070001011496,
+      "pnl_pct": -0.01,
+      "liquidation_price": 0.0,
+      "order_type": "LIMIT",
+      "status": "OPEN",
+      "open_time": 1794213305.7891054,
+      "updated_at": 1794213316.4174101,
+      "mae_pct": 0.01,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "sentinel_knowledge_base": [
     {
       "id": 1,
