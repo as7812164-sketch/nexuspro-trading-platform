@@ -26,16 +26,16 @@ from engine.feed import market_feed
 from config import DEFAULT_LEVERAGE
 
 def get_roi_trailing_tier(peak_roi_pct: float) -> int:
-    if peak_roi_pct < 4.80:
+    # Trigger Break-Even at +12.0% ROI
+    if peak_roi_pct < 12.0:
         return 0
-    return int(round((peak_roi_pct - 4.80) / 5.0 + 1e-5, 4)) + 1
+    return 1
 
 def get_locked_roi(tier: int) -> float:
+    # Lock +2.5% ROI profit & fee shield
     if tier <= 0:
         return 0.0
-    if tier == 1:
-        return 1.00
-    return round(5.10 + (tier - 2) * 5.0, 2)
+    return 2.50
 
 def calculate_trailing_sl_price(entry: float, side: str, locked_roi_pct: float, leverage: float = 5.0) -> float:
     spot_fraction = locked_roi_pct / (leverage * 100.0)
