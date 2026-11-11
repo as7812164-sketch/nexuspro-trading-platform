@@ -1,0 +1,890 @@
+/* ==========================================================================
+   HERMES AI • MODULAR COMPONENTS CSS (ISOLATED & PONYTAIL COMPLIANT)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. HUD HEADER
+   -------------------------------------------------------------------------- */
+.hud-header {
+  height: var(--hud-height);
+  background: #000000;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+.hud-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hud-logo {
+  font-size: 16px;
+  line-height: 1;
+}
+.hud-title {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(41, 98, 255, 0.15);
+  color: var(--accent-blue);
+  font-weight: 600;
+  border: 1px solid rgba(41, 98, 255, 0.3);
+}
+.hud-status-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sentry-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 12px;
+  background: #11151f;
+  border: 1px solid #1f2738;
+  color: #94a3b8;
+}
+.sentry-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green-institutional);
+  box-shadow: 0 0 6px var(--green-institutional);
+}
+.latency-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--green-institutional);
+  background: rgba(0, 192, 135, 0.08);
+  border: 1px solid rgba(0, 192, 135, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   2. WALLET SUMMARY & HERO
+   -------------------------------------------------------------------------- */
+.wallet-card {
+  margin: 12px 14px 6px 14px;
+  background: linear-gradient(145deg, #0e1219, #080a0e);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wallet-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.wallet-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+.wallet-balance {
+  font-size: 26px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  letter-spacing: -0.5px;
+}
+.wallet-pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--green-glow);
+  color: var(--green-institutional);
+  border: 1px solid rgba(0, 192, 135, 0.3);
+}
+.wallet-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.wallet-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+.stat-name {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. HORIZONTAL TICKER CAROUSEL
+   -------------------------------------------------------------------------- */
+.carousel-container {
+  padding: 8px 14px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex-shrink: 0;
+}
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+.ticker-chip {
+  flex: 0 0 auto;
+  background: #0d1118;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  min-width: 110px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+.ticker-chip:active {
+  transform: scale(0.97);
+  border-color: var(--border-active);
+}
+.chip-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.chip-symbol {
+  font-size: 12px;
+  font-weight: 700;
+}
+.chip-change {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+}
+.chip-price {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   4. LIVE POSITION FORENSICS CARD (MAE / MFE / DURATION)
+   -------------------------------------------------------------------------- */
+.position-card {
+  margin: 6px 14px 12px 14px;
+  background: #0d1118;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pos-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+.pos-title-group:active {
+  opacity: 0.75;
+}
+.pos-symbol {
+  font-size: 15px;
+  font-weight: 800;
+}
+.pos-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.pos-badge.long {
+  background: var(--green-glow);
+  color: var(--green-institutional);
+  border: 1px solid rgba(0, 192, 135, 0.4);
+}
+.pos-badge.short {
+  background: var(--red-glow);
+  color: var(--red-institutional);
+  border: 1px solid rgba(246, 70, 93, 0.4);
+}
+.pos-lev {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.pos-pnl-wrap {
+  text-align: right;
+}
+.pos-pnl-val {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 800;
+}
+.pos-pnl-pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Forensics Bar: MAE vs MFE */
+.forensics-box {
+  background: #07090d;
+  border: 1px solid #171d28;
+  border-radius: var(--radius-sm);
+  padding: 10px;
+}
+.forensics-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.excursion-track {
+  position: relative;
+  height: 8px;
+  background: #19202c;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.excursion-fill-mae {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--red-institutional);
+  border-radius: 4px 0 0 4px;
+}
+.excursion-fill-mfe {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background: var(--green-institutional);
+  border-radius: 0 4px 4px 0;
+}
+.excursion-center {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #ffffff;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.forensics-data {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+/* Price Details Grid */
+.pos-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  font-size: 11px;
+}
+.pos-detail-col {
+  display: flex;
+  flex-direction: column;
+}
+.detail-label {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+.detail-val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Dynamic Profit Armor Badges */
+.armor-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.armor-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #141924;
+  border: 1px solid #232c3e;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.armor-pill.active {
+  background: var(--green-glow);
+  color: var(--green-institutional);
+  border-color: rgba(0, 192, 135, 0.4);
+}
+
+/* Action Buttons */
+.pos-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+.btn-pos {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-align: center;
+}
+.btn-pos:active {
+  transform: scale(0.98);
+}
+.btn-be {
+  background: #1b2333;
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.btn-close {
+  background: var(--red-glow);
+  color: var(--red-institutional);
+  border: 1px solid rgba(246, 70, 93, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   5. WATCHLIST (1:1 TRADINGVIEW IMAGE 3 PARITY)
+   -------------------------------------------------------------------------- */
+.watchlist-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #000000;
+}
+.watchlist-header {
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #141720;
+}
+.watchlist-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+.watchlist-count {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.watchlist-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 10px 14px;
+  background: #080a0e;
+  border-bottom: 1px solid #141720;
+}
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.search-icon {
+  position: absolute;
+  left: 10px;
+  font-size: 12px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.wl-search-input {
+  width: 100%;
+  height: 34px;
+  background: #11151f;
+  border: 1px solid #1e2638;
+  border-radius: 6px;
+  padding: 0 10px 0 30px;
+  color: #ffffff;
+  font-size: 12px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.wl-search-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 8px rgba(41, 98, 255, 0.25);
+}
+.wl-search-input::placeholder {
+  color: #64748b;
+  font-size: 11px;
+}
+.wl-add-btn {
+  height: 34px;
+  padding: 0 14px;
+  background: var(--accent-blue);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast);
+}
+.wl-add-btn:active {
+  opacity: 0.8;
+}
+.wl-inline-add-btn {
+  background: #11151f;
+  border: 1px solid var(--accent-blue);
+  color: var(--accent-blue);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.watchlist-list {
+  display: flex;
+  flex-direction: column;
+}
+.coin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 10px;
+  border-bottom: 1px solid #11141b;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  position: relative;
+  width: 100%;
+}
+.coin-row:active {
+  background: #121620;
+}
+.coin-logo-wrap {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.coin-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+.coin-red-flag {
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 20px;
+  background: #ef4444;
+  border-radius: 0 3px 3px 0;
+}
+.coin-info {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-right: 8px;
+}
+.coin-name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.coin-symbol {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+.coin-full-name {
+  font-size: 10.5px;
+  color: #71717a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+  margin-top: 1px;
+}
+.coin-pricing {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+.coin-price {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.coin-change-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+.coin-change-abs {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.coin-change-pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   6. CHART TERMINAL (1:1 TRADINGVIEW IMAGE 1 & 2 PARITY)
+   -------------------------------------------------------------------------- */
+.chart-view-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #000000;
+  overflow: hidden;
+}
+
+/* Chart Header Ticker Bar */
+.chart-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #000000;
+  border-bottom: 1px solid #141720;
+  flex-shrink: 0;
+}
+.chart-symbol-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.chart-symbol-badge .coin-logo-mini {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+.chart-symbol-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.chart-perp-badge {
+  font-size: 9px;
+  background: #182030;
+  color: #60a5fa;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+.chart-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chart-mode-pill {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #121622;
+  border: 1px solid #232c3e;
+  border-radius: 4px;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+/* OHLC Subheader Bar */
+.chart-ohlc-bar {
+  display: flex;
+  align-items: center;
+  padding: 3px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #94a3b8;
+  gap: 8px;
+  background: #000000;
+  border-bottom: 1px solid #0f1218;
+  flex-shrink: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.ohlc-val {
+  color: var(--green-institutional);
+}
+
+/* Timeframe Bar */
+.tf-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: #000000;
+  border-bottom: 1px solid #141720;
+  flex-shrink: 0;
+}
+.tf-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+.tf-btn.active {
+  background: #1e2535;
+  color: #ffffff;
+}
+
+/* Canvas Area */
+.chart-canvas-container {
+  flex: 1 1 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  background: #000000;
+  overflow: hidden;
+}
+
+#smc-canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Floating Tools Bar & Replay Dock */
+.chart-replay-dock {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(14, 18, 25, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid #253044;
+  border-radius: 24px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+.replay-btn {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  transition: color var(--transition-fast);
+}
+.replay-btn:hover {
+  color: #38bdf8;
+}
+.replay-step-info {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+/* Bottom Quick Pair Switcher (Matching Image 1 & 2) */
+.chart-bottom-quickbar {
+  height: 42px;
+  background: #000000;
+  border-top: 1px solid #141720;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  flex-shrink: 0;
+}
+.quick-pairs {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+}
+.quick-pair-item {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.quick-pair-item.active {
+  color: #ffffff;
+}
+.quick-pair-tf {
+  color: #38bdf8;
+  font-size: 10px;
+}
+.chart-tools-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tool-icon-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Drawing Tools Drawer Overlay */
+.tools-drawer {
+  position: absolute;
+  bottom: 44px;
+  right: 12px;
+  background: #0e1219;
+  border: 1px solid #232c3e;
+  border-radius: var(--radius-md);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+.tools-drawer.open {
+  display: flex;
+}
+.tool-drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  color: #cbd5e1;
+  font-size: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  text-align: left;
+}
+.tool-drawer-item:hover, .tool-drawer-item.active {
+  background: #1c2435;
+  color: #38bdf8;
+}
+
+/* --------------------------------------------------------------------------
+   7. STICKY BOTTOM NAVIGATION BAR
+   -------------------------------------------------------------------------- */
+.bottom-nav {
+  height: var(--bottom-nav-height);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4px;
+  width: 100%;
+}
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #64748b;
+  cursor: pointer;
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  transition: all var(--transition-fast);
+}
+.nav-tab.active {
+  color: #38bdf8;
+}
+.nav-tab.active .nav-icon {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+}
+.nav-icon {
+  font-size: 18px;
+  line-height: 1;
+  transition: transform var(--transition-fast);
+}
+.nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}

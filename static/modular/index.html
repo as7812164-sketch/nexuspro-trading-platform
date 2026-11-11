@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>NexusPro • Institutional Quant Terminal</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Local Offline-Ready TradingView LightweightCharts Library -->
+  <script src="/modular/js/lib/lightweight-charts.js"></script>
+
+  <!-- Modular Styles -->
+  <link rel="stylesheet" href="/modular/css/base.css?v=nexus_msob_v1">
+  <link rel="stylesheet" href="/modular/css/components.css?v=nexus_msob_v1">
+</head>
+<body>
+  <div id="app-container">
+    <!-- 1. Top HUD Header (Persistent) -->
+    <div id="mount-hud"></div>
+
+    <!-- 2. Master Dashboard View -->
+    <main id="view-dashboard" class="view-panel active">
+      <div id="mount-dashboard-wallet"></div>
+      <div id="mount-dashboard-carousel"></div>
+      <div id="mount-dashboard-position"></div>
+      <div id="mount-dashboard-watchlist"></div>
+    </main>
+
+    <!-- 3. Dedicated Watchlist View -->
+    <main id="view-watchlist" class="view-panel">
+      <div id="mount-watchlist-view"></div>
+    </main>
+
+    <!-- 4. Dedicated Chart Terminal View -->
+    <main id="view-chart" class="view-panel" style="padding: 0;">
+      <div id="mount-chart-view" style="width: 100%; height: 100%;"></div>
+    </main>
+
+    <!-- 5. Dedicated Positions View -->
+    <main id="view-positions" class="view-panel">
+      <div style="padding: 14px 14px 0 14px;">
+        <h2 style="font-size: 16px; font-weight: 800; letter-spacing: 0.5px;">ACTIVE RISK & FORENSICS</h2>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">5x Isolated Margin • Flat $50 (5%) • Zero Compounding</p>
+      </div>
+      <div id="mount-positions-view"></div>
+    </main>
+
+    <!-- 6. Sticky Bottom Navigation Bar (Persistent) -->
+    <div id="mount-bottom-nav"></div>
+  </div>
+
+  <!-- Modular ES Modules Entrypoint with cache-busting -->
+  <script type="module" src="/modular/js/app.js?v=nexus_msob_v1"></script>
+</body>
+</html>

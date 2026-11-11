@@ -1,0 +1,159 @@
+/* ==========================================================================
+   HERMES AI • BASE OLED THEME VARIABLES & RESET (PONYTAIL STANDARD)
+   ========================================================================== */
+
+:root {
+  /* Institutional Palette - Pure OLED Black */
+  --bg-oled: #000000;
+  --bg-surface: #0a0c10;
+  --bg-card: #12151c;
+  --bg-card-hover: #181d27;
+  --bg-glass: rgba(18, 21, 28, 0.75);
+  
+  /* Borders & Dividers */
+  --border-subtle: #1c2230;
+  --border-light: #2a3346;
+  --border-active: #3b82f6;
+
+  /* Typography */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-disabled: #334155;
+
+  /* Institutional Signal Accents */
+  --green-institutional: #00c087;
+  --green-glow: rgba(0, 192, 135, 0.18);
+  --red-institutional: #f6465d;
+  --red-glow: rgba(246, 70, 93, 0.18);
+  --accent-gold: #f59e0b;
+  --accent-blue: #2962ff;
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+
+  /* Layout Constants */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --hud-height: 48px;
+  --bottom-nav-height: 56px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  background-color: var(--bg-oled);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.4;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  height: 100%;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  background: #000000;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 0 1px #151a24;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #232c3e;
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Typography Utilities */
+.mono { font-family: var(--font-mono); }
+.text-green { color: var(--green-institutional) !important; }
+.text-red { color: var(--red-institutional) !important; }
+.text-gold { color: var(--accent-gold) !important; }
+.text-cyan { color: var(--accent-cyan) !important; }
+.text-muted { color: var(--text-muted) !important; }
+
+/* Flashing animations for price ticks */
+@keyframes flash-green {
+  0% { background-color: rgba(0, 192, 135, 0.35); }
+  100% { background-color: transparent; }
+}
+@keyframes flash-red {
+  0% { background-color: rgba(246, 70, 93, 0.35); }
+  100% { background-color: transparent; }
+}
+.flash-up { animation: flash-green 0.5s ease-out; }
+.flash-down { animation: flash-red 0.5s ease-out; }
+
+/* View Container - Switcher */
+.view-panel {
+  display: none;
+  flex: 1 1 0;
+  width: 100%;
+  height: calc(100dvh - var(--hud-height) - var(--bottom-nav-height) - env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px) + 16px);
+}
+.view-panel.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dedicated Chart View Panel has no bottom padding inside the panel itself */
+#view-chart {
+  padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px)) !important;
+  overflow: hidden;
+}
+
+/* Fixed Bottom Navigation Container */
+#mount-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 440px;
+  height: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(5, 7, 10, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid #1c2230;
+  z-index: 99999;
+}

@@ -1,13 +1,13 @@
 """
-BUILD & SIGN 100% NATIVE NEXUSPRO ANDROID WEBVIEW APK (v2.0.0)
+BUILD & SIGN 100% NATIVE NEXUSPRO ANDROID WEBVIEW APK (v2.1.0)
 ================================================================
 - Clones proven pure Native WebView template (LauncherActivity -> android.webkit.WebView)
 - ZERO Chrome Custom Tab / TWA URL bar (No address bar, full native screen)
 - Dark #080B11 Status & Navigation bars with fitsSystemWindows=true
-- Loads https://nexuspro-terminal.onrender.com/trade live with hardware acceleration
+- Loads https://nexuspro-terminal.onrender.com/mobile (1:1 TradeZone Modular OLED UI Clone)
 - Uses authentic Neon Cyber NexusPro icons & splash assets
 - Compiles via apktool.jar & signs via uber-apk-signer.jar
-- Saves to Desktop, static/, and dispatches to Akash bhai via NexusPro Telegram Bot
+- Saves to Desktop, static/, and optionally dispatches to Akash bhai via Telegram
 """
 
 import os
@@ -43,7 +43,7 @@ FALLBACK_BOT_TOKEN = "8593127726:AAGdudgSBU_krN-g42Cq_5ovc5DW2c6A-yY"
 TELEGRAM_CHAT_ID = "752247227"
 
 TARGET_HOST = "nexuspro-terminal.onrender.com"
-TARGET_URL = "https://nexuspro-terminal.onrender.com/trade"
+TARGET_URL = "https://nexuspro-terminal.onrender.com/mobile"
 PKG_NAME = "com.nexuspro.trading.terminal"
 
 
@@ -108,7 +108,7 @@ def prepare_native_source():
             android:label="@string/launcherName"
             android:launchMode="singleTask"
             android:name="{PKG_NAME}.LauncherActivity"
-            android:screenOrientation="user"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -140,17 +140,17 @@ def prepare_native_source():
     with open(strings_path, "w", encoding="utf-8") as f:
         f.write(s)
 
-    # Bump version in apktool.yml -> v2.0.0 (versionCode: 10)
+    # Bump version in apktool.yml -> v2.1.0 (versionCode: 11)
     yml_path = os.path.join(NATIVE_SRC, "apktool.yml")
     with open(yml_path, "r", encoding="utf-8") as f:
         yml = f.read()
-    yml = re.sub(r'versionCode:\s*\d+', 'versionCode: 10', yml)
-    yml = re.sub(r'versionName:\s*[^\r\n]+', 'versionName: 2.0.0', yml)
+    yml = re.sub(r'versionCode:\s*\d+', 'versionCode: 11', yml)
+    yml = re.sub(r'versionName:\s*[^\r\n]+', 'versionName: 2.1.0', yml)
     yml = re.sub(r'apkFileName:\s*[^\r\n]+', 'apkFileName: NexusPro_Trading_Terminal.apk', yml)
     with open(yml_path, "w", encoding="utf-8") as f:
         f.write(yml)
 
-    # Migrate and customize Smali package (hermes35 -> nexuspro) & inject live Render URL + USER orientation
+    # Migrate Smali package (hermes35 -> nexuspro) & bind live Render /mobile URL (keep portrait lock = 1 matching sample APK CSS rotator)
     old_smali_dir = os.path.join(NATIVE_SRC, "smali", "com", "hermes35", "radar", "terminal")
     new_smali_dir = os.path.join(NATIVE_SRC, "smali", "com", "nexuspro", "trading", "terminal")
     os.makedirs(new_smali_dir, exist_ok=True)
@@ -167,17 +167,6 @@ def prepare_native_source():
         code = code.replace("https://trdzone.duckdns.org/static/mobile.html", TARGET_URL)
         code = code.replace("https://trdzone.duckdns.org", f"https://{TARGET_HOST}")
         code = code.replace("trdzone.duckdns.org", TARGET_HOST)
-
-        # Allow natural portrait default + fullscreen landscape chart rotation (SCREEN_ORIENTATION_USER = 2)
-        if fname == "LauncherActivity.smali":
-            code = code.replace(
-                "    const/4 v0, 0x1\n\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V",
-                "    const/4 v0, 0x2\n\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V"
-            )
-            code = code.replace(
-                "    const/4 v0, 0x1\r\n\r\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V",
-                "    const/4 v0, 0x2\r\n\r\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V"
-            )
 
         with open(os.path.join(new_smali_dir, fname), "w", encoding="utf-8") as f:
             f.write(code)
@@ -231,15 +220,15 @@ def compile_and_sign():
 def send_telegram(size_mb):
     print("[5/5] Dispatching Native APK to Akash bhai via Telegram...")
     caption = (
-        "🏛️ *NEXUSPRO • 100% NATIVE ANDROID APK (v2.0.0)* 📱⚡\n\n"
-        "🎯 *Built Exact Like trdzone.duckdns.org Native Shell:*\n"
-        "• 🛡️ *Zero Browser Bar:* Pure Android WebView Engine (Chrome URL bar aur [X] header permanently removed!)\n"
-        "• 🔗 *Live Render Backend:* `https://nexuspro-terminal.onrender.com/trade`\n"
-        "• 📊 *Chart Indicator:* Hermes MS-OB v2.0 Golden Active\n"
+        "🏛️ *NEXUSPRO • NATIVE CLONE TERMINAL APK (v2.1.0)* 📱⚡\n\n"
+        "🎯 *Exact 1:1 Sample Shell & Modular OLED Architecture:*\n"
+        "• 🛡️ *Zero Browser Bar:* Pure Android WebView Shell (Bilkul sample app jaisa OLED UI & layout!)\n"
+        "• 🔗 *Live Render Endpoint:* `https://nexuspro-terminal.onrender.com/mobile`\n"
+        "• 📊 *Chart Indicator:* Hermes MS-OB v2.0 GOLDEN (7-Model First Tap, 50% MT, Transparent Labels — Old Indicator & GEX Removed)\n"
         "• ⚖️ *Risk Engine:* $1,000 Flat | 5% Margin ($50) | 5x Isolated | +12%->+2.5% BE | -15% SL (2x15m) | +15% TP\n"
-        "• 🔒 *Dual App Safety:* Alag package (`com.nexuspro.trading.terminal`) — `trdzone` app par ZERO effect.\n\n"
-        f"📦 *Version:* `v2.0.0 (Build 10)` | *Size:* `{size_mb:.2f} MB`\n"
-        "👉 *Tap karke install karein — bilkul pure native app ki tarah open hoga!*"
+        "• 🔒 *Sample App Untouched:* Alag package (`com.nexuspro.trading.terminal`) — aapke sample app aur `trdzone` settings par ZERO impact.\n\n"
+        f"📦 *Version:* `v2.1.0 (Build 11)` | *Size:* `{size_mb:.2f} MB`\n"
+        "👉 *Tap karke install karein — sab live data, setups aur chart instant chalega!*"
     )
 
     for tok in [NEXUS_BOT_TOKEN, FALLBACK_BOT_TOKEN]:
@@ -275,7 +264,17 @@ def send_telegram(size_mb):
 
 
 if __name__ == "__main__":
-    prepare_native_source()
-    sz = compile_and_sign()
-    send_telegram(sz)
-    print("\n[SUCCESS] NexusPro Pure Native Android APK (v2.0.0) build & delivery complete!")
+    if "--send-only" in sys.argv:
+        if not os.path.exists(DESKTOP_APK):
+            raise FileNotFoundError(f"APK missing at {DESKTOP_APK}")
+        sz = os.path.getsize(DESKTOP_APK) / (1024 * 1024)
+        ok = send_telegram(sz)
+        if not ok:
+            sys.exit(1)
+        print("\n[SUCCESS] Telegram APK dispatch complete!")
+    else:
+        prepare_native_source()
+        sz = compile_and_sign()
+        if "--no-telegram" not in sys.argv:
+            send_telegram(sz)
+        print("\n[SUCCESS] NexusPro Pure Native Android APK (v2.1.0) build complete!")

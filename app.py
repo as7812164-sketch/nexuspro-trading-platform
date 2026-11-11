@@ -122,6 +122,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=f"{BRAND_NAME} Institutional Terminal", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+MODULAR_DIR = STATIC_DIR / "modular"
+MODULAR_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/modular", StaticFiles(directory=str(MODULAR_DIR)), name="modular")
 
 # ----------------- PAGE ROUTES -----------------
 
@@ -163,6 +166,18 @@ async def serve_hologram_page():
 @app.get("/nexus/positions", response_class=HTMLResponse)
 async def serve_positions_page():
     return FileResponse(STATIC_DIR / "positions.html")
+
+@app.api_route("/mobile", methods=["GET", "HEAD"], response_class=HTMLResponse)
+@app.api_route("/nexus/mobile", methods=["GET", "HEAD"], response_class=HTMLResponse)
+async def serve_mobile_page():
+    return FileResponse(
+        MODULAR_DIR / "index.html",
+        headers={
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0",
+        },
+    )
 
 # ----------------- REST API ENDPOINTS -----------------
 
@@ -238,6 +253,23 @@ async def get_orderbook(symbol: str, depth: int = 12):
 async def get_deca_summary():
     return get_portfolio_summary()
 
+@app.get("/api/paper/account")
+async def get_paper_account():
+    summary = get_portfolio_summary()
+    init_cap = float(summary.get("starting_capital", 1000.0) or 1000.0)
+    tot_bal = float(summary.get("total_balance", init_cap))
+    tot_pnl = float(summary.get("total_pnl", 0.0))
+    return {
+        **summary,
+        "current_balance": round(tot_bal, 2),
+        "balance": round(tot_bal, 2),
+        "total_current_balance": round(tot_bal, 2),
+        "combined_10x": {
+            "initial_balance": init_cap,
+            "total_pnl_pct": round((tot_pnl / init_cap) * 100.0, 2) if init_cap > 0 else 0.0,
+        },
+    }
+
 @app.get("/api/deca/sections")
 async def get_deca_sections():
     sections = get_all_sections()
@@ -296,6 +328,46 @@ async def get_deca_setups():
 
     all_setups = active_list + pending_list
     return {"count": len(all_setups), "setups": all_setups}
+
+@app.get("/api/smc/upcoming_setups")
+async def get_smc_upcoming_setups(max_distance: float = 6.0):
+    open_pos = get_open_positions()
+    busy_symbols = {p["symbol"] for p in open_pos}
+    raw_setups = hermes_ms_ob_engine.scanned_setups or []
+    formatted = []
+    for s in raw_setups:
+        sym = s.get("symbol", "")
+        if not sym or sym in busy_symbols:
+            continue
+        dist = float(s.get("proximity_pct", 0.0) or 0.0)
+        if dist > max_distance:
+            continue
+        side = str(s.get("side", "LONG")).upper()
+        is_long = side in ("LONG", "BUY")
+        ob_top = float(s.get("ob_top", 0.0) or 0.0)
+        ob_bot = float(s.get("ob_bottom", 0.0) or 0.0)
+        curr_p = float(s.get("current_price", 0.0) or 0.0)
+        is_inside = (ob_bot <= curr_p <= ob_top) if (ob_top > ob_bot > 0 and curr_p > 0) else False
+        formatted.append({
+            "symbol": sym,
+            "direction": "DEMAND" if is_long else "SUPPLY",
+            "side": "BUY" if is_long else "SELL",
+            "timeframe": str(s.get("timeframe", "1h")).upper(),
+            "current_price": curr_p,
+            "entry_price": float(s.get("entry_price", 0.0) or 0.0),
+            "ob_top": ob_top,
+            "ob_bottom": ob_bot,
+            "ob_mid": float(s.get("ob_mid", 0.0) or 0.0),
+            "sl_price": float(s.get("sl_price", 0.0) or 0.0),
+            "tp_price": float(s.get("tp_price", 0.0) or 0.0),
+            "distance_pct": round(dist, 2),
+            "is_inside": is_inside,
+            "model": s.get("model", "Hermes MS-OB"),
+            "category": s.get("category", "STRONG"),
+            "status": s.get("status", "SCANNING"),
+        })
+    formatted.sort(key=lambda x: x["distance_pct"])
+    return {"count": len(formatted), "setups": formatted}
 
 @app.post("/api/admin/heal_ledger")
 @app.get("/api/admin/heal_ledger")
@@ -379,6 +451,15 @@ async def get_positions():
 
         if "size_usdt" not in item or not item["size_usdt"]:
             item["size_usdt"] = item.get("position_size_usdt", item.get("margin_usdt", 50.0) * 5.0)
+        open_t = item.get("open_time")
+        if open_t and not item.get("entry_time"):
+            item["entry_time"] = int(float(open_t) * 1000) if float(open_t) < 1e11 else int(open_t)
+        item.setdefault("liq_price", float(item.get("liquidation_price") or 0.0))
+        t_stage = int(item.get("trailing_stage") or 0)
+        item.setdefault("trailing_step", t_stage)
+        item.setdefault("be_locked", t_stage >= 1)
+        item.setdefault("hard_sl_price", float(item.get("sl_price") or 0.0))
+        item.setdefault("timeframe", "1H")
         enriched.append(item)
     return {"positions": enriched, "count": len(enriched)}
 
