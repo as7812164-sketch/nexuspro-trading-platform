@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794439816472,
-  "updated_at_str": "2026-11-11 23:30:16 IST",
+  "updated_at": 1794439824641,
+  "updated_at_str": "2026-11-11 23:30:24 IST",
   "total_trades": 2,
   "sections": [
     {
@@ -170,9 +170,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794439816.4638357
+      "status": "IN_TRADE",
+      "active_symbol": "FETUSDT",
+      "updated_at": 1794439824.050927
     }
   ],
   "trade_history": [
@@ -380,6 +380,32 @@
       "open_time": 1794436879.9965467,
       "updated_at": 1794439813.8939831,
       "mae_pct": 7.33,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    },
+    {
+      "id": 13,
+      "section_id": 10,
+      "symbol": "FETUSDT",
+      "side": "LONG",
+      "entry_price": 0.1472,
+      "mark_price": 0.1472,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 0.142784,
+      "tp_price": 0.151616,
+      "trailing_sl_price": 0.0,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.0,
+      "pnl_pct": 0.0,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1794439824.0419433,
+      "updated_at": 1794439824.0419433,
+      "mae_pct": 0.0,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
       "timeframe": "1H"
@@ -1430,6 +1456,17 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 1,
       "updated_at": 1794438457.941181
+    },
+    {
+      "ob_key": "FETUSDT_1h_LONG_1794387600",
+      "symbol": "FETUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.1466,
+      "ob_bottom": 0.1453,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1794439824.059661
     }
   ]
 }
