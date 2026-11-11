@@ -1,9 +1,11 @@
 """
-NEXUSPRO FUTURES & DECA COMPOUNDING TERMINAL (FASTAPI BACKEND)
-============================================================
+NEXUSPRO INSTITUTIONAL FUTURES TERMINAL (FASTAPI BACKEND)
+=========================================================
 Brand: NexusPro
-Format: 100% Bitget Pro Layout & UI
-Engine: BB 3.0 ($47,389.77 USDT Historic Compounding Model)
+Engine: Hermes MS-OB v2.0 GOLDEN ONLY (7-Model Order Block First-Tap Strategy)
+- BUY / LONG Exclusive Execution
+- Strictly 1st Tap Valid | 2nd Tap Permanently Invalidated
+- Flat $1,000 Portfolio | $50 (5%) Margin | 5x Isolated | +12%->+2.5% BE | -15% SL (2x15m) | +15% TP
 """
 
 import os
@@ -14,7 +16,6 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import Dict, List, Any, Optional
 
-import aiohttp
 from fastapi import FastAPI, Request, HTTPException, Query, Body
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -38,20 +39,14 @@ from database.db import (
     get_trade_history,
     get_portfolio_summary,
     STARTING_BALANCE_PER_SECTION,
-    sync_external_trade_open,
-    sync_external_trailing_update,
-    sync_external_trade_close,
-    sync_external_setup,
-    remove_external_setup,
     get_pending_setups,
     enrich_trade_metadata,
     reconcile_sections_ledger,
-    purge_phantom_churn_trades
+    purge_phantom_churn_trades,
+    reset_fresh_portfolio_db
 )
 from engine.feed import market_feed
-from engine.sentinel import nexus_sentinel
 from engine.ms_ob_engine import hermes_ms_ob_engine
-from engine.bb20_sniper import bb20_sniper
 
 STATIC_DIR = BASE_DIR / "static"
 
@@ -66,58 +61,32 @@ async def vault_periodic_sync_loop():
             print(f"[PERIODIC VAULT SYNC NOTE] {_ve}")
         await asyncio.sleep(300)
 
-async def keepalive_loop():
-    """Pings both public Render URLs every 3 minutes to permanently prevent Render free tier sleep."""
-    urls = [
-        "https://nexuspro-terminal.onrender.com/api/status",
-        "https://smc-ai-agent.onrender.com/api/status"
-    ]
-    await asyncio.sleep(20)
-    while True:
-        for u in urls:
-            try:
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(u, timeout=20) as resp:
-                        pass
-            except Exception:
-                pass
-        await asyncio.sleep(180)
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Start background BB 3.0 scanner and position monitor
+    # Startup: Initialize clean SQLite & exclusive Hermes MS-OB Engine (zero legacy strategies/watchdogs)
     init_db()
-    # 1. Restore Cloud Vault state if container was restarted
     try:
         from database.cloud_vault import pull_and_restore_vault_state
         restored = pull_and_restore_vault_state()
         if restored:
-            print("[CLOUD VAULT] Restored missing trades and section balances from GitHub data-vault branch!")
+            print("[CLOUD VAULT] Restored Hermes MS-OB state from GitHub data-vault branch!")
     except Exception as _ve:
         print(f"[CLOUD VAULT RESTORE ERROR] {_ve}")
 
     try:
         purged = purge_phantom_churn_trades()
         if purged > 0:
-            print(f"[RECONCILIATION] Cleaned {purged} rapid phantom churn trades and restored section capital!")
+            print(f"[RECONCILIATION] Cleaned {purged} rapid phantom churn trades.")
     except Exception as e:
         print(f"[RECONCILIATION ERROR] {e}")
     reconcile_sections_ledger()
     asyncio.create_task(market_feed.get_all_tickers())
-    # sniper_task = asyncio.create_task(bb20_sniper.start_loop()) # DECOMMISSIONED: Old strategy deleted
     ms_ob_task = asyncio.create_task(hermes_ms_ob_engine.start_loop())
-    sentinel_task = asyncio.create_task(nexus_sentinel.start_loop())
-    keepalive_task = asyncio.create_task(keepalive_loop())
     vault_task = asyncio.create_task(vault_periodic_sync_loop())
     yield
     # Shutdown
-    # bb20_sniper.stop_loop()
     hermes_ms_ob_engine.stop_loop()
-    nexus_sentinel.stop_loop()
-    # sniper_task.cancel()
     ms_ob_task.cancel()
-    sentinel_task.cancel()
-    keepalive_task.cancel()
     vault_task.cancel()
 
 app = FastAPI(title=f"{BRAND_NAME} Institutional Terminal", lifespan=lifespan)
@@ -198,7 +167,9 @@ async def get_status():
         "brand": BRAND_NAME,
         "tagline": BRAND_SUBTITLE,
         "strategy": "HERMES_MS_OB",
-        "mode": "HERMES_MS_OB (Normal Futures • Zero Compounding • Hard SL -15% ROI • Full TP +15% ROI)",
+        "allowed_direction": "BUY / LONG ONLY",
+        "first_tap_rule": "Strictly 1st Tap Valid Only | 2nd Tap Permanently Invalidated",
+        "mode": "HERMES_MS_OB_EXCLUSIVE (Zero Compounding | 1st Tap BUY/LONG Only | BE +12%->+2.5% | Hard SL -15% | TP +15%)",
         "starting_capital": summary["starting_capital"],
         "total_equity": summary["total_equity"],
         "total_balance": summary["total_balance"],
@@ -208,7 +179,8 @@ async def get_status():
         "hard_sl_roi_pct": -15.0,
         "full_book_tp_roi_pct": 15.0,
         "dynamic_armor": {
-            "hard_sl": "-15.0% ROI (-3.0% Price)",
+            "hard_sl": "-15.0% ROI (-3.0% Price, 2x15m Guard)",
+            "breakeven_shield": "+12.0% ROI -> Lock +2.5% ROI",
             "full_book_tp": "+15.0% ROI (+3.0% Price)",
             "compounding": "DISABLED (Flat 5% Margin = $50)"
         },
@@ -536,7 +508,6 @@ async def close_trade(pos_id: int):
         pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
         close_position_in_db(pos_id, curr_price, pnl, "MANUAL_CLOSE")
-        bb20_sniper.register_cooldown(target["symbol"], target["side"], target["entry_price"])
         return {"status": "CLOSED", "success": True, "position_id": pos_id, "realized_pnl": pnl}
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
@@ -567,7 +538,6 @@ async def close_trade_body(body: Dict[str, Any] = Body(...)):
         pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
         close_position_in_db(target["id"], curr_price, pnl, "MANUAL_CLOSE")
-        bb20_sniper.register_cooldown(target["symbol"], target["side"], target["entry_price"])
         return {"status": "CLOSED", "success": True, "position_id": target["id"], "realized_pnl": pnl}
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
@@ -585,83 +555,33 @@ async def trigger_reconciliation():
     reconcile_sections_ledger()
     return {"status": "SUCCESS", "summary": get_portfolio_summary()}
 
-# ----------------- REAL-TIME SYNC BRIDGE (TELEGRAM SNIPER -> TERMINAL) -----------------
+# ----------------- LEGACY SYNC DECOMMISSIONED -----------------
 
 @app.post("/api/sync/trade")
-async def sync_trade_from_sniper(body: Dict[str, Any] = Body(...)):
-    """Receives real-time trade events from BB 3.0 Live Sniper (Telegram Bot runner)."""
-    action = body.get("action", "").upper()
-    data = body.get("data", body)
-    
-    try:
-        if action == "SETUP":
-            sync_external_setup(data)
-            return {"status": "SUCCESS", "action": "SETUP", "symbol": data.get("symbol")}
-        elif action == "REMOVE_SETUP":
-            remove_external_setup(data.get("symbol", ""))
-            return {"status": "SUCCESS", "action": "REMOVE_SETUP", "symbol": data.get("symbol")}
-        elif action == "OPEN":
-            remove_external_setup(data.get("symbol", ""))
-            pos_id = sync_external_trade_open(data)
-            return {"status": "SUCCESS", "action": "OPEN", "position_id": pos_id}
-        elif action == "TRAILING":
-            sym = data.get("symbol")
-            new_sl = float(data.get("trailing_sl", data.get("new_sl", 0.0)))
-            stage = int(data.get("stage", data.get("tier", 1)))
-            highest_r = float(data.get("highest_r", 0.0))
-            mfe_pct = float(data.get("peak_roi", data.get("mfe_pct", 0.0)))
-            mae_pct = float(data.get("mae_pct", 0.0))
-            sync_external_trailing_update(sym, new_sl, stage, highest_r, mfe_pct, mae_pct)
-            return {"status": "SUCCESS", "action": "TRAILING", "symbol": sym}
-        elif action == "CLOSE":
-            remove_external_setup(data.get("symbol", ""))
-            sync_external_trade_close(data)
-            bb20_sniper.register_cooldown(data.get("symbol", ""), data.get("side", ""), float(data.get("entry_price", 0.0)))
-            return {"status": "SUCCESS", "action": "CLOSE", "symbol": data.get("symbol")}
-        elif action == "BATCH_HISTORY":
-            trades = data if isinstance(data, list) else body.get("trades", [])
-            for t in trades:
-                sync_external_trade_close(t)
-            return {"status": "SUCCESS", "action": "BATCH_HISTORY", "synced": len(trades)}
-        elif action == "SYNC_ALL":
-            setups = data.get("setups", {})
-            if isinstance(setups, dict):
-                for sym, s_data in setups.items():
-                    sync_external_setup(s_data)
-            elif isinstance(setups, list):
-                for s_data in setups:
-                    sync_external_setup(s_data)
-            return {"status": "SUCCESS", "action": "SYNC_ALL", "setups_synced": len(setups)}
-        else:
-            return {"status": "ERROR", "message": f"Unknown action: {action}"}
-    except Exception as e:
-        return {"status": "ERROR", "message": str(e)}
+async def sync_trade_decommissioned():
+    return JSONResponse(
+        status_code=410,
+        content={"status": "DECOMMISSIONED", "message": "Legacy BB 3.0 sync disabled — Hermes MS-OB exclusive"}
+    )
 
 @app.post("/api/deca/reset")
+@app.post("/api/paper/reset")
 async def reset_deca():
-    """Resets paper accounts back to $50.00 each = $500.00 initial capital."""
-    from database.db import get_db_connection
-    conn = get_db_connection()
-    c = conn.cursor()
-    c.execute("DELETE FROM positions")
-    c.execute("DELETE FROM trade_history")
-    now = time.time()
-    c.execute("""
-        UPDATE deca_sections SET
-            current_balance = ?,
-            equity = ?,
-            total_pnl = 0.0,
-            pnl_pct = 0.0,
-            win_count = 0,
-            loss_count = 0,
-            win_rate = 0.0,
-            status = 'IDLE',
-            active_symbol = NULL,
-            updated_at = ?
-    """, (STARTING_BALANCE_PER_SECTION, STARTING_BALANCE_PER_SECTION, now))
-    conn.commit()
-    conn.close()
-    return {"status": "RESET_SUCCESS", "message": "All 10 Deca sections reset to $50.00 ($500.00 total equity)."}
+    """Deletes all old trade records/positions/OB locks and resets portfolio cleanly to $1,000.00 USDT."""
+    summary = reset_fresh_portfolio_db()
+    hermes_ms_ob_engine._ob_lifecycle.clear()
+    hermes_ms_ob_engine._cooldowns.clear()
+    hermes_ms_ob_engine.scanned_setups = []
+    try:
+        from database.cloud_vault import push_vault_state
+        push_vault_state(force_reset=True)
+    except Exception:
+        pass
+    return {
+        "status": "RESET_SUCCESS",
+        "message": "All old trades cleared. Portfolio reset cleanly to $1,000.00 USDT ($100 x 10 sections).",
+        "summary": summary
+    }
 
 @app.get("/manifest.json")
 async def serve_manifest():
@@ -683,55 +603,32 @@ if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=port)
 
 
-# ----------------- AI SENTINEL & AUTONOMOUS LEARNING ROUTES -----------------
+# ----------------- ENGINE DIAGNOSTIC ROUTES (WATCHDOG DECOMMISSIONED) -----------------
 
 @app.get("/api/sentinel/status")
 async def get_sentinel_status():
-    """Returns real-time health, audits count, and learned rules from NexusPro AI Sentinel."""
-    try:
-        return await nexus_sentinel.run_full_diagnostic()
-    except Exception as e:
-        return {
-            "status": "HEALTHY",
-            "health_score": 100,
-            "engine": "NexusPro AI Sentinel (Autonomous 24/7)",
-            "message": str(e),
-            "total_audits_run": nexus_sentinel.total_audits_run,
-            "total_issues_healed": nexus_sentinel.total_issues_healed,
-            "knowledge_base_entries": 5,
-            "recent_learned_lessons": []
-        }
+    summary = get_portfolio_summary()
+    return {
+        "status": "HEALTHY",
+        "health_score": 100,
+        "engine": "Hermes MS-OB v2.0 GOLDEN Exclusive (Legacy Watchdogs Removed)",
+        "total_audits_run": 0,
+        "total_issues_healed": 0,
+        "active_positions": summary["active_positions_count"],
+        "recent_learned_lessons": []
+    }
 
 @app.get("/api/sentinel/logs")
 async def get_sentinel_logs(limit: int = Query(50, ge=1, le=200)):
-    """Returns the persistent Cognitive Knowledge Base of learned lessons and auto-healing incidents."""
-    kb = nexus_sentinel.get_knowledge_base(limit=limit)
-    return {
-        "status": "OK",
-        "knowledge_base": kb,
-        "total_audits_run": nexus_sentinel.total_audits_run,
-        "total_issues_healed": nexus_sentinel.total_issues_healed
-    }
+    return {"status": "OK", "knowledge_base": [], "total_audits_run": 0, "total_issues_healed": 0}
 
 @app.get("/api/sentinel/diagnose")
 @app.post("/api/sentinel/diagnose")
 async def run_sentinel_diagnose():
-    """Triggers an immediate live deep audit across all 10 Deca sections, positions, and history."""
-    try:
-        report = await nexus_sentinel.run_full_diagnostic()
-    except Exception as e:
-        report = {
-            "status": "HEALTHY",
-            "health_score": 100,
-            "engine": "NexusPro AI Sentinel (Autonomous 24/7)",
-            "total_audits_run": nexus_sentinel.total_audits_run,
-            "total_issues_healed": nexus_sentinel.total_issues_healed,
-            "recent_healed_in_this_run": 0
-        }
     return {
         "status": "SUCCESS",
-        "message": "NexusPro AI Sentinel: Deep live diagnostic complete. All positions, trailing SLs, and section ledgers healthy.",
-        "report": report
+        "message": "Hermes MS-OB Exclusive Engine active. Legacy watchdogs and BB strategies permanently removed.",
+        "report": {"status": "HEALTHY", "health_score": 100, "engine": "HERMES_MS_OB"}
     }
 
 # ----------------- CLOUD VAULT DATA PERSISTENCE ROUTES -----------------

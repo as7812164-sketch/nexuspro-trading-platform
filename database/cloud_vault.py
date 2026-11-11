@@ -30,7 +30,7 @@ GITHUB_REPO = os.getenv("GITHUB_REPO", "as7812164-sketch/nexuspro-trading-platfo
 VAULT_BRANCH = "data-vault"
 VAULT_FILE = "vault_state.json"
 LOCAL_VAULT_BACKUP = BASE_DIR / "database" / "local_vault_backup.json"
-CURRENT_VAULT_VERSION = "2.0-hermes-msob"
+CURRENT_VAULT_VERSION = "3.0-hermes-msob-clean"
 
 def get_vault_headers() -> Dict[str, str]:
     return {
@@ -59,11 +59,11 @@ def push_vault_state(force_reset: bool = False) -> bool:
         # 3. Active Positions
         positions = [dict(r) for r in conn.execute("SELECT * FROM positions WHERE status = 'OPEN'").fetchall()]
 
-        # 4. Sentinel Knowledge Base
+        # 4. Permanently Consumed / Invalidated Order Blocks (1st Tap Lock Registry)
         try:
-            kb = [dict(r) for r in conn.execute("SELECT * FROM sentinel_knowledge_base ORDER BY id ASC").fetchall()]
+            obs = [dict(r) for r in conn.execute("SELECT * FROM mitigated_order_blocks").fetchall()]
         except Exception:
-            kb = []
+            obs = []
 
         conn.close()
 
@@ -75,7 +75,7 @@ def push_vault_state(force_reset: bool = False) -> bool:
             "sections": sections,
             "trade_history": trade_history,
             "positions": positions,
-            "sentinel_knowledge_base": kb
+            "mitigated_order_blocks": obs
         }
 
         # 5. Save local disk backup first
@@ -235,23 +235,23 @@ def pull_and_restore_vault_state() -> bool:
                 time.time(), s.get("id")
             ))
 
-        # C. Restore Sentinel Knowledge Base
-        existing_kb_types = {r[0] for r in c.execute("SELECT incident_type FROM sentinel_knowledge_base").fetchall()}
-        vault_kb = vault_data.get("sentinel_knowledge_base", [])
-        for k in vault_kb:
-            if k.get("incident_type") not in existing_kb_types:
-                c.execute("""
-                    INSERT INTO sentinel_knowledge_base (
-                        incident_type, symbol, severity, detected_issue, root_cause,
-                        resolution_applied, lesson_learned, timestamp, created_at_str
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    k.get("incident_type"), k.get("symbol"), k.get("severity"),
-                    k.get("detected_issue"), k.get("root_cause"),
-                    k.get("resolution_applied"), k.get("lesson_learned"),
-                    k.get("timestamp", time.time()), k.get("created_at_str", "")
-                ))
-                existing_kb_types.add(k.get("incident_type"))
+        # C. Restore Mitigated Order Blocks (1st-Tap / 2nd-Tap Permanent Locks)
+        vault_obs = vault_data.get("mitigated_order_blocks", [])
+        for ob in vault_obs:
+            c.execute("""
+                INSERT INTO mitigated_order_blocks (
+                    ob_key, symbol, timeframe, side, ob_top, ob_bottom, status, tap_count, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(ob_key) DO UPDATE SET
+                    status = excluded.status,
+                    tap_count = MAX(mitigated_order_blocks.tap_count, excluded.tap_count),
+                    updated_at = excluded.updated_at
+            """, (
+                ob.get("ob_key"), ob.get("symbol"), ob.get("timeframe"),
+                ob.get("side"), ob.get("ob_top", 0.0), ob.get("ob_bottom", 0.0),
+                ob.get("status", "CONSUMED_TRADE"), ob.get("tap_count", 1),
+                ob.get("updated_at", time.time())
+            ))
 
         conn.commit()
         conn.close()

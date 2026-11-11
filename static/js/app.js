@@ -447,9 +447,11 @@ function computeHermesOrderBlocks(candles) {
             }
             const obMid = (obTop + obBottom) / 2.0;
 
-            // Invalidation & First Tap Mitigation Tracking
+            // Invalidation & Strict 1st-Tap Valid / 2nd-Tap Invalidated Tracking
             let isMitigated = false;
             let isInvalidated = false;
+            let tapCount = 0;
+            let leftAfterTap1 = false;
             let mitIdx = null;
             let mitTime = null;
 
@@ -458,10 +460,21 @@ function computeHermesOrderBlocks(candles) {
                     isInvalidated = true;
                     break;
                 }
-                if (candles[k].low <= obTop && !isMitigated) {
-                    isMitigated = true;
-                    mitIdx = k;
-                    mitTime = candles[k].time;
+                if (tapCount === 0) {
+                    if (candles[k].low <= obTop) {
+                        tapCount = 1;
+                        isMitigated = true;
+                        mitIdx = k;
+                        mitTime = candles[k].time;
+                    }
+                } else {
+                    if (candles[k].low > obTop) {
+                        leftAfterTap1 = true;
+                    } else if (leftAfterTap1 && candles[k].low <= obTop) {
+                        tapCount = 2;
+                        isInvalidated = true;
+                        break;
+                    }
                 }
             }
 
@@ -573,6 +586,8 @@ function computeHermesOrderBlocks(candles) {
 
             let isMitigated = false;
             let isInvalidated = false;
+            let tapCount = 0;
+            let leftAfterTap1 = false;
             let mitIdx = null;
             let mitTime = null;
 
@@ -581,10 +596,21 @@ function computeHermesOrderBlocks(candles) {
                     isInvalidated = true;
                     break;
                 }
-                if (candles[k].high >= obBottom && !isMitigated) {
-                    isMitigated = true;
-                    mitIdx = k;
-                    mitTime = candles[k].time;
+                if (tapCount === 0) {
+                    if (candles[k].high >= obBottom) {
+                        tapCount = 1;
+                        isMitigated = true;
+                        mitIdx = k;
+                        mitTime = candles[k].time;
+                    }
+                } else {
+                    if (candles[k].high < obBottom) {
+                        leftAfterTap1 = true;
+                    } else if (leftAfterTap1 && candles[k].high >= obBottom) {
+                        tapCount = 2;
+                        isInvalidated = true;
+                        break;
+                    }
                 }
             }
 
@@ -611,9 +637,9 @@ function computeHermesOrderBlocks(candles) {
         }
     }
 
-    // Retain clean non-invalidated Order Blocks (max 8)
+    // Retain strictly valid non-invalidated Order Blocks (max 8)
     const validObs = rawObList.filter(ob => !ob.isInvalidated);
-    detectedHermesOrderBlocks = (validObs.length > 0 ? validObs : rawObList).slice(-8);
+    detectedHermesOrderBlocks = validObs.slice(-8);
     drawHermesOrderBlocks();
 }
 

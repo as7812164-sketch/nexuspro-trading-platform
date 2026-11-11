@@ -125,34 +125,7 @@ class MarketDataFeed:
         except Exception:
             pass
 
-        # Tier 3: Peer SMC AI Agent on Render (Same datacenter, guaranteed fast)
-        try:
-            peer_url = "https://smc-ai-agent.onrender.com/api/markets"
-            async with session.get(peer_url, timeout=aiohttp.ClientTimeout(total=3.0)) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    all_m = data.get("all_markets", []) or data.get("champions", [])
-                    if all_m:
-                        result = {}
-                        for item in all_m:
-                            sym = item["symbol"]
-                            result[sym] = {
-                                "symbol": sym,
-                                "last_price": float(item.get("last_price", 0.0)),
-                                "price_change_pct": float(item.get("price_change_pct", 0.0)),
-                                "high_24h": float(item.get("high_24h", 0.0)),
-                                "low_24h": float(item.get("low_24h", 0.0)),
-                                "volume_24h": float(item.get("volume_24h", 0.0)),
-                                "count": int(item.get("count", 1000))
-                            }
-                        if result:
-                            self._cached_tickers = result
-                            self._last_ticker_update = now
-                            return result
-        except Exception:
-            pass
-
-        # Tier 4: Binance Futures Direct
+        # Tier 3: Binance Futures Direct
         try:
             url = f"{BINANCE_FUTURES_URL}/fapi/v1/ticker/24hr"
             async with session.get(url, timeout=aiohttp.ClientTimeout(total=3.0)) as resp:
@@ -371,20 +344,6 @@ class MarketDataFeed:
                         })
                     if candles:
                         return candles
-        except Exception:
-            pass
-
-        # Tier 5: Peer Render Fallback
-        try:
-            peer_url = f"https://smc-ai-agent.onrender.com/api/klines/{symbol.upper()}"
-            params = {"interval": interval, "limit": limit}
-            async with session.get(peer_url, params=params, timeout=aiohttp.ClientTimeout(total=3.5)) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    if isinstance(data, dict) and "candles" in data and data["candles"]:
-                        return data["candles"]
-                    elif isinstance(data, list) and data:
-                        return data
         except Exception:
             pass
 

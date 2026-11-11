@@ -929,9 +929,11 @@ export class ChartTerminal {
         }
         const obMid = (obTop + obBottom) / 2.0;
 
-        // Body-Close Invalidation & First Tap Mitigation Tracking
+        // Body-Close Invalidation & Strict 1st-Tap Valid / 2nd-Tap Invalidated Tracking
         let isMitigated = false;
         let isInvalidated = false;
+        let tapCount = 0;
+        let leftAfterTap1 = false;
         let mitIdx = null;
         let mitTime = null;
 
@@ -940,10 +942,21 @@ export class ChartTerminal {
             isInvalidated = true;
             break;
           }
-          if (candles[k].low <= obTop && !isMitigated) {
-            isMitigated = true;
-            mitIdx = k;
-            mitTime = candles[k].time;
+          if (tapCount === 0) {
+            if (candles[k].low <= obTop) {
+              tapCount = 1;
+              isMitigated = true;
+              mitIdx = k;
+              mitTime = candles[k].time;
+            }
+          } else {
+            if (candles[k].low > obTop) {
+              leftAfterTap1 = true;
+            } else if (leftAfterTap1 && candles[k].low <= obTop) {
+              tapCount = 2;
+              isInvalidated = true;
+              break;
+            }
           }
         }
 
@@ -1055,6 +1068,8 @@ export class ChartTerminal {
 
         let isMitigated = false;
         let isInvalidated = false;
+        let tapCount = 0;
+        let leftAfterTap1 = false;
         let mitIdx = null;
         let mitTime = null;
 
@@ -1063,10 +1078,21 @@ export class ChartTerminal {
             isInvalidated = true;
             break;
           }
-          if (candles[k].high >= obBottom && !isMitigated) {
-            isMitigated = true;
-            mitIdx = k;
-            mitTime = candles[k].time;
+          if (tapCount === 0) {
+            if (candles[k].high >= obBottom) {
+              tapCount = 1;
+              isMitigated = true;
+              mitIdx = k;
+              mitTime = candles[k].time;
+            }
+          } else {
+            if (candles[k].high < obBottom) {
+              leftAfterTap1 = true;
+            } else if (leftAfterTap1 && candles[k].high >= obBottom) {
+              tapCount = 2;
+              isInvalidated = true;
+              break;
+            }
           }
         }
 
@@ -1094,7 +1120,7 @@ export class ChartTerminal {
     }
 
     const validObs = rawObList.filter(ob => !ob.isInvalidated);
-    return (validObs.length > 0 ? validObs : rawObList).slice(-8);
+    return validObs.slice(-8);
   }
 
   /* ------------------------------------------------------------------------
@@ -1273,7 +1299,7 @@ export class ChartTerminal {
     // Watermark Diagnostic Badge
     ctx.save();
     ctx.font = '700 10px "JetBrains Mono", monospace';
-    const wmText = '⚡ Hermes MS-OB v2.0 GOLDEN • 7-Model First Tap';
+    const wmText = '⚡ Hermes MS-OB v2.0 • 1st-Tap Only (BUY/LONG)';
     const wmMetrics = ctx.measureText(wmText);
     const wmX = rightChartEdge - wmMetrics.width - 16;
     const wmY = height - 18;

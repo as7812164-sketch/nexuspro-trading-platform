@@ -35,8 +35,10 @@ SECTION_RISK_FRACTION = 0.50
 
 # Strategy Parameters: Hermes MS-OB 7-Model Order Block Engine (v2.0 Golden Final)
 STRATEGY_NAME = "HERMES_MS_OB"
-STRATEGY_VERSION = "2.0_FINAL"
-STRATEGY_MODEL = "7_MODEL_OB_5M_CONFIRM_SWEEP_RECLAIM"
+STRATEGY_VERSION = "2.0_GOLDEN_1ST_TAP"
+STRATEGY_MODEL = "7_MODEL_OB_1ST_TAP_BUY_LONG_ONLY"
+ALLOW_SHORT_ENTRIES = False           # Strictly BUY / LONG only per user mandate
+ALLOWED_TRADE_SIDE = "LONG"
 
 # Risk & Return Architecture (15% ROI SL / 15% ROI Full Book TP)
 HARD_SL_PRICE_PCT = 3.0           # 3.0% Price Move
@@ -52,11 +54,11 @@ BREAKEVEN_LOCK_ROI = 2.5              # Lock Stop Loss at +2.5% ROI (Guaranteed 
 SL_CONFIRMATION_TIMEFRAME = "15m"     # Timeframe for Hard SL candle closes
 SL_CONSECUTIVE_15M_CANDLES = 2        # Require 2 consecutive 15m candle closes beyond SL to exit
 ENTRY_CONFIRMATION_TIMEFRAME = "5m"   # Timeframe for entry confirmation close
-SWEEP_RECLAIM_TIMEBOX_MINUTES = 120   # 2-Hour window (120 minutes) for liquidity sweep reclamation
+SWEEP_RECLAIM_TIMEBOX_MINUTES = 0     # Disabled: strict 1st Tap only, 2nd tap invalidates OB
 
 # Dedicated Telegram Bot Integration
-BB20_TELEGRAM_BOT_TOKEN = "8685685362:AAFWkKvRIs6cJ70gegcJVFyKB5soDtEttbU"
-BB20_TELEGRAM_CHAT_ID = "752247227"
+NEXUS_TELEGRAM_BOT_TOKEN = "8685685362:AAFWkKvRIs6cJ70gegcJVFyKB5soDtEttbU"
+NEXUS_TELEGRAM_CHAT_ID = "752247227"
 
 PAIR_MAPPING = {
     "BTCUSDT": 1, "ETHUSDT": 1, "PAXGUSDT": 1,

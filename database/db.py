@@ -131,7 +131,22 @@ def init_db():
         )
     """)
 
-    # 6. Sentinel Knowledge Base (Continuous Cognitive Learning Registry)
+    # 6. Order Block First-Tap / Second-Tap Permanent Registry (1st Tap Valid Only)
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS mitigated_order_blocks (
+            ob_key TEXT PRIMARY KEY,
+            symbol TEXT NOT NULL,
+            timeframe TEXT NOT NULL,
+            side TEXT NOT NULL,
+            ob_top REAL NOT NULL,
+            ob_bottom REAL NOT NULL,
+            status TEXT NOT NULL,
+            tap_count INTEGER DEFAULT 1,
+            updated_at REAL NOT NULL
+        )
+    """)
+
+    # 7. Legacy Cognitive Registry Table (kept empty for schema compat)
     c.execute("""
         CREATE TABLE IF NOT EXISTS sentinel_knowledge_base (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -167,54 +182,6 @@ def init_db():
             c.execute(f"ALTER TABLE trade_history ADD COLUMN {col} {ctype}")
 
     
-    # Pre-seed foundational cognitive learning lessons
-    c.execute("SELECT COUNT(*) FROM sentinel_knowledge_base")
-    if c.fetchone()[0] == 0:
-        foundational_rules = [
-            ("MFE_MILESTONE_ALIGNMENT", "GLOBAL", "INFO",
-             "Closed trades displaying exit ROI instead of peak excursion.",
-             "Database default in close_position_in_db fell back to realized PnL.",
-             "Enforced milestone baseline guarantee (Fee Shield requires MFE >= 4.80%) and direct peak excursion passing.",
-             "Never allow trade closing logic to overwrite historical candle peak with final exit tick.",
-             time.time(), "Foundational Architecture"),
-            ("MICRO_COIN_PRECISION", "1000PEPEUSDT", "INFO",
-             "Sub-cent coin prices displayed as $0.0046 -> $0.0046 due to 4-decimal truncation.",
-             "Standard toFixed(4) formatting is too coarse for coins trading under $0.01.",
-             "Implemented dynamic precision formatCoinPrice (6-7 decimals for sub-cent assets).",
-             "Always scale decimal precision dynamically based on asset spot price magnitude.",
-             time.time(), "Foundational Architecture"),
-            ("PURE_TRAILING_NO_FIXED_TP", "GLOBAL", "INFO",
-             "Micro-OB setups had tight 0.4% TP targets that exited trades in 30 seconds.",
-             "Fixed 3R Take Profit formula on ultra-small Order Block wicks limits runner potential.",
-             "Disabled fixed TP cap completely, letting trades ride infinitely via Stepped Trailing SL.",
-             "Let compounding trades ride momentum indefinitely until Trailing SL locks profit.",
-             time.time(), "Foundational Architecture"),
-            ("TELEGRAM_CLOUD_FAILSAFE", "GLOBAL", "INFO",
-             "Trades opened on Render cloud without sending Telegram alerts.",
-             "Telegram bot was only configured in local runner rather than cloud sniper engine.",
-             "Directly integrated Telegram Bot (@SMC_1H_Trigger_Bot) with strict 2-alert discipline.",
-             "Cloud backend must dispatch Alert 1 (Entry Filled) and Alert 2 (Closed) autonomously.",
-             time.time(), "Foundational Architecture"),
-            ("SECTIONS_AUTO_RECONCILE", "DECA_MATRIX", "INFO",
-             "Section equity drift from rapid loop churn or phantom re-entries.",
-             "Lack of atomic reconciliation across SQLite positions and Deca sections ledger.",
-             "Implemented purge_phantom_churn_trades and reconcile_sections_ledger.",
-             "Always anchor Deca section balance to Starting Balance + sum(Realized Net PnL).",
-             time.time(), "Foundational Architecture")
-            ,("ACTIVE_LIFECYCLE_MFE", "GLOBAL", "CRITICAL",
-             "Position trailing SL prematurely locked or stopped out within seconds of opening.",
-             "Trailing SL auditor evaluated 24h ticker high/low which occurred hours before trade entry.",
-             "Strictly isolated excursion tracking to live ROE and post-entry price action only.",
-             "Excursion and trailing locks must strictly measure price action occurring after trade entry.",
-             time.time(), "Foundational Architecture")
-        ]
-        c.executemany("""
-            INSERT INTO sentinel_knowledge_base (
-                incident_type, symbol, severity, detected_issue, root_cause,
-                resolution_applied, lesson_learned, timestamp, created_at_str
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, foundational_rules)
-
     conn.commit()
 
     # Seed 10 Deca sections if not already seeded
@@ -459,36 +426,37 @@ def open_position(pos_data: Dict[str, Any]) -> int:
     conn = get_db_connection()
     c = conn.cursor()
     now = time.time()
-    
-    # Pure Trailing SL Mode: Fixed TP disabled per user mandate
+
     entry_p = float(pos_data["entry_price"])
     side = pos_data["side"].upper()
     sl_p = float(pos_data.get("sl_price", 0.0))
     tp_p = float(pos_data.get("tp_price", 0.0))
+    tf = str(pos_data.get("timeframe", "1H")).upper()
 
     c.execute("""
         INSERT INTO positions (
             section_id, symbol, side, entry_price, mark_price, position_size_usdt,
             margin_usdt, leverage, sl_price, tp_price, trailing_sl_price, trailing_stage,
-            unrealized_pnl, pnl_pct, liquidation_price, order_type, status, open_time, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'OPEN', ?, ?)
+            unrealized_pnl, pnl_pct, liquidation_price, order_type, timeframe, status, open_time, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'OPEN', ?, ?)
     """, (
         pos_data["section_id"],
         pos_data["symbol"],
-        pos_data["side"],
-        pos_data["entry_price"],
-        pos_data.get("mark_price", pos_data["entry_price"]),
+        side,
+        entry_p,
+        pos_data.get("mark_price", entry_p),
         pos_data["position_size_usdt"],
         pos_data["margin_usdt"],
         pos_data.get("leverage", 5),
-        pos_data["sl_price"],
-        pos_data["tp_price"],
+        sl_p,
+        tp_p,
         pos_data.get("trailing_sl_price", 0.0),
         pos_data.get("trailing_stage", 0),
         0.0,
         0.0,
         pos_data.get("liquidation_price", 0.0),
         pos_data.get("order_type", "LIMIT"),
+        tf,
         now,
         now
     ))
@@ -497,6 +465,54 @@ def open_position(pos_data: Dict[str, Any]) -> int:
     conn.close()
     set_section_status(pos_data["section_id"], "IN_TRADE", pos_data["symbol"])
     return pos_id
+
+def is_ob_retired(ob_key: str) -> bool:
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("SELECT status FROM mitigated_order_blocks WHERE ob_key = ?", (ob_key,))
+    row = c.fetchone()
+    conn.close()
+    return bool(row and row["status"] in ("CONSUMED_TRADE", "INVALIDATED_2ND_TAP", "INVALIDATED_CLOSE"))
+
+def mark_ob_state(ob_key: str, symbol: str, timeframe: str, side: str, ob_top: float, ob_bottom: float, status: str, tap_count: int = 1):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("""
+        INSERT INTO mitigated_order_blocks (
+            ob_key, symbol, timeframe, side, ob_top, ob_bottom, status, tap_count, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(ob_key) DO UPDATE SET
+            status = excluded.status,
+            tap_count = MAX(mitigated_order_blocks.tap_count, excluded.tap_count),
+            updated_at = excluded.updated_at
+    """, (ob_key, symbol, timeframe, side, float(ob_top), float(ob_bottom), status, int(tap_count), time.time()))
+    conn.commit()
+    conn.close()
+
+def reset_fresh_portfolio_db() -> Dict[str, Any]:
+    """Deletes all old positions, trade history, setups, and OB locks; resets 10 sections cleanly to $1,000.00 USDT."""
+    conn = get_db_connection()
+    c = conn.cursor()
+    now = time.time()
+    c.execute("DELETE FROM positions")
+    c.execute("DELETE FROM trade_history")
+    c.execute("DELETE FROM pending_setups")
+    c.execute("DELETE FROM mitigated_order_blocks")
+    c.execute("DELETE FROM sentinel_knowledge_base")
+    c.execute("DELETE FROM deca_sections")
+    for sec_id in range(1, TOTAL_DECA_SECTIONS + 1):
+        coins = [sym for sym, sid in PAIR_MAPPING.items() if sid == sec_id]
+        coins_str = ", ".join(coins)
+        sec_name = f"Section {sec_id} ({coins_str})"
+        c.execute("""
+            INSERT INTO deca_sections (
+                id, name, assigned_coins, initial_balance, current_balance,
+                vault_balance, equity, total_pnl, pnl_pct, win_count, loss_count, win_rate, status, active_symbol, updated_at
+            ) VALUES (?, ?, ?, ?, ?, 0.0, ?, 0.0, 0.0, 0, 0, 0.0, 'IDLE', NULL, ?)
+        """, (sec_id, sec_name, coins_str, STARTING_BALANCE_PER_SECTION, STARTING_BALANCE_PER_SECTION, STARTING_BALANCE_PER_SECTION, now))
+    conn.commit()
+    conn.close()
+    return get_portfolio_summary()
 
 def update_position_mark_price(pos_id: int, mark_price: float, u_pnl: float, pnl_pct: float, trailing_sl: float = 0.0, stage: int = 0, mfe_pct: float = None, mae_pct: float = None):
     conn = get_db_connection()
@@ -573,14 +589,15 @@ def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, ex
             section_id, symbol, side, entry_price, exit_price, margin_usdt,
             position_size_usdt, leverage, realized_pnl, pnl_pct, exit_reason,
             open_time, close_time, duration_minutes, entry_time_str, exit_time_str,
-            duration_str, be_status_str, mae_pct, mfe_pct, roi_pct
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            duration_str, be_status_str, mae_pct, mfe_pct, roi_pct, timeframe
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         pos["section_id"], pos["symbol"], pos["side"], pos["entry_price"],
         exit_price, pos["margin_usdt"], pos["position_size_usdt"], pos["leverage"],
         round(realized_pnl, 2), pnl_pct, exit_reason, open_t, now, dur_min,
         meta["entry_time_str"], meta["exit_time_str"], meta["duration_str"],
-        meta["be_status_str"], meta["mae_pct"], meta["mfe_pct"], pnl_pct
+        meta["be_status_str"], meta["mae_pct"], meta["mfe_pct"], pnl_pct,
+        str(pos.get("timeframe") or "1H").upper()
     ))
     conn.commit()
     conn.close()

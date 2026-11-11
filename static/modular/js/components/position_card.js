@@ -415,7 +415,7 @@ export class PositionCard {
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
             <div style="font-size: 13px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">📡 MS-OB PROXIMITY RADAR</div>
-            <div style="font-size: 10px; color: #768296; margin-top: 2px;">Crypto (1H/4H) + Gold PAXG (15m/1H/4H) • First Tap</div>
+            <div style="font-size: 10px; color: #768296; margin-top: 2px;">Crypto (1H/4H) + Gold PAXG (15m/1H/4H) • BUY/LONG 1st Tap Only</div>
           </div>
           <button id="btn-refresh-upcoming" style="background: #111d33; border: 1px solid #2563eb; color: #60a5fa; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 5px; cursor: pointer;">
             🔄 Refresh

@@ -72,7 +72,7 @@ export class Navigation {
       tab.addEventListener('click', () => {
         const view = tab.getAttribute('data-view');
         if (view === 'menu') {
-          alert('NexusPro Institutional Terminal v2.1\nStrategy: Hermes MS-OB v2.0 GOLDEN\n7-Model First Tap Order Blocks\nCapital: $1,000 Flat (Zero Compounding)\nMargin: Flat $50 (5%) • 5x Isolated\nArmor: BE Lock +12% -> +2.5% | Hard SL -15% (2x15m) | TP +15%');
+          alert('NexusPro Institutional Terminal v2.2\nStrategy: Hermes MS-OB v2.0 GOLDEN Exclusive\nMode: BUY / LONG Only • 1st Tap Valid | 2nd Tap Invalidated\nCapital: $1,000 Flat (Zero Compounding)\nMargin: Flat $50 (5%) • 5x Isolated\nArmor: BE Lock +12% -> +2.5% | Hard SL -15% (2x15m) | TP +15%');
           return;
         }
         state.setView(view);
