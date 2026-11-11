@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794407553962,
-  "updated_at_str": "2026-11-11 14:32:33 IST",
+  "updated_at": 1794407855267,
+  "updated_at_str": "2026-11-11 14:37:35 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -17,9 +17,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794407408.6296527
+      "status": "IN_TRADE",
+      "active_symbol": "PAXGUSDT",
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "AVAXUSDT",
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794407408.6296527
+      "updated_at": 1794407744.7840645
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "RENDERUSDT",
       "side": "LONG",
       "entry_price": 1.6,
-      "mark_price": 1.592,
+      "mark_price": 1.59,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -191,14 +191,14 @@
       "tp_price": 1.648,
       "trailing_sl_price": 1.552,
       "trailing_stage": 0,
-      "unrealized_pnl": -1.250000000000001,
-      "pnl_pct": -2.5,
+      "unrealized_pnl": -1.5625000000000013,
+      "pnl_pct": -3.13,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794397856.485813,
-      "updated_at": 1794407542.3069053,
-      "mae_pct": 3.13,
+      "updated_at": 1794407848.3088522,
+      "mae_pct": 4.06,
       "mfe_pct": 3.44,
       "size_usdt": 0.0,
       "timeframe": "4H"
@@ -209,7 +209,7 @@
       "symbol": "SUIUSDT",
       "side": "LONG",
       "entry_price": 0.8343,
-      "mark_price": 0.8326,
+      "mark_price": 0.8312,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -217,13 +217,13 @@
       "tp_price": 0.859329,
       "trailing_sl_price": 0.809271,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.5094090854608758,
-      "pnl_pct": -1.02,
+      "unrealized_pnl": -0.9289224499580461,
+      "pnl_pct": -1.86,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794398113.8751044,
-      "updated_at": 1794407542.2965832,
+      "updated_at": 1794407848.3000119,
       "mae_pct": 4.02,
       "mfe_pct": 1.92,
       "size_usdt": 0.0,
@@ -235,7 +235,7 @@
       "symbol": "AVAXUSDT",
       "side": "LONG",
       "entry_price": 8.528,
-      "mark_price": 8.518,
+      "mark_price": 8.505,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -243,17 +243,43 @@
       "tp_price": 8.78384,
       "trailing_sl_price": 8.27216,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.293151969981232,
-      "pnl_pct": -0.59,
+      "unrealized_pnl": -0.6742495309568388,
+      "pnl_pct": -1.35,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794400309.0079973,
-      "updated_at": 1794407542.2821882,
-      "mae_pct": 2.11,
+      "updated_at": 1794407848.2920563,
+      "mae_pct": 2.64,
       "mfe_pct": 4.1,
       "size_usdt": 0.0,
       "timeframe": "1H"
+    },
+    {
+      "id": 8,
+      "section_id": 1,
+      "symbol": "PAXGUSDT",
+      "side": "LONG",
+      "entry_price": 4022.98,
+      "mark_price": 4005.0,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 3902.2906,
+      "tp_price": 4143.6694,
+      "trailing_sl_price": 3902.2906,
+      "trailing_stage": 0,
+      "unrealized_pnl": -1.117330933785404,
+      "pnl_pct": -2.23,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1794407579.4213347,
+      "updated_at": 1794407848.2838805,
+      "mae_pct": 2.23,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "15M"
     }
   ],
   "mitigated_order_blocks": [
@@ -1202,6 +1228,17 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 1,
       "updated_at": 1794402112.7348826
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_LONG_1794334500",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "LONG",
+      "ob_top": 4015.2,
+      "ob_bottom": 4010.1,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1794407579.4405699
     }
   ]
 }
