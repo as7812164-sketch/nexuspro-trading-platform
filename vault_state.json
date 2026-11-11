@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794397707451,
-  "updated_at_str": "2026-11-11 17:18:27 IST",
+  "updated_at": 1794397905611,
+  "updated_at_str": "2026-11-11 11:51:45 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 6,
@@ -102,9 +102,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "status": "IN_TRADE",
+      "active_symbol": "RENDERUSDT",
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     },
     {
       "id": 10,
@@ -172,10 +172,852 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397707.4402723
+      "updated_at": 1794397902.7382743
     }
   ],
   "trade_history": [],
-  "positions": [],
-  "mitigated_order_blocks": []
+  "positions": [
+    {
+      "id": 5,
+      "section_id": 6,
+      "symbol": "RENDERUSDT",
+      "side": "LONG",
+      "entry_price": 1.6,
+      "mark_price": 1.6,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 1.552,
+      "tp_price": 1.648,
+      "trailing_sl_price": 1.552,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.0,
+      "pnl_pct": 0.0,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1794397856.485813,
+      "updated_at": 1794397902.3844724,
+      "mae_pct": 0.0,
+      "mfe_pct": 0.31,
+      "size_usdt": 0.0,
+      "timeframe": "4H"
+    }
+  ],
+  "mitigated_order_blocks": [
+    {
+      "ob_key": "BTCUSDT_1h_LONG_1794103200",
+      "symbol": "BTCUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 75762.5,
+      "ob_bottom": 75620.8,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397846.399569
+    },
+    {
+      "ob_key": "BTCUSDT_4h_LONG_1793088000",
+      "symbol": "BTCUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 80132.0,
+      "ob_bottom": 79468.3,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397847.0859396
+    },
+    {
+      "ob_key": "BTCUSDT_4h_LONG_1793260800",
+      "symbol": "BTCUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 80344.9,
+      "ob_bottom": 79816.6,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397847.093198
+    },
+    {
+      "ob_key": "BTCUSDT_4h_LONG_1793692800",
+      "symbol": "BTCUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 77249.9,
+      "ob_bottom": 76484.9,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397847.104984
+    },
+    {
+      "ob_key": "ETHUSDT_1h_LONG_1794117600",
+      "symbol": "ETHUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 2235.32,
+      "ob_bottom": 2231.6,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397847.6490922
+    },
+    {
+      "ob_key": "ETHUSDT_4h_LONG_1793088000",
+      "symbol": "ETHUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 2324.96,
+      "ob_bottom": 2296.53,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397848.032246
+    },
+    {
+      "ob_key": "ETHUSDT_4h_LONG_1793692800",
+      "symbol": "ETHUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 2274.08,
+      "ob_bottom": 2249.53,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397848.0406451
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_LONG_1794311100",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "LONG",
+      "ob_top": 4063.73,
+      "ob_bottom": 4059.72,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397848.5307105
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_LONG_1794321900",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "LONG",
+      "ob_top": 4035.59,
+      "ob_bottom": 4024.34,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397848.5369613
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_LONG_1794353400",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "LONG",
+      "ob_top": 4029.42,
+      "ob_bottom": 4027.22,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397848.5819635
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_LONG_1794365100",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "LONG",
+      "ob_top": 4039.23,
+      "ob_bottom": 4033.48,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397848.590163
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_LONG_1794372300",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "LONG",
+      "ob_top": 4039.85,
+      "ob_bottom": 4035.08,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397848.5986419
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_LONG_1794178800",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 4073.91,
+      "ob_bottom": 4049.1,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397848.9304721
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_LONG_1794247200",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 4095.52,
+      "ob_bottom": 4088.24,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397848.936431
+    },
+    {
+      "ob_key": "PAXGUSDT_4h_LONG_1792958400",
+      "symbol": "PAXGUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 4018.95,
+      "ob_bottom": 3996.01,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397850.078156
+    },
+    {
+      "ob_key": "PAXGUSDT_4h_LONG_1793088000",
+      "symbol": "PAXGUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 4025.98,
+      "ob_bottom": 4008.81,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397850.141354
+    },
+    {
+      "ob_key": "PAXGUSDT_4h_LONG_1793822400",
+      "symbol": "PAXGUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 4068.8,
+      "ob_bottom": 4056.37,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397850.1601815
+    },
+    {
+      "ob_key": "SOLUSDT_1h_LONG_1794132000",
+      "symbol": "SOLUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 89.29,
+      "ob_bottom": 88.98,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397850.4201229
+    },
+    {
+      "ob_key": "SOLUSDT_1h_LONG_1794207600",
+      "symbol": "SOLUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 86.1,
+      "ob_bottom": 85.09,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397850.4296758
+    },
+    {
+      "ob_key": "SOLUSDT_4h_LONG_1793779200",
+      "symbol": "SOLUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 94.17,
+      "ob_bottom": 92.45,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397850.7746964
+    },
+    {
+      "ob_key": "BNBUSDT_4h_LONG_1793088000",
+      "symbol": "BNBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 743.3,
+      "ob_bottom": 734.6,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397851.3204844
+    },
+    {
+      "ob_key": "BNBUSDT_4h_LONG_1793505600",
+      "symbol": "BNBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 708.5,
+      "ob_bottom": 703.7,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397851.3385818
+    },
+    {
+      "ob_key": "BNBUSDT_4h_LONG_1793750400",
+      "symbol": "BNBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 699.6,
+      "ob_bottom": 681.1,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397851.3809214
+    },
+    {
+      "ob_key": "AVAXUSDT_1h_LONG_1794067200",
+      "symbol": "AVAXUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 8.215,
+      "ob_bottom": 8.174,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397851.747109
+    },
+    {
+      "ob_key": "AVAXUSDT_4h_LONG_1793491200",
+      "symbol": "AVAXUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 8.702,
+      "ob_bottom": 8.518,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397852.1171236
+    },
+    {
+      "ob_key": "AVAXUSDT_4h_LONG_1793678400",
+      "symbol": "AVAXUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 8.391,
+      "ob_bottom": 8.283,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397852.1261868
+    },
+    {
+      "ob_key": "AVAXUSDT_4h_LONG_1794211200",
+      "symbol": "AVAXUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 8.088,
+      "ob_bottom": 7.833,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1794397852.134842
+    },
+    {
+      "ob_key": "DOGEUSDT_1h_LONG_1794067200",
+      "symbol": "DOGEUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.07171,
+      "ob_bottom": 0.07151,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397852.4424994
+    },
+    {
+      "ob_key": "DOGEUSDT_1h_LONG_1794132000",
+      "symbol": "DOGEUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.07092,
+      "ob_bottom": 0.07071,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397852.4519336
+    },
+    {
+      "ob_key": "DOGEUSDT_1h_LONG_1794207600",
+      "symbol": "DOGEUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.06877,
+      "ob_bottom": 0.06791,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397852.4807925
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_LONG_1793088000",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.07754,
+      "ob_bottom": 0.07662,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397852.6821105
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_LONG_1793260800",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.07878,
+      "ob_bottom": 0.07759,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397852.6908607
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_LONG_1793692800",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.07477,
+      "ob_bottom": 0.07356,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397852.6991467
+    },
+    {
+      "ob_key": "NEARUSDT_1h_LONG_1794088800",
+      "symbol": "NEARUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 3.677,
+      "ob_bottom": 3.649,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397852.970227
+    },
+    {
+      "ob_key": "NEARUSDT_1h_LONG_1794157200",
+      "symbol": "NEARUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 3.608,
+      "ob_bottom": 3.586,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397852.9815419
+    },
+    {
+      "ob_key": "NEARUSDT_1h_LONG_1794229200",
+      "symbol": "NEARUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 3.569,
+      "ob_bottom": 3.524,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397852.9902341
+    },
+    {
+      "ob_key": "NEARUSDT_4h_LONG_1793433600",
+      "symbol": "NEARUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 4.351,
+      "ob_bottom": 4.305,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397853.194472
+    },
+    {
+      "ob_key": "NEARUSDT_4h_LONG_1793750400",
+      "symbol": "NEARUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 3.85,
+      "ob_bottom": 3.697,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397853.2038672
+    },
+    {
+      "ob_key": "SUIUSDT_1h_LONG_1794157200",
+      "symbol": "SUIUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.845,
+      "ob_bottom": 0.8405,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397853.4758399
+    },
+    {
+      "ob_key": "SUIUSDT_1h_LONG_1794207600",
+      "symbol": "SUIUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.8202,
+      "ob_bottom": 0.8058,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397853.4851198
+    },
+    {
+      "ob_key": "SUIUSDT_4h_LONG_1793678400",
+      "symbol": "SUIUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.8724,
+      "ob_bottom": 0.8591,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397853.7405186
+    },
+    {
+      "ob_key": "TIAUSDT_1h_LONG_1794157200",
+      "symbol": "TIAUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.419,
+      "ob_bottom": 0.4156,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397854.1809323
+    },
+    {
+      "ob_key": "TIAUSDT_1h_LONG_1794207600",
+      "symbol": "TIAUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.4153,
+      "ob_bottom": 0.4073,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1794397854.1906009
+    },
+    {
+      "ob_key": "TIAUSDT_1h_LONG_1794243600",
+      "symbol": "TIAUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.4297,
+      "ob_bottom": 0.4252,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397854.2020936
+    },
+    {
+      "ob_key": "TIAUSDT_1h_LONG_1794283200",
+      "symbol": "TIAUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.4336,
+      "ob_bottom": 0.4299,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397854.211023
+    },
+    {
+      "ob_key": "TIAUSDT_4h_LONG_1793188800",
+      "symbol": "TIAUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.5461,
+      "ob_bottom": 0.5228,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397854.401285
+    },
+    {
+      "ob_key": "TIAUSDT_4h_LONG_1793750400",
+      "symbol": "TIAUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.4349,
+      "ob_bottom": 0.4207,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397854.4102798
+    },
+    {
+      "ob_key": "TIAUSDT_4h_LONG_1793937600",
+      "symbol": "TIAUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.4217,
+      "ob_bottom": 0.415,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397854.4190555
+    },
+    {
+      "ob_key": "OPUSDT_1h_LONG_1794117600",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.10144,
+      "ob_bottom": 0.10077,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397854.6096373
+    },
+    {
+      "ob_key": "OPUSDT_1h_LONG_1794207600",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.09858,
+      "ob_bottom": 0.09687,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397854.6214898
+    },
+    {
+      "ob_key": "OPUSDT_4h_LONG_1793318400",
+      "symbol": "OPUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.10128,
+      "ob_bottom": 0.09356,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397854.8547528
+    },
+    {
+      "ob_key": "OPUSDT_4h_LONG_1793678400",
+      "symbol": "OPUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.10897,
+      "ob_bottom": 0.10701,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397854.8631077
+    },
+    {
+      "ob_key": "ARBUSDT_1h_LONG_1794099600",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.16839,
+      "ob_bottom": 0.16717,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397855.235649
+    },
+    {
+      "ob_key": "ARBUSDT_1h_LONG_1794175200",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.16455,
+      "ob_bottom": 0.16144,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397855.2448664
+    },
+    {
+      "ob_key": "ARBUSDT_1h_LONG_1794207600",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.17237,
+      "ob_bottom": 0.16976,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397855.2538178
+    },
+    {
+      "ob_key": "ARBUSDT_1h_LONG_1794330000",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.15833,
+      "ob_bottom": 0.15557,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397855.2629077
+    },
+    {
+      "ob_key": "ARBUSDT_4h_LONG_1793188800",
+      "symbol": "ARBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.16823,
+      "ob_bottom": 0.16331,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397855.4858837
+    },
+    {
+      "ob_key": "ARBUSDT_4h_LONG_1793318400",
+      "symbol": "ARBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.15838,
+      "ob_bottom": 0.1478,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397855.4947097
+    },
+    {
+      "ob_key": "ARBUSDT_4h_LONG_1793678400",
+      "symbol": "ARBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.15376,
+      "ob_bottom": 0.15203,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397855.5054066
+    },
+    {
+      "ob_key": "ARBUSDT_4h_LONG_1793908800",
+      "symbol": "ARBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.16014,
+      "ob_bottom": 0.15519,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397855.5140977
+    },
+    {
+      "ob_key": "ARBUSDT_4h_LONG_1794168000",
+      "symbol": "ARBUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.16821,
+      "ob_bottom": 0.15983,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397855.524593
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1794031200",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.565,
+      "ob_bottom": 1.557,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397855.8141706
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1794067200",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.561,
+      "ob_bottom": 1.55,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397855.825201
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1794132000",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.55,
+      "ob_bottom": 1.539,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397855.833852
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1794207600",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.553,
+      "ob_bottom": 1.519,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397855.84218
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1794340800",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.584,
+      "ob_bottom": 1.564,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1794397855.888628
+    },
+    {
+      "ob_key": "RENDERUSDT_4h_LONG_1793750400",
+      "symbol": "RENDERUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 1.497,
+      "ob_bottom": 1.441,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397856.1714058
+    },
+    {
+      "ob_key": "RENDERUSDT_4h_LONG_1794326400",
+      "symbol": "RENDERUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 1.576,
+      "ob_bottom": 1.53,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1794397856.5024579
+    },
+    {
+      "ob_key": "FETUSDT_1h_LONG_1794157200",
+      "symbol": "FETUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.1414,
+      "ob_bottom": 0.1402,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397857.647196
+    },
+    {
+      "ob_key": "FETUSDT_1h_LONG_1794207600",
+      "symbol": "FETUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.14,
+      "ob_bottom": 0.1371,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397857.6637406
+    },
+    {
+      "ob_key": "FETUSDT_1h_LONG_1794286800",
+      "symbol": "FETUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.1457,
+      "ob_bottom": 0.1442,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397857.6829865
+    },
+    {
+      "ob_key": "FETUSDT_4h_LONG_1793088000",
+      "symbol": "FETUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.1762,
+      "ob_bottom": 0.1719,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794397857.9563348
+    },
+    {
+      "ob_key": "FETUSDT_4h_LONG_1793750400",
+      "symbol": "FETUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.1561,
+      "ob_bottom": 0.1492,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794397857.9680266
+    },
+    {
+      "ob_key": "FETUSDT_4h_LONG_1794211200",
+      "symbol": "FETUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.1431,
+      "ob_bottom": 0.1374,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794397857.979179
+    }
+  ]
 }
