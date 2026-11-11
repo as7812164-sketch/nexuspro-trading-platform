@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794397905611,
-  "updated_at_str": "2026-11-11 11:51:45 IST",
+  "updated_at": 1794398207414,
+  "updated_at_str": "2026-11-11 11:56:47 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 7,
@@ -119,9 +119,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "status": "IN_TRADE",
+      "active_symbol": "SUIUSDT",
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794397902.7382743
+      "updated_at": 1794398198.9606385
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "RENDERUSDT",
       "side": "LONG",
       "entry_price": 1.6,
-      "mark_price": 1.6,
+      "mark_price": 1.599,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -191,15 +191,41 @@
       "tp_price": 1.648,
       "trailing_sl_price": 1.552,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.0,
-      "pnl_pct": 0.0,
+      "unrealized_pnl": -0.15625000000001749,
+      "pnl_pct": -0.31,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794397856.485813,
-      "updated_at": 1794397902.3844724,
-      "mae_pct": 0.0,
-      "mfe_pct": 0.31,
+      "updated_at": 1794398194.2045255,
+      "mae_pct": 0.63,
+      "mfe_pct": 1.25,
+      "size_usdt": 0.0,
+      "timeframe": "4H"
+    },
+    {
+      "id": 6,
+      "section_id": 7,
+      "symbol": "SUIUSDT",
+      "side": "LONG",
+      "entry_price": 0.8343,
+      "mark_price": 0.8331,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 0.809271,
+      "tp_price": 0.859329,
+      "trailing_sl_price": 0.809271,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.36,
+      "pnl_pct": -0.72,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1794398113.8751044,
+      "updated_at": 1794398196.38368,
+      "mae_pct": 0.72,
+      "mfe_pct": 0.0,
       "size_usdt": 0.0,
       "timeframe": "4H"
     }
@@ -1018,6 +1044,50 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 2,
       "updated_at": 1794397857.979179
+    },
+    {
+      "ob_key": "SUIUSDT_4h_LONG_1794211200",
+      "symbol": "SUIUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.834,
+      "ob_bottom": 0.8082,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1794398113.892604
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_LONG_1794157200",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 4052.54,
+      "ob_bottom": 4048.83,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794398178.527964
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_LONG_1794222000",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 4101.25,
+      "ob_bottom": 4087.07,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 2,
+      "updated_at": 1794398178.5511985
+    },
+    {
+      "ob_key": "ARBUSDT_1h_LONG_1794355200",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.16159,
+      "ob_bottom": 0.15999,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794398182.9228897
     }
   ]
 }
