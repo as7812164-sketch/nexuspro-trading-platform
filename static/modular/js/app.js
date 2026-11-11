@@ -1,24 +1,33 @@
 /**
  * NEXUSPRO • MAIN BOOTSTRAP (PONYTAIL STANDARD)
  * Assembles all isolated components into the DOM.
- * Editing any component never touches this file.
+ * Keeps canonical ES module paths (single shared StateStore/EventBus instance).
  */
 
-import { state } from './core/state.js?v=nexus_msob_v1';
+import { state } from './core/state.js';
 import { bus } from './core/event_bus.js';
 import { connector } from './core/websocket.js';
 
 // Modular Components
-import { HudHeader } from './components/hud_header.js?v=nexus_msob_v1';
-import { WalletSummary } from './components/wallet_summary.js?v=nexus_msob_v1';
-import { TickerCarousel } from './components/ticker_carousel.js?v=nexus_msob_v1';
-import { PositionCard } from './components/position_card.js?v=nexus_msob_v1';
-import { Watchlist } from './components/watchlist.js?v=nexus_msob_v1';
-import { ChartTerminal } from './components/chart_terminal.js?v=nexus_msob_v1';
-import { Navigation } from './components/navigation.js?v=nexus_msob_v1';
+import { HudHeader } from './components/hud_header.js';
+import { WalletSummary } from './components/wallet_summary.js';
+import { TickerCarousel } from './components/ticker_carousel.js';
+import { PositionCard } from './components/position_card.js';
+import { Watchlist } from './components/watchlist.js';
+import { ChartTerminal } from './components/chart_terminal.js';
+import { Navigation } from './components/navigation.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🏛️ Initializing NexusPro Modular Quant Architecture...');
+
+  // Pre-seed URL parameters BEFORE mounting components to avoid triple kline fetches
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialView = urlParams.get('view') || 'dashboard';
+  const initialSym = urlParams.get('symbol');
+  const initialTf = urlParams.get('tf');
+
+  if (initialSym) state.activeSymbol = initialSym.replace('.P', '').toUpperCase();
+  if (initialTf) state.activeTf = initialTf.toLowerCase();
 
   // 1. Mount Persistent HUD & Navigation
   const hud = new HudHeader('#mount-hud');
@@ -84,15 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   bus.on('request:refresh_all', triggerInstantResync);
-
-  // URL query parameter support: ?view=watchlist | chart | dashboard | positions
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialView = urlParams.get('view') || 'dashboard';
-  const initialSym = urlParams.get('symbol');
-  const initialTf = urlParams.get('tf');
-
-  if (initialSym) state.selectSymbol(initialSym);
-  if (initialTf) state.setTimeframe(initialTf);
 
   state.setView(initialView);
 

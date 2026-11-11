@@ -126,6 +126,15 @@ MODULAR_DIR = STATIC_DIR / "modular"
 MODULAR_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/modular", StaticFiles(directory=str(MODULAR_DIR)), name="modular")
 
+@app.middleware("http")
+async def add_modular_no_cache_headers(request: Request, call_next):
+    response = await call_next(request)
+    if request.url.path in ("/mobile", "/nexus/mobile") or request.url.path.startswith("/modular/"):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
+
 # ----------------- PAGE ROUTES -----------------
 
 @app.api_route("/ping", methods=["GET", "HEAD"])
