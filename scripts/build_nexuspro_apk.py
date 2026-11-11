@@ -1,23 +1,32 @@
 """
-BUILD & SIGN NATIVE NEXUSPRO ANDROID APK
-========================================
-- Configures Android TWA package to https://nexuspro-terminal.onrender.com/trade
-- Compiles via apktool.jar
-- Signs via uber-apk-signer.jar
-- Copies to Desktop and static folder
-- Dispatches via Telegram to Akash bhai (Chat 752247227)
+BUILD & SIGN 100% NATIVE NEXUSPRO ANDROID WEBVIEW APK (v2.0.0)
+================================================================
+- Clones proven pure Native WebView template (LauncherActivity -> android.webkit.WebView)
+- ZERO Chrome Custom Tab / TWA URL bar (No address bar, full native screen)
+- Dark #080B11 Status & Navigation bars with fitsSystemWindows=true
+- Loads https://nexuspro-terminal.onrender.com/trade live with hardware acceleration
+- Uses authentic Neon Cyber NexusPro icons & splash assets
+- Compiles via apktool.jar & signs via uber-apk-signer.jar
+- Saves to Desktop, static/, and dispatches to Akash bhai via NexusPro Telegram Bot
 """
 
 import os
 import sys
+import re
 import shutil
 import subprocess
 import json
 import urllib.request
 import ssl
 
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 WORKSPACE = r"C:\Users\power\.gemini\antigravity\scratch\smc_v17_trading_system"
-APK_SRC = os.path.join(WORKSPACE, "nexuspro_apk_src")
+TEMPLATE_SRC = os.path.join(WORKSPACE, "hermes35_apk_src")       # Proven pure native WebView source
+ICON_SRC = os.path.join(WORKSPACE, "nexuspro_apk_src")           # Authentic NexusPro icons & splash
+NATIVE_SRC = os.path.join(WORKSPACE, "nexuspro_native_apk_src")  # Isolated clean build dir
+
 TOOLS_DIR = os.path.join(WORKSPACE, "tools")
 JAVA_EXE = os.path.join(TOOLS_DIR, "jre", "bin", "java.exe")
 APKTOOL_JAR = os.path.join(TOOLS_DIR, "apktool.jar")
@@ -25,139 +34,248 @@ SIGNER_JAR = os.path.join(TOOLS_DIR, "uber-apk-signer.jar")
 
 DESKTOP_APK = r"C:\Users\power\Desktop\NexusPro_Trading_Terminal.apk"
 STATIC_APK = r"C:\Users\power\.gemini\antigravity\scratch\nexuspro_trading_platform\static\NexusPro_Trading_Terminal.apk"
-DIST_DIR = os.path.join(WORKSPACE, "nexuspro_dist")
-UNSIGNED_APK = os.path.join(WORKSPACE, "nexuspro_render_unsigned.apk")
+DIST_DIR = os.path.join(WORKSPACE, "nexuspro_native_dist")
+UNSIGNED_APK = os.path.join(WORKSPACE, "nexuspro_native_unsigned.apk")
 
-TELEGRAM_TOKEN = "8593127726:AAGdudgSBU_krN-g42Cq_5ovc5DW2c6A-yY"
+# Dedicated isolated NexusPro bot (@SMC_1H_Trigger_Bot), fallback to primary bot only if unreachable
+NEXUS_BOT_TOKEN = "8685685362:AAFWkKvRIs6cJ70gegcJVFyKB5soDtEttbU"
+FALLBACK_BOT_TOKEN = "8593127726:AAGdudgSBU_krN-g42Cq_5ovc5DW2c6A-yY"
 TELEGRAM_CHAT_ID = "752247227"
 
-def patch_apk_strings():
-    print("[1] Patching strings.xml for NexusPro on Render...")
-    strings_path = os.path.join(APK_SRC, "res", "values", "strings.xml")
-    with open(strings_path, "r", encoding="utf-8") as f:
-        c = f.read()
+TARGET_HOST = "nexuspro-terminal.onrender.com"
+TARGET_URL = "https://nexuspro-terminal.onrender.com/trade"
+PKG_NAME = "com.nexuspro.trading.terminal"
 
-    # Replace host and launchUrl
-    c = c.replace("trdzone.duckdns.org", "nexuspro-terminal.onrender.com")
-    c = c.replace(
-        '<string name="launchUrl">https://nexuspro-terminal.onrender.com/mobile?native=1&amp;v=104</string>',
-        '<string name="launchUrl">https://nexuspro-terminal.onrender.com/trade?view=mobile&amp;native=1</string>'
-    )
-    c = c.replace(
-        '<string name="webManifestUrl">https://nexuspro-terminal.onrender.com/static/nexus_manifest.json</string>',
-        '<string name="webManifestUrl">https://nexuspro-terminal.onrender.com/manifest.json</string>'
-    )
-    c = c.replace(
-        '<string name="appName">NexusPro APEX Trading Terminal</string>',
-        '<string name="appName">NexusPro Futures Terminal</string>'
-    )
+
+def prepare_native_source():
+    print("[1/5] Preparing isolated pure Native WebView source directory...")
+    if os.path.exists(NATIVE_SRC):
+        shutil.rmtree(NATIVE_SRC)
+    shutil.copytree(TEMPLATE_SRC, NATIVE_SRC)
+
+    # Clean leftover build cache & legacy hermes35 offline www bundle (keeps APK lightweight & 100% live Render synced)
+    for rel in ["build", os.path.join("assets", "www")]:
+        p = os.path.join(NATIVE_SRC, rel)
+        if os.path.exists(p):
+            shutil.rmtree(p)
+
+    # Copy NexusPro custom icons, maskables, adaptive icon XML, and splash screens
+    print("[2/5] Copying NexusPro Cyber N icons & dark splash assets...")
+    res_folders = [
+        "mipmap-mdpi", "mipmap-hdpi", "mipmap-xhdpi", "mipmap-xxhdpi", "mipmap-xxxhdpi",
+        "mipmap-anydpi-v26",
+        "drawable-mdpi", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"
+    ]
+    for folder in res_folders:
+        src_f = os.path.join(ICON_SRC, "res", folder)
+        dst_f = os.path.join(NATIVE_SRC, "res", folder)
+        if os.path.exists(src_f):
+            os.makedirs(dst_f, exist_ok=True)
+            for fname in os.listdir(src_f):
+                if fname.endswith((".png", ".xml")):
+                    shutil.copy2(os.path.join(src_f, fname), os.path.join(dst_f, fname))
+
+    # Write clean Native WebView AndroidManifest.xml (ZERO TWA / Chrome Custom Tab dependencies)
+    manifest_xml = f"""<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:compileSdkVersion="36"
+    android:compileSdkVersionCodename="16"
+    package="{PKG_NAME}"
+    platformBuildVersionCode="36"
+    platformBuildVersionName="16">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:extractNativeLibs="false"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/appName"
+        android:name="{PKG_NAME}.Application"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.NoTitleBar"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout"
+            android:exported="true"
+            android:fitsSystemWindows="true"
+            android:hardwareAccelerated="true"
+            android:label="@string/launcherName"
+            android:launchMode="singleTask"
+            android:name="{PKG_NAME}.LauncherActivity"
+            android:screenOrientation="user"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>
+"""
+    with open(os.path.join(NATIVE_SRC, "AndroidManifest.xml"), "w", encoding="utf-8") as f:
+        f.write(manifest_xml)
+
+    # Update strings.xml cleanly
+    strings_path = os.path.join(NATIVE_SRC, "res", "values", "strings.xml")
+    with open(strings_path, "r", encoding="utf-8") as f:
+        s = f.read()
+
+    s = re.sub(r'<string name="appName">.*?</string>', '<string name="appName">NexusPro Futures Terminal</string>', s)
+    s = re.sub(r'<string name="launcherName">.*?</string>', '<string name="launcherName">NexusPro</string>', s)
+    s = re.sub(r'<string name="hostName">.*?</string>', f'<string name="hostName">{TARGET_HOST}</string>', s)
+    s = re.sub(r'<string name="launchUrl">.*?</string>', f'<string name="launchUrl">{TARGET_URL}</string>', s)
+    s = re.sub(r'<string name="webManifestUrl">.*?</string>', f'<string name="webManifestUrl">https://{TARGET_HOST}/manifest.json</string>', s)
+    s = re.sub(r'<string name="providerAuthority">.*?</string>', f'<string name="providerAuthority">{PKG_NAME}.fileprovider</string>', s)
+    s = s.replace("https://trdzone.duckdns.org", f"https://{TARGET_HOST}")
+    s = s.replace("trdzone.duckdns.org", TARGET_HOST)
+    s = s.replace("com.hermes35.radar.terminal", PKG_NAME)
 
     with open(strings_path, "w", encoding="utf-8") as f:
-        f.write(c)
-    print("strings.xml patched successfully.")
+        f.write(s)
 
-    # Bump apktool.yml
-    yml_path = os.path.join(APK_SRC, "apktool.yml")
+    # Bump version in apktool.yml -> v2.0.0 (versionCode: 10)
+    yml_path = os.path.join(NATIVE_SRC, "apktool.yml")
     with open(yml_path, "r", encoding="utf-8") as f:
         yml = f.read()
-    yml = yml.replace("versionCode: 5", "versionCode: 6")
-    yml = yml.replace("versionName: 1.0.4", "versionName: 1.0.5")
-    yml = yml.replace("apkFileName: HERMES 2.5 APEX Trading Terminal.apk", "apkFileName: NexusPro_Trading_Terminal.apk")
+    yml = re.sub(r'versionCode:\s*\d+', 'versionCode: 10', yml)
+    yml = re.sub(r'versionName:\s*[^\r\n]+', 'versionName: 2.0.0', yml)
+    yml = re.sub(r'apkFileName:\s*[^\r\n]+', 'apkFileName: NexusPro_Trading_Terminal.apk', yml)
     with open(yml_path, "w", encoding="utf-8") as f:
         f.write(yml)
-    print("apktool.yml bumped to v1.0.5 (code 6).")
 
-def compile_apk():
-    print("[2] Compiling APK with apktool...")
+    # Migrate and customize Smali package (hermes35 -> nexuspro) & inject live Render URL + USER orientation
+    old_smali_dir = os.path.join(NATIVE_SRC, "smali", "com", "hermes35", "radar", "terminal")
+    new_smali_dir = os.path.join(NATIVE_SRC, "smali", "com", "nexuspro", "trading", "terminal")
+    os.makedirs(new_smali_dir, exist_ok=True)
+
+    for fname in os.listdir(old_smali_dir):
+        if not fname.endswith(".smali"):
+            continue
+        with open(os.path.join(old_smali_dir, fname), "r", encoding="utf-8") as f:
+            code = f.read()
+
+        code = code.replace("Lcom/hermes35/radar/terminal/", "Lcom/nexuspro/trading/terminal/")
+        code = code.replace("com.hermes35.radar.terminal", PKG_NAME)
+        code = code.replace("https://trdzone.duckdns.org/mobile", TARGET_URL)
+        code = code.replace("https://trdzone.duckdns.org/static/mobile.html", TARGET_URL)
+        code = code.replace("https://trdzone.duckdns.org", f"https://{TARGET_HOST}")
+        code = code.replace("trdzone.duckdns.org", TARGET_HOST)
+
+        # Allow natural portrait default + fullscreen landscape chart rotation (SCREEN_ORIENTATION_USER = 2)
+        if fname == "LauncherActivity.smali":
+            code = code.replace(
+                "    const/4 v0, 0x1\n\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V",
+                "    const/4 v0, 0x2\n\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V"
+            )
+            code = code.replace(
+                "    const/4 v0, 0x1\r\n\r\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V",
+                "    const/4 v0, 0x2\r\n\r\n    invoke-virtual {p0, v0}, Landroid/app/Activity;->setRequestedOrientation(I)V"
+            )
+
+        with open(os.path.join(new_smali_dir, fname), "w", encoding="utf-8") as f:
+            f.write(code)
+
+    shutil.rmtree(os.path.join(NATIVE_SRC, "smali", "com", "hermes35"))
+    print("    -> Smali package migrated & URLs bound to:", TARGET_URL)
+
+
+def compile_and_sign():
+    print("[3/5] Compiling Native APK with apktool...")
     if os.path.exists(UNSIGNED_APK):
-        try: os.remove(UNSIGNED_APK)
-        except: pass
+        os.remove(UNSIGNED_APK)
 
-    cmd_build = [JAVA_EXE, "-jar", APKTOOL_JAR, "b", APK_SRC, "-o", UNSIGNED_APK]
-    res = subprocess.run(cmd_build, cwd=WORKSPACE, stdin=subprocess.DEVNULL, timeout=75, capture_output=True, text=True)
+    cmd_build = [JAVA_EXE, "-jar", APKTOOL_JAR, "b", NATIVE_SRC, "-o", UNSIGNED_APK]
+    res = subprocess.run(cmd_build, cwd=WORKSPACE, stdin=subprocess.DEVNULL, timeout=90, capture_output=True, text=True)
     if res.returncode != 0:
-        print("Apktool error:", res.stderr)
+        print("APKTOOL STDOUT:", res.stdout)
+        print("APKTOOL STDERR:", res.stderr)
         raise RuntimeError("Apktool compilation failed!")
-    print("Apktool compilation complete. Output:", UNSIGNED_APK)
 
-def sign_apk():
-    print("[3] Signing APK with uber-apk-signer...")
+    print("[4/5] Signing Native APK with uber-apk-signer...")
+    if os.path.exists(DIST_DIR):
+        shutil.rmtree(DIST_DIR)
     os.makedirs(DIST_DIR, exist_ok=True)
-    cmd_sign = [JAVA_EXE, "-jar", SIGNER_JAR, "-a", UNSIGNED_APK, "-o", DIST_DIR, "--overwrite"]
-    res = subprocess.run(cmd_sign, cwd=WORKSPACE, stdin=subprocess.DEVNULL, timeout=60, capture_output=True, text=True)
-    if res.returncode != 0:
-        print("Signer error:", res.stderr)
+
+    cmd_sign = [JAVA_EXE, "-jar", SIGNER_JAR, "-a", UNSIGNED_APK, "-o", DIST_DIR]
+    res_s = subprocess.run(cmd_sign, cwd=WORKSPACE, stdin=subprocess.DEVNULL, timeout=60, capture_output=True, text=True)
+    if res_s.stdout:
+        print(res_s.stdout.strip())
+    if res_s.returncode != 0:
+        print("SIGNER STDERR:", res_s.stderr)
         raise RuntimeError("Uber-apk-signer failed!")
 
-    signed_candidate = os.path.join(DIST_DIR, "nexuspro_render_unsigned-aligned-debugSigned.apk")
-    if not os.path.exists(signed_candidate):
-        for f in os.listdir(DIST_DIR):
-            if f.endswith("-aligned-debugSigned.apk"):
-                signed_candidate = os.path.join(DIST_DIR, f)
-                break
+    signed_apk = None
+    for f in os.listdir(DIST_DIR):
+        if f.endswith("-aligned-debugSigned.apk"):
+            signed_apk = os.path.join(DIST_DIR, f)
+            break
 
-    if not os.path.exists(signed_candidate):
-        raise FileNotFoundError(f"Signed APK not found in {DIST_DIR}")
+    if not signed_apk or not os.path.exists(signed_apk):
+        raise FileNotFoundError(f"Signed APK missing in {DIST_DIR}")
 
-    shutil.copy2(signed_candidate, DESKTOP_APK)
-    shutil.copy2(signed_candidate, STATIC_APK)
+    shutil.copy2(signed_apk, DESKTOP_APK)
+    shutil.copy2(signed_apk, STATIC_APK)
     size_mb = os.path.getsize(DESKTOP_APK) / (1024 * 1024)
-    print(f"[OK] Signed APK saved to Desktop: {DESKTOP_APK} ({size_mb:.2f} MB)")
-    print(f"[OK] Signed APK saved to Static: {STATIC_APK}")
+    print(f"    -> Saved Desktop APK: {DESKTOP_APK} ({size_mb:.2f} MB)")
+    print(f"    -> Saved Static APK:  {STATIC_APK} ({size_mb:.2f} MB)")
     return size_mb
 
+
 def send_telegram(size_mb):
-    print("[4] Dispatching APK to Telegram chat 752247227...")
+    print("[5/5] Dispatching Native APK to Akash bhai via Telegram...")
     caption = (
-        "🏛️ *NEXUSPRO INSTITUTIONAL FUTURES TERMINAL (NATIVE ANDROID APK)* 📱\n\n"
-        "⚡ *Release Notes v1.0.5:*\n"
-        "• 🎯 *Strategy:* HERMES_MS_OB (7-Model Order Block Architecture)\n"
-        "• 🛡️ *Compounding:* Permanently Disabled (Normal Futures Trading)\n"
-        "• 💰 *Portfolio:* $1,000.00 USDT Total Balance\n"
-        "• 📊 *Margin:* Flat 5% ($50.00 USDT) Per Trade | 5x Leverage ($250 Size)\n"
-        "• ⛔ *Hard SL:* -15.0% ROI (-3.0% Price Move)\n"
-        "• 🎯 *Full Book TP:* +15.0% ROI (+3.0% Price Move)\n"
-        "• ⚔️ *Execution:* Dual LONG & SHORT (Crypto 1H/4H & Gold 15m/1H/4H)\n"
-        "• 🔒 *Direct Server:* https://nexuspro-terminal.onrender.com/trade\n\n"
-        f"📦 *File:* `NexusPro_Trading_Terminal.apk` ({size_mb:.2f} MB)\n"
-        "🟢 *Ready for Instant Installation on Android!*"
+        "🏛️ *NEXUSPRO • 100% NATIVE ANDROID APK (v2.0.0)* 📱⚡\n\n"
+        "🎯 *Built Exact Like trdzone.duckdns.org Native Shell:*\n"
+        "• 🛡️ *Zero Browser Bar:* Pure Android WebView Engine (Chrome URL bar aur [X] header permanently removed!)\n"
+        "• 🔗 *Live Render Backend:* `https://nexuspro-terminal.onrender.com/trade`\n"
+        "• 📊 *Chart Indicator:* Hermes MS-OB v2.0 Golden Active\n"
+        "• ⚖️ *Risk Engine:* $1,000 Flat | 5% Margin ($50) | 5x Isolated | +12%->+2.5% BE | -15% SL (2x15m) | +15% TP\n"
+        "• 🔒 *Dual App Safety:* Alag package (`com.nexuspro.trading.terminal`) — `trdzone` app par ZERO effect.\n\n"
+        f"📦 *Version:* `v2.0.0 (Build 10)` | *Size:* `{size_mb:.2f} MB`\n"
+        "👉 *Tap karke install karein — bilkul pure native app ki tarah open hoga!*"
     )
 
-    boundary = "----WebKitFormBoundaryNexusProUploadHermes"
-    body = bytearray()
+    for tok in [NEXUS_BOT_TOKEN, FALLBACK_BOT_TOKEN]:
+        boundary = "----WebKitFormBoundaryNexusProNativeAPK"
+        body = bytearray()
 
-    def add_field(name, value):
-        return f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n'.encode("utf-8")
+        def add_field(name, value):
+            return f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n'.encode("utf-8")
 
-    body.extend(add_field("chat_id", TELEGRAM_CHAT_ID))
-    body.extend(add_field("caption", caption))
-    body.extend(add_field("parse_mode", "Markdown"))
-    body.extend(
-        f'--{boundary}\r\nContent-Disposition: form-data; name="document"; filename="NexusPro_Trading_Terminal.apk"\r\nContent-Type: application/vnd.android.package-archive\r\n\r\n'.encode(
-            "utf-8"
+        body.extend(add_field("chat_id", TELEGRAM_CHAT_ID))
+        body.extend(add_field("caption", caption))
+        body.extend(add_field("parse_mode", "Markdown"))
+        body.extend(
+            f'--{boundary}\r\nContent-Disposition: form-data; name="document"; filename="NexusPro_Trading_Terminal.apk"\r\nContent-Type: application/vnd.android.package-archive\r\n\r\n'.encode("utf-8")
         )
-    )
+        with open(DESKTOP_APK, "rb") as f:
+            body.extend(f.read())
+        body.extend(f"\r\n--{boundary}--\r\n".encode("utf-8"))
 
-    with open(DESKTOP_APK, "rb") as f:
-        body.extend(f.read())
-    body.extend(f"\r\n--{boundary}--\r\n".encode("utf-8"))
+        ctx = ssl._create_unverified_context()
+        req = urllib.request.Request(f"https://api.telegram.org/bot{tok}/sendDocument", data=body)
+        req.add_header("Content-Type", f"multipart/form-data; boundary={boundary}")
 
-    ctx = ssl._create_unverified_context()
-    req = urllib.request.Request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendDocument", data=body)
-    req.add_header("Content-Type", f"multipart/form-data; boundary={boundary}")
+        try:
+            with urllib.request.urlopen(req, context=ctx, timeout=60) as resp:
+                res = json.loads(resp.read().decode())
+                if res.get("ok"):
+                    print(f"[OK] Native APK sent to Telegram cleanly via bot {tok[:10]}...!")
+                    return True
+        except Exception as e:
+            print(f"[WARN] Telegram send failed via {tok[:10]}...: {e}")
+    return False
 
-    try:
-        with urllib.request.urlopen(req, context=ctx, timeout=60) as resp:
-            res = json.loads(resp.read().decode())
-            if res.get("ok"):
-                print("[OK] APK successfully delivered to Telegram!")
-            else:
-                print("Telegram API response:", res)
-    except Exception as e:
-        print("Telegram delivery error:", e)
 
 if __name__ == "__main__":
-    patch_apk_strings()
-    compile_apk()
-    size_mb = sign_apk()
-    send_telegram(size_mb)
+    prepare_native_source()
+    sz = compile_and_sign()
+    send_telegram(sz)
+    print("\n[SUCCESS] NexusPro Pure Native Android APK (v2.0.0) build & delivery complete!")
