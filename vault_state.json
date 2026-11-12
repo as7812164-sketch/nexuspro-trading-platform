@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794489059741,
-  "updated_at_str": "2026-11-12 13:10:59 IST",
+  "updated_at": 1794489361479,
+  "updated_at_str": "2026-11-12 13:16:01 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -17,9 +17,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "status": "IN_TRADE",
+      "active_symbol": "PAXGUSDT",
+      "updated_at": 1794489298.195392
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     },
     {
       "id": 6,
@@ -102,9 +102,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "status": "IN_TRADE",
+      "active_symbol": "RENDERUSDT",
+      "updated_at": 1794489303.806371
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     },
     {
       "id": 10,
@@ -172,11 +172,64 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794488885.1054285
+      "updated_at": 1794489245.6835952
     }
   ],
   "trade_history": [],
-  "positions": [],
+  "positions": [
+    {
+      "id": 5,
+      "section_id": 1,
+      "symbol": "PAXGUSDT",
+      "side": "LONG",
+      "entry_price": 3927.01,
+      "mark_price": 3921.93,
+      "position_size_usdt": 1000.0,
+      "margin_usdt": 50.0,
+      "leverage": 20,
+      "sl_price": 3897.557425,
+      "tp_price": 3956.462575,
+      "trailing_sl_price": 3897.557425,
+      "trailing_stage": 0,
+      "unrealized_pnl": -1.2936050583014511,
+      "pnl_pct": -2.59,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1794489298.1812334,
+      "updated_at": 1794489350.0648363,
+      "mae_pct": 2.59,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    },
+    {
+      "id": 6,
+      "section_id": 6,
+      "symbol": "RENDERUSDT",
+      "side": "LONG",
+      "entry_price": 1.47,
+      "mark_price": 1.471,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 1.4259,
+      "tp_price": 1.5141,
+      "trailing_sl_price": 1.4259,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.1700680272109034,
+      "pnl_pct": 0.34,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1794489303.7970455,
+      "updated_at": 1794489350.0533748,
+      "mae_pct": 0.34,
+      "mfe_pct": 0.34,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "mitigated_order_blocks": [
     {
       "ob_key": "ETHUSDT_4h_LONG_1790640000",
@@ -3609,6 +3662,28 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 0,
       "updated_at": 1794486617.1725993
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_LONG_1793703600",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 3918.92,
+      "ob_bottom": 3910.68,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1794489298.2066092
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1793761200",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.466,
+      "ob_bottom": 1.441,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1794489303.814587
     }
   ]
 }
