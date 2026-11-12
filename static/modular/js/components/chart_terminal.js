@@ -1508,9 +1508,12 @@ export class ChartTerminal {
       this.tradePriceLines.push(lineTp);
     }
 
-    // C. Break-Even Shield Lock Line (+2.5% ROI locked after +12% ROI hit)
+    // C. Break-Even Shield Lock Line (+2.5% ROI locked after +12% ROI hit, leverage-aware)
     if (pos.armor && pos.armor.beShield && entryPrice > 0) {
-      const bePrice = isLong ? entryPrice * 1.005 : entryPrice * 0.995;
+      const posLev = Number(pos.leverage || 5);
+      const bePrice = (pos.trailingSlPrice && Number(pos.trailingSlPrice) > 0)
+        ? Number(pos.trailingSlPrice)
+        : (isLong ? entryPrice * (1 + 2.5 / (posLev * 100)) : entryPrice * (1 - 2.5 / (posLev * 100)));
       const lineBe = this.candleSeries.createPriceLine({
         price: bePrice,
         color: '#ffd600',

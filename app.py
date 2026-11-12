@@ -26,7 +26,9 @@ from config import (
     BASE_DIR,
     CHAMPIONS,
     PAIR_MAPPING,
-    DEFAULT_LEVERAGE
+    DEFAULT_LEVERAGE,
+    SYMBOL_LEVERAGE_OVERRIDES,
+    get_symbol_leverage
 )
 from database.db import (
     init_db,
@@ -178,10 +180,12 @@ async def get_status():
         "sl_buffer_pct": getattr(hermes_ms_ob_engine, "hard_sl_price_pct", 0.03) * 100.0,
         "hard_sl_roi_pct": -15.0,
         "full_book_tp_roi_pct": 15.0,
+        "default_leverage": DEFAULT_LEVERAGE,
+        "leverage_overrides": SYMBOL_LEVERAGE_OVERRIDES,
         "dynamic_armor": {
-            "hard_sl": "-15.0% ROI (-3.0% Price, 2x15m Guard)",
+            "hard_sl": "-15.0% ROI (BTC/ETH 10x: 1.5% Price | Gold 20x: 0.75% Price | Default 5x: 3.0% Price, 2x15m Guard)",
             "breakeven_shield": "+12.0% ROI -> Lock +2.5% ROI",
-            "full_book_tp": "+15.0% ROI (+3.0% Price)",
+            "full_book_tp": "+15.0% ROI (BTC/ETH 10x: 1.5% Price | Gold 20x: 0.75% Price | Default 5x: 3.0% Price)",
             "compounding": "DISABLED (Flat 5% Margin = $50)"
         },
         "win_rate": summary["win_rate"],
@@ -292,6 +296,7 @@ async def get_deca_setups():
         pending_list.append({
             "symbol": sym,
             "side": s["side"],
+            "leverage": s.get("leverage", get_symbol_leverage(sym)),
             "section_id": PAIR_MAPPING.get(sym, 1),
             "timeframe": s["timeframe"].upper(),
             "entry_price": s["entry_price"],
@@ -333,6 +338,7 @@ async def get_smc_upcoming_setups(max_distance: float = 6.0):
             "symbol": sym,
             "direction": "DEMAND" if is_long else "SUPPLY",
             "side": "BUY" if is_long else "SELL",
+            "leverage": s.get("leverage", get_symbol_leverage(sym)),
             "timeframe": str(s.get("timeframe", "1h")).upper(),
             "current_price": curr_p,
             "entry_price": float(s.get("entry_price", 0.0) or 0.0),

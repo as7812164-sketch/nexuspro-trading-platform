@@ -25,8 +25,17 @@ THEME_BG = "#080B11"
 COMPOUNDING_ENABLED = False  # Compounding permanently disabled per user mandate
 TOTAL_PORTFOLIO_CAPITAL = 1000.0  # USDT Total Portfolio
 FIXED_MARGIN_PER_TRADE = 50.0     # Flat 5% of Whole Portfolio ($50 USDT per trade)
-DEFAULT_LEVERAGE = 5              # 5x Isolated Leverage
-POSITION_SIZE_USDT = 250.0        # $50 * 5x = $250 USDT per trade
+DEFAULT_LEVERAGE = 5              # 5x Isolated Leverage (default altcoins)
+SYMBOL_LEVERAGE_OVERRIDES = {
+    "BTCUSDT": 10,                # Bitcoin: 10x Isolated | +15% ROI TP (+1.5% price)
+    "ETHUSDT": 10,                # Ethereum: 10x Isolated | +15% ROI TP (+1.5% price)
+    "PAXGUSDT": 20,               # Gold (PAXG): 20x Isolated | +15% ROI TP (+0.75% price)
+}
+POSITION_SIZE_USDT = 250.0        # $50 * 5x default ($500 on 10x, $1000 on 20x)
+
+def get_symbol_leverage(symbol: str) -> int:
+    sym = str(symbol or "").upper().replace(".P", "").strip()
+    return int(SYMBOL_LEVERAGE_OVERRIDES.get(sym, DEFAULT_LEVERAGE))
 
 TOTAL_DECA_SECTIONS = 10
 INITIAL_CAPITAL_TOTAL = 1000.0

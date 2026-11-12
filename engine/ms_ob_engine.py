@@ -21,9 +21,13 @@ from typing import Dict, List, Any, Optional
 
 from config import (
     DEFAULT_LEVERAGE,
+    SYMBOL_LEVERAGE_OVERRIDES,
+    get_symbol_leverage,
     PAIR_MAPPING,
     HARD_SL_PRICE_PCT,
+    HARD_SL_ROI_PCT,
     FULL_BOOK_TP_PRICE_PCT,
+    FULL_BOOK_TP_ROI_PCT,
     BREAKEVEN_TRIGGER_ROI,
     BREAKEVEN_LOCK_ROI,
     ALLOW_SHORT_ENTRIES,
@@ -402,10 +406,14 @@ class HermesMSOBEngine:
                 "signal_type": ob["signal_type"],
             }
 
+            lev = get_symbol_leverage(symbol)
+            sl_price_pct = HARD_SL_ROI_PCT / (lev * 100.0)
+            tp_price_pct = FULL_BOOK_TP_ROI_PCT / (lev * 100.0)
+
             if side == "LONG":
                 entry_p = ob_top
-                sl_p = entry_p * (1.0 - self.hard_sl_price_pct)
-                tp_p = entry_p * (1.0 + self.full_tp_price_pct)
+                sl_p = entry_p * (1.0 - sl_price_pct)
+                tp_p = entry_p * (1.0 + tp_price_pct)
                 if curr_price > ob_top:
                     dist_pct = ((curr_price - ob_top) / curr_price) * 100.0
                 elif curr_price >= ob_bottom:
@@ -414,8 +422,8 @@ class HermesMSOBEngine:
                     dist_pct = 99.0
             else:
                 entry_p = ob_bottom
-                sl_p = entry_p * (1.0 + self.hard_sl_price_pct)
-                tp_p = entry_p * (1.0 - self.full_tp_price_pct)
+                sl_p = entry_p * (1.0 + sl_price_pct)
+                tp_p = entry_p * (1.0 - tp_price_pct)
                 if curr_price < ob_bottom:
                     dist_pct = ((ob_bottom - curr_price) / curr_price) * 100.0
                 elif curr_price <= ob_top:
@@ -428,6 +436,7 @@ class HermesMSOBEngine:
                 "symbol": symbol,
                 "timeframe": timeframe,
                 "side": side,
+                "leverage": lev,
                 "model": ob["model"],
                 "category": ob["category"],
                 "signal_type": ob["signal_type"],
@@ -437,8 +446,8 @@ class HermesMSOBEngine:
                 "entry_price": round(entry_p, 6),
                 "sl_price": round(sl_p, 6),
                 "tp_price": round(tp_p, 6),
-                "sl_roi_pct": -15.0,
-                "tp_roi_pct": 15.0,
+                "sl_roi_pct": -HARD_SL_ROI_PCT,
+                "tp_roi_pct": FULL_BOOK_TP_ROI_PCT,
                 "proximity_pct": round(dist_pct, 2),
                 "is_first_tap": in_active_signal,
                 "tap_count": 1 if ob["mit"] else 0,
@@ -538,9 +547,12 @@ class HermesMSOBEngine:
 
         entry_p = confirm["entry_price"]
         tf = setup["timeframe"].upper()
-        sl_p = round(entry_p * (1.0 - self.hard_sl_price_pct if is_long else 1.0 + self.hard_sl_price_pct), 6)
-        tp_p = round(entry_p * (1.0 + self.full_tp_price_pct if is_long else 1.0 - self.full_tp_price_pct), 6)
-        pos_size = self.margin_per_trade * self.leverage
+        lev = get_symbol_leverage(sym)
+        sl_price_pct = HARD_SL_ROI_PCT / (lev * 100.0)
+        tp_price_pct = FULL_BOOK_TP_ROI_PCT / (lev * 100.0)
+        sl_p = round(entry_p * (1.0 - sl_price_pct if is_long else 1.0 + sl_price_pct), 6)
+        tp_p = round(entry_p * (1.0 + tp_price_pct if is_long else 1.0 - tp_price_pct), 6)
+        pos_size = self.margin_per_trade * lev
         sec_id = PAIR_MAPPING.get(sym, (len(get_open_positions()) % 8) + 1)
 
         pos_data = {
@@ -552,7 +564,7 @@ class HermesMSOBEngine:
             "tp_price": tp_p,
             "margin_usdt": self.margin_per_trade,
             "position_size_usdt": pos_size,
-            "leverage": self.leverage,
+            "leverage": lev,
             "order_type": "MS_OB_1ST_TAP",
             "timeframe": tf,
         }
@@ -565,13 +577,13 @@ class HermesMSOBEngine:
             self._cooldowns[f"{sym}_{side}"] = time.time()
             dir_label = "BUY/LONG" if is_long else "SELL/SHORT"
             sig_label = "Weak OB >=18% Sweep" if setup.get("category") == "WEAK" else "1st Tap OB Boundary"
-            print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf}) @ {entry_p} | SL: {sl_p} | TP: {tp_p} (+15% ROI)")
+            print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf}) @ {entry_p} | {lev}x | SL: {sl_p} | TP: {tp_p} (+15% ROI)")
             await self.send_telegram_alert(
                 session,
                 f"⚡ <b>HERMES MS-OB {dir_label} TRIGGER (#{pos_id})</b>\n"
                 f"• Pair: <b>{sym}</b> ({tf}) • {setup['model']}\n"
                 f"• Entry ({sig_label} + 5m Close): <code>${entry_p}</code>\n"
-                f"• Margin: <code>$50 (5%)</code> @ <b>5x Isolated</b> (Size $250)\n"
+                f"• Margin: <code>$50 (5%)</code> @ <b>{lev}x Isolated</b> (Size ${int(pos_size)})\n"
                 f"• TP (+15% ROI): <code>${tp_p}</code> | Hard SL (-15% ROI): <code>${sl_p}</code>"
             )
         except Exception as e:
@@ -616,9 +628,9 @@ class HermesMSOBEngine:
                 # 1. FULL BOOK TAKE PROFIT (+15.0% ROI)
                 is_tp_hit = (side in ("LONG", "BUY") and curr_price >= tp_p) or (side in ("SHORT", "SELL") and curr_price <= tp_p)
                 if tp_p > 0 and is_tp_hit:
-                    realized = round(margin * (self.full_tp_price_pct * lev), 2)
+                    realized = round(margin * (FULL_BOOK_TP_ROI_PCT / 100.0), 2)
                     close_position_in_db(pos_id, tp_p, realized, "FULL_BOOK_TP_HIT (+15% ROI)")
-                    print(f"🎯 [HERMES MS-OB] Full TP Hit (+15% ROI): #{pos_id} {sym} @ {tp_p}")
+                    print(f"🎯 [HERMES MS-OB] Full TP Hit (+15% ROI): #{pos_id} {sym} ({lev}x) @ {tp_p}")
                     continue
 
                 # 2. BREAK-EVEN SHIELD (+12.0% ROI -> LOCK +2.5% ROI)
@@ -631,7 +643,7 @@ class HermesMSOBEngine:
                     sl_p = be_sl
                     trailing_sl_p = be_sl
                     update_position_mark_price(pos_id, curr_price, u_pnl, round(roe_pct, 2), be_sl, stage)
-                    print(f"🛡️ [HERMES MS-OB] BE Shield Locked (+2.5% ROI): #{pos_id} {sym} -> {be_sl}")
+                    print(f"🛡️ [HERMES MS-OB] BE Shield Locked (+2.5% ROI): #{pos_id} {sym} ({lev}x) -> {be_sl}")
 
                 # 3. BREAK-EVEN EXIT
                 if stage == 1 and trailing_sl_p > 0:
@@ -639,12 +651,13 @@ class HermesMSOBEngine:
                     if is_be_exit:
                         realized = round(margin * (self.be_lock_roi / 100.0), 2)
                         close_position_in_db(pos_id, trailing_sl_p, realized, "BREAKEVEN_PROFIT_LOCKED (+2.5% ROI)")
-                        print(f"🛡️ [HERMES MS-OB] BE Exit (+2.5% ROI): #{pos_id} {sym} @ {trailing_sl_p}")
+                        print(f"🛡️ [HERMES MS-OB] BE Exit (+2.5% ROI): #{pos_id} {sym} ({lev}x) @ {trailing_sl_p}")
                         continue
 
                 # 4. HARD STOP LOSS (-15.0% ROI WITH 2x 15m CLOSE GUARD)
                 if stage == 0:
-                    hard_sl_level = round(entry_p * (1.0 - self.hard_sl_price_pct), 6) if side in ("LONG", "BUY") else round(entry_p * (1.0 + self.hard_sl_price_pct), 6)
+                    sl_price_pct = HARD_SL_ROI_PCT / (lev * 100.0)
+                    hard_sl_level = sl_p if sl_p > 0 else (round(entry_p * (1.0 - sl_price_pct), 6) if side in ("LONG", "BUY") else round(entry_p * (1.0 + sl_price_pct), 6))
                     is_sl_tapped = (side in ("LONG", "BUY") and curr_price <= hard_sl_level) or (side in ("SHORT", "SELL") and curr_price >= hard_sl_level)
                     if is_sl_tapped:
                         candles_15m = await self.fetch_klines(session, sym, "15m", limit=6)
@@ -656,9 +669,9 @@ class HermesMSOBEngine:
                             else:
                                 two_closes = c_prev2["close"] > hard_sl_level and c_prev1["close"] > hard_sl_level
                             if two_closes:
-                                realized = round(margin * (-self.hard_sl_price_pct * lev), 2)
+                                realized = round(margin * (-HARD_SL_ROI_PCT / 100.0), 2)
                                 close_position_in_db(pos_id, curr_price, realized, "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)")
-                                print(f"🛑 [HERMES MS-OB] Hard SL Hit (-15% ROI): #{pos_id} {sym} @ {curr_price}")
+                                print(f"🛑 [HERMES MS-OB] Hard SL Hit (-15% ROI): #{pos_id} {sym} ({lev}x) @ {curr_price}")
                                 continue
 
                 update_position_mark_price(pos_id, curr_price, u_pnl, round(roe_pct, 2), sl_p, stage)
