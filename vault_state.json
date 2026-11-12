@@ -1,8 +1,8 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794499333181,
-  "updated_at_str": "2026-11-12 16:02:13 IST",
-  "total_trades": 1,
+  "updated_at": 1794499602695,
+  "updated_at_str": "2026-11-12 16:06:42 IST",
+  "total_trades": 2,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 5,
@@ -87,24 +87,24 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 6,
       "name": "Section 6 (OPUSDT, RENDERUSDT, WLDUSDT)",
       "assigned_coins": "OPUSDT, RENDERUSDT, WLDUSDT",
       "initial_balance": 100.0,
-      "current_balance": 100.0,
+      "current_balance": 107.5,
       "vault_balance": 0.0,
-      "equity": 100.0,
-      "total_pnl": 0.0,
-      "pnl_pct": 0.0,
-      "win_count": 0,
+      "equity": 107.5,
+      "total_pnl": 7.5,
+      "pnl_pct": 7.5,
+      "win_count": 1,
       "loss_count": 0,
-      "win_rate": 0.0,
-      "status": "IN_TRADE",
-      "active_symbol": "RENDERUSDT",
-      "updated_at": 1794499174.961355
+      "win_rate": 100.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794499174.961355
+      "updated_at": 1794499602.6843638
     }
   ],
   "trade_history": [
@@ -200,36 +200,34 @@
       "mfe_pct": "+0.37%",
       "roi_pct": -15.0,
       "timeframe": "1H"
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 6,
+      "id": 50,
       "section_id": 6,
       "symbol": "RENDERUSDT",
       "side": "LONG",
       "entry_price": 1.47,
-      "mark_price": 1.498,
-      "position_size_usdt": 250.0,
+      "exit_price": 1.5141,
       "margin_usdt": 50.0,
+      "position_size_usdt": 250.0,
       "leverage": 5,
-      "sl_price": 1.4259,
-      "tp_price": 1.5141,
-      "trailing_sl_price": 1.4259,
-      "trailing_stage": 0,
-      "unrealized_pnl": 4.761904761904766,
-      "pnl_pct": 9.52,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
+      "realized_pnl": 7.5,
+      "pnl_pct": 15.0,
+      "exit_reason": "FULL_BOOK_TP_HIT (+15% ROI)",
       "open_time": 1794489303.7970455,
-      "updated_at": 1794499327.0577247,
-      "mae_pct": 5.78,
-      "mfe_pct": 11.22,
-      "size_usdt": 0.0,
+      "close_time": 1794499602.6470182,
+      "duration_minutes": 171.6,
+      "entry_time_str": "12 Nov, 18:45:03 IST",
+      "exit_time_str": "12 Nov, 21:36:42 IST",
+      "duration_str": "2h 51m",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Protected",
+      "mae_pct": "-5.78%",
+      "mfe_pct": "+15.00%",
+      "roi_pct": 15.0,
       "timeframe": "1H"
     }
   ],
+  "positions": [],
   "mitigated_order_blocks": [
     {
       "ob_key": "ETHUSDT_4h_LONG_1790640000",
@@ -3728,6 +3726,17 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 0,
       "updated_at": 1794499224.7073169
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_SHORT_1794484800",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 1.5004,
+      "ob_bottom": 1.486,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794499409.3094604
     }
   ]
 }
