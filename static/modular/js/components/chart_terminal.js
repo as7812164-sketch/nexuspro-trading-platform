@@ -739,11 +739,16 @@ export class ChartTerminal {
      - 100% Transparent Floating Labels (Zero Candle Obstruction)
      ------------------------------------------------------------------------ */
   calculateHermesSmcOrderBlocks(candles) {
-    if (!candles || candles.length < 20) return [];
+    if (!candles || candles.length < 30) {
+      this.currentSmcSignals = [];
+      this.currentFvgs = [];
+      return [];
+    }
 
     const n = candles.length;
 
-    // 1. 14-Period True Range & Rolling ATR
+    // 1. Wilder RMA 14-Period ATR (exact ta.atr(14) parity)
+    const atrPeriod = 14;
     const trList = new Float64Array(n);
     for (let i = 0; i < n; i++) {
       if (i === 0) {
@@ -757,21 +762,26 @@ export class ChartTerminal {
     }
 
     const atrArr = new Float64Array(n);
-    let trSum = 0;
+    let initSum = 0;
     for (let i = 0; i < n; i++) {
-      trSum += trList[i];
-      if (i >= 14) {
-        trSum -= trList[i - 14];
-        atrArr[i] = trSum / 14;
+      if (i < atrPeriod) {
+        initSum += trList[i];
+        atrArr[i] = initSum / (i + 1);
       } else {
-        atrArr[i] = trSum / (i + 1);
+        atrArr[i] = (atrArr[i - 1] * (atrPeriod - 1) + trList[i]) / atrPeriod;
       }
     }
 
-    // 2. Track Swings, Liquidity Sweeps, BOS & Inducement (IDM)
-    const swingLen = 3;
+    // 2. Track Swings (swingLen = 5), Liquidity Sweeps (35-bar), BOS & Inducement (IDM)
+    const swingLen = 5;
+    const minDispMult = 1.2;
+    const minFvgMult = 0.15;
+    const minWeakWickPct = 18.0;
+
     let lastShPrice = null;
     let lastSlPrice = null;
+    let lastShBar = null;
+    let lastSlBar = null;
     let lastIdmBull = null;
     let lastIdmBear = null;
     let bullSwept = false;
@@ -782,15 +792,13 @@ export class ChartTerminal {
     let bearSweepBar = -999;
 
     const rawObList = [];
-    const scanLookback = Math.min(n - 4, 240);
-    const startIdx = Math.max(swingLen * 2, n - scanLookback);
-    let lastObIndex = -999;
+    const signals = [];
+    const fvgs = [];
 
-    for (let i = startIdx; i < n - 1; i++) {
-      const atr = atrArr[i] || 1.0;
-      if (atr <= 0) continue;
+    for (let i = 0; i < n; i++) {
+      const atr = atrArr[i] || 0;
 
-      // Swing pivot evaluation
+      // Swing pivot evaluation (swingLen = 5)
       const pIdx = i - swingLen;
       if (pIdx >= swingLen) {
         let isSh = true;
@@ -799,14 +807,13 @@ export class ChartTerminal {
           if (candles[pIdx - w].high >= candles[pIdx].high || candles[pIdx + w].high >= candles[pIdx].high) isSh = false;
           if (candles[pIdx - w].low <= candles[pIdx].low || candles[pIdx + w].low <= candles[pIdx].low) isSl = false;
         }
-        if (isSh) lastShPrice = candles[pIdx].high;
-        if (isSl) lastSlPrice = candles[pIdx].low;
+        if (isSh) { lastShPrice = candles[pIdx].high; lastShBar = pIdx; }
+        if (isSl) { lastSlPrice = candles[pIdx].low; lastSlBar = pIdx; }
       }
 
       const curr = candles[i];
-      const prev = candles[i - 1];
 
-      // Liquidity Sweeps
+      // Liquidity Sweeps (35-bar window)
       if (lastSlPrice !== null && curr.low < lastSlPrice && curr.close > lastSlPrice) {
         bullSwept = true;
         bullSweepBar = i;
@@ -819,308 +826,309 @@ export class ChartTerminal {
       if (i - bearSweepBar > 35) bearSwept = false;
 
       // Break of Structure (BOS) & Inducement (IDM)
-      if (lastShPrice !== null && curr.close > lastShPrice && prev.close <= lastShPrice) {
-        let lowestLow = curr.low;
-        for (let k = Math.max(0, i - 15); k < i; k++) {
-          if (candles[k].low < lowestLow) lowestLow = candles[k].low;
+      if (i > 0) {
+        const prev = candles[i - 1];
+        if (lastShPrice !== null && curr.close > lastShPrice && prev.close <= lastShPrice && lastSlBar !== null) {
+          const lb = Math.min(100, Math.max(1, i - lastSlBar));
+          let lowestLow = curr.low;
+          for (let k = Math.max(0, i - lb + 1); k <= i; k++) {
+            if (candles[k].low < lowestLow) lowestLow = candles[k].low;
+          }
+          lastIdmBull = lowestLow;
+          idmBullSwept = false;
         }
-        lastIdmBull = lowestLow;
-        idmBullSwept = false;
-      }
-      if (lastSlPrice !== null && curr.close < lastSlPrice && prev.close >= lastSlPrice) {
-        let highestHigh = curr.high;
-        for (let k = Math.max(0, i - 15); k < i; k++) {
-          if (candles[k].high > highestHigh) highestHigh = candles[k].high;
+        if (lastSlPrice !== null && curr.close < lastSlPrice && prev.close >= lastSlPrice && lastShBar !== null) {
+          const lb = Math.min(100, Math.max(1, i - lastShBar));
+          let highestHigh = curr.high;
+          for (let k = Math.max(0, i - lb + 1); k <= i; k++) {
+            if (candles[k].high > highestHigh) highestHigh = candles[k].high;
+          }
+          lastIdmBear = highestHigh;
+          idmBearSwept = false;
         }
-        lastIdmBear = highestHigh;
-        idmBearSwept = false;
       }
 
       if (lastIdmBull !== null && curr.low < lastIdmBull) idmBullSwept = true;
       if (lastIdmBear !== null && curr.high > lastIdmBear) idmBearSwept = true;
 
-      if ((i - lastObIndex) < 8) continue;
+      // 3-Candle Pattern on closed impulse (i <= n - 2)
+      if (i >= 2 && i <= n - 2 && atr > 0) {
+        const c1 = candles[i - 2];
+        const c2 = candles[i - 1];
+        const c3 = candles[i];
 
-      // 3-Candle Pattern: c1 (base) = i-2, c2 (displacement) = i-1, c3 (continuation) = i
-      const c1 = candles[i - 2];
-      const c2 = candles[i - 1];
-      const c3 = candles[i];
+        // 3. BULLISH ORDER BLOCK CLASSIFICATION (Shoaib Khan 7 Models)
+        const fvgBull = c3.low > c1.high && (c3.low - c1.high) >= (atr * minFvgMult);
+        const dispBull = (c2.close - c2.open) >= (atr * minDispMult);
 
-      // 3. BULLISH ORDER BLOCK CLASSIFICATION (Shoaib Khan 7 Models)
-      const fvgBull = c3.low > c1.high && (c3.low - c1.high) >= (atr * 0.12);
-      const dispBull = (c2.close - c2.open) >= (atr * 0.70);
+        if (fvgBull && dispBull) {
+          const c1Bull = c1.close > c1.open;
+          const c1Bear = c1.close < c1.open;
+          const c2BreachLow = c2.low < c1.low;
+          const isSwingOrigin = lastSlPrice !== null && Math.abs(c1.low - lastSlPrice) < (atr * 0.5);
 
-      if (fvgBull && dispBull) {
-        const c1Bull = c1.close > c1.open;
-        const c1Bear = c1.close < c1.open;
-        const c2BreachLow = c2.low < c1.low;
-        const isSwingOrigin = lastSlPrice !== null && Math.abs(c1.low - lastSlPrice) < (atr * 0.5);
+          let modelNum = 1;
+          let catName = 'WEAK';
+          let badgeTitle = 'WEAK-OB (SWEEP REQ)';
+          let modelSubtitle = 'Type 1: Momentum Same-Color OB';
+          let borderCol = '#FF9100';
+          let bgCol = 'rgba(255, 145, 0, 0.12)';
+          let badgeIcon = '⚠️';
 
-        let modelNum = 1;
-        let catName = 'WEAK';
-        let badgeTitle = 'WEAK-OB (SWEEP REQ)';
-        let modelSubtitle = 'Type 1: Momentum Same-Color OB';
-        let borderCol = '#FF9100';
-        let bgCol = 'rgba(255, 145, 0, 0.12)';
-        let badgeIcon = '⚠️';
-
-        if (bullSwept) {
-          modelNum = 6;
-          catName = 'STRONGEST_COND';
-          badgeTitle = 'COND-OB';
-          modelSubtitle = 'Type 6: Sweep+BOS Leg OB';
-          borderCol = '#2979FF';
-          bgCol = 'rgba(41, 121, 255, 0.18)';
-          badgeIcon = '⚡';
-        } else if (idmBullSwept && lastIdmBull !== null && c1.low < lastIdmBull) {
-          modelNum = 7;
-          catName = 'STRONGEST_COND';
-          badgeTitle = 'COND-OB';
-          modelSubtitle = 'Type 7: Post-IDM Decisional OB';
-          borderCol = '#2979FF';
-          bgCol = 'rgba(41, 121, 255, 0.18)';
-          badgeIcon = '⚡';
-        } else if (c2BreachLow) {
-          modelNum = 3;
-          catName = 'WEAK';
-          badgeTitle = 'WEAK-OB (SWEEP REQ)';
-          modelSubtitle = 'Type 3: Outlier C2 Low Breach';
-          borderCol = '#FF9100';
-          bgCol = 'rgba(255, 145, 0, 0.10)';
-          badgeIcon = '⚠️';
-        } else if (c1Bull) {
-          modelNum = 1;
-          catName = 'WEAK';
-          badgeTitle = 'WEAK-OB (SWEEP REQ)';
-          modelSubtitle = 'Type 1: Momentum Same-Color OB';
-          borderCol = '#FF9100';
-          bgCol = 'rgba(255, 145, 0, 0.10)';
-          badgeIcon = '⚠️';
-        } else if (c1Bear && isSwingOrigin) {
-          modelNum = 4;
-          catName = 'STRONG';
-          badgeTitle = 'STRONG-OB';
-          modelSubtitle = 'Type 4: Swing Origin OB';
-          borderCol = '#00E676';
-          bgCol = 'rgba(0, 230, 118, 0.16)';
-          badgeIcon = '🛡️';
-        } else if (c1Bear) {
-          modelNum = 2;
-          catName = 'STRONG';
-          badgeTitle = 'STRONG-OB';
-          modelSubtitle = 'Type 2: Classic Opposite-Color OB';
-          borderCol = '#00E676';
-          bgCol = 'rgba(0, 230, 118, 0.16)';
-          badgeIcon = '🛡️';
-        } else {
-          modelNum = 5;
-          catName = 'WEAK';
-          badgeTitle = 'WEAK-OB (SWEEP REQ)';
-          modelSubtitle = 'Type 5: Mid-Leg Internal OB';
-          borderCol = '#FF9100';
-          bgCol = 'rgba(255, 145, 0, 0.10)';
-          badgeIcon = '⚠️';
-        }
-
-        const obTop = c1.high;
-        let obBottom = c2BreachLow ? Math.min(c1.low, c2.low) : c1.low;
-        if (obTop - obBottom < atr * 0.20) {
-          obBottom = obTop - (atr * 0.35);
-        }
-        const obMid = (obTop + obBottom) / 2.0;
-
-        // Body-Close Invalidation & Strict 1st-Tap Valid / 2nd-Tap Invalidated Tracking
-        let isMitigated = false;
-        let isInvalidated = false;
-        let tapCount = 0;
-        let leftAfterTap1 = false;
-        let mitIdx = null;
-        let mitTime = null;
-
-        for (let k = i + 1; k < n; k++) {
-          if (candles[k].close < obBottom) {
-            isInvalidated = true;
-            break;
-          }
-          if (tapCount === 0) {
-            if (candles[k].low <= obTop) {
-              tapCount = 1;
-              isMitigated = true;
-              mitIdx = k;
-              mitTime = candles[k].time;
-            }
+          if (bullSwept) {
+            modelNum = 6;
+            catName = 'STRONGEST_COND';
+            badgeTitle = 'COND-OB';
+            modelSubtitle = 'Type 6: Sweep+BOS Leg OB';
+            borderCol = '#2979FF';
+            bgCol = 'rgba(41, 121, 255, 0.18)';
+            badgeIcon = '⚡';
+          } else if (idmBullSwept && lastIdmBull !== null && c1.low < lastIdmBull) {
+            modelNum = 7;
+            catName = 'STRONGEST_COND';
+            badgeTitle = 'COND-OB';
+            modelSubtitle = 'Type 7: Post-IDM Decisional OB';
+            borderCol = '#2979FF';
+            bgCol = 'rgba(41, 121, 255, 0.18)';
+            badgeIcon = '⚡';
+          } else if (c2BreachLow) {
+            modelNum = 3;
+            catName = 'WEAK';
+            badgeTitle = 'WEAK-OB (SWEEP REQ)';
+            modelSubtitle = 'Type 3: Outlier C2 Low Breach';
+            borderCol = '#FF9100';
+            bgCol = 'rgba(255, 145, 0, 0.10)';
+            badgeIcon = '⚠️';
+          } else if (c1Bull) {
+            modelNum = 1;
+            catName = 'WEAK';
+            badgeTitle = 'WEAK-OB (SWEEP REQ)';
+            modelSubtitle = 'Type 1: Momentum Same-Color OB';
+            borderCol = '#FF9100';
+            bgCol = 'rgba(255, 145, 0, 0.10)';
+            badgeIcon = '⚠️';
+          } else if (c1Bear && isSwingOrigin) {
+            modelNum = 4;
+            catName = 'STRONG';
+            badgeTitle = 'STRONG-OB';
+            modelSubtitle = 'Type 4: Swing Origin OB';
+            borderCol = '#00E676';
+            bgCol = 'rgba(0, 230, 118, 0.16)';
+            badgeIcon = '🛡️';
+          } else if (c1Bear) {
+            modelNum = 2;
+            catName = 'STRONG';
+            badgeTitle = 'STRONG-OB';
+            modelSubtitle = 'Type 2: Classic Opposite-Color OB';
+            borderCol = '#00E676';
+            bgCol = 'rgba(0, 230, 118, 0.16)';
+            badgeIcon = '🛡️';
           } else {
-            if (candles[k].low > obTop) {
-              leftAfterTap1 = true;
-            } else if (leftAfterTap1 && candles[k].low <= obTop) {
-              tapCount = 2;
-              isInvalidated = true;
-              break;
-            }
+            modelNum = 5;
+            catName = 'WEAK';
+            badgeTitle = 'WEAK-OB (SWEEP REQ)';
+            modelSubtitle = 'Type 5: Mid-Leg Internal OB';
+            borderCol = '#FF9100';
+            bgCol = 'rgba(255, 145, 0, 0.10)';
+            badgeIcon = '⚠️';
           }
+
+          const obTop = c1.high;
+          const obBottom = c2BreachLow ? c2.low : c1.low;
+          rawObList.push({
+            side: 'BULLISH',
+            createIdx: i,
+            modelNum,
+            catName,
+            badgeTitle,
+            modelSubtitle,
+            badgeIcon,
+            borderCol,
+            bgCol,
+            startIdx: i - 2,
+            startTime: c1.time,
+            top: obTop,
+            bottom: obBottom,
+            mid: (obTop + obBottom) / 2.0,
+            isMitigated: false,
+            isInvalidated: false,
+            mitIdx: null,
+            mitTime: null
+          });
+          fvgs.push({ startIdx: i - 2, startTime: c1.time, top: c3.low, bottom: c1.high, filledIdx: null, filledTime: null, bull: true });
         }
 
-        rawObList.push({
-          side: 'BULLISH',
-          modelNum,
-          catName,
-          badgeTitle,
-          modelSubtitle,
-          badgeIcon,
-          borderCol,
-          bgCol,
-          startIdx: i - 2,
-          startTime: c1.time,
-          top: obTop,
-          bottom: obBottom,
-          mid: obMid,
-          isMitigated,
-          isInvalidated,
-          mitIdx,
-          mitTime
-        });
-        lastObIndex = i;
-        continue;
+        // 4. BEARISH ORDER BLOCK CLASSIFICATION (Shoaib Khan 7 Models)
+        const fvgBear = c3.high < c1.low && (c1.low - c3.high) >= (atr * minFvgMult);
+        const dispBear = (c2.open - c2.close) >= (atr * minDispMult);
+
+        if (fvgBear && dispBear) {
+          const c1Bull = c1.close > c1.open;
+          const c1Bear = c1.close < c1.open;
+          const c2BreachHigh = c2.high > c1.high;
+          const isSwingOrigin = lastShPrice !== null && Math.abs(c1.high - lastShPrice) < (atr * 0.5);
+
+          let modelNum = 1;
+          let catName = 'WEAK';
+          let badgeTitle = 'WEAK-OB (SWEEP REQ)';
+          let modelSubtitle = 'Type 1: Momentum Same-Color OB';
+          let borderCol = '#FF5252';
+          let bgCol = 'rgba(255, 82, 82, 0.12)';
+          let badgeIcon = '⚠️';
+
+          if (bearSwept) {
+            modelNum = 6;
+            catName = 'STRONGEST_COND';
+            badgeTitle = 'COND-OB';
+            modelSubtitle = 'Type 6: Sweep+BOS Leg OB';
+            borderCol = '#D500F9';
+            bgCol = 'rgba(213, 0, 249, 0.18)';
+            badgeIcon = '⚡';
+          } else if (idmBearSwept && lastIdmBear !== null && c1.high > lastIdmBear) {
+            modelNum = 7;
+            catName = 'STRONGEST_COND';
+            badgeTitle = 'COND-OB';
+            modelSubtitle = 'Type 7: Post-IDM Decisional OB';
+            borderCol = '#D500F9';
+            bgCol = 'rgba(213, 0, 249, 0.18)';
+            badgeIcon = '⚡';
+          } else if (c2BreachHigh) {
+            modelNum = 3;
+            catName = 'WEAK';
+            badgeTitle = 'WEAK-OB (SWEEP REQ)';
+            modelSubtitle = 'Type 3: Outlier C2 High Breach';
+            borderCol = '#FF5252';
+            bgCol = 'rgba(255, 82, 82, 0.10)';
+            badgeIcon = '⚠️';
+          } else if (c1Bear) {
+            modelNum = 1;
+            catName = 'WEAK';
+            badgeTitle = 'WEAK-OB (SWEEP REQ)';
+            modelSubtitle = 'Type 1: Momentum Same-Color OB';
+            borderCol = '#FF5252';
+            bgCol = 'rgba(255, 82, 82, 0.10)';
+            badgeIcon = '⚠️';
+          } else if (c1Bull && isSwingOrigin) {
+            modelNum = 4;
+            catName = 'STRONG';
+            badgeTitle = 'STRONG-OB';
+            modelSubtitle = 'Type 4: Swing Origin OB';
+            borderCol = '#FF1744';
+            bgCol = 'rgba(255, 23, 68, 0.16)';
+            badgeIcon = '🛡️';
+          } else if (c1Bull) {
+            modelNum = 2;
+            catName = 'STRONG';
+            badgeTitle = 'STRONG-OB';
+            modelSubtitle = 'Type 2: Classic Opposite-Color OB';
+            borderCol = '#FF1744';
+            bgCol = 'rgba(255, 23, 68, 0.16)';
+            badgeIcon = '🛡️';
+          } else {
+            modelNum = 5;
+            catName = 'WEAK';
+            badgeTitle = 'WEAK-OB (SWEEP REQ)';
+            modelSubtitle = 'Type 5: Mid-Leg Internal OB';
+            borderCol = '#FF5252';
+            bgCol = 'rgba(255, 82, 82, 0.10)';
+            badgeIcon = '⚠️';
+          }
+
+          const obTop = c2BreachHigh ? c2.high : c1.high;
+          const obBottom = c1.low;
+          rawObList.push({
+            side: 'BEARISH',
+            createIdx: i,
+            modelNum,
+            catName,
+            badgeTitle,
+            modelSubtitle,
+            badgeIcon,
+            borderCol,
+            bgCol,
+            startIdx: i - 2,
+            startTime: c1.time,
+            top: obTop,
+            bottom: obBottom,
+            mid: (obTop + obBottom) / 2.0,
+            isMitigated: false,
+            isInvalidated: false,
+            mitIdx: null,
+            mitTime: null
+          });
+          fvgs.push({ startIdx: i - 2, startTime: c1.time, top: c1.low, bottom: c3.high, filledIdx: null, filledTime: null, bull: false });
+        }
       }
 
-      // 4. BEARISH ORDER BLOCK CLASSIFICATION (Shoaib Khan 7 Models)
-      const fvgBear = c3.high < c1.low && (c1.low - c3.high) >= (atr * 0.12);
-      const dispBear = (c2.open - c2.close) >= (atr * 0.70);
-
-      if (fvgBear && dispBear) {
-        const c1Bull = c1.close > c1.open;
-        const c1Bear = c1.close < c1.open;
-        const c2BreachHigh = c2.high > c1.high;
-        const isSwingOrigin = lastShPrice !== null && Math.abs(c1.high - lastShPrice) < (atr * 0.5);
-
-        let modelNum = 1;
-        let catName = 'WEAK';
-        let badgeTitle = 'WEAK-OB (SWEEP REQ)';
-        let modelSubtitle = 'Type 1: Momentum Same-Color OB';
-        let borderCol = '#FF5252';
-        let bgCol = 'rgba(255, 82, 82, 0.12)';
-        let badgeIcon = '⚠️';
-
-        if (bearSwept) {
-          modelNum = 6;
-          catName = 'STRONGEST_COND';
-          badgeTitle = 'COND-OB';
-          modelSubtitle = 'Type 6: Sweep+BOS Leg OB';
-          borderCol = '#D500F9';
-          bgCol = 'rgba(213, 0, 249, 0.18)';
-          badgeIcon = '⚡';
-        } else if (idmBearSwept && lastIdmBear !== null && c1.high > lastIdmBear) {
-          modelNum = 7;
-          catName = 'STRONGEST_COND';
-          badgeTitle = 'COND-OB';
-          modelSubtitle = 'Type 7: Post-IDM Decisional OB';
-          borderCol = '#D500F9';
-          bgCol = 'rgba(213, 0, 249, 0.18)';
-          badgeIcon = '⚡';
-        } else if (c2BreachHigh) {
-          modelNum = 3;
-          catName = 'WEAK';
-          badgeTitle = 'WEAK-OB (SWEEP REQ)';
-          modelSubtitle = 'Type 3: Outlier C2 High Breach';
-          borderCol = '#FF5252';
-          bgCol = 'rgba(255, 82, 82, 0.10)';
-          badgeIcon = '⚠️';
-        } else if (c1Bear) {
-          modelNum = 1;
-          catName = 'WEAK';
-          badgeTitle = 'WEAK-OB (SWEEP REQ)';
-          modelSubtitle = 'Type 1: Momentum Same-Color OB';
-          borderCol = '#FF5252';
-          bgCol = 'rgba(255, 82, 82, 0.10)';
-          badgeIcon = '⚠️';
-        } else if (c1Bull && isSwingOrigin) {
-          modelNum = 4;
-          catName = 'STRONG';
-          badgeTitle = 'STRONG-OB';
-          modelSubtitle = 'Type 4: Swing Origin OB';
-          borderCol = '#FF1744';
-          bgCol = 'rgba(255, 23, 68, 0.16)';
-          badgeIcon = '🛡️';
-        } else if (c1Bull) {
-          modelNum = 2;
-          catName = 'STRONG';
-          badgeTitle = 'STRONG-OB';
-          modelSubtitle = 'Type 2: Classic Opposite-Color OB';
-          borderCol = '#FF1744';
-          bgCol = 'rgba(255, 23, 68, 0.16)';
-          badgeIcon = '🛡️';
+      // 5. Evaluate Tap / Weak Wick Sweep >=18% / Body-Close Invalidation at bar i
+      const rng = curr.high - curr.low;
+      for (const ob of rawObList) {
+        if (i <= ob.createIdx || ob.isInvalidated) continue;
+        if (ob.side === 'BULLISH') {
+          if (curr.close < ob.bottom) {
+            ob.isInvalidated = true;
+            continue;
+          }
+          if (!ob.isMitigated) {
+            if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
+              if (curr.low <= ob.top && curr.close >= ob.bottom) {
+                ob.isMitigated = true;
+                ob.mitIdx = i;
+                ob.mitTime = curr.time;
+                signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'STRONG_BUY' });
+              }
+            } else if (ob.catName === 'WEAK') {
+              if (curr.low < ob.bottom && curr.close >= ob.bottom && curr.close > curr.open) {
+                const wickPct = rng > 0 ? ((Math.min(curr.open, curr.close) - curr.low) / rng) * 100.0 : 0;
+                if (wickPct >= minWeakWickPct) {
+                  ob.isMitigated = true;
+                  ob.mitIdx = i;
+                  ob.mitTime = curr.time;
+                  signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'WEAK_BUY' });
+                }
+              }
+            }
+          }
         } else {
-          modelNum = 5;
-          catName = 'WEAK';
-          badgeTitle = 'WEAK-OB (SWEEP REQ)';
-          modelSubtitle = 'Type 5: Mid-Leg Internal OB';
-          borderCol = '#FF5252';
-          bgCol = 'rgba(255, 82, 82, 0.10)';
-          badgeIcon = '⚠️';
-        }
-
-        let obTop = c2BreachHigh ? Math.max(c1.high, c2.high) : c1.high;
-        const obBottom = c1.low;
-        if (obTop - obBottom < atr * 0.20) {
-          obTop = obBottom + (atr * 0.35);
-        }
-        const obMid = (obTop + obBottom) / 2.0;
-
-        let isMitigated = false;
-        let isInvalidated = false;
-        let tapCount = 0;
-        let leftAfterTap1 = false;
-        let mitIdx = null;
-        let mitTime = null;
-
-        for (let k = i + 1; k < n; k++) {
-          if (candles[k].close > obTop) {
-            isInvalidated = true;
-            break;
+          if (curr.close > ob.top) {
+            ob.isInvalidated = true;
+            continue;
           }
-          if (tapCount === 0) {
-            if (candles[k].high >= obBottom) {
-              tapCount = 1;
-              isMitigated = true;
-              mitIdx = k;
-              mitTime = candles[k].time;
-            }
-          } else {
-            if (candles[k].high < obBottom) {
-              leftAfterTap1 = true;
-            } else if (leftAfterTap1 && candles[k].high >= obBottom) {
-              tapCount = 2;
-              isInvalidated = true;
-              break;
+          if (!ob.isMitigated) {
+            if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
+              if (curr.high >= ob.bottom && curr.close <= ob.top) {
+                ob.isMitigated = true;
+                ob.mitIdx = i;
+                ob.mitTime = curr.time;
+                signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'STRONG_SELL' });
+              }
+            } else if (ob.catName === 'WEAK') {
+              if (curr.high > ob.top && curr.close <= ob.top && curr.close < curr.open) {
+                const wickPct = rng > 0 ? ((curr.high - Math.max(curr.open, curr.close)) / rng) * 100.0 : 0;
+                if (wickPct >= minWeakWickPct) {
+                  ob.isMitigated = true;
+                  ob.mitIdx = i;
+                  ob.mitTime = curr.time;
+                  signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'WEAK_SELL' });
+                }
+              }
             }
           }
         }
+      }
 
-        rawObList.push({
-          side: 'BEARISH',
-          modelNum,
-          catName,
-          badgeTitle,
-          modelSubtitle,
-          badgeIcon,
-          borderCol,
-          bgCol,
-          startIdx: i - 2,
-          startTime: c1.time,
-          top: obTop,
-          bottom: obBottom,
-          mid: obMid,
-          isMitigated,
-          isInvalidated,
-          mitIdx,
-          mitTime
-        });
-        lastObIndex = i;
+      // Check FVG fill
+      for (const f of fvgs) {
+        if (i <= f.startIdx + 2 || f.filledIdx !== null) continue;
+        if (f.bull && curr.low <= f.bottom) { f.filledIdx = i; f.filledTime = curr.time; }
+        else if (!f.bull && curr.high >= f.top) { f.filledIdx = i; f.filledTime = curr.time; }
       }
     }
 
-    const validObs = rawObList.filter(ob => !ob.isInvalidated);
-    return validObs.slice(-8);
+    this.currentSmcSignals = signals.slice(-24);
+    this.currentFvgs = fvgs.filter(f => f.filledIdx === null || f.filledIdx >= n - 12).slice(-12);
+    const validObs = rawObList.filter(ob => !ob.isInvalidated && (!ob.isMitigated || (ob.mitIdx !== null && ob.mitIdx >= n - 45)));
+    return validObs.slice(-12);
   }
 
   /* ------------------------------------------------------------------------
@@ -1296,10 +1304,85 @@ export class ChartTerminal {
       ctx.restore();
     }
 
+    // Render FVG zones (TradingView 1:1 parity)
+    if (this.currentFvgs && this.currentFvgs.length > 0) {
+      for (const f of this.currentFvgs) {
+        let fxStart = f.startTime ? timeScale.timeToCoordinate(f.startTime) : null;
+        if ((fxStart === null || fxStart === undefined) && f.startIdx !== undefined) {
+          try { fxStart = timeScale.logicalToCoordinate(f.startIdx); } catch (e) {}
+        }
+        if (fxStart === null || fxStart === undefined) continue;
+        let fxEnd = f.filledTime ? timeScale.timeToCoordinate(f.filledTime) : null;
+        if (fxEnd === null || fxEnd === undefined) {
+          fxEnd = lastCoord !== null ? Math.min(lastCoord + 18, rightChartEdge) : rightChartEdge;
+        }
+        const fW = Math.max(8, Math.min(rightChartEdge, fxEnd) - Math.max(-10, fxStart));
+        const fyTop = this.candleSeries.priceToCoordinate(f.top);
+        const fyBot = this.candleSeries.priceToCoordinate(f.bottom);
+        if (fyTop === null || fyBot === null) continue;
+        const fTopY = Math.min(fyTop, fyBot);
+        const fH = Math.max(3, Math.abs(fyBot - fyTop));
+        ctx.save();
+        ctx.fillStyle = 'rgba(255, 213, 79, 0.08)';
+        ctx.strokeStyle = 'rgba(255, 213, 79, 0.45)';
+        ctx.lineWidth = 1;
+        ctx.fillRect(Math.max(-10, fxStart), fTopY, fW, fH);
+        ctx.strokeRect(Math.max(-10, fxStart), fTopY, fW, fH);
+        ctx.restore();
+      }
+    }
+
+    // Render 1:1 TradingView Signal Markers (▲ Green, ▼ Red, ◆ Blue, ◆ Magenta)
+    if (this.currentSmcSignals && this.currentSmcSignals.length > 0) {
+      for (const sig of this.currentSmcSignals) {
+        const sx = sig.time ? timeScale.timeToCoordinate(sig.time) : null;
+        const sy = this.candleSeries.priceToCoordinate(sig.price);
+        if (sx === null || sx === undefined || sy === null || sy === undefined) continue;
+        if (sx < 0 || sx > rightChartEdge) continue;
+        ctx.save();
+        if (sig.kind === 'STRONG_BUY') {
+          ctx.fillStyle = '#00E676';
+          ctx.beginPath();
+          ctx.moveTo(sx, sy + 7);
+          ctx.lineTo(sx - 5.5, sy + 17);
+          ctx.lineTo(sx + 5.5, sy + 17);
+          ctx.closePath();
+          ctx.fill();
+        } else if (sig.kind === 'STRONG_SELL') {
+          ctx.fillStyle = '#FF1744';
+          ctx.beginPath();
+          ctx.moveTo(sx, sy - 7);
+          ctx.lineTo(sx - 5.5, sy - 17);
+          ctx.lineTo(sx + 5.5, sy - 17);
+          ctx.closePath();
+          ctx.fill();
+        } else if (sig.kind === 'WEAK_BUY') {
+          ctx.fillStyle = '#2979FF';
+          ctx.beginPath();
+          ctx.moveTo(sx, sy + 6);
+          ctx.lineTo(sx + 5, sy + 12);
+          ctx.lineTo(sx, sy + 18);
+          ctx.lineTo(sx - 5, sy + 12);
+          ctx.closePath();
+          ctx.fill();
+        } else if (sig.kind === 'WEAK_SELL') {
+          ctx.fillStyle = '#D500F9';
+          ctx.beginPath();
+          ctx.moveTo(sx, sy - 6);
+          ctx.lineTo(sx + 5, sy - 12);
+          ctx.lineTo(sx, sy - 18);
+          ctx.lineTo(sx - 5, sy - 12);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
     // Watermark Diagnostic Badge
     ctx.save();
     ctx.font = '700 10px "JetBrains Mono", monospace';
-    const wmText = '⚡ Hermes MS-OB v2.0 • 1st-Tap Only (BUY/LONG)';
+    const wmText = '⚡ Hermes MS-OB v2.0 • BUY & SELL (1.2× ATR)';
     const wmMetrics = ctx.measureText(wmText);
     const wmX = rightChartEdge - wmMetrics.width - 16;
     const wmY = height - 18;

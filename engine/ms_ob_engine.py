@@ -54,7 +54,7 @@ class HermesMSOBEngine:
         self.full_tp_price_pct = FULL_BOOK_TP_PRICE_PCT / 100.0
         self.be_trigger_roi = BREAKEVEN_TRIGGER_ROI
         self.be_lock_roi = BREAKEVEN_LOCK_ROI
-        self.allow_short = ALLOW_SHORT_ENTRIES  # False -> Strictly BUY / LONG only
+        self.allow_short = ALLOW_SHORT_ENTRIES  # True -> 1:1 TradingView BUY + SELL signals
 
         self.crypto_timeframes = ["1h", "4h"]
         self.gold_timeframes = ["15m", "1h", "4h"]
@@ -114,204 +114,323 @@ class HermesMSOBEngine:
 
     def scan_symbol_order_blocks(self, symbol: str, timeframe: str, candles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
-        1:1 parity with Hermes MS-OB v2.0 GOLDEN Chart Indicator:
-        - Rolling 14-period True Range ATR
-        - 7-Model Order Block classification
-        - Strict 1st-Tap Valid Only (2nd Tap or Body Close below OB permanently invalidates & persists to SQLite)
-        - Strictly BUY / LONG Order Blocks when allow_short=False
+        100% 1:1 parity with PC TradingView 'Hermes MS Trading Order Block Indicator v2.0':
+        - Wilder RMA 14-period ATR (matching ta.atr(14) in Pine Script)
+        - Swing Pivot Lookback = 5 | Liquidity Sweep Decay = 35 bars | IDM Lookback = min(100, bar_index - swingBar)
+        - 7-Model Order Block classification (FVG >= 0.15*ATR, Displacement >= 1.2*ATR, zero 8-bar skip, exact C1/C2 bounds)
+        - Strong/Cond OB (Types 2,4,6,7): Strictly 1st Tap Only (First Tap OB Boundary)
+        - Weak OB (Types 1,3,5): Wick Sweep Rejection ONLY (>= 18.0% rejection wick beyond OB boundary)
+        - Supports BOTH BUY (LONG) and SELL (SHORT) signals when self.allow_short=True
         """
         n = len(candles)
-        if n < 24:
+        if n < 30:
             return []
 
-        # 1. Rolling 14-period ATR
-        tr_list = []
-        for i in range(n):
-            if i == 0:
-                tr = candles[0]["high"] - candles[0]["low"]
-            else:
-                hl = candles[i]["high"] - candles[i]["low"]
-                hc = abs(candles[i]["high"] - candles[i - 1]["close"])
-                lc = abs(candles[i]["low"] - candles[i - 1]["close"])
-                tr = max(hl, hc, lc)
-            tr_list.append(tr)
+        # 1. Wilder RMA 14-period ATR (exact ta.atr(14) parity)
+        atr_period = 14
+        tr_list = [candles[0]["high"] - candles[0]["low"]]
+        for i in range(1, n):
+            hl = candles[i]["high"] - candles[i]["low"]
+            hc = abs(candles[i]["high"] - candles[i - 1]["close"])
+            lc = abs(candles[i]["low"] - candles[i - 1]["close"])
+            tr_list.append(max(hl, hc, lc))
 
-        atr_arr = []
-        tr_sum = 0.0
+        atr_arr = [0.0] * n
         for i in range(n):
-            tr_sum += tr_list[i]
-            if i >= 14:
-                tr_sum -= tr_list[i - 14]
-                atr_arr.append(tr_sum / 14.0)
+            if i < atr_period:
+                atr_arr[i] = sum(tr_list[: i + 1]) / float(i + 1)
             else:
-                atr_arr.append(tr_sum / float(i + 1))
+                atr_arr[i] = (atr_arr[i - 1] * (atr_period - 1) + tr_list[i]) / float(atr_period)
 
-        swing_len = 3
+        swing_len = 5
+        min_disp_mult = 1.2
+        min_fvg_mult = 0.15
+        min_weak_wick_pct = 18.0
+
         last_sh_price = None
         last_sl_price = None
+        last_sh_bar = None
+        last_sl_bar = None
         last_idm_bull = None
+        last_idm_bear = None
         bull_swept = False
+        bear_swept = False
         idm_bull_swept = False
+        idm_bear_swept = False
         bull_sweep_bar = -999
+        bear_sweep_bar = -999
 
-        scan_lookback = min(n - 4, 100)
-        start_idx = max(swing_len * 2, n - scan_lookback)
-        last_ob_index = -999
+        active_obs: List[Dict[str, Any]] = []
+
+        # Walk full bar history sequentially (exact Pine Script state machine)
+        for i in range(n):
+            atr = atr_arr[i]
+
+            # Swing High / Swing Low Pivot Lookback = 5
+            p_idx = i - swing_len
+            if p_idx >= swing_len:
+                if all(
+                    candles[p_idx]["high"] > candles[p_idx - w]["high"]
+                    and candles[p_idx]["high"] > candles[p_idx + w]["high"]
+                    for w in range(1, swing_len + 1)
+                ):
+                    last_sh_price = candles[p_idx]["high"]
+                    last_sh_bar = p_idx
+                if all(
+                    candles[p_idx]["low"] < candles[p_idx - w]["low"]
+                    and candles[p_idx]["low"] < candles[p_idx + w]["low"]
+                    for w in range(1, swing_len + 1)
+                ):
+                    last_sl_price = candles[p_idx]["low"]
+                    last_sl_bar = p_idx
+
+            curr = candles[i]
+
+            # Liquidity Sweeps with 35-bar active window
+            if last_sl_price is not None and curr["low"] < last_sl_price and curr["close"] > last_sl_price:
+                bull_swept = True
+                bull_sweep_bar = i
+            if last_sh_price is not None and curr["high"] > last_sh_price and curr["close"] < last_sh_price:
+                bear_swept = True
+                bear_sweep_bar = i
+            if (i - bull_sweep_bar) > 35:
+                bull_swept = False
+            if (i - bear_sweep_bar) > 35:
+                bear_swept = False
+
+            # Break of Structure (BOS) & Inducement (IDM) Tracking
+            if i > 0:
+                prev = candles[i - 1]
+                if last_sh_price is not None and curr["close"] > last_sh_price and prev["close"] <= last_sh_price and last_sl_bar is not None:
+                    lb = min(100, max(1, i - last_sl_bar))
+                    start_lb = max(0, i - lb + 1)
+                    last_idm_bull = min(candles[k]["low"] for k in range(start_lb, i + 1))
+                    idm_bull_swept = False
+                if last_sl_price is not None and curr["close"] < last_sl_price and prev["close"] >= last_sl_price and last_sh_bar is not None:
+                    lb = min(100, max(1, i - last_sh_bar))
+                    start_lb = max(0, i - lb + 1)
+                    last_idm_bear = max(candles[k]["high"] for k in range(start_lb, i + 1))
+                    idm_bear_swept = False
+
+            if last_idm_bull is not None and curr["low"] < last_idm_bull:
+                idm_bull_swept = True
+            if last_idm_bear is not None and curr["high"] > last_idm_bear:
+                idm_bear_swept = True
+
+            # OB Creation on closed 3-candle impulse (i <= n - 2 ensures c3 is closed)
+            if 2 <= i <= n - 2 and atr > 0:
+                c1 = candles[i - 2]
+                c2 = candles[i - 1]
+                c3 = candles[i]
+
+                # A. Bullish Order Block (LONG)
+                fvg_bull = c3["low"] > c1["high"] and (c3["low"] - c1["high"]) >= (atr * min_fvg_mult)
+                disp_bull = (c2["close"] - c2["open"]) >= (atr * min_disp_mult)
+                if fvg_bull and disp_bull:
+                    c1_bull = c1["close"] > c1["open"]
+                    c1_bear = c1["close"] < c1["open"]
+                    c2_breach = c2["low"] < c1["low"]
+                    is_swing_origin = last_sl_price is not None and abs(c1["low"] - last_sl_price) < (atr * 0.5)
+
+                    if bull_swept:
+                        model_desc, cat_name = "Type 6: Sweep+BOS Leg OB", "STRONGEST_COND"
+                    elif idm_bull_swept and last_idm_bull is not None and c1["low"] < last_idm_bull:
+                        model_desc, cat_name = "Type 7: Post-IDM Decisional OB", "STRONGEST_COND"
+                    elif c2_breach:
+                        model_desc, cat_name = "Type 3: Outlier C2 Low Breach OB", "WEAK"
+                    elif c1_bull:
+                        model_desc, cat_name = "Type 1: Momentum Same-Color OB", "WEAK"
+                    elif is_swing_origin and c1_bear:
+                        model_desc, cat_name = "Type 4: Swing Origin OB", "STRONG"
+                    elif c1_bear:
+                        model_desc, cat_name = "Type 2: Classic Opposite-Color OB", "STRONG"
+                    else:
+                        model_desc, cat_name = "Type 5: Mid-Leg Internal OB", "WEAK"
+
+                    ob_top = c1["high"]
+                    ob_bottom = c2["low"] if c2_breach else c1["low"]
+                    active_obs.append({
+                        "side": "LONG",
+                        "create_idx": i,
+                        "c1_bar": i - 2,
+                        "c1_time": int(c1["time"]),
+                        "model": model_desc,
+                        "category": cat_name,
+                        "top": ob_top,
+                        "bottom": ob_bottom,
+                        "mid": (ob_top + ob_bottom) / 2.0,
+                        "mit": False,
+                        "inv": False,
+                        "first_tap_idx": None,
+                        "signal_type": None,
+                    })
+
+                # B. Bearish Order Block (SHORT)
+                if self.allow_short:
+                    fvg_bear = c3["high"] < c1["low"] and (c1["low"] - c3["high"]) >= (atr * min_fvg_mult)
+                    disp_bear = (c2["open"] - c2["close"]) >= (atr * min_disp_mult)
+                    if fvg_bear and disp_bear:
+                        c1_bull = c1["close"] > c1["open"]
+                        c1_bear = c1["close"] < c1["open"]
+                        c2_breach = c2["high"] > c1["high"]
+                        is_swing_origin = last_sh_price is not None and abs(c1["high"] - last_sh_price) < (atr * 0.5)
+
+                        if bear_swept:
+                            model_desc, cat_name = "Type 6: Sweep+BOS Leg OB", "STRONGEST_COND"
+                        elif idm_bear_swept and last_idm_bear is not None and c1["high"] > last_idm_bear:
+                            model_desc, cat_name = "Type 7: Post-IDM Decisional OB", "STRONGEST_COND"
+                        elif c2_breach:
+                            model_desc, cat_name = "Type 3: Outlier C2 High Breach OB", "WEAK"
+                        elif c1_bear:
+                            model_desc, cat_name = "Type 1: Momentum Same-Color OB", "WEAK"
+                        elif is_swing_origin and c1_bull:
+                            model_desc, cat_name = "Type 4: Swing Origin OB", "STRONG"
+                        elif c1_bull:
+                            model_desc, cat_name = "Type 2: Classic Opposite-Color OB", "STRONG"
+                        else:
+                            model_desc, cat_name = "Type 5: Mid-Leg Internal OB", "WEAK"
+
+                        ob_top = c2["high"] if c2_breach else c1["high"]
+                        ob_bottom = c1["low"]
+                        active_obs.append({
+                            "side": "SHORT",
+                            "create_idx": i,
+                            "c1_bar": i - 2,
+                            "c1_time": int(c1["time"]),
+                            "model": model_desc,
+                            "category": cat_name,
+                            "top": ob_top,
+                            "bottom": ob_bottom,
+                            "mid": (ob_top + ob_bottom) / 2.0,
+                            "mit": False,
+                            "inv": False,
+                            "first_tap_idx": None,
+                            "signal_type": None,
+                        })
+
+            # Step-by-step Tap, Weak Wick Sweep & Invalidation evaluation on bar i
+            rng = curr["high"] - curr["low"]
+            for ob in active_obs:
+                if i <= ob["create_idx"] or ob["inv"]:
+                    continue
+
+                if ob["side"] == "LONG":
+                    if curr["close"] < ob["bottom"]:
+                        ob["inv"] = True
+                        continue
+                    if not ob["mit"]:
+                        if ob["category"] in ("STRONG", "STRONGEST_COND"):
+                            if curr["low"] <= ob["top"] and curr["close"] >= ob["bottom"]:
+                                ob["mit"] = True
+                                ob["first_tap_idx"] = i
+                                ob["signal_type"] = "STRONG_TAP_BUY"
+                        elif ob["category"] == "WEAK":
+                            if curr["low"] < ob["bottom"] and curr["close"] >= ob["bottom"] and curr["close"] > curr["open"]:
+                                lower_wick_pct = ((min(curr["open"], curr["close"]) - curr["low"]) / rng * 100.0) if rng > 0 else 0.0
+                                if lower_wick_pct >= min_weak_wick_pct:
+                                    ob["mit"] = True
+                                    ob["first_tap_idx"] = i
+                                    ob["signal_type"] = "WEAK_SWEEP_BUY"
+                else:  # SHORT
+                    if curr["close"] > ob["top"]:
+                        ob["inv"] = True
+                        continue
+                    if not ob["mit"]:
+                        if ob["category"] in ("STRONG", "STRONGEST_COND"):
+                            if curr["high"] >= ob["bottom"] and curr["close"] <= ob["top"]:
+                                ob["mit"] = True
+                                ob["first_tap_idx"] = i
+                                ob["signal_type"] = "STRONG_TAP_SELL"
+                        elif ob["category"] == "WEAK":
+                            if curr["high"] > ob["top"] and curr["close"] <= ob["top"] and curr["close"] < curr["open"]:
+                                upper_wick_pct = ((curr["high"] - max(curr["open"], curr["close"])) / rng * 100.0) if rng > 0 else 0.0
+                                if upper_wick_pct >= min_weak_wick_pct:
+                                    ob["mit"] = True
+                                    ob["first_tap_idx"] = i
+                                    ob["signal_type"] = "WEAK_SWEEP_SELL"
+
+            # Trim invalidated/old mitigated zones (keep up to 40 active)
+            if len(active_obs) > 40:
+                active_obs = [o for o in active_obs if not o["inv"] and (not o["mit"] or (o["first_tap_idx"] is not None and o["first_tap_idx"] >= n - 2))]
 
         curr_price = candles[-1]["close"]
         valid_setups: List[Dict[str, Any]] = []
 
-        for i in range(start_idx, n - 1):
-            atr = atr_arr[i]
-            if atr <= 0:
-                continue
+        for ob in active_obs:
+            side = ob["side"]
+            ob_top = ob["top"]
+            ob_bottom = ob["bottom"]
+            ob_mid = ob["mid"]
+            ob_key = f"{symbol}_{timeframe}_{side}_{ob['c1_time']}"
 
-            # Swing pivots
-            p_idx = i - swing_len
-            if p_idx >= swing_len:
-                is_sh = True
-                is_sl = True
-                for w in range(1, swing_len + 1):
-                    if candles[p_idx - w]["high"] >= candles[p_idx]["high"] or candles[p_idx + w]["high"] >= candles[p_idx]["high"]:
-                        is_sh = False
-                    if candles[p_idx - w]["low"] <= candles[p_idx]["low"] or candles[p_idx + w]["low"] <= candles[p_idx]["low"]:
-                        is_sl = False
-                if is_sh:
-                    last_sh_price = candles[p_idx]["high"]
-                if is_sl:
-                    last_sl_price = candles[p_idx]["low"]
-
-            curr = candles[i]
-            prev = candles[i - 1]
-
-            if last_sl_price is not None and curr["low"] < last_sl_price and curr["close"] > last_sl_price:
-                bull_swept = True
-                bull_sweep_bar = i
-            if (i - bull_sweep_bar) > 35:
-                bull_swept = False
-
-            if last_sh_price is not None and curr["close"] > last_sh_price and prev["close"] <= last_sh_price:
-                lowest_low = min(candles[k]["low"] for k in range(max(0, i - 15), i + 1))
-                last_idm_bull = lowest_low
-                idm_bull_swept = False
-
-            if last_idm_bull is not None and curr["low"] < last_idm_bull:
-                idm_bull_swept = True
-
-            if (i - last_ob_index) < 8:
-                continue
-
-            c1 = candles[i - 2]
-            c2 = candles[i - 1]
-            c3 = candles[i]
-
-            # Bullish Order Block (BUY / LONG)
-            fvg_bull = c3["low"] > c1["high"] and (c3["low"] - c1["high"]) >= (atr * 0.12)
-            disp_bull = (c2["close"] - c2["open"]) >= (atr * 0.70)
-
-            if not (fvg_bull and disp_bull):
-                continue
-
-            c1_bull = c1["close"] > c1["open"]
-            c1_bear = c1["close"] < c1["open"]
-            c2_breach = c2["low"] < c1["low"]
-            is_swing_origin = last_sl_price is not None and abs(c1["low"] - last_sl_price) < (atr * 0.5)
-
-            if bull_swept:
-                model_desc = "Type 6: Sweep+BOS Leg OB"
-                cat_name = "STRONGEST_COND"
-            elif idm_bull_swept and last_idm_bull is not None and c1["low"] < last_idm_bull:
-                model_desc = "Type 7: Post-IDM Decisional OB"
-                cat_name = "STRONGEST_COND"
-            elif c2_breach:
-                model_desc = "Type 3: Outlier C2 Low Breach OB"
-                cat_name = "WEAK"
-            elif c1_bull:
-                model_desc = "Type 1: Momentum Same-Color OB"
-                cat_name = "WEAK"
-            elif is_swing_origin and c1_bear:
-                model_desc = "Type 4: Swing Origin OB"
-                cat_name = "STRONG"
-            elif c1_bear:
-                model_desc = "Type 2: Classic Opposite-Color OB"
-                cat_name = "STRONG"
-            else:
-                model_desc = "Type 5: Mid-Leg Internal OB"
-                cat_name = "WEAK"
-
-            ob_top = c1["high"]
-            ob_bottom = min(c1["low"], c2["low"]) if c2_breach else c1["low"]
-            if ob_top - ob_bottom < atr * 0.20:
-                ob_bottom = ob_top - (atr * 0.35)
-            ob_mid = (ob_top + ob_bottom) / 2.0
-
-            ob_key = f"{symbol}_{timeframe}_LONG_{int(c1['time'])}"
-            last_ob_index = i
-
-            # Check permanent SQLite retirement first (CONSUMED_TRADE / INVALIDATED_2ND_TAP / INVALIDATED_CLOSE)
             if is_ob_retired(ob_key):
                 continue
 
-            # Strict 1st-Tap Valid Only & 2nd-Tap Permanent Invalidation Walk
-            tap_count = 0
-            left_after_tap1 = False
-            is_invalidated = False
-            invalid_reason = None
-            first_tap_idx = None
-
-            for k in range(i + 1, n):
-                post_c = candles[k]
-                if post_c["close"] < ob_bottom:
-                    is_invalidated = True
-                    invalid_reason = "INVALIDATED_CLOSE"
-                    break
-
-                if tap_count == 0:
-                    if post_c["low"] <= ob_top:
-                        tap_count = 1
-                        first_tap_idx = k
-                else:
-                    if post_c["low"] > ob_top:
-                        left_after_tap1 = True
-                    elif left_after_tap1 and post_c["low"] <= ob_top:
-                        tap_count = 2
-                        is_invalidated = True
-                        invalid_reason = "INVALIDATED_2ND_TAP"
-                        break
-
-            if is_invalidated and invalid_reason:
-                self._ob_lifecycle[ob_key] = {"tapped": tap_count > 0, "tap_count": tap_count, "invalidated": True}
-                mark_ob_state(ob_key, symbol, timeframe, "LONG", ob_top, ob_bottom, invalid_reason, tap_count)
+            if ob["inv"]:
+                self._ob_lifecycle[ob_key] = {"tapped": ob["mit"], "tap_count": 1 if ob["mit"] else 0, "invalidated": True}
+                mark_ob_state(ob_key, symbol, timeframe, side, ob_top, ob_bottom, "INVALIDATED_CLOSE", 1 if ob["mit"] else 0)
                 continue
 
-            # If price ALREADY completed a historical tap & bounced out long ago (>2 bars ago),
-            # waiting for next touch would be a 2nd tap -> mark invalidated permanently so ZERO 2nd tap entry can happen!
-            in_active_first_tap = (tap_count == 1 and first_tap_idx is not None and (not left_after_tap1 or first_tap_idx >= n - 2))
-            if tap_count == 1 and left_after_tap1 and first_tap_idx is not None and first_tap_idx < n - 2:
-                self._ob_lifecycle[ob_key] = {"tapped": True, "tap_count": 1, "invalidated": True}
-                mark_ob_state(ob_key, symbol, timeframe, "LONG", ob_top, ob_bottom, "INVALIDATED_2ND_TAP", 1)
-                continue
+            # Retire historical mitigated OBs older than the active bar window (>1 closed bar ago) -> ZERO 28h stale triggers!
+            if ob["mit"]:
+                tap_idx = ob["first_tap_idx"]
+                is_strong_active = ob["category"] in ("STRONG", "STRONGEST_COND") and tap_idx is not None and tap_idx >= n - 2
+                # Weak sweeps require confirmed HTF close (n - 2) so intrabar wick never fakes before close
+                is_weak_active = ob["category"] == "WEAK" and tap_idx is not None and tap_idx == n - 2
+                in_active_signal = is_strong_active or is_weak_active
+
+                if not in_active_signal and (tap_idx is None or tap_idx < n - 2):
+                    self._ob_lifecycle[ob_key] = {"tapped": True, "tap_count": 1, "invalidated": True}
+                    mark_ob_state(ob_key, symbol, timeframe, side, ob_top, ob_bottom, "INVALIDATED_2ND_TAP", 1)
+                    continue
+            else:
+                in_active_signal = False
+
+            # Weak OB intrabar sweep still forming on n-1 (tap_idx == n-1) isn't eligible for entry until HTF closes
+            if ob["category"] == "WEAK" and ob["mit"] and ob["first_tap_idx"] == n - 1:
+                status = "WEAK_SWEEP_FORMING"
+            elif in_active_signal:
+                status = "WEAK_SWEEP_WAITING_5M" if ob["category"] == "WEAK" else "FIRST_TAP_WAITING_5M"
+            else:
+                status = "WAITING_WEAK_SWEEP" if ob["category"] == "WEAK" else "WAITING_1ST_TAP"
 
             self._ob_lifecycle[ob_key] = {
-                "tapped": tap_count == 1,
-                "tap_count": tap_count,
+                "tapped": ob["mit"],
+                "tap_count": 1 if ob["mit"] else 0,
                 "invalidated": False,
-                "in_active_first_tap": in_active_first_tap,
+                "in_active_first_tap": in_active_signal,
+                "signal_type": ob["signal_type"],
             }
 
-            entry_p = ob_top
-            sl_p = entry_p * (1.0 - self.hard_sl_price_pct)
-            tp_p = entry_p * (1.0 + self.full_tp_price_pct)
-            dist_pct = ((curr_price - entry_p) / curr_price) * 100.0 if curr_price > entry_p else 0.0
+            if side == "LONG":
+                entry_p = ob_top
+                sl_p = entry_p * (1.0 - self.hard_sl_price_pct)
+                tp_p = entry_p * (1.0 + self.full_tp_price_pct)
+                if curr_price > ob_top:
+                    dist_pct = ((curr_price - ob_top) / curr_price) * 100.0
+                elif curr_price >= ob_bottom:
+                    dist_pct = 0.0
+                else:
+                    dist_pct = 99.0
+            else:
+                entry_p = ob_bottom
+                sl_p = entry_p * (1.0 + self.hard_sl_price_pct)
+                tp_p = entry_p * (1.0 - self.full_tp_price_pct)
+                if curr_price < ob_bottom:
+                    dist_pct = ((ob_bottom - curr_price) / curr_price) * 100.0
+                elif curr_price <= ob_top:
+                    dist_pct = 0.0
+                else:
+                    dist_pct = 99.0
 
-            status = "FIRST_TAP_WAITING_5M" if in_active_first_tap else "WAITING_1ST_TAP"
             valid_setups.append({
                 "ob_key": ob_key,
                 "symbol": symbol,
                 "timeframe": timeframe,
-                "side": "LONG",
-                "model": model_desc,
-                "category": cat_name,
+                "side": side,
+                "model": ob["model"],
+                "category": ob["category"],
+                "signal_type": ob["signal_type"],
                 "ob_top": round(ob_top, 6),
                 "ob_bottom": round(ob_bottom, 6),
                 "ob_mid": round(ob_mid, 6),
@@ -321,8 +440,8 @@ class HermesMSOBEngine:
                 "sl_roi_pct": -15.0,
                 "tp_roi_pct": 15.0,
                 "proximity_pct": round(dist_pct, 2),
-                "is_first_tap": in_active_first_tap,
-                "tap_count": tap_count,
+                "is_first_tap": in_active_signal,
+                "tap_count": 1 if ob["mit"] else 0,
                 "current_price": round(curr_price, 6),
                 "status": status,
             })
@@ -331,16 +450,16 @@ class HermesMSOBEngine:
 
     async def check_5m_confirmation(self, session: aiohttp.ClientSession, setup: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """
-        Strict 1st-Tap Confirmation (BUY / LONG ONLY):
-        - Verifies OB has NOT been retired or 2nd-tapped in SQLite
-        - Waits for completed 5m candle body close > ob_top above ob_bottom
+        1:1 TradingView Execution Confirmation (BOTH BUY/LONG & SELL/SHORT):
+        - Verifies OB has NOT been retired in SQLite and has active 1st-Tap or >=18% Weak Sweep signal
+        - Confirms on latest closed 5m candle within exact OB entry zone (zero stale chase!)
         """
         ob_key = setup["ob_key"]
         if is_ob_retired(ob_key):
             return None
 
         st = self._ob_lifecycle.get(ob_key, {})
-        if not st.get("tapped") or st.get("invalidated") or st.get("tap_count", 0) >= 2:
+        if not st.get("tapped") or not st.get("in_active_first_tap") or st.get("invalidated"):
             return None
 
         candles_5m = await self.fetch_klines(session, setup["symbol"], "5m", limit=8)
@@ -349,15 +468,28 @@ class HermesMSOBEngine:
 
         last_closed_5m = candles_5m[-2]
         close_p = last_closed_5m["close"]
+        open_p = last_closed_5m["open"]
         ob_top = setup["ob_top"]
         ob_bottom = setup["ob_bottom"]
+        side = setup.get("side", "LONG").upper()
+        sig_type = setup.get("signal_type") or "STRONG_TAP"
 
-        if close_p > ob_top and last_closed_5m["low"] >= ob_bottom * 0.995:
-            return {
-                "pathway": "HERMES_MS_OB_1ST_TAP_5M_BUY",
-                "entry_price": close_p,
-                "candle_time": last_closed_5m["time"],
-            }
+        if side == "LONG":
+            # Confirm holding >= ob_bottom, bullish 5m close (or reclaiming ob_top), and not chasing > +0.5% above ob_top
+            if close_p >= ob_bottom and close_p <= ob_top * 1.005 and (close_p > open_p or close_p >= ob_top):
+                return {
+                    "pathway": f"HERMES_MS_OB_{sig_type}_5M",
+                    "entry_price": close_p,
+                    "candle_time": last_closed_5m["time"],
+                }
+        else:  # SHORT
+            # Confirm holding <= ob_top, bearish 5m close (or rejecting below ob_bottom), and not chasing > 0.5% below ob_bottom
+            if close_p <= ob_top and close_p >= ob_bottom * 0.995 and (close_p < open_p or close_p <= ob_bottom):
+                return {
+                    "pathway": f"HERMES_MS_OB_{sig_type}_5M",
+                    "entry_price": close_p,
+                    "candle_time": last_closed_5m["time"],
+                }
         return None
 
     async def run_scan_cycle(self):
@@ -369,7 +501,7 @@ class HermesMSOBEngine:
             for sym in self.watchlist:
                 tfs = self.gold_timeframes if sym == self.gold_symbol else self.crypto_timeframes
                 for tf in tfs:
-                    candles = await self.fetch_klines(session, sym, tf, limit=120)
+                    candles = await self.fetch_klines(session, sym, tf, limit=300)
                     if not candles:
                         continue
                     setups = self.scan_symbol_order_blocks(sym, tf, candles)
@@ -377,9 +509,12 @@ class HermesMSOBEngine:
 
                     if len(open_pos) < self.max_concurrent_trades and sym not in active_symbols:
                         for setup in setups:
-                            if setup["side"] == "LONG" and setup["is_first_tap"]:
+                            side = setup.get("side", "LONG").upper()
+                            if side == "SHORT" and not self.allow_short:
+                                continue
+                            if setup["is_first_tap"]:
                                 now = time.time()
-                                cd_key = f"{sym}_LONG"
+                                cd_key = f"{sym}_{side}"
                                 if now - self._cooldowns.get(cd_key, 0) > 300:
                                     confirm = await self.check_5m_confirmation(session, setup)
                                     if confirm:
@@ -393,17 +528,18 @@ class HermesMSOBEngine:
 
     async def execute_trade_trigger(self, session: aiohttp.ClientSession, setup: Dict[str, Any], confirm: Dict[str, Any]):
         sym = setup["symbol"]
-        side = "LONG"
+        side = setup.get("side", "LONG").upper()
+        is_long = (side == "LONG")
         ob_key = setup["ob_key"]
 
-        # Re-check permanent 1st-tap lock before opening
+        # Re-check permanent retirement lock before opening
         if is_ob_retired(ob_key):
             return
 
         entry_p = confirm["entry_price"]
         tf = setup["timeframe"].upper()
-        sl_p = round(entry_p * (1.0 - self.hard_sl_price_pct), 6)
-        tp_p = round(entry_p * (1.0 + self.full_tp_price_pct), 6)
+        sl_p = round(entry_p * (1.0 - self.hard_sl_price_pct if is_long else 1.0 + self.hard_sl_price_pct), 6)
+        tp_p = round(entry_p * (1.0 + self.full_tp_price_pct if is_long else 1.0 - self.full_tp_price_pct), 6)
         pos_size = self.margin_per_trade * self.leverage
         sec_id = PAIR_MAPPING.get(sym, (len(get_open_positions()) % 8) + 1)
 
@@ -426,13 +562,15 @@ class HermesMSOBEngine:
             # Immediately retire this OB in SQLite so a 2nd tap or re-entry is impossible forever
             mark_ob_state(ob_key, sym, setup["timeframe"], side, setup["ob_top"], setup["ob_bottom"], "CONSUMED_TRADE", 1)
             self._ob_lifecycle[ob_key] = {"tapped": True, "tap_count": 1, "invalidated": True}
-            self._cooldowns[f"{sym}_LONG"] = time.time()
-            print(f"⚡ [HERMES MS-OB] 1st-Tap BUY/LONG #{pos_id} {sym} ({tf}) @ {entry_p} | SL: {sl_p} | TP: {tp_p} (+15% ROI)")
+            self._cooldowns[f"{sym}_{side}"] = time.time()
+            dir_label = "BUY/LONG" if is_long else "SELL/SHORT"
+            sig_label = "Weak OB >=18% Sweep" if setup.get("category") == "WEAK" else "1st Tap OB Boundary"
+            print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf}) @ {entry_p} | SL: {sl_p} | TP: {tp_p} (+15% ROI)")
             await self.send_telegram_alert(
                 session,
-                f"⚡ <b>HERMES MS-OB BUY/LONG TRIGGER (#{pos_id})</b>\n"
+                f"⚡ <b>HERMES MS-OB {dir_label} TRIGGER (#{pos_id})</b>\n"
                 f"• Pair: <b>{sym}</b> ({tf}) • {setup['model']}\n"
-                f"• Entry (1st Tap + 5m Close): <code>${entry_p}</code>\n"
+                f"• Entry ({sig_label} + 5m Close): <code>${entry_p}</code>\n"
                 f"• Margin: <code>$50 (5%)</code> @ <b>5x Isolated</b> (Size $250)\n"
                 f"• TP (+15% ROI): <code>${tp_p}</code> | Hard SL (-15% ROI): <code>${sl_p}</code>"
             )

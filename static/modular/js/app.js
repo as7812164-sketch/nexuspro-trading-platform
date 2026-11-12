@@ -14,7 +14,7 @@ import { WalletSummary } from './components/wallet_summary.js';
 import { TickerCarousel } from './components/ticker_carousel.js';
 import { PositionCard } from './components/position_card.js';
 import { Watchlist } from './components/watchlist.js';
-import { ChartTerminal } from './components/chart_terminal.js';
+import { ChartTerminal } from './components/chart_terminal.js?v=tv_1to1_v4';
 import { Navigation } from './components/navigation.js';
 
 document.addEventListener('DOMContentLoaded', () => {

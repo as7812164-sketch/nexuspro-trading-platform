@@ -33,12 +33,12 @@ INITIAL_CAPITAL_TOTAL = 1000.0
 STARTING_BALANCE_PER_SECTION = 100.0
 SECTION_RISK_FRACTION = 0.50
 
-# Strategy Parameters: Hermes MS-OB 7-Model Order Block Engine (v2.0 Golden Final)
+# Strategy Parameters: Hermes MS-OB 7-Model Order Block Engine (v2.0 1:1 TradingView Sync)
 STRATEGY_NAME = "HERMES_MS_OB"
-STRATEGY_VERSION = "2.0_GOLDEN_1ST_TAP"
-STRATEGY_MODEL = "7_MODEL_OB_1ST_TAP_BUY_LONG_ONLY"
-ALLOW_SHORT_ENTRIES = False           # Strictly BUY / LONG only per user mandate
-ALLOWED_TRADE_SIDE = "LONG"
+STRATEGY_VERSION = "2.0_TV_1TO1_SYNC"
+STRATEGY_MODEL = "7_MODEL_OB_1ST_TAP_WEAK_SWEEP_BOTH"
+ALLOW_SHORT_ENTRIES = True            # Synchronized 1:1 with TradingView BUY + SELL signals
+ALLOWED_TRADE_SIDE = "BOTH"
 
 # Risk & Return Architecture (15% ROI SL / 15% ROI Full Book TP)
 HARD_SL_PRICE_PCT = 3.0           # 3.0% Price Move
