@@ -6,7 +6,7 @@
 
 import { state } from './core/state.js';
 import { bus } from './core/event_bus.js';
-import { connector } from './core/websocket.js';
+import { connector } from './core/websocket.js?v=tv_1to1_v6';
 
 // Modular Components
 import { HudHeader } from './components/hud_header.js';
@@ -14,7 +14,7 @@ import { WalletSummary } from './components/wallet_summary.js';
 import { TickerCarousel } from './components/ticker_carousel.js';
 import { PositionCard } from './components/position_card.js';
 import { Watchlist } from './components/watchlist.js';
-import { ChartTerminal } from './components/chart_terminal.js?v=tv_1to1_v5';
+import { ChartTerminal } from './components/chart_terminal.js?v=tv_1to1_v6';
 import { Navigation } from './components/navigation.js';
 
 document.addEventListener('DOMContentLoaded', () => {

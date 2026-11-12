@@ -135,19 +135,20 @@ class DataConnector {
     const cleanSym = symbol.toUpperCase().replace('.P', '');
     const cleanTf = tf.toLowerCase();
 
-    // 1. Try backend proxy FIRST (Bypasses Indian telecom DNS/CORS blocks on Binance)
-    // 2. Binance Futures fapi
-    // 3. Binance Spot api
+    // 1. Try backend Futures proxy FIRST (8s timeout so cold starts never wrongly fall back to Spot)
+    // 2. Direct Binance Futures fapi
+    // 3. Binance Spot api fallback
     const urls = [
       `/api/klines/${cleanSym}?interval=${cleanTf}&limit=${limit}`,
-      `https://data-api.binance.vision/api/v3/klines?symbol=${cleanSym}&interval=${cleanTf}&limit=${limit}`,
-      `https://api.binance.com/api/v3/klines?symbol=${cleanSym}&interval=${cleanTf}&limit=${limit}`
+      `https://fapi.binance.com/fapi/v1/klines?symbol=${cleanSym}&interval=${cleanTf}&limit=${limit}`,
+      `https://data-api.binance.vision/api/v3/klines?symbol=${cleanSym}&interval=${cleanTf}&limit=${limit}`
     ];
 
-    for (const url of urls) {
+    for (let uIdx = 0; uIdx < urls.length; uIdx++) {
+      const url = urls[uIdx];
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2500); // 3.5s timeout
+        const timeoutId = setTimeout(() => controller.abort(), uIdx === 0 ? 8000 : 4000);
         const resp = await fetch(url, { signal: controller.signal });
         clearTimeout(timeoutId);
 

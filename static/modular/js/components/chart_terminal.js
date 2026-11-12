@@ -17,7 +17,7 @@
 
 import { bus } from '../core/event_bus.js';
 import { state } from '../core/state.js';
-import { connector } from '../core/websocket.js';
+import { connector } from '../core/websocket.js?v=tv_1to1_v6';
 
 // IST (Indian Standard Time, UTC+5:30) 24-Hour Formatter Functions
 const MONTH_NAMES_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -620,6 +620,7 @@ export class ChartTerminal {
 
         // Compute and render Hermes MS-OB v2.0 GOLDEN Order Blocks Overlay
         this.renderHermesSmcOverlay(liveCandles);
+        requestAnimationFrame(() => this.drawSmcOverlay());
         return;
       }
     } catch (err) {
