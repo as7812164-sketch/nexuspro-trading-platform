@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794499031150,
-  "updated_at_str": "2026-11-12 15:57:11 IST",
+  "updated_at": 1794499333181,
+  "updated_at_str": "2026-11-12 16:02:13 IST",
   "total_trades": 1,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794498994.656716
+      "updated_at": 1794499174.961355
     }
   ],
   "trade_history": [
@@ -209,7 +209,7 @@
       "symbol": "RENDERUSDT",
       "side": "LONG",
       "entry_price": 1.47,
-      "mark_price": 1.493,
+      "mark_price": 1.498,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -217,15 +217,15 @@
       "tp_price": 1.5141,
       "trailing_sl_price": 1.4259,
       "trailing_stage": 0,
-      "unrealized_pnl": 3.911564625850362,
-      "pnl_pct": 7.82,
+      "unrealized_pnl": 4.761904761904766,
+      "pnl_pct": 9.52,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794489303.7970455,
-      "updated_at": 1794499022.4513557,
+      "updated_at": 1794499327.0577247,
       "mae_pct": 5.78,
-      "mfe_pct": 7.82,
+      "mfe_pct": 11.22,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
@@ -3695,6 +3695,39 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 0,
       "updated_at": 1794491122.2038112
+    },
+    {
+      "ob_key": "ETHUSDT_4h_SHORT_1790539200",
+      "symbol": "ETHUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 2702.52,
+      "ob_bottom": 2668.0,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794499202.245637
+    },
+    {
+      "ob_key": "OPUSDT_1h_LONG_1793498400",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.11304,
+      "ob_bottom": 0.11225,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794499223.7454987
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1793455200",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.566,
+      "ob_bottom": 1.557,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794499224.7073169
     }
   ]
 }
