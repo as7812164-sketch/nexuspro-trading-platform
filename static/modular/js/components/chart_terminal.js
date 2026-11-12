@@ -596,7 +596,14 @@ export class ChartTerminal {
         this.rawCandles = liveCandles;
         this.replayIndex = liveCandles.length;
         this.candleSeries.setData(liveCandles);
-        this.chart.timeScale().fitContent();
+        if (liveCandles.length > 130) {
+          this.chart.timeScale().setVisibleLogicalRange({
+            from: liveCandles.length - 125,
+            to: liveCandles.length + 6
+          });
+        } else {
+          this.chart.timeScale().fitContent();
+        }
         this.chart.priceScale('right').applyOptions({ autoScale: true });
 
         const last = liveCandles[liveCandles.length - 1];
@@ -1063,29 +1070,27 @@ export class ChartTerminal {
       // 5. Evaluate Tap / Weak Wick Sweep >=18% / Body-Close Invalidation at bar i
       const rng = curr.high - curr.low;
       for (const ob of rawObList) {
-        if (i <= ob.createIdx || ob.isInvalidated) continue;
+        if (i <= ob.createIdx || ob.isInvalidated || ob.isMitigated) continue;
         if (ob.side === 'BULLISH') {
           if (curr.close < ob.bottom) {
             ob.isInvalidated = true;
             continue;
           }
-          if (!ob.isMitigated) {
-            if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
-              if (curr.low <= ob.top && curr.close >= ob.bottom) {
+          if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
+            if (curr.low <= ob.top && curr.close >= ob.bottom) {
+              ob.isMitigated = true;
+              ob.mitIdx = i;
+              ob.mitTime = curr.time;
+              signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'STRONG_BUY' });
+            }
+          } else if (ob.catName === 'WEAK') {
+            if (curr.low < ob.bottom && curr.close >= ob.bottom && curr.close > curr.open) {
+              const wickPct = rng > 0 ? ((Math.min(curr.open, curr.close) - curr.low) / rng) * 100.0 : 0;
+              if (wickPct >= minWeakWickPct) {
                 ob.isMitigated = true;
                 ob.mitIdx = i;
                 ob.mitTime = curr.time;
-                signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'STRONG_BUY' });
-              }
-            } else if (ob.catName === 'WEAK') {
-              if (curr.low < ob.bottom && curr.close >= ob.bottom && curr.close > curr.open) {
-                const wickPct = rng > 0 ? ((Math.min(curr.open, curr.close) - curr.low) / rng) * 100.0 : 0;
-                if (wickPct >= minWeakWickPct) {
-                  ob.isMitigated = true;
-                  ob.mitIdx = i;
-                  ob.mitTime = curr.time;
-                  signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'WEAK_BUY' });
-                }
+                signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'WEAK_BUY' });
               }
             }
           }
@@ -1094,23 +1099,21 @@ export class ChartTerminal {
             ob.isInvalidated = true;
             continue;
           }
-          if (!ob.isMitigated) {
-            if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
-              if (curr.high >= ob.bottom && curr.close <= ob.top) {
+          if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
+            if (curr.high >= ob.bottom && curr.close <= ob.top) {
+              ob.isMitigated = true;
+              ob.mitIdx = i;
+              ob.mitTime = curr.time;
+              signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'STRONG_SELL' });
+            }
+          } else if (ob.catName === 'WEAK') {
+            if (curr.high > ob.top && curr.close <= ob.top && curr.close < curr.open) {
+              const wickPct = rng > 0 ? ((curr.high - Math.max(curr.open, curr.close)) / rng) * 100.0 : 0;
+              if (wickPct >= minWeakWickPct) {
                 ob.isMitigated = true;
                 ob.mitIdx = i;
                 ob.mitTime = curr.time;
-                signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'STRONG_SELL' });
-              }
-            } else if (ob.catName === 'WEAK') {
-              if (curr.high > ob.top && curr.close <= ob.top && curr.close < curr.open) {
-                const wickPct = rng > 0 ? ((curr.high - Math.max(curr.open, curr.close)) / rng) * 100.0 : 0;
-                if (wickPct >= minWeakWickPct) {
-                  ob.isMitigated = true;
-                  ob.mitIdx = i;
-                  ob.mitTime = curr.time;
-                  signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'WEAK_SELL' });
-                }
+                signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'WEAK_SELL' });
               }
             }
           }
@@ -1125,10 +1128,10 @@ export class ChartTerminal {
       }
     }
 
-    this.currentSmcSignals = signals.slice(-24);
-    this.currentFvgs = fvgs.filter(f => f.filledIdx === null || f.filledIdx >= n - 12).slice(-12);
-    const validObs = rawObList.filter(ob => !ob.isInvalidated && (!ob.isMitigated || (ob.mitIdx !== null && ob.mitIdx >= n - 45)));
-    return validObs.slice(-12);
+    this.currentSmcSignals = signals.slice(-30);
+    this.currentFvgs = fvgs.filter(f => f.filledIdx === null || f.filledIdx >= n - 25).slice(-14);
+    const validObs = rawObList.filter(ob => !ob.isInvalidated);
+    return validObs.slice(-18);
   }
 
   /* ------------------------------------------------------------------------
@@ -1202,7 +1205,7 @@ export class ChartTerminal {
 
     this.smcCtx.clearRect(0, 0, width, height);
     if (!this.smcIndicatorEnabled) return;
-    if (!this.currentOrderBlocks || this.currentOrderBlocks.length === 0) return;
+    if ((!this.currentOrderBlocks || this.currentOrderBlocks.length === 0) && (!this.currentSmcSignals || this.currentSmcSignals.length === 0)) return;
 
     const timeScale = this.chart.timeScale();
     const ctx = this.smcCtx;

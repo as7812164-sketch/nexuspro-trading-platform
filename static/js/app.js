@@ -588,27 +588,25 @@ function computeHermesOrderBlocks(candles) {
         // Evaluate Tap / Weak Wick Sweep >=18% / Body-Close Invalidation at bar i
         const rng = curr.high - curr.low;
         for (const ob of rawObList) {
-            if (i <= ob.createIdx || ob.isInvalidated) continue;
+            if (i <= ob.createIdx || ob.isInvalidated || ob.isMitigated) continue;
             if (ob.side === "BULLISH") {
                 if (curr.close < ob.bottom) {
                     ob.isInvalidated = true;
                     continue;
                 }
-                if (!ob.isMitigated) {
-                    if (ob.catName === "STRONG" || ob.catName === "STRONGEST_COND") {
-                        if (curr.low <= ob.top && curr.close >= ob.bottom) {
+                if (ob.catName === "STRONG" || ob.catName === "STRONGEST_COND") {
+                    if (curr.low <= ob.top && curr.close >= ob.bottom) {
+                        ob.isMitigated = true;
+                        ob.mitIdx = i;
+                        ob.mitTime = curr.time;
+                    }
+                } else if (ob.catName === "WEAK") {
+                    if (curr.low < ob.bottom && curr.close >= ob.bottom && curr.close > curr.open) {
+                        const wickPct = rng > 0 ? ((Math.min(curr.open, curr.close) - curr.low) / rng) * 100.0 : 0;
+                        if (wickPct >= minWeakWickPct) {
                             ob.isMitigated = true;
                             ob.mitIdx = i;
                             ob.mitTime = curr.time;
-                        }
-                    } else if (ob.catName === "WEAK") {
-                        if (curr.low < ob.bottom && curr.close >= ob.bottom && curr.close > curr.open) {
-                            const wickPct = rng > 0 ? ((Math.min(curr.open, curr.close) - curr.low) / rng) * 100.0 : 0;
-                            if (wickPct >= minWeakWickPct) {
-                                ob.isMitigated = true;
-                                ob.mitIdx = i;
-                                ob.mitTime = curr.time;
-                            }
                         }
                     }
                 }
@@ -617,21 +615,19 @@ function computeHermesOrderBlocks(candles) {
                     ob.isInvalidated = true;
                     continue;
                 }
-                if (!ob.isMitigated) {
-                    if (ob.catName === "STRONG" || ob.catName === "STRONGEST_COND") {
-                        if (curr.high >= ob.bottom && curr.close <= ob.top) {
+                if (ob.catName === "STRONG" || ob.catName === "STRONGEST_COND") {
+                    if (curr.high >= ob.bottom && curr.close <= ob.top) {
+                        ob.isMitigated = true;
+                        ob.mitIdx = i;
+                        ob.mitTime = curr.time;
+                    }
+                } else if (ob.catName === "WEAK") {
+                    if (curr.high > ob.top && curr.close <= ob.top && curr.close < curr.open) {
+                        const wickPct = rng > 0 ? ((curr.high - Math.max(curr.open, curr.close)) / rng) * 100.0 : 0;
+                        if (wickPct >= minWeakWickPct) {
                             ob.isMitigated = true;
                             ob.mitIdx = i;
                             ob.mitTime = curr.time;
-                        }
-                    } else if (ob.catName === "WEAK") {
-                        if (curr.high > ob.top && curr.close <= ob.top && curr.close < curr.open) {
-                            const wickPct = rng > 0 ? ((curr.high - Math.max(curr.open, curr.close)) / rng) * 100.0 : 0;
-                            if (wickPct >= minWeakWickPct) {
-                                ob.isMitigated = true;
-                                ob.mitIdx = i;
-                                ob.mitTime = curr.time;
-                            }
                         }
                     }
                 }
@@ -639,9 +635,9 @@ function computeHermesOrderBlocks(candles) {
         }
     }
 
-    // Retain strictly valid non-invalidated Order Blocks (max 12)
-    const validObs = rawObList.filter(ob => !ob.isInvalidated && (!ob.isMitigated || (ob.mitIdx !== null && ob.mitIdx >= n - 45)));
-    detectedHermesOrderBlocks = validObs.slice(-12);
+    // Retain strictly valid non-invalidated Order Blocks (max 15)
+    const validObs = rawObList.filter(ob => !ob.isInvalidated);
+    detectedHermesOrderBlocks = validObs.slice(-15);
     drawHermesOrderBlocks();
 }
 
