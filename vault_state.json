@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794485021002,
-  "updated_at_str": "2026-11-12 12:03:41 IST",
+  "updated_at": 1794485322270,
+  "updated_at_str": "2026-11-12 12:08:42 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794484914.581318
+      "updated_at": 1794485275.2262049
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "PAXGUSDT",
       "side": "LONG",
       "entry_price": 3937.7,
-      "mark_price": 3942.34,
+      "mark_price": 3940.48,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -191,15 +191,15 @@
       "tp_price": 4055.831,
       "trailing_sl_price": 3819.569,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.294588211392458,
-      "pnl_pct": 0.59,
+      "unrealized_pnl": 0.1764989714808264,
+      "pnl_pct": 0.35,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794484909.025084,
-      "updated_at": 1794485016.6188989,
+      "updated_at": 1794485305.118163,
       "mae_pct": 0.0,
-      "mfe_pct": 0.59,
+      "mfe_pct": 0.62,
       "size_usdt": 0.0,
       "timeframe": "4H"
     }
@@ -3526,6 +3526,105 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 1,
       "updated_at": 1794484928.978214
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_SHORT_1794449700",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "SHORT",
+      "ob_top": 3983.98,
+      "ob_bottom": 3978.45,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1794485178.8418188
+    },
+    {
+      "ob_key": "OPUSDT_4h_LONG_1793750400",
+      "symbol": "OPUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.1095,
+      "ob_bottom": 0.1053,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794485183.6240084
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_SHORT_1794132000",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 4058.89,
+      "ob_bottom": 4058.13,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794485215.0182052
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_LONG_1794157200",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 4052.54,
+      "ob_bottom": 4048.83,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794485215.0328283
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_SHORT_1794164400",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 4058.72,
+      "ob_bottom": 4056.42,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794485215.044425
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_LONG_1794182400",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 4098.93,
+      "ob_bottom": 4048.38,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794485215.0579042
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_SHORT_1794200400",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 4114.39,
+      "ob_bottom": 4107.17,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794485215.0705905
+    },
+    {
+      "ob_key": "PAXGUSDT_1h_SHORT_1794204000",
+      "symbol": "PAXGUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 4111.81,
+      "ob_bottom": 4095.2,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794485215.0825803
+    },
+    {
+      "ob_key": "PAXGUSDT_4h_LONG_1794168000",
+      "symbol": "PAXGUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 4064.01,
+      "ob_bottom": 4031.2,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794485215.4221838
     }
   ]
 }
