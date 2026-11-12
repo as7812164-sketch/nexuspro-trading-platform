@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794506274462,
-  "updated_at_str": "2026-11-12 17:57:54 IST",
+  "updated_at": 1794506576045,
+  "updated_at_str": "2026-11-12 18:02:56 IST",
   "total_trades": 2,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794506232.2029204
+      "updated_at": 1794506412.5048885
     }
   ],
   "trade_history": [
@@ -3737,6 +3737,28 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 1,
       "updated_at": 1794499409.3094604
+    },
+    {
+      "ob_key": "ARBUSDT_1h_LONG_1793451600",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.16239,
+      "ob_bottom": 0.1611,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794506411.458619
+    },
+    {
+      "ob_key": "TIAUSDT_1h_LONG_1793444400",
+      "symbol": "TIAUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.475,
+      "ob_bottom": 0.4708,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794506427.606793
     }
   ]
 }
