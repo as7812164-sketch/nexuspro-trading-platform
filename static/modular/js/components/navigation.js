@@ -60,9 +60,9 @@ export class Navigation {
           <span class="nav-label">Positions</span>
         </button>
 
-        <button class="nav-tab ${state.activeView === 'menu' ? 'active' : ''}" data-view="menu">
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-label">Menu</span>
+        <button class="nav-tab ${state.activeView === 'assets' ? 'active' : ''}" data-view="assets">
+          <span class="nav-icon" style="filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));">💼</span>
+          <span class="nav-label" style="${state.activeView === 'assets' ? 'color:#f59e0b; font-weight:800;' : ''}">Assets</span>
         </button>
       </nav>
     `;
@@ -71,10 +71,6 @@ export class Navigation {
     this.el.querySelectorAll('.nav-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         const view = tab.getAttribute('data-view');
-        if (view === 'menu') {
-          alert('NexusPro Institutional Terminal v2.2\nStrategy: Hermes MS-OB v2.0 GOLDEN Exclusive\nMode: BUY / LONG Only • 1st Tap Valid | 2nd Tap Invalidated\nCapital: $1,000 Flat (Zero Compounding)\nMargin: Flat $50 (5%) • 5x Isolated\nArmor: BE Lock +12% -> +2.5% | Hard SL -15% (2x15m) | TP +15%');
-          return;
-        }
         state.setView(view);
       });
     });

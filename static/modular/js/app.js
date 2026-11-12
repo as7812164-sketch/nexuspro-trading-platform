@@ -15,6 +15,7 @@ import { TickerCarousel } from './components/ticker_carousel.js';
 import { PositionCard } from './components/position_card.js';
 import { Watchlist } from './components/watchlist.js';
 import { ChartTerminal } from './components/chart_terminal.js?v=tv_1to1_v7';
+import { AssetsView } from './components/assets_view.js?v=tv_1to1_v8';
 import { Navigation } from './components/navigation.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -48,10 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5. Mount Dedicated Chart Terminal View
   const chartTerminal = new ChartTerminal('#mount-chart-view');
 
-  // 6. Connect Real Data WebSocket Feeds
+  // 6. Mount Dedicated Assets & Institutional Vault View
+  const assetsView = new AssetsView('#mount-assets-view');
+
+  // 7. Connect Real Data WebSocket Feeds
   connector.init();
 
-  // 7. Live Server Positions Synchronization (Every 3 seconds)
+  // 8. Live Server Positions Synchronization (Every 3 seconds)
   const triggerInstantResync = () => {
     state.syncPositionsFromServer();
     if (positionsView && typeof positionsView.fetchTradeHistory === 'function') {
@@ -59,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (dashboardPos && typeof dashboardPos.fetchTradeHistory === 'function') {
       dashboardPos.fetchTradeHistory();
+    }
+    if (assetsView && typeof assetsView.fetchData === 'function') {
+      assetsView.fetchData();
     }
   };
 

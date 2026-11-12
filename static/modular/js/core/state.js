@@ -326,9 +326,9 @@ class StateStore {
 
   // Set Active View
   setView(viewName) {
-    if (['dashboard', 'watchlist', 'chart', 'positions'].includes(viewName)) {
+    if (['dashboard', 'watchlist', 'chart', 'positions', 'assets'].includes(viewName)) {
       this.activeView = viewName;
-      if (viewName === 'positions' || viewName === 'dashboard') {
+      if (viewName === 'positions' || viewName === 'dashboard' || viewName === 'assets') {
         this.syncPositionsFromServer();
       }
       bus.emit('view:changed', viewName);
