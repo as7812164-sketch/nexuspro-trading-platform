@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794550582885,
-  "updated_at_str": "2026-11-13 06:16:22 IST",
+  "updated_at": 1794550884230,
+  "updated_at_str": "2026-11-13 06:21:24 IST",
   "total_trades": 2,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 5,
@@ -85,9 +85,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "status": "IN_TRADE",
+      "active_symbol": "NEARUSDT",
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794550500.2049928
+      "updated_at": 1794550861.4029996
     }
   ],
   "trade_history": [
@@ -234,7 +234,7 @@
       "symbol": "PAXGUSDT",
       "side": "LONG",
       "entry_price": 3899.66,
-      "mark_price": 3888.86,
+      "mark_price": 3891.27,
       "position_size_usdt": 1000.0,
       "margin_usdt": 50.0,
       "leverage": 20,
@@ -242,14 +242,40 @@
       "tp_price": 3928.90745,
       "trailing_sl_price": 3870.41255,
       "trailing_stage": 0,
-      "unrealized_pnl": -2.76947221039776,
-      "pnl_pct": -5.54,
+      "unrealized_pnl": -2.151469615299763,
+      "pnl_pct": -4.3,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794548842.0329242,
-      "updated_at": 1794550566.6427333,
+      "updated_at": 1794550881.7342453,
       "mae_pct": 6.9,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    },
+    {
+      "id": 6,
+      "section_id": 5,
+      "symbol": "NEARUSDT",
+      "side": "SHORT",
+      "entry_price": 3.378,
+      "mark_price": 3.412,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 3.47934,
+      "tp_price": 3.27666,
+      "trailing_sl_price": 3.47934,
+      "trailing_stage": 0,
+      "unrealized_pnl": -2.516281823564225,
+      "pnl_pct": -5.03,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1794550606.2846415,
+      "updated_at": 1794550881.7299871,
+      "mae_pct": 5.03,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
       "timeframe": "1H"
@@ -3918,6 +3944,17 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 0,
       "updated_at": 1794550011.8093698
+    },
+    {
+      "ob_key": "NEARUSDT_1h_SHORT_1794535200",
+      "symbol": "NEARUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 3.454,
+      "ob_bottom": 3.387,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1794550606.294363
     }
   ]
 }
