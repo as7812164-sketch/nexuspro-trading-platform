@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794555711753,
-  "updated_at_str": "2026-11-13 07:41:51 IST",
+  "updated_at": 1794556013698,
+  "updated_at_str": "2026-11-13 07:46:53 IST",
   "total_trades": 3,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "DOGEUSDT",
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "OPUSDT",
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794555558.1272125
+      "updated_at": 1794555918.7863045
     }
   ],
   "trade_history": [
@@ -259,7 +259,7 @@
       "symbol": "PAXGUSDT",
       "side": "LONG",
       "entry_price": 3899.66,
-      "mark_price": 3889.86,
+      "mark_price": 3891.84,
       "position_size_usdt": 1000.0,
       "margin_usdt": 50.0,
       "leverage": 20,
@@ -267,13 +267,13 @@
       "tp_price": 3928.90745,
       "trailing_sl_price": 3870.41255,
       "trailing_stage": 0,
-      "unrealized_pnl": -2.5130395983238865,
-      "pnl_pct": -5.03,
+      "unrealized_pnl": -2.0053030264176135,
+      "pnl_pct": -4.01,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794548842.0329242,
-      "updated_at": 1794555708.266141,
+      "updated_at": 1794556003.9637675,
       "mae_pct": 7.96,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -285,7 +285,7 @@
       "symbol": "SUIUSDT",
       "side": "SHORT",
       "entry_price": 0.7846,
-      "mark_price": 0.7999,
+      "mark_price": 0.7991,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -293,13 +293,13 @@
       "tp_price": 0.761062,
       "trailing_sl_price": 0.808138,
       "trailing_stage": 0,
-      "unrealized_pnl": -4.875095590109639,
-      "pnl_pct": -9.75,
+      "unrealized_pnl": -4.620188631149652,
+      "pnl_pct": -9.24,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794550905.7390547,
-      "updated_at": 1794555708.2604778,
+      "updated_at": 1794556003.9592443,
       "mae_pct": 12.17,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -311,7 +311,7 @@
       "symbol": "AVAXUSDT",
       "side": "SHORT",
       "entry_price": 8.178,
-      "mark_price": 8.323,
+      "mark_price": 8.317,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -319,13 +319,13 @@
       "tp_price": 7.93266,
       "trailing_sl_price": 8.42334,
       "trailing_stage": 0,
-      "unrealized_pnl": -4.432624113475164,
-      "pnl_pct": -8.87,
+      "unrealized_pnl": -4.249205184641701,
+      "pnl_pct": -8.5,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794550975.5369506,
-      "updated_at": 1794555708.255041,
+      "updated_at": 1794556003.9552522,
       "mae_pct": 10.7,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -337,7 +337,7 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.51,
-      "mark_price": 1.519,
+      "mark_price": 1.518,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -345,13 +345,13 @@
       "tp_price": 1.4647,
       "trailing_sl_price": 1.5553,
       "trailing_stage": 0,
-      "unrealized_pnl": -1.4900662251655459,
-      "pnl_pct": -2.98,
+      "unrealized_pnl": -1.3245033112582794,
+      "pnl_pct": -2.65,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794553084.9958162,
-      "updated_at": 1794555708.2496343,
+      "updated_at": 1794556003.9500058,
       "mae_pct": 6.95,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -377,7 +377,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794553321.6159356,
-      "updated_at": 1794555708.2408793,
+      "updated_at": 1794556003.942769,
       "mae_pct": 6.95,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -403,9 +403,9 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794554121.8469586,
-      "updated_at": 1794555708.2304626,
+      "updated_at": 1794556003.9385502,
       "mae_pct": 1.47,
-      "mfe_pct": 1.31,
+      "mfe_pct": 1.39,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
