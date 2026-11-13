@@ -255,6 +255,14 @@ async def get_paper_account():
         },
     }
 
+@app.get("/api/assets/analytics")
+@app.get("/api/paper/assets_analytics")
+async def get_assets_analytics():
+    tickers = await market_feed.get_all_tickers()
+    from database.assets_analytics import get_assets_analytics_payload
+    return get_assets_analytics_payload(tickers)
+
+
 @app.get("/api/deca/sections")
 async def get_deca_sections():
     sections = get_all_sections()
