@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794588911417,
-  "updated_at_str": "2026-11-13 16:55:11 IST",
+  "updated_at": 1794589213611,
+  "updated_at_str": "2026-11-13 17:00:13 IST",
   "total_trades": 10,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "SOLUSDT",
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "DOGEUSDT",
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "OPUSDT",
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794588758.140217
+      "updated_at": 1794589119.231489
     }
   ],
   "trade_history": [
@@ -448,7 +448,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794553084.9958162,
-      "updated_at": 1794588910.751646,
+      "updated_at": 1794589199.8536663,
       "mae_pct": 15.89,
       "mfe_pct": 2.98,
       "size_usdt": 0.0,
@@ -474,7 +474,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794553321.6159356,
-      "updated_at": 1794588910.5969527,
+      "updated_at": 1794589199.8457587,
       "mae_pct": 14.97,
       "mfe_pct": 5.35,
       "size_usdt": 0.0,
@@ -500,7 +500,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794554121.8469586,
-      "updated_at": 1794588910.4532027,
+      "updated_at": 1794589199.8378167,
       "mae_pct": 13.97,
       "mfe_pct": 3.94,
       "size_usdt": 0.0,
@@ -526,7 +526,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794576625.4304478,
-      "updated_at": 1794588910.1868513,
+      "updated_at": 1794589199.8292742,
       "mae_pct": 9.59,
       "mfe_pct": 11.57,
       "size_usdt": 0.0,
@@ -552,7 +552,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794583142.8354712,
-      "updated_at": 1794588910.1019769,
+      "updated_at": 1794589199.7920635,
       "mae_pct": 9.1,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -4508,6 +4508,17 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 1,
       "updated_at": 1794588311.1376445
+    },
+    {
+      "ob_key": "SOLUSDT_1h_LONG_1794546000",
+      "symbol": "SOLUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 78.962,
+      "ob_bottom": 77.984,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1794589201.6742613
     }
   ]
 }
