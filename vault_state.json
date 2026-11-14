@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794649574874,
-  "updated_at_str": "2026-11-14 09:46:14 IST",
+  "updated_at": 1794649876282,
+  "updated_at_str": "2026-11-14 09:51:16 IST",
   "total_trades": 14,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 66.7,
       "status": "IN_TRADE",
       "active_symbol": "AVAXUSDT",
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "NEARUSDT",
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "FETUSDT",
-      "updated_at": 1794649566.89303
+      "updated_at": 1794649747.4346178
     }
   ],
   "trade_history": [
@@ -534,7 +534,7 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.51,
-      "mark_price": 1.49,
+      "mark_price": 1.495,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -542,13 +542,13 @@
       "tp_price": 1.4647,
       "trailing_sl_price": 1.5553,
       "trailing_stage": 0,
-      "unrealized_pnl": 3.3112582781456985,
-      "pnl_pct": 6.62,
+      "unrealized_pnl": 2.483443708609255,
+      "pnl_pct": 4.97,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794553084.9958162,
-      "updated_at": 1794649557.3691323,
+      "updated_at": 1794649872.0638068,
       "mae_pct": 15.89,
       "mfe_pct": 10.26,
       "size_usdt": 0.0,
@@ -560,7 +560,7 @@
       "symbol": "AVAXUSDT",
       "side": "LONG",
       "entry_price": 8.158,
-      "mark_price": 8.038,
+      "mark_price": 8.074,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -568,13 +568,13 @@
       "tp_price": 8.40274,
       "trailing_sl_price": 7.91326,
       "trailing_stage": 0,
-      "unrealized_pnl": -3.6773719048786226,
-      "pnl_pct": -7.35,
+      "unrealized_pnl": -2.5741603334150414,
+      "pnl_pct": -5.15,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794622355.036911,
-      "updated_at": 1794649557.358603,
+      "updated_at": 1794649872.0554276,
       "mae_pct": 11.58,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -600,7 +600,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794622917.1887398,
-      "updated_at": 1794649557.3470452,
+      "updated_at": 1794649872.0473304,
       "mae_pct": 8.85,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
@@ -612,7 +612,7 @@
       "symbol": "FETUSDT",
       "side": "LONG",
       "entry_price": 0.1432,
-      "mark_price": 0.141,
+      "mark_price": 0.1419,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -620,13 +620,13 @@
       "tp_price": 0.147496,
       "trailing_sl_price": 0.138904,
       "trailing_stage": 0,
-      "unrealized_pnl": -3.8407821229050407,
-      "pnl_pct": -7.68,
+      "unrealized_pnl": -2.2695530726256905,
+      "pnl_pct": -4.54,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794623406.8984847,
-      "updated_at": 1794649557.338511,
+      "updated_at": 1794649872.0390267,
       "mae_pct": 13.27,
       "mfe_pct": 8.38,
       "size_usdt": 0.0,
@@ -638,7 +638,7 @@
       "symbol": "SUIUSDT",
       "side": "LONG",
       "entry_price": 0.78,
-      "mark_price": 0.7731,
+      "mark_price": 0.7775,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -646,13 +646,13 @@
       "tp_price": 0.8034,
       "trailing_sl_price": 0.7566,
       "trailing_stage": 0,
-      "unrealized_pnl": -2.211538461538467,
-      "pnl_pct": -4.42,
+      "unrealized_pnl": -0.8012820512820698,
+      "pnl_pct": -1.6,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794623705.8901243,
-      "updated_at": 1794649557.3297765,
+      "updated_at": 1794649872.0300994,
       "mae_pct": 9.04,
       "mfe_pct": 3.4,
       "size_usdt": 0.0,
@@ -664,7 +664,7 @@
       "symbol": "NEARUSDT",
       "side": "LONG",
       "entry_price": 3.363,
-      "mark_price": 3.333,
+      "mark_price": 3.355,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -672,13 +672,13 @@
       "tp_price": 3.46389,
       "trailing_sl_price": 3.26211,
       "trailing_stage": 0,
-      "unrealized_pnl": -2.2301516503122065,
-      "pnl_pct": -4.46,
+      "unrealized_pnl": -0.5947071067499261,
+      "pnl_pct": -1.19,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794627905.9400148,
-      "updated_at": 1794649557.24318,
+      "updated_at": 1794649871.9420652,
       "mae_pct": 9.22,
       "mfe_pct": 5.95,
       "size_usdt": 0.0,
