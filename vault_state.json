@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1794798342795,
-  "updated_at_str": "2026-11-16 03:05:42 IST",
+  "updated_at": 1794798644340,
+  "updated_at_str": "2026-11-16 03:10:44 IST",
   "total_trades": 26,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "PAXGUSDT",
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "SOLUSDT",
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "SUIUSDT",
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 33.3,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1794798229.3052452
+      "updated_at": 1794798589.8854861
     }
   ],
   "trade_history": [
@@ -848,7 +848,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794711682.0085957,
-      "updated_at": 1794798332.7301283,
+      "updated_at": 1794798635.2049453,
       "mae_pct": 14.69,
       "mfe_pct": 7.1,
       "size_usdt": 0.0,
@@ -874,7 +874,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794711698.2801118,
-      "updated_at": 1794798332.713138,
+      "updated_at": 1794798635.200209,
       "mae_pct": 13.53,
       "mfe_pct": 12.69,
       "size_usdt": 0.0,
@@ -900,7 +900,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794733810.8565485,
-      "updated_at": 1794798332.7032306,
+      "updated_at": 1794798635.195814,
       "mae_pct": 4.79,
       "mfe_pct": 9.58,
       "size_usdt": 0.0,
@@ -926,7 +926,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794753679.979598,
-      "updated_at": 1794798332.6952927,
+      "updated_at": 1794798635.1905057,
       "mae_pct": 5.59,
       "mfe_pct": 10.92,
       "size_usdt": 0.0,
@@ -952,7 +952,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1794789150.086098,
-      "updated_at": 1794798332.6872525,
+      "updated_at": 1794798635.1864064,
       "mae_pct": 12.11,
       "mfe_pct": 3.86,
       "size_usdt": 0.0,
@@ -5667,6 +5667,39 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 0,
       "updated_at": 1794798006.59101
+    },
+    {
+      "ob_key": "OPUSDT_1h_SHORT_1794456000",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.0969,
+      "ob_bottom": 0.0963,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1794798393.9191017
+    },
+    {
+      "ob_key": "ARBUSDT_1h_SHORT_1794481200",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.14861,
+      "ob_bottom": 0.14723,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1794798394.5842311
+    },
+    {
+      "ob_key": "PAXGUSDT_15m_SHORT_1794716100",
+      "symbol": "PAXGUSDT",
+      "timeframe": "15m",
+      "side": "SHORT",
+      "ob_top": 3830.99,
+      "ob_bottom": 3827.47,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1794798425.7710419
     }
   ]
 }
