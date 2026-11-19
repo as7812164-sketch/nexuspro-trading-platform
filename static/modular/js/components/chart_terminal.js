@@ -300,10 +300,7 @@ export class ChartTerminal {
               <span>BTCUSD</span>
               <span class="quick-pair-tf">1h</span>
             </div>
-            <div class="quick-pair-item ${symbol === 'PAXGUSDT' ? 'active' : ''}" data-quick-sym="PAXGUSDT" data-quick-tf="15m">
-              <span>GOLD</span>
-              <span class="quick-pair-tf">15m</span>
-            </div>
+            
             <div class="quick-pair-item ${symbol === 'ETHUSDT' ? 'active' : ''}" data-quick-sym="ETHUSDT" data-quick-tf="1h">
               <span>ETHUSD</span>
               <span class="quick-pair-tf">1h</span>

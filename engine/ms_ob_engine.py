@@ -61,11 +61,11 @@ class HermesMSOBEngine:
         self.allow_short = ALLOW_SHORT_ENTRIES  # True -> 1:1 TradingView BUY + SELL signals
 
         self.crypto_timeframes = ["1h", "4h"]
-        self.gold_timeframes = ["15m", "1h", "4h"]
-        self.gold_symbol = "PAXGUSDT"
+        self.gold_timeframes = []
+        self.gold_symbol = None
 
         self.watchlist = [
-            "BTCUSDT", "ETHUSDT", "PAXGUSDT", "SOLUSDT", "BNBUSDT",
+            "BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT",
             "AVAXUSDT", "DOGEUSDT", "NEARUSDT", "SUIUSDT", "TIAUSDT",
             "OPUSDT", "ARBUSDT", "RENDERUSDT", "FETUSDT"
         ]

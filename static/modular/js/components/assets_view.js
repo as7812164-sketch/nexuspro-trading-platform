@@ -7,7 +7,7 @@
  * Features:
  * 1. Overview Tab: Live Valuation, Today's Real PnL, Dynamic Catmull-Rom Equity Curve
  *    with interactive Touch-Drag Scrubber, Margin Utilization & Live Active Asset Cards.
- * 2. Futures Tab: Real Isolated Safety Score & 4-Track Real Leverage Allocation (PAXG 20x, BTC 10x, ETH 10x, Alts 5x).
+ * 2. Futures Tab: Real Isolated Safety Score & 4-Track Real Leverage Allocation (BTC 10x, ETH 10x, Alts 5x).
  * 3. PnL Calendar Tab: Real Monthly Heat Matrix, Authentic Win Rate & Profit Factor,
  *    Tap-to-Inspect Trade Autopsies, and Per-Symbol Leverage Breakdown.
  */
@@ -150,7 +150,7 @@ export class AssetsView {
         cells: []
       },
       tracks: [
-        { id: 'gold', name: 'Gold Track (PAXGUSDT)', symbol: 'PAXGUSDT', icon: '🥇', leverage: 20, closed_trades: 0, wins: 0, losses: 0, net_pnl: 0.0, active_position: null },
+        { id: 'sol', name: 'Solana High-Beta (SOLUSDT)', symbol: 'SOLUSDT', icon: '◎', leverage: 5, closed_trades: 0, wins: 0, losses: 0, net_pnl: 0.0, active_position: null },
         { id: 'btc', name: 'Bitcoin Macro (BTCUSDT)', symbol: 'BTCUSDT', icon: '₿', leverage: 10, closed_trades: 0, wins: 0, losses: 0, net_pnl: 0.0, active_position: null },
         { id: 'eth', name: 'Ethereum Momentum (ETHUSDT)', symbol: 'ETHUSDT', icon: '🔷', leverage: 10, closed_trades: 0, wins: 0, losses: 0, net_pnl: 0.0, active_position: null },
         { id: 'altcoins', name: 'Altcoins Basket (5x Radar)', symbol: 'ALTCOINS', icon: '⚡', leverage: 5, closed_trades: 0, wins: 0, losses: 0, net_pnl: 0.0, active_position: null }

@@ -10,7 +10,7 @@ import { state } from '../core/state.js';
 export class TickerCarousel {
   constructor(mountSelector) {
     this.el = document.querySelector(mountSelector);
-    this.keyCoins = ['BTCUSDT', 'ETHUSDT', 'PAXGUSDT', 'SOLUSDT', 'AVAXUSDT', 'DOGEUSDT', 'NEARUSDT', 'SUIUSDT', 'RENDERUSDT'];
+    this.keyCoins = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'AVAXUSDT', 'DOGEUSDT', 'NEARUSDT', 'SUIUSDT', 'RENDERUSDT'];
     this.init();
   }
 

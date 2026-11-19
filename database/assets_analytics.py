@@ -313,13 +313,13 @@ def get_assets_analytics_payload(tickers: Optional[Dict[str, Any]] = None) -> Di
 
     # 7. Real Per-Symbol & 4-Track Leverage Breakdown
     tracks = {
-        "gold": {
-            "id": "gold",
-            "name": "Gold Track (PAXGUSDT)",
-            "symbol": "PAXGUSDT",
-            "icon": "🥇",
-            "color": "#F59E0B",
-            "leverage": 20,
+        "sol": {
+            "id": "sol",
+            "name": "Solana High-Beta (SOLUSDT)",
+            "symbol": "SOLUSDT",
+            "icon": "◎",
+            "color": "#14f195",
+            "leverage": 5,
             "closed_trades": 0,
             "wins": 0,
             "losses": 0,

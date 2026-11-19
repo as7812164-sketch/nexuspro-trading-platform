@@ -29,7 +29,6 @@ DEFAULT_LEVERAGE = 5              # 5x Isolated Leverage (default altcoins)
 SYMBOL_LEVERAGE_OVERRIDES = {
     "BTCUSDT": 10,                # Bitcoin: 10x Isolated | +15% ROI TP (+1.5% price)
     "ETHUSDT": 10,                # Ethereum: 10x Isolated | +15% ROI TP (+1.5% price)
-    "PAXGUSDT": 20,               # Gold (PAXG): 20x Isolated | +15% ROI TP (+0.75% price)
 }
 POSITION_SIZE_USDT = 250.0        # $50 * 5x default ($500 on 10x, $1000 on 20x)
 
@@ -70,8 +69,7 @@ NEXUS_TELEGRAM_BOT_TOKEN = "8685685362:AAFWkKvRIs6cJ70gegcJVFyKB5soDtEttbU"
 NEXUS_TELEGRAM_CHAT_ID = "752247227"
 
 PAIR_MAPPING = {
-    "BTCUSDT": 1, "ETHUSDT": 1, "PAXGUSDT": 1,
-    "SOLUSDT": 2, "BNBUSDT": 2, "SEIUSDT": 2,
+    "BTCUSDT": 1, "ETHUSDT": 1, "SOLUSDT": 2, "BNBUSDT": 2, "SEIUSDT": 2,
     "AVAXUSDT": 3, "DOGEUSDT": 3, "KAVAUSDT": 3,
     "DOTUSDT": 4, "LINKUSDT": 4, "ENSUSDT": 4,
     "LTCUSDT": 5, "NEARUSDT": 5, "DYDXUSDT": 5,
@@ -98,3 +96,6 @@ TRAILING_TIER_1_LOCK_ROI = 2.5
 TRAILING_STEP_ROI = 0.0
 TRAILING_BUFFER_ROI = 0.0
 DEFAULT_RRR = 1.0
+
+# Banned Symbols (Permanently excluded from scanning & trading per user mandate)
+BANNED_SYMBOLS = ["PAXGUSDT", "PAXG", "XAUUSDT", "GOLD"]

@@ -234,7 +234,6 @@ class StateStore {
   loadWatchlist() {
     const default22 = [
       { symbol: 'BTCUSDT', name: 'BTCUSD', subName: 'Bitcoin / U.S. Dollar', icon: '₿', iconBg: '#f7931a', price: 77500.0, changeAbs: 890.0, changePct: 1.15, hasRedFlag: false, precision: 1 },
-      { symbol: 'PAXGUSDT', name: 'PAXGUSDT', subName: 'Gold Tokenized / TetherUS', icon: '🥇', iconBg: '#d97706', price: 2920.0, changeAbs: 18.0, changePct: 0.62, hasRedFlag: false, precision: 2 },
       { symbol: 'ETHUSDT', name: 'ETHUSDT', subName: 'Ethereum / TetherUS', icon: 'Ξ', iconBg: '#627eea', price: 2310.0, changeAbs: 42.0, changePct: 1.85, hasRedFlag: false, precision: 2 },
       { symbol: 'ARBUSDT', name: 'ARBUSDT', subName: 'Arbitrum / TetherUS', icon: '◈', iconBg: '#2563eb', price: 0.42, changeAbs: 0.01, changePct: 2.10, hasRedFlag: false, precision: 4 },
       { symbol: 'SOLUSDT', name: 'SOLUSDT', subName: 'Solana / TetherUS', icon: '◎', iconBg: '#14f195', price: 142.50, changeAbs: 3.20, changePct: 2.30, hasRedFlag: false, precision: 2 },
