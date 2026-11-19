@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795113269596,
-  "updated_at_str": "2026-11-19 18:34:29 IST",
+  "updated_at": 1795113571364,
+  "updated_at_str": "2026-11-19 18:39:31 IST",
   "total_trades": 52,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 7,
@@ -119,9 +119,9 @@
       "win_count": 2,
       "loss_count": 3,
       "win_rate": 40.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "status": "IN_TRADE",
+      "active_symbol": "TIAUSDT",
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795113192.694951
+      "updated_at": 1795113553.3033721
     }
   ],
   "trade_history": [
@@ -1477,7 +1477,34 @@
       "timeframe": "1H"
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 5,
+      "section_id": 7,
+      "symbol": "TIAUSDT",
+      "side": "SHORT",
+      "entry_price": 0.3458,
+      "mark_price": 0.3469,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 0.356174,
+      "tp_price": 0.335426,
+      "trailing_sl_price": 0.356174,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.7952573742047353,
+      "pnl_pct": -1.59,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795113472.5291262,
+      "updated_at": 1795113568.2885141,
+      "mae_pct": 1.88,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "mitigated_order_blocks": [
     {
       "ob_key": "ETHUSDT_4h_LONG_1790640000",
@@ -7847,6 +7874,17 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 1,
       "updated_at": 1795111630.926816
+    },
+    {
+      "ob_key": "TIAUSDT_1h_SHORT_1795096800",
+      "symbol": "TIAUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.3527,
+      "ob_bottom": 0.3467,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795113472.5372522
     }
   ]
 }
