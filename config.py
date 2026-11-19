@@ -12,6 +12,11 @@ Engine: Hermes MS-OB 7-Model Order Block Execution Engine (v2.0 Golden Final)
 
 import os
 from pathlib import Path
+from datetime import datetime, timezone, timedelta
+
+def get_ist_now() -> datetime:
+    ist_tz = timezone(timedelta(hours=5, minutes=30))
+    return datetime.now(ist_tz)
 
 BASE_DIR = Path(__file__).resolve().parent
 

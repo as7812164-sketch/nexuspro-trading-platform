@@ -46,6 +46,21 @@ from database.db import (
     mark_ob_state
 )
 from engine.feed import market_feed
+from engine.chart_image_generator import render_smc_chart_image
+
+def format_price(p: float) -> str:
+    try:
+        p = float(p)
+        if p >= 1000:
+            return f"{p:,.2f}"
+        elif p >= 10:
+            return f"{p:,.2f}"
+        elif p >= 1:
+            return f"{p:,.4f}"
+        else:
+            return f"{p:,.6f}"
+    except Exception:
+        return str(p)
 
 
 class HermesMSOBEngine:
@@ -87,6 +102,29 @@ class HermesMSOBEngine:
             )
         except Exception:
             pass
+
+    async def send_telegram_photo(self, session: aiohttp.ClientSession, photo_bytes: bytes, caption: str):
+        if not NEXUS_TELEGRAM_BOT_TOKEN or not NEXUS_TELEGRAM_CHAT_ID:
+            return
+        try:
+            url = f"https://api.telegram.org/bot{NEXUS_TELEGRAM_BOT_TOKEN}/sendPhoto"
+            form = aiohttp.FormData()
+            form.add_field("chat_id", str(NEXUS_TELEGRAM_CHAT_ID))
+            form.add_field("photo", photo_bytes, filename="trade_chart.png", content_type="image/png")
+            form.add_field("caption", caption)
+            form.add_field("parse_mode", "HTML")
+            async with session.post(
+                url,
+                data=form,
+                timeout=aiohttp.ClientTimeout(total=15),
+            ) as resp:
+                if resp.status != 200:
+                    text_err = await resp.text()
+                    print(f"⚠️ Telegram sendPhoto returned {resp.status}: {text_err}")
+                    await self.send_telegram_alert(session, caption)
+        except Exception as e:
+            print(f"⚠️ Telegram sendPhoto exception: {e}, falling back to sendMessage")
+            await self.send_telegram_alert(session, caption)
 
     async def fetch_klines(self, session: aiohttp.ClientSession, symbol: str, interval: str, limit: int = 120) -> List[Dict[str, Any]]:
         try:
@@ -576,16 +614,36 @@ class HermesMSOBEngine:
             self._ob_lifecycle[ob_key] = {"tapped": True, "tap_count": 1, "invalidated": True}
             self._cooldowns[f"{sym}_{side}"] = time.time()
             dir_label = "BUY/LONG" if is_long else "SELL/SHORT"
-            sig_label = "Weak OB >=18% Sweep" if setup.get("category") == "WEAK" else "1st Tap OB Boundary"
+            sig_label = "Sweep + 5m" if setup.get("category") == "WEAK" else "1st Tap + 5m"
+            icon = "🟢" if is_long else "🔴"
             print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf}) @ {entry_p} | {lev}x | SL: {sl_p} | TP: {tp_p} (+15% ROI)")
-            await self.send_telegram_alert(
-                session,
-                f"⚡ <b>HERMES MS-OB {dir_label} TRIGGER (#{pos_id})</b>\n"
-                f"• Pair: <b>{sym}</b> ({tf}) • {setup['model']}\n"
-                f"• Entry ({sig_label} + 5m Close): <code>${entry_p}</code>\n"
-                f"• Margin: <code>$50 (5%)</code> @ <b>{lev}x Isolated</b> (Size ${int(pos_size)})\n"
-                f"• TP (+15% ROI): <code>${tp_p}</code> | Hard SL (-15% ROI): <code>${sl_p}</code>"
+
+            # Style 4 (Preformatted Monospace Card Box)
+            caption = (
+                f"<pre>{icon} {sym} ({tf}) • {dir_label} (#{pos_id})\n"
+                f"─────────────────────────────────\n"
+                f"ENTRY : ${format_price(entry_p)} ({sig_label})\n"
+                f"TP 🎯 : ${format_price(tp_p)} (+15.0% ROI)\n"
+                f"SL 🛑 : ${format_price(sl_p)} (-15.0% ROI)</pre>"
             )
+
+            # Generate institutional live chart image with Order Block & First Tap arrow
+            try:
+                candles = await self.fetch_klines(session, sym, setup.get("timeframe", "1h").lower(), limit=120)
+                chart_zone = {
+                    "side": side,
+                    "entry_price": entry_p,
+                    "tp_price": tp_p,
+                    "hard_sl_price": sl_p,
+                    "ob_top": setup.get("ob_top", entry_p * 1.005),
+                    "ob_bottom": setup.get("ob_bottom", entry_p * 0.995),
+                    "leverage": lev
+                }
+                chart_bytes = render_smc_chart_image(sym, candles, chart_zone, timeframe=tf)
+                await self.send_telegram_photo(session, chart_bytes, caption)
+            except Exception as chart_err:
+                print(f"⚠️ Failed to generate/send chart photo: {chart_err}")
+                await self.send_telegram_alert(session, caption)
         except Exception as e:
             print(f"❌ Trade execution error for {sym}: {e}")
 
@@ -631,6 +689,14 @@ class HermesMSOBEngine:
                     realized = round(margin * (FULL_BOOK_TP_ROI_PCT / 100.0), 2)
                     close_position_in_db(pos_id, tp_p, realized, "FULL_BOOK_TP_HIT (+15% ROI)")
                     print(f"🎯 [HERMES MS-OB] Full TP Hit (+15% ROI): #{pos_id} {sym} ({lev}x) @ {tp_p}")
+                    exit_msg = (
+                        f"<pre>🎯 {sym} ({pos.get('timeframe', '1H')}) • TP HIT (#{pos_id})\n"
+                        f"─────────────────────────────────\n"
+                        f"EXIT   : ${format_price(tp_p)} (+15.0% ROI)\n"
+                        f"PROFIT : +${realized:.2f} USDT 🟢\n"
+                        f"STATUS : TARGET ACHIEVED 🎯</pre>"
+                    )
+                    await self.send_telegram_alert(session, exit_msg)
                     continue
 
                 # 2. BREAK-EVEN SHIELD (+12.0% ROI -> LOCK +2.5% ROI)
@@ -652,6 +718,14 @@ class HermesMSOBEngine:
                         realized = round(margin * (self.be_lock_roi / 100.0), 2)
                         close_position_in_db(pos_id, trailing_sl_p, realized, "BREAKEVEN_PROFIT_LOCKED (+2.5% ROI)")
                         print(f"🛡️ [HERMES MS-OB] BE Exit (+2.5% ROI): #{pos_id} {sym} ({lev}x) @ {trailing_sl_p}")
+                        exit_msg = (
+                            f"<pre>🛡️ {sym} ({pos.get('timeframe', '1H')}) • BE EXIT (#{pos_id})\n"
+                            f"─────────────────────────────────\n"
+                            f"EXIT   : ${format_price(trailing_sl_p)} (+2.5% ROI)\n"
+                            f"PROFIT : +${realized:.2f} USDT 🛡️\n"
+                            f"STATUS : CAPITAL PROTECTED</pre>"
+                        )
+                        await self.send_telegram_alert(session, exit_msg)
                         continue
 
                 # 4. HARD STOP LOSS (-15.0% ROI WITH 2x 15m CLOSE GUARD)
@@ -672,6 +746,14 @@ class HermesMSOBEngine:
                                 realized = round(margin * (-HARD_SL_ROI_PCT / 100.0), 2)
                                 close_position_in_db(pos_id, curr_price, realized, "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)")
                                 print(f"🛑 [HERMES MS-OB] Hard SL Hit (-15% ROI): #{pos_id} {sym} ({lev}x) @ {curr_price}")
+                                exit_msg = (
+                                    f"<pre>🛑 {sym} ({pos.get('timeframe', '1H')}) • SL HIT (#{pos_id})\n"
+                                    f"─────────────────────────────────\n"
+                                    f"EXIT   : ${format_price(curr_price)} (-15.0% ROI)\n"
+                                    f"LOSS   : -${abs(realized):.2f} USDT 🛑\n"
+                                    f"STATUS : 2x15m SL DEFENSE</pre>"
+                                )
+                                await self.send_telegram_alert(session, exit_msg)
                                 continue
 
                 update_position_mark_price(pos_id, curr_price, u_pnl, round(roe_pct, 2), sl_p, stage)
