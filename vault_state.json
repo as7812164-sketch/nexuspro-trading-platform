@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795188618407,
-  "updated_at_str": "2026-11-20 15:30:18 IST",
+  "updated_at": 1795188733498,
+  "updated_at_str": "2026-11-20 15:32:13 IST",
   "total_trades": 57,
   "sections": [
     {
@@ -34,9 +34,9 @@
       "win_count": 3,
       "loss_count": 0,
       "win_rate": 100.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1795188618.3906367
+      "status": "IN_TRADE",
+      "active_symbol": "SOLUSDT",
+      "updated_at": 1795188622.9840329
     },
     {
       "id": 3,
@@ -1602,7 +1602,34 @@
       "timeframe": "1H"
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 10,
+      "section_id": 2,
+      "symbol": "SOLUSDT",
+      "side": "LONG",
+      "entry_price": 69.13,
+      "mark_price": 68.89,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 67.0561,
+      "tp_price": 71.2039,
+      "trailing_sl_price": 67.0561,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.8679299869810319,
+      "pnl_pct": -1.74,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795188622.975417,
+      "updated_at": 1795188721.314878,
+      "mae_pct": 2.39,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "mitigated_order_blocks": [
     {
       "ob_key": "ETHUSDT_4h_LONG_1790640000",
@@ -8093,6 +8120,17 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 1,
       "updated_at": 1795176003.5143828
+    },
+    {
+      "ob_key": "SOLUSDT_1h_LONG_1794704400",
+      "symbol": "SOLUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 69.44,
+      "ob_bottom": 67.35,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795188622.9919014
     }
   ]
 }
