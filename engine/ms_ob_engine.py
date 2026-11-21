@@ -186,7 +186,6 @@ class HermesMSOBEngine:
         swing_len = 5
         min_disp_mult = 1.2
         min_fvg_mult = 0.15
-        min_weak_wick_pct = 18.0
 
         last_sh_price = None
         last_sl_price = None
@@ -360,35 +359,21 @@ class HermesMSOBEngine:
                         ob["inv"] = True
                         continue
                     if not ob["mit"]:
-                        if ob["category"] in ("STRONG", "STRONGEST_COND"):
-                            if curr["low"] <= ob["top"] and curr["close"] >= ob["bottom"]:
-                                ob["mit"] = True
-                                ob["first_tap_idx"] = i
-                                ob["signal_type"] = "STRONG_TAP_BUY"
-                        elif ob["category"] == "WEAK":
-                            if curr["low"] < ob["bottom"] and curr["close"] >= ob["bottom"] and curr["close"] > curr["open"]:
-                                lower_wick_pct = ((min(curr["open"], curr["close"]) - curr["low"]) / rng * 100.0) if rng > 0 else 0.0
-                                if lower_wick_pct >= min_weak_wick_pct:
-                                    ob["mit"] = True
-                                    ob["first_tap_idx"] = i
-                                    ob["signal_type"] = "WEAK_SWEEP_BUY"
+                        # Pure First Tap: low touches OB top boundary while holding above bottom
+                        if curr["low"] <= ob["top"] and curr["close"] >= ob["bottom"]:
+                            ob["mit"] = True
+                            ob["first_tap_idx"] = i
+                            ob["signal_type"] = "1ST_TAP_BUY"
                 else:  # SHORT
                     if curr["close"] > ob["top"]:
                         ob["inv"] = True
                         continue
                     if not ob["mit"]:
-                        if ob["category"] in ("STRONG", "STRONGEST_COND"):
-                            if curr["high"] >= ob["bottom"] and curr["close"] <= ob["top"]:
-                                ob["mit"] = True
-                                ob["first_tap_idx"] = i
-                                ob["signal_type"] = "STRONG_TAP_SELL"
-                        elif ob["category"] == "WEAK":
-                            if curr["high"] > ob["top"] and curr["close"] <= ob["top"] and curr["close"] < curr["open"]:
-                                upper_wick_pct = ((curr["high"] - max(curr["open"], curr["close"])) / rng * 100.0) if rng > 0 else 0.0
-                                if upper_wick_pct >= min_weak_wick_pct:
-                                    ob["mit"] = True
-                                    ob["first_tap_idx"] = i
-                                    ob["signal_type"] = "WEAK_SWEEP_SELL"
+                        # Pure First Tap: high touches OB bottom boundary while holding below top
+                        if curr["high"] >= ob["bottom"] and curr["close"] <= ob["top"]:
+                            ob["mit"] = True
+                            ob["first_tap_idx"] = i
+                            ob["signal_type"] = "1ST_TAP_SELL"
 
             # Trim invalidated/old mitigated zones (keep up to 40 active)
             if len(active_obs) > 40:
@@ -412,13 +397,10 @@ class HermesMSOBEngine:
                 mark_ob_state(ob_key, symbol, timeframe, side, ob_top, ob_bottom, "INVALIDATED_CLOSE", 1 if ob["mit"] else 0)
                 continue
 
-            # Retire historical mitigated OBs older than the active bar window (>1 closed bar ago) -> ZERO 28h stale triggers!
+            # Retire historical mitigated OBs older than the active bar window (>1 closed bar ago)
             if ob["mit"]:
                 tap_idx = ob["first_tap_idx"]
-                is_strong_active = ob["category"] in ("STRONG", "STRONGEST_COND") and tap_idx is not None and tap_idx >= n - 2
-                # Weak sweeps require confirmed HTF close (n - 2) so intrabar wick never fakes before close
-                is_weak_active = ob["category"] == "WEAK" and tap_idx is not None and tap_idx == n - 2
-                in_active_signal = is_strong_active or is_weak_active
+                in_active_signal = (tap_idx is not None and tap_idx >= n - 2)
 
                 if not in_active_signal and (tap_idx is None or tap_idx < n - 2):
                     self._ob_lifecycle[ob_key] = {"tapped": True, "tap_count": 1, "invalidated": True}
@@ -427,13 +409,7 @@ class HermesMSOBEngine:
             else:
                 in_active_signal = False
 
-            # Weak OB intrabar sweep still forming on n-1 (tap_idx == n-1) isn't eligible for entry until HTF closes
-            if ob["category"] == "WEAK" and ob["mit"] and ob["first_tap_idx"] == n - 1:
-                status = "WEAK_SWEEP_FORMING"
-            elif in_active_signal:
-                status = "WEAK_SWEEP_WAITING_5M" if ob["category"] == "WEAK" else "FIRST_TAP_WAITING_5M"
-            else:
-                status = "WAITING_WEAK_SWEEP" if ob["category"] == "WEAK" else "WAITING_1ST_TAP"
+            status = "FIRST_TAP_ACTIVE" if in_active_signal else "WAITING_1ST_TAP"
 
             self._ob_lifecycle[ob_key] = {
                 "tapped": ob["mit"],
