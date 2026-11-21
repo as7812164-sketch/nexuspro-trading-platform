@@ -251,7 +251,7 @@ function renderIndicators(candles) {
         if (ema200Series) ema200Series.setData([]);
     }
 
-    // 4. Automated SMC Levels (PDH, PDL, 15m Extreme OB, 50% MT)
+    // 4. Automated SMC Levels (1H/4H Order Blocks & LTF MSS POI)
     computeHermesOrderBlocks(candles);
 }
 

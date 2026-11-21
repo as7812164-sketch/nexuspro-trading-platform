@@ -150,7 +150,7 @@
                     <span style="font-size:9px; background:rgba(0,192,135,0.2); color:var(--buy-green); font-weight:800; padding:1px 6px; border-radius:3px;">ACTIVE</span>
                 </div>
                 <div style="font-size:13px; font-weight:800; color:#fff; margin-top:2px;">Inducement (IDM) Sweep</div>
-                <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Strict First Tap + 50% MT Verified</div>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Strict First Tap + LTF MSS Sniper Verified</div>
             </div>
             <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; padding:12px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -175,7 +175,7 @@
                 <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Requires >=1.2% institutional move leaving an open Fair Value Gap.</div>
             </div>
             <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; padding:12px;">
-                <div style="font-size:10px; color:var(--brand-teal); font-weight:800; text-transform:uppercase;">Rule 3: 50% MT Retest</div>
+                <div style="font-size:10px; color:var(--brand-teal); font-weight:800; text-transform:uppercase;">Rule 3: 1H➔5m & 4H➔15m MSS Retest</div>
                 <div style="font-size:12px; font-weight:700; color:#fff; margin-top:2px;">Mean Threshold Limit Entry</div>
                 <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Zero chasing. Waits patiently for exact 50% midpoint pullback fill.</div>
             </div>
@@ -216,7 +216,7 @@
                         <th>Symbol</th>
                         <th>Type / Side</th>
                         <th>Assigned Section</th>
-                        <th>Entry (50% MT)</th>
+                        <th>Entry (MSS POI)</th>
                         <th>Stop Loss</th>
                         <th>Target (Exit Mode)</th>
                         <th>Proximity to Entry</th>
@@ -224,7 +224,7 @@
                     </tr>
                 </thead>
                 <tbody id="setupsTableBody">
-                    <tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:20px;">Scanning Top-20 Champions for PDH/PDL sweeps...</td></tr>
+                    <tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:20px;">Scanning Champions for 1H & 4H Order Blocks (1H➔5m & 4H➔15m MSS Sniper)...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -455,7 +455,7 @@
             if (!tbody) return;
 
             if (!setups || setups.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:20px;">Scanning Top-20 Champions for PDH/PDL sweeps...</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:20px;">Scanning Champions for 1H & 4H Order Blocks (1H➔5m & 4H➔15m MSS Sniper)...</td></tr>`;
                 return;
             }
 
