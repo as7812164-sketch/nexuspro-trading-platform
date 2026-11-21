@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795262152603,
-  "updated_at_str": "2026-11-21 11:55:52 IST",
+  "updated_at": 1795262455045,
+  "updated_at_str": "2026-11-21 12:00:55 IST",
   "total_trades": 63,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 75.0,
       "status": "IN_TRADE",
       "active_symbol": "BNBUSDT",
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 90.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "SNXUSDT",
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "APTUSDT",
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.1,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1795261992.1351948
+      "updated_at": 1795262352.9767227
     }
   ],
   "trade_history": [
@@ -1759,7 +1759,7 @@
       "symbol": "APTUSDT",
       "side": "SHORT",
       "entry_price": 0.3611,
-      "mark_price": 0.3606,
+      "mark_price": 0.3605,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -1767,13 +1767,13 @@
       "tp_price": 0.350267,
       "trailing_sl_price": 0.371933,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.34616449736915017,
-      "pnl_pct": 0.69,
+      "unrealized_pnl": 0.41539739684297255,
+      "pnl_pct": 0.83,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795258786.9955552,
-      "updated_at": 1795262134.0712771,
+      "updated_at": 1795262448.0584798,
       "mae_pct": 8.31,
       "mfe_pct": 3.05,
       "size_usdt": 0.0,
@@ -1785,7 +1785,7 @@
       "symbol": "SNXUSDT",
       "side": "LONG",
       "entry_price": 0.1426,
-      "mark_price": 0.1424,
+      "mark_price": 0.1425,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -1793,13 +1793,13 @@
       "tp_price": 0.146878,
       "trailing_sl_price": 0.138322,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.3506311360448908,
-      "pnl_pct": -0.7,
+      "unrealized_pnl": -0.17531556802246973,
+      "pnl_pct": -0.35,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795258812.907306,
-      "updated_at": 1795262134.0622585,
+      "updated_at": 1795262448.0507188,
       "mae_pct": 2.1,
       "mfe_pct": 5.26,
       "size_usdt": 0.0,
@@ -1811,7 +1811,7 @@
       "symbol": "BNBUSDT",
       "side": "SHORT",
       "entry_price": 530.88,
-      "mark_price": 529.67,
+      "mark_price": 530.5,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -1819,13 +1819,13 @@
       "tp_price": 514.9536,
       "trailing_sl_price": 546.8064,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.5698086196504091,
-      "pnl_pct": 1.14,
+      "unrealized_pnl": 0.17894816154309612,
+      "pnl_pct": 0.36,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795260905.9065273,
-      "updated_at": 1795262134.0538373,
+      "updated_at": 1795262448.0435224,
       "mae_pct": 0.0,
       "mfe_pct": 1.25,
       "size_usdt": 0.0,
@@ -1837,7 +1837,7 @@
       "symbol": "ARBUSDT",
       "side": "SHORT",
       "entry_price": 0.1104,
-      "mark_price": 0.1096,
+      "mark_price": 0.1097,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -1845,15 +1845,15 @@
       "tp_price": 0.107088,
       "trailing_sl_price": 0.113712,
       "trailing_stage": 0,
-      "unrealized_pnl": 1.8115942028985397,
-      "pnl_pct": 3.62,
+      "unrealized_pnl": 1.5851449275362146,
+      "pnl_pct": 3.17,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795260918.5267446,
-      "updated_at": 1795262134.04221,
+      "updated_at": 1795262448.036014,
       "mae_pct": 0.0,
-      "mfe_pct": 3.62,
+      "mfe_pct": 4.08,
       "size_usdt": 0.0,
       "timeframe": "4H"
     }
@@ -11824,6 +11824,50 @@
       "status": "CONSUMED_TRADE",
       "tap_count": 1,
       "updated_at": 1795260918.5443063
+    },
+    {
+      "ob_key": "1000PEPEUSDT_1h_LONG_1794279600",
+      "symbol": "1000PEPEUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.005182,
+      "ob_bottom": 0.005114,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1795262409.1890972
+    },
+    {
+      "ob_key": "1000PEPEUSDT_4h_LONG_1791129600",
+      "symbol": "1000PEPEUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.004325,
+      "ob_bottom": 0.004283,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795262409.3861012
+    },
+    {
+      "ob_key": "1000PEPEUSDT_4h_SHORT_1791187200",
+      "symbol": "1000PEPEUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.004577,
+      "ob_bottom": 0.004483,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795262409.395173
+    },
+    {
+      "ob_key": "ETHUSDT_4h_LONG_1791129600",
+      "symbol": "ETHUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 2706.0,
+      "ob_bottom": 2695.01,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795262423.4723935
     }
   ]
 }
