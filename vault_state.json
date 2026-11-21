@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795282588338,
-  "updated_at_str": "2026-11-21 17:36:28 IST",
+  "updated_at": 1795282667149,
+  "updated_at_str": "2026-11-21 17:37:47 IST",
   "total_trades": 67,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 90.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 8,
@@ -136,9 +136,9 @@
       "win_count": 1,
       "loss_count": 0,
       "win_rate": 100.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "status": "IN_TRADE",
+      "active_symbol": "XRPUSDT",
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795282586.334184
+      "updated_at": 1795282647.8985248
     }
   ],
   "trade_history": [
@@ -1852,7 +1852,60 @@
       "timeframe": "1H"
     }
   ],
-  "positions": [],
+  "positions": [
+    {
+      "id": 5,
+      "section_id": 8,
+      "symbol": "UNIUSDT",
+      "side": "SHORT",
+      "entry_price": 4.72,
+      "mark_price": 4.732,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 4.775283,
+      "tp_price": 4.5784,
+      "trailing_sl_price": 4.775283,
+      "trailing_stage": 0,
+      "unrealized_pnl": -0.6355932203390071,
+      "pnl_pct": -1.27,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795282621.3178022,
+      "updated_at": 1795282660.9421556,
+      "mae_pct": 1.48,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "4H"
+    },
+    {
+      "id": 6,
+      "section_id": 8,
+      "symbol": "XRPUSDT",
+      "side": "SHORT",
+      "entry_price": 0.92975,
+      "mark_price": 0.9347,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 0.934194,
+      "tp_price": 0.901858,
+      "trailing_sl_price": 0.934194,
+      "trailing_stage": 0,
+      "unrealized_pnl": -1.3310029577843532,
+      "pnl_pct": -2.66,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795282624.034643,
+      "updated_at": 1795282660.9384627,
+      "mae_pct": 2.88,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "mitigated_order_blocks": [
     {
       "ob_key": "ETHUSDT_4h_LONG_1790640000",
@@ -12215,6 +12268,688 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 1,
       "updated_at": 1795277652.7402844
+    },
+    {
+      "ob_key": "BTCUSDT_4h_SHORT_1793217600",
+      "symbol": "BTCUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 81755.0,
+      "ob_bottom": 80945.0,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282607.9578886
+    },
+    {
+      "ob_key": "BTCUSDT_4h_SHORT_1794297600",
+      "symbol": "BTCUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 74858.4,
+      "ob_bottom": 74083.2,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282607.98029
+    },
+    {
+      "ob_key": "ETHUSDT_1h_SHORT_1794319200",
+      "symbol": "ETHUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 2095.59,
+      "ob_bottom": 2057.3,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282608.2480018
+    },
+    {
+      "ob_key": "ETHUSDT_4h_SHORT_1791446400",
+      "symbol": "ETHUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 2569.46,
+      "ob_bottom": 2525.78,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282608.664317
+    },
+    {
+      "ob_key": "ETHUSDT_4h_SHORT_1791964800",
+      "symbol": "ETHUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 2529.53,
+      "ob_bottom": 2478.8,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282608.6788726
+    },
+    {
+      "ob_key": "ETHUSDT_4h_SHORT_1794297600",
+      "symbol": "ETHUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 2117.82,
+      "ob_bottom": 2082.99,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282608.7742562
+    },
+    {
+      "ob_key": "SOLUSDT_1h_SHORT_1794661200",
+      "symbol": "SOLUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 75.75,
+      "ob_bottom": 75.08,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282608.9627273
+    },
+    {
+      "ob_key": "SOLUSDT_4h_SHORT_1791446400",
+      "symbol": "SOLUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 115.29,
+      "ob_bottom": 113.09,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282609.2848969
+    },
+    {
+      "ob_key": "SOLUSDT_4h_SHORT_1794297600",
+      "symbol": "SOLUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 86.14,
+      "ob_bottom": 84.17,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282609.3690703
+    },
+    {
+      "ob_key": "BNBUSDT_1h_SHORT_1794535200",
+      "symbol": "BNBUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 654.46,
+      "ob_bottom": 643.61,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282609.5506394
+    },
+    {
+      "ob_key": "SEIUSDT_1h_SHORT_1795226400",
+      "symbol": "SEIUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.03524,
+      "ob_bottom": 0.03478,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282609.9515462
+    },
+    {
+      "ob_key": "SEIUSDT_4h_SHORT_1793217600",
+      "symbol": "SEIUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.05454,
+      "ob_bottom": 0.05326,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282610.1495306
+    },
+    {
+      "ob_key": "AVAXUSDT_1h_SHORT_1795096800",
+      "symbol": "AVAXUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 7.17,
+      "ob_bottom": 7.071,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282610.3472419
+    },
+    {
+      "ob_key": "DOGEUSDT_1h_SHORT_1794319200",
+      "symbol": "DOGEUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.06985,
+      "ob_bottom": 0.06848,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282610.8131816
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_SHORT_1791187200",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.09719,
+      "ob_bottom": 0.09595,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282611.015077
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_SHORT_1791345600",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.09109,
+      "ob_bottom": 0.0895,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282611.0628386
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_SHORT_1791446400",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.08839,
+      "ob_bottom": 0.08683,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282611.0860915
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_SHORT_1794153600",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.07149,
+      "ob_bottom": 0.0708,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282611.123211
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_SHORT_1794297600",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.07017,
+      "ob_bottom": 0.06915,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282611.3166459
+    },
+    {
+      "ob_key": "DOGEUSDT_4h_SHORT_1794513600",
+      "symbol": "DOGEUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.06667,
+      "ob_bottom": 0.06573,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282611.3557706
+    },
+    {
+      "ob_key": "DOTUSDT_4h_SHORT_1793289600",
+      "symbol": "DOTUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 1.0238,
+      "ob_bottom": 0.9772,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282612.2026737
+    },
+    {
+      "ob_key": "DOTUSDT_4h_SHORT_1794672000",
+      "symbol": "DOTUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.7659,
+      "ob_bottom": 0.7437,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282612.2505372
+    },
+    {
+      "ob_key": "LINKUSDT_1h_SHORT_1795183200",
+      "symbol": "LINKUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 8.84,
+      "ob_bottom": 8.672,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282612.4536364
+    },
+    {
+      "ob_key": "LINKUSDT_4h_SHORT_1791187200",
+      "symbol": "LINKUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 14.242,
+      "ob_bottom": 14.081,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282612.7589517
+    },
+    {
+      "ob_key": "ENSUSDT_4h_SHORT_1791662400",
+      "symbol": "ENSUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 6.392,
+      "ob_bottom": 6.322,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282613.1952598
+    },
+    {
+      "ob_key": "ENSUSDT_4h_SHORT_1794513600",
+      "symbol": "ENSUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 4.39,
+      "ob_bottom": 4.346,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282613.2494245
+    },
+    {
+      "ob_key": "LTCUSDT_1h_SHORT_1794682800",
+      "symbol": "LTCUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 45.69,
+      "ob_bottom": 45.09,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282613.4393482
+    },
+    {
+      "ob_key": "LTCUSDT_1h_SHORT_1795226400",
+      "symbol": "LTCUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 40.71,
+      "ob_bottom": 40.11,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282613.453185
+    },
+    {
+      "ob_key": "LTCUSDT_4h_SHORT_1794513600",
+      "symbol": "LTCUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 50.39,
+      "ob_bottom": 49.79,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282613.6491487
+    },
+    {
+      "ob_key": "DYDXUSDT_1h_SHORT_1794661200",
+      "symbol": "DYDXUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.0838,
+      "ob_bottom": 0.0829,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282614.203922
+    },
+    {
+      "ob_key": "OPUSDT_1h_SHORT_1794682800",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.08365,
+      "ob_bottom": 0.08209,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282614.6259992
+    },
+    {
+      "ob_key": "OPUSDT_1h_SHORT_1794888000",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.08079,
+      "ob_bottom": 0.07933,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282614.647518
+    },
+    {
+      "ob_key": "OPUSDT_1h_SHORT_1795096800",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.07702,
+      "ob_bottom": 0.0763,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282614.657248
+    },
+    {
+      "ob_key": "OPUSDT_1h_SHORT_1795132800",
+      "symbol": "OPUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.0753,
+      "ob_bottom": 0.07419,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282614.6659822
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_SHORT_1795183200",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 1.334,
+      "ob_bottom": 1.309,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282615.04832
+    },
+    {
+      "ob_key": "RENDERUSDT_4h_SHORT_1793217600",
+      "symbol": "RENDERUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 1.736,
+      "ob_bottom": 1.689,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282615.2136023
+    },
+    {
+      "ob_key": "WLDUSDT_4h_SHORT_1793217600",
+      "symbol": "WLDUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.4536,
+      "ob_bottom": 0.4346,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282615.6094098
+    },
+    {
+      "ob_key": "WLDUSDT_4h_SHORT_1793289600",
+      "symbol": "WLDUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.4437,
+      "ob_bottom": 0.4157,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282615.6478026
+    },
+    {
+      "ob_key": "SUIUSDT_4h_SHORT_1793217600",
+      "symbol": "SUIUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.9646,
+      "ob_bottom": 0.9381,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282616.007377
+    },
+    {
+      "ob_key": "SUIUSDT_4h_SHORT_1793289600",
+      "symbol": "SUIUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.9617,
+      "ob_bottom": 0.925,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282616.0465193
+    },
+    {
+      "ob_key": "TIAUSDT_1h_SHORT_1795226400",
+      "symbol": "TIAUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.3295,
+      "ob_bottom": 0.3248,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282616.249295
+    },
+    {
+      "ob_key": "TRBUSDT_1h_SHORT_1795183200",
+      "symbol": "TRBUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 12.296,
+      "ob_bottom": 12.123,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282616.6487672
+    },
+    {
+      "ob_key": "TRBUSDT_4h_SHORT_1793217600",
+      "symbol": "TRBUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 17.582,
+      "ob_bottom": 17.301,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282616.8182786
+    },
+    {
+      "ob_key": "TRBUSDT_4h_SHORT_1793289600",
+      "symbol": "TRBUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 17.39,
+      "ob_bottom": 16.778,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282616.8269665
+    },
+    {
+      "ob_key": "UNIUSDT_1h_SHORT_1794531600",
+      "symbol": "UNIUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 6.094,
+      "ob_bottom": 6.009,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282616.9895542
+    },
+    {
+      "ob_key": "UNIUSDT_4h_SHORT_1791446400",
+      "symbol": "UNIUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 7.854,
+      "ob_bottom": 7.698,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282617.2079115
+    },
+    {
+      "ob_key": "XRPUSDT_4h_SHORT_1791187200",
+      "symbol": "XRPUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 1.5238,
+      "ob_bottom": 1.5089,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282617.5970027
+    },
+    {
+      "ob_key": "SNXUSDT_4h_SHORT_1791316800",
+      "symbol": "SNXUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.2562,
+      "ob_bottom": 0.252,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282618.0967646
+    },
+    {
+      "ob_key": "1000PEPEUSDT_1h_SHORT_1794668400",
+      "symbol": "1000PEPEUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.004159,
+      "ob_bottom": 0.004028,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282618.2992969
+    },
+    {
+      "ob_key": "APTUSDT_1h_SHORT_1794319200",
+      "symbol": "APTUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.5859,
+      "ob_bottom": 0.5731,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282618.7110288
+    },
+    {
+      "ob_key": "APTUSDT_1h_SHORT_1794531600",
+      "symbol": "APTUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.5583,
+      "ob_bottom": 0.5549,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282618.7206974
+    },
+    {
+      "ob_key": "APTUSDT_1h_SHORT_1795132800",
+      "symbol": "APTUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.4133,
+      "ob_bottom": 0.4081,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282618.7596264
+    },
+    {
+      "ob_key": "ARKMUSDT_1h_SHORT_1794823200",
+      "symbol": "ARKMUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.0888,
+      "ob_bottom": 0.0878,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282619.4332347
+    },
+    {
+      "ob_key": "ARKMUSDT_1h_SHORT_1795183200",
+      "symbol": "ARKMUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.0807,
+      "ob_bottom": 0.0791,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282619.446612
+    },
+    {
+      "ob_key": "ARKMUSDT_4h_SHORT_1793289600",
+      "symbol": "ARKMUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.1233,
+      "ob_bottom": 0.1177,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282619.6982026
+    },
+    {
+      "ob_key": "ARBUSDT_1h_SHORT_1795096800",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.12743,
+      "ob_bottom": 0.12538,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282619.9380147
+    },
+    {
+      "ob_key": "ARBUSDT_1h_SHORT_1795132800",
+      "symbol": "ARBUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.12261,
+      "ob_bottom": 0.12081,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282619.9495995
+    },
+    {
+      "ob_key": "FETUSDT_1h_SHORT_1795226400",
+      "symbol": "FETUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.1134,
+      "ob_bottom": 0.1121,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282620.452486
+    },
+    {
+      "ob_key": "ONDOUSDT_1h_SHORT_1795096800",
+      "symbol": "ONDOUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.3064,
+      "ob_bottom": 0.3018,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282620.8930073
+    },
+    {
+      "ob_key": "ONDOUSDT_1h_SHORT_1795132800",
+      "symbol": "ONDOUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.2994,
+      "ob_bottom": 0.2949,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795282620.9020185
+    },
+    {
+      "ob_key": "UNIUSDT_4h_SHORT_1795161600",
+      "symbol": "UNIUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 4.886,
+      "ob_bottom": 4.778,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795282621.3342297
+    },
+    {
+      "ob_key": "XRPUSDT_1h_SHORT_1795183200",
+      "symbol": "XRPUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.9528,
+      "ob_bottom": 0.9364,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795282624.0554187
     }
   ]
 }
