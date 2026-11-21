@@ -261,10 +261,11 @@ def render_smc_chart_image(
 
     # Hard SL Line (Red dashed)
     sl_y = to_y(sl_p)
+    actual_sl_roi = round(abs((entry_p - sl_p) / max(entry_p, 1e-9)) * lev * 100.0, 1)
     for dx in range(to_x(max(0, len(display_candles) - 25)), pad_left + plot_w, 8):
         draw.line([(dx, sl_y), (min(dx + 4, pad_left + plot_w), sl_y)], fill=(239, 68, 68, 200), width=1)
     draw.rectangle([pad_left + plot_w + 2, sl_y - 9, pad_left + plot_w + 105, sl_y + 9], fill=(153, 27, 27, 240))
-    draw.text((pad_left + plot_w + 6, sl_y - 6), "SL (-15% ROI)", fill=(254, 202, 202, 255), font=f_small)
+    draw.text((pad_left + plot_w + 6, sl_y - 6), f"SL (-{actual_sl_roi}% ROI)", fill=(254, 202, 202, 255), font=f_small)
 
     # Current Live Price Pill (Teal/Green box on right axis)
     last_p = float(display_candles[-1]["close"])
@@ -283,8 +284,8 @@ def render_smc_chart_image(
     draw.text((pad_left, 34), f"Last: {format_px(last_p)}  •  Execution: {side} ({lev}x Isolated)", fill=(0, 192, 135, 255) if is_long else (246, 70, 93, 255), font=f_sub)
 
     # Strategy Badge on right side of header
-    draw.rectangle([width - 320, 14, width - pad_left, 42], fill=(18, 24, 38, 255), outline=(56, 189, 248, 120), width=1)
-    draw.text((width - 308, 20), f"⚡ HERMES SMC v1.0 • {lev}x ISOLATED", fill=(56, 189, 248, 255), font=f_badge)
+    draw.rectangle([width - 340, 14, width - pad_left, 42], fill=(18, 24, 38, 255), outline=(56, 189, 248, 120), width=1)
+    draw.text((width - 328, 20), f"⚡ HERMES MSOB 2.0 • {lev}x ISOLATED", fill=(56, 189, 248, 255), font=f_badge)
 
     # 8. Bottom Timeline & Watermark
     draw.line([(pad_left, pad_top + plot_h), (pad_left + plot_w, pad_top + plot_h)], fill=(30, 34, 45, 255), width=1)
@@ -292,7 +293,7 @@ def render_smc_chart_image(
     draw.text((pad_left + 10, pad_top + plot_h + 10), f"Binance Futures Live Feed • {ist_time_str}", fill=(100, 116, 139, 255), font=f_axis)
 
     # Watermark (Bottom Right)
-    draw.text((pad_left + plot_w - 240, pad_top + plot_h - 26), "⚡ Hermes SMC Engine v1.0", fill=(250, 204, 21, 160), font=f_watermark)
+    draw.text((pad_left + plot_w - 260, pad_top + plot_h - 26), "⚡ Hermes MSOB 2.0 • LTF Sniper", fill=(250, 204, 21, 160), font=f_watermark)
 
     buf = io.BytesIO()
     img.convert("RGB").save(buf, format="PNG", quality=95)
