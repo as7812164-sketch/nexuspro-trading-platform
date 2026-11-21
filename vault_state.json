@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795283121358,
-  "updated_at_str": "2026-11-21 17:45:21 IST",
+  "updated_at": 1795283217548,
+  "updated_at_str": "2026-11-21 17:46:57 IST",
   "total_trades": 68,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 90.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 8,
@@ -136,9 +136,9 @@
       "win_count": 1,
       "loss_count": 1,
       "win_rate": 50.0,
-      "status": "IN_TRADE",
-      "active_symbol": "UNIUSDT",
-      "updated_at": 1795283121.3446448
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795283157.532751
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795283121.3446448
+      "updated_at": 1795283157.532751
     },
     {
       "id": 10,
@@ -170,9 +170,9 @@
       "win_count": 4,
       "loss_count": 3,
       "win_rate": 57.1,
-      "status": "IN_TRADE",
-      "active_symbol": "ARBUSDT",
-      "updated_at": 1795283121.3446448
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795283157.532751
     }
   ],
   "trade_history": [
@@ -1877,86 +1877,7 @@
       "timeframe": "1H"
     }
   ],
-  "positions": [
-    {
-      "id": 5,
-      "section_id": 8,
-      "symbol": "UNIUSDT",
-      "side": "SHORT",
-      "entry_price": 4.72,
-      "mark_price": 4.734,
-      "position_size_usdt": 250.0,
-      "margin_usdt": 50.0,
-      "leverage": 5,
-      "sl_price": 4.775283,
-      "tp_price": 4.5784,
-      "trailing_sl_price": 4.775283,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.741525423728826,
-      "pnl_pct": -1.48,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
-      "open_time": 1795282621.3178022,
-      "updated_at": 1795283097.3683627,
-      "mae_pct": 1.8,
-      "mfe_pct": 0.0,
-      "size_usdt": 0.0,
-      "timeframe": "4H"
-    },
-    {
-      "id": 7,
-      "section_id": 10,
-      "symbol": "FETUSDT",
-      "side": "SHORT",
-      "entry_price": 0.11075,
-      "mark_price": 0.111,
-      "position_size_usdt": 250.0,
-      "margin_usdt": 50.0,
-      "leverage": 5,
-      "sl_price": 0.111634,
-      "tp_price": 0.107427,
-      "trailing_sl_price": 0.111634,
-      "trailing_stage": 0,
-      "unrealized_pnl": -0.5643340857787815,
-      "pnl_pct": -1.13,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
-      "open_time": 1795282984.0979497,
-      "updated_at": 1795283120.765324,
-      "mae_pct": 1.13,
-      "mfe_pct": 0.0,
-      "size_usdt": 0.0,
-      "timeframe": "4H"
-    },
-    {
-      "id": 8,
-      "section_id": 10,
-      "symbol": "ARBUSDT",
-      "side": "LONG",
-      "entry_price": 0.111945,
-      "mark_price": 0.1123,
-      "position_size_usdt": 250.0,
-      "margin_usdt": 50.0,
-      "leverage": 5,
-      "sl_price": 0.111375,
-      "tp_price": 0.115303,
-      "trailing_sl_price": 0.111375,
-      "trailing_stage": 0,
-      "unrealized_pnl": 0.7928000357318197,
-      "pnl_pct": 1.59,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
-      "open_time": 1795283010.7212799,
-      "updated_at": 1795283120.755606,
-      "mae_pct": 0.0,
-      "mfe_pct": 1.59,
-      "size_usdt": 0.0,
-      "timeframe": "1H"
-    }
-  ],
+  "positions": [],
   "mitigated_order_blocks": [
     {
       "ob_key": "ETHUSDT_4h_LONG_1790640000",
