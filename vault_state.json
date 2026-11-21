@@ -1,7 +1,7 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795287641345,
-  "updated_at_str": "2026-11-21 19:00:41 IST",
+  "updated_at": 1795287943435,
+  "updated_at_str": "2026-11-21 19:05:43 IST",
   "total_trades": 68,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 60.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 90.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 33.3,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795287619.5583785
+      "updated_at": 1795287799.8998942
     }
   ],
   "trade_history": [
@@ -12955,6 +12955,17 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 1,
       "updated_at": 1795283037.045596
+    },
+    {
+      "ob_key": "SNXUSDT_1h_LONG_1795039200",
+      "symbol": "SNXUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.1544,
+      "ob_bottom": 0.1525,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795287874.689768
     }
   ]
 }
