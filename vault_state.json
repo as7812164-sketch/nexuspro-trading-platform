@@ -1,8 +1,8 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795233605090,
-  "updated_at_str": "2026-11-21 04:00:05 IST",
-  "total_trades": 60,
+  "updated_at": 1795233608405,
+  "updated_at_str": "2026-11-21 04:00:08 IST",
+  "total_trades": 61,
   "sections": [
     {
       "id": 1,
@@ -19,24 +19,24 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 2,
       "name": "Section 2 (SOLUSDT, BNBUSDT, SEIUSDT)",
       "assigned_coins": "SOLUSDT, BNBUSDT, SEIUSDT",
       "initial_balance": 100.0,
-      "current_balance": 116.25,
+      "current_balance": 108.75,
       "vault_balance": 0.0,
-      "equity": 116.25,
-      "total_pnl": 16.25,
-      "pnl_pct": 16.25,
+      "equity": 108.75,
+      "total_pnl": 8.75,
+      "pnl_pct": 8.75,
       "win_count": 3,
-      "loss_count": 0,
-      "win_rate": 100.0,
-      "status": "IN_TRADE",
-      "active_symbol": "SOLUSDT",
-      "updated_at": 1795233605.0797772
+      "loss_count": 1,
+      "win_rate": 75.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 50.0,
       "status": "IN_TRADE",
       "active_symbol": "DOGEUSDT",
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795233605.0797772
+      "updated_at": 1795233608.3950548
     }
   ],
   "trade_history": [
@@ -1675,35 +1675,34 @@
       "mfe_pct": "+0.00%",
       "roi_pct": -15.0,
       "timeframe": "1H"
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 10,
+      "id": 109,
       "section_id": 2,
       "symbol": "SOLUSDT",
       "side": "LONG",
       "entry_price": 69.13,
-      "mark_price": 66.34,
-      "position_size_usdt": 250.0,
+      "exit_price": 66.3,
       "margin_usdt": 50.0,
+      "position_size_usdt": 250.0,
       "leverage": 5,
-      "sl_price": 67.0561,
-      "tp_price": 71.2039,
-      "trailing_sl_price": 67.0561,
-      "trailing_stage": 0,
-      "unrealized_pnl": -10.08968609865468,
-      "pnl_pct": -20.18,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
+      "realized_pnl": -7.5,
+      "pnl_pct": -15.0,
+      "exit_reason": "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)",
       "open_time": 1795188622.975417,
-      "updated_at": 1795233583.6001685,
-      "mae_pct": 23.36,
-      "mfe_pct": 4.41,
-      "size_usdt": 0.0,
+      "close_time": 1795233608.386173,
+      "duration_minutes": 749.8,
+      "entry_time_str": "20 Nov, 21:00:22 IST",
+      "exit_time_str": "21 Nov, 09:30:08 IST",
+      "duration_str": "12h 29m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-23.36%",
+      "mfe_pct": "+4.41%",
+      "roi_pct": -15.0,
       "timeframe": "1H"
-    },
+    }
+  ],
+  "positions": [
     {
       "id": 14,
       "section_id": 6,
