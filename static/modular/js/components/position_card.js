@@ -700,6 +700,318 @@ export class PositionCard {
     }
   }
 
+  // VIEW 4: PNL CALENDAR TAB (MONTHLY HEAT MATRIX & DAILY TRADE AUTOPSY)
+  // =========================================================================
+  renderCalendar() {
+    const tabsHtml = this.getTabsHeaderHtml((state.positions || []).length);
+    const now = new Date();
+    if (this.calYear === null || this.calMonth === null) {
+      this.calYear = now.getFullYear();
+      this.calMonth = now.getMonth(); // 0-indexed (10 = November)
+    }
+
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthName = monthNames[this.calMonth];
+
+    // Filter trades for selected month & year
+    const dayTradesMap = {};
+    let monthTotalPnl = 0;
+    let monthWins = 0;
+    let monthLosses = 0;
+
+    (this.historyTrades || []).forEach(t => {
+      const rawTime = t.exit_time || t.close_time || t.entry_time || t.timestamp;
+      if (!rawTime) return;
+      const ms = Number(rawTime) < 1e11 ? Number(rawTime) * 1000 : Number(rawTime);
+      const d = new Date(ms);
+      if (d.getFullYear() === this.calYear && d.getMonth() === this.calMonth) {
+        const day = d.getDate();
+        if (!dayTradesMap[day]) dayTradesMap[day] = [];
+        dayTradesMap[day].push(t);
+
+        const pnl = Number(t.realized_pnl !== undefined ? t.realized_pnl : (t.pnl_usdt || 0));
+        monthTotalPnl += pnl;
+        if (pnl > 0 || String(t.result || t.outcome || '').toUpperCase().includes('TP')) {
+          monthWins++;
+        } else {
+          monthLosses++;
+        }
+      }
+    });
+
+    const monthTradesCount = monthWins + monthLosses;
+    const monthWinRate = monthTradesCount > 0 ? ((monthWins / monthTradesCount) * 100).toFixed(1) : '0.0';
+    const isMonthPos = monthTotalPnl >= 0;
+    const monthPnlColor = isMonthPos ? '#00e676' : '#ff3358';
+    const monthSign = isMonthPos ? '+' : '';
+
+    // Calendar Grid Calculation (Monday = 0, Sunday = 6)
+    const firstDayOfWeek = new Date(this.calYear, this.calMonth, 1).getDay();
+    const startOffset = (firstDayOfWeek + 6) % 7;
+    const totalDaysInMonth = new Date(this.calYear, this.calMonth + 1, 0).getDate();
+    const prevMonthTotalDays = new Date(this.calYear, this.calMonth, 0).getDate();
+
+    // Default selected day to today or latest day with trades
+    const isCurrentMonth = (now.getFullYear() === this.calYear && now.getMonth() === this.calMonth);
+    if (this.selectedCalDay === null) {
+      if (isCurrentMonth) {
+        this.selectedCalDay = now.getDate();
+      } else {
+        const activeDays = Object.keys(dayTradesMap).map(Number).sort((a, b) => b - a);
+        this.selectedCalDay = activeDays.length > 0 ? activeDays[0] : 1;
+      }
+    }
+
+    // Build day cells
+    let cellsHtml = '';
+
+    // Leading padding days (previous month)
+    for (let i = startOffset - 1; i >= 0; i--) {
+      const prevDay = prevMonthTotalDays - i;
+      cellsHtml += `
+        <div style="background: #060912; color: #2d3748; padding: 6px 2px; border-radius: 6px; font-size: 10px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.02);">
+          ${prevDay}
+        </div>
+      `;
+    }
+
+    // Days in current month
+    for (let d = 1; d <= totalDaysInMonth; d++) {
+      const tradesForDay = dayTradesMap[d] || [];
+      const hasTrades = tradesForDay.length > 0;
+      const isSelected = this.selectedCalDay === d;
+      const isToday = isCurrentMonth && (d === now.getDate());
+
+      if (hasTrades) {
+        const dayPnl = tradesForDay.reduce((sum, t) => sum + Number(t.realized_pnl !== undefined ? t.realized_pnl : (t.pnl_usdt || 0)), 0);
+        const dayWins = tradesForDay.filter(t => Number(t.realized_pnl !== undefined ? t.realized_pnl : (t.pnl_usdt || 0)) > 0 || String(t.result || t.outcome || '').toUpperCase().includes('TP')).length;
+        const dayLosses = Math.max(0, tradesForDay.length - dayWins);
+        const isPos = dayPnl >= 0;
+        const cellBg = isPos ? 'rgba(0, 230, 118, 0.16)' : 'rgba(255, 51, 88, 0.16)';
+        const cellBorder = isSelected ? '#38bdf8' : (isPos ? '#00e676' : '#ff3358');
+        const cellColor = isPos ? '#00e676' : '#ff3358';
+        const sign = isPos ? '+' : '';
+        const selectedGlow = isSelected ? 'box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);' : '';
+
+        cellsHtml += `
+          <div class="cal-day-cell" data-day="${d}" style="background: ${cellBg}; border: 1px solid ${cellBorder}; color: ${cellColor}; padding: 4px 2px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor: pointer; text-align: center; ${selectedGlow}">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 2px;">
+              <span style="font-size: 9px; opacity: 0.9;">${d}</span>
+              ${isToday ? '<span style="font-size: 6px; background: #38bdf8; color: #000; border-radius: 3px; padding: 0 2px;">TODAY</span>' : ''}
+            </div>
+            <div style="font-size: 8px; font-family: monospace; font-weight: 800; margin-top: 1px;">${sign}$${dayPnl.toFixed(1)}</div>
+            <div style="font-size: 7px; color: #94a3b8; font-weight: 600;">${dayWins}W/${dayLosses}L</div>
+          </div>
+        `;
+      } else {
+        const isSelectedNoTrade = isSelected ? 'border: 1px solid #38bdf8; background: #131b2c;' : 'border: 1px solid #141c2c; background: #080d17;';
+        const todayBadge = isToday ? '<span style="font-size: 6px; background: #38bdf8; color: #000; border-radius: 3px; padding: 0 2px;">TODAY</span>' : '';
+        cellsHtml += `
+          <div class="cal-day-cell" data-day="${d}" style="${isSelectedNoTrade} color: #475569; padding: 5px 2px; border-radius: 6px; font-size: 10px; cursor: pointer; text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 2px;">
+              <span>${d}</span>
+              ${todayBadge}
+            </div>
+            <div style="font-size: 7.5px; color: #334155; margin-top: 3px;">--</div>
+          </div>
+        `;
+      }
+    }
+
+    // Selected Day Trades Autopsy List
+    const selectedDayTrades = dayTradesMap[this.selectedCalDay] || [];
+    const selectedDayPnl = selectedDayTrades.reduce((sum, t) => sum + Number(t.realized_pnl !== undefined ? t.realized_pnl : (t.pnl_usdt || 0)), 0);
+    const selectedDayWins = selectedDayTrades.filter(t => Number(t.realized_pnl !== undefined ? t.realized_pnl : (t.pnl_usdt || 0)) > 0 || String(t.result || t.outcome || '').toUpperCase().includes('TP')).length;
+    const selectedDayLosses = Math.max(0, selectedDayTrades.length - selectedDayWins);
+    const selIsPos = selectedDayPnl >= 0;
+    const selSign = selIsPos ? '+' : '';
+    const selColor = selIsPos ? '#00e676' : '#ff3358';
+
+    let dayAutopsyHtml = '';
+    if (selectedDayTrades.length === 0) {
+      dayAutopsyHtml = `
+        <div style="text-align: center; padding: 20px; color: #64748b; font-size: 11px;">
+          No trades closed on ${this.selectedCalDay} ${monthName} ${this.calYear}.
+        </div>
+      `;
+    } else {
+      dayAutopsyHtml = selectedDayTrades.map(t => {
+        const pnl = Number(t.realized_pnl !== undefined ? t.realized_pnl : (t.pnl_usdt || 0));
+        const roi = Number(t.roi_pct !== undefined ? t.roi_pct : (t.pnl_pct || 0));
+        const isWin = pnl >= 0;
+        const pnlColorClass = isWin ? 'text-green' : 'text-red';
+        const isLong = (t.side_raw || t.side) === 'LONG' || t.side === 'BUY';
+        const sideBg = isLong ? '#052616' : '#2b0a12';
+        const sideFg = isLong ? 'var(--green-institutional, #00e676)' : '#ff3358';
+        const entryPrice = Number(t.entry_price || 0);
+        const exitPrice = Number(t.exit_price || entryPrice);
+        const p = entryPrice < 0.01 ? 6 : (entryPrice < 1.0 ? 4 : 2);
+        const entryTimeStr = t.entry_time_str || (t.entry_time ? new Date(t.entry_time).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }) + ' IST' : '--');
+        const exitTimeStr = t.exit_time_str || (t.exit_time ? new Date(t.exit_time).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }) + ' IST' : '--');
+        const outcome = t.result || t.status || (isWin ? 'TP HIT' : 'SL HIT');
+
+        return `
+          <div style="background: #080d17; border: 1px solid #162032; border-radius: 10px; padding: 10px 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 13px; font-weight: 800; color: #fff;">${t.symbol}</span>
+                <span style="font-size: 8.5px; font-weight: 800; padding: 1px 5px; border-radius: 3px; background: ${sideBg}; color: ${sideFg}; border: 1px solid ${sideFg};">
+                  ${isLong ? 'LONG' : 'SHORT'}
+                </span>
+                <span style="font-size: 8.5px; font-weight: 700; padding: 1px 4px; border-radius: 3px; background: #0a1933; color: #93c5fd; border: 1px solid #1d4ed8;">
+                  ${(t.timeframe || '1H').toUpperCase()}
+                </span>
+              </div>
+              <span style="font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: ${isWin ? '#052616' : '#2b0a12'}; color: ${isWin ? '#00e676' : '#ff3358'}; border: 1px solid ${isWin ? '#00e676' : '#ff3358'};">
+                ${outcome}
+              </span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span class="mono ${pnlColorClass}" style="font-size: 14px; font-weight: 800;">
+                  ${isWin ? '+' : ''}$${pnl.toFixed(2)} <span style="font-size: 11px;">(${isWin ? '+' : ''}${roi.toFixed(1)}%)</span>
+                </span>
+              </div>
+              <div style="font-size: 10px; color: #94a3b8; font-family: monospace;">
+                ${entryPrice.toFixed(p)} → ${exitPrice.toFixed(p)}
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 8.5px; color: #64748b; margin-top: 5px; border-top: 1px dashed rgba(255,255,255,0.04); padding-top: 4px;">
+              <span>🟢 Entry: ${entryTimeStr}</span>
+              <span>🏁 Exit: ${exitTimeStr}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const calendarHtml = `
+      <div style="margin: 0 14px 14px 14px; display: flex; flex-direction: column; gap: 12px;">
+
+        <!-- 1. MONTH SWITCHER & PERFORMANCE SUMMARY -->
+        <div style="background: #0b0f17; border: 1px solid #182232; border-radius: 12px; padding: 14px 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <button id="btn-cal-prev" style="background: #111d33; border: 1px solid #2563eb; color: #60a5fa; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer;">
+              ◀ Prev
+            </button>
+            <div style="text-align: center;">
+              <span style="font-size: 15px; font-weight: 800; color: #ffffff;">${monthName} ${this.calYear}</span>
+            </div>
+            <button id="btn-cal-next" style="background: #111d33; border: 1px solid #2563eb; color: #60a5fa; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer;">
+              Next ▶
+            </button>
+          </div>
+
+          <!-- Hero Month PnL -->
+          <div style="text-align: center; padding: 6px 0 12px;">
+            <div style="font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700;">Month Net Realized PnL</div>
+            <div class="mono" style="font-size: 28px; font-weight: 900; color: ${monthPnlColor}; margin-top: 2px;">
+              ${monthSign}$${monthTotalPnl.toFixed(2)}
+            </div>
+          </div>
+
+          <!-- 3-Metrics Grid -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.06); text-align: center;">
+            <div>
+              <div class="mono" style="font-size: 14px; font-weight: 800; color: #00e676;">${monthWinRate}%</div>
+              <div style="font-size: 8.5px; color: #64748b; margin-top: 2px;">Win Rate (${monthWins}W/${monthLosses}L)</div>
+            </div>
+            <div>
+              <div class="mono" style="font-size: 14px; font-weight: 800; color: #38bdf8;">${monthTradesCount}</div>
+              <div style="font-size: 8.5px; color: #64748b; margin-top: 2px;">Total Trades</div>
+            </div>
+            <div>
+              <div class="mono" style="font-size: 14px; font-weight: 800; color: #f59e0b;">5x Isolated</div>
+              <div style="font-size: 8.5px; color: #64748b; margin-top: 2px;">Leverage Armor</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. MONTHLY CALENDAR HEAT MATRIX -->
+        <div style="background: #0b0f17; border: 1px solid #182232; border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-size: 12px; font-weight: 800; color: #ffffff;">DAILY HEAT MATRIX</span>
+            <span style="font-size: 10px; color: #64748b;">Tap any day for trade forensics</span>
+          </div>
+
+          <!-- Day Labels (Mon..Sun) -->
+          <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; font-size: 9.5px; font-weight: 800; color: #64748b; margin-bottom: 6px;">
+            <div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
+          </div>
+
+          <!-- Day Cells -->
+          <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;">
+            ${cellsHtml}
+          </div>
+        </div>
+
+        <!-- 3. SELECTED DAY TRADE AUTOPSY PANEL -->
+        <div style="background: #0b0f17; border: 1px solid #182232; border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding-bottom: 8px;">
+            <div>
+              <span style="font-size: 12px; font-weight: 800; color: #fff;">📅 ${this.selectedCalDay} ${monthName} ${this.calYear}</span>
+              <span style="font-size: 10px; color: #64748b; margin-left: 6px;">(${selectedDayTrades.length} trades)</span>
+            </div>
+            <div class="mono" style="font-size: 13px; font-weight: 800; color: ${selColor};">
+              ${selSign}$${selectedDayPnl.toFixed(2)}
+            </div>
+          </div>
+
+          ${dayAutopsyHtml}
+        </div>
+
+      </div>
+    `;
+
+    this.el.innerHTML = tabsHtml + calendarHtml;
+    this.attachTabHandlers();
+    this.attachCalendarHandlers();
+  }
+
+  attachCalendarHandlers() {
+    const btnPrev = this.el.querySelector('#btn-cal-prev');
+    if (btnPrev) {
+      btnPrev.addEventListener('click', () => {
+        if (this.calMonth === 0) {
+          this.calMonth = 11;
+          this.calYear--;
+        } else {
+          this.calMonth--;
+        }
+        this.selectedCalDay = null;
+        this.renderCalendar();
+      });
+    }
+
+    const btnNext = this.el.querySelector('#btn-cal-next');
+    if (btnNext) {
+      btnNext.addEventListener('click', () => {
+        if (this.calMonth === 11) {
+          this.calMonth = 0;
+          this.calYear++;
+        } else {
+          this.calMonth++;
+        }
+        this.selectedCalDay = null;
+        this.renderCalendar();
+      });
+    }
+
+    // Attach Day cell taps
+    this.el.querySelectorAll('.cal-day-cell').forEach(cell => {
+      cell.addEventListener('click', () => {
+        const d = parseInt(cell.getAttribute('data-day'));
+        if (d) {
+          this.selectedCalDay = d;
+          this.renderCalendar();
+        }
+      });
+    });
+  }
+
+
   attachTabHandlers() {
     const tabOpen = this.el.querySelector('#tab-btn-open');
     if (tabOpen) {
@@ -731,7 +1043,11 @@ export class PositionCard {
     if (tabCal) {
       tabCal.addEventListener('click', () => {
         this.activeTab = 'calendar';
-        this.render();
+        if (!this.historyTrades || this.historyTrades.length === 0) {
+          this.fetchTradeHistory().then(() => this.render());
+        } else {
+          this.render();
+        }
       });
     }
   }
