@@ -1,8 +1,8 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795300027535,
-  "updated_at_str": "2026-11-21 22:27:07 IST",
-  "total_trades": 70,
+  "updated_at": 1795300225246,
+  "updated_at_str": "2026-11-21 22:30:25 IST",
+  "total_trades": 71,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 42.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 4,
@@ -70,24 +70,24 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 5,
       "name": "Section 5 (LTCUSDT, NEARUSDT, DYDXUSDT)",
       "assigned_coins": "LTCUSDT, NEARUSDT, DYDXUSDT",
       "initial_balance": 100.0,
-      "current_balance": 115.0,
+      "current_balance": 107.5,
       "vault_balance": 0.0,
-      "equity": 115.0,
-      "total_pnl": 15.0,
-      "pnl_pct": 15.0,
+      "equity": 107.5,
+      "total_pnl": 7.5,
+      "pnl_pct": 7.5,
       "win_count": 5,
-      "loss_count": 3,
-      "win_rate": 62.5,
-      "status": "IN_TRADE",
-      "active_symbol": "LTCUSDT",
-      "updated_at": 1795299892.0188456
+      "loss_count": 4,
+      "win_rate": 55.6,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 90.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 33.3,
       "status": "IN_TRADE",
       "active_symbol": "TRBUSDT",
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795299892.0188456
+      "updated_at": 1795300225.2327418
     }
   ],
   "trade_history": [
@@ -1925,6 +1925,31 @@
       "mfe_pct": "+0.00%",
       "roi_pct": -15.0,
       "timeframe": "1H"
+    },
+    {
+      "id": 119,
+      "section_id": 5,
+      "symbol": "LTCUSDT",
+      "side": "LONG",
+      "entry_price": 40.095,
+      "exit_price": 39.82,
+      "margin_usdt": 50.0,
+      "position_size_usdt": 250.0,
+      "leverage": 5,
+      "realized_pnl": -7.5,
+      "pnl_pct": -15.0,
+      "exit_reason": "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)",
+      "open_time": 1795299572.1434796,
+      "close_time": 1795300225.2220392,
+      "duration_minutes": 10.9,
+      "entry_time_str": "22 Nov, 03:49:32 IST",
+      "exit_time_str": "22 Nov, 04:00:25 IST",
+      "duration_str": "10m 53s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-15.00%",
+      "mfe_pct": "+0.00%",
+      "roi_pct": -15.0,
+      "timeframe": "1H"
     }
   ],
   "positions": [
@@ -1948,37 +1973,11 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795293174.081895,
-      "updated_at": 1795300006.1944997,
+      "updated_at": 1795300201.1996794,
       "mae_pct": 2.08,
       "mfe_pct": 3.62,
       "size_usdt": 0.0,
       "timeframe": "4H"
-    },
-    {
-      "id": 8,
-      "section_id": 5,
-      "symbol": "LTCUSDT",
-      "side": "LONG",
-      "entry_price": 40.095,
-      "mark_price": 39.78,
-      "position_size_usdt": 250.0,
-      "margin_usdt": 50.0,
-      "leverage": 5,
-      "sl_price": 39.91988,
-      "tp_price": 41.29785,
-      "trailing_sl_price": 39.91988,
-      "trailing_stage": 0,
-      "unrealized_pnl": -1.9640852974186167,
-      "pnl_pct": -3.93,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
-      "open_time": 1795299572.1434796,
-      "updated_at": 1795300006.185395,
-      "mae_pct": 4.05,
-      "mfe_pct": 0.0,
-      "size_usdt": 0.0,
-      "timeframe": "1H"
     }
   ],
   "mitigated_order_blocks": [
