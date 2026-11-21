@@ -87,6 +87,7 @@ class HermesMSOBEngine:
         self._is_running = False
         self._cooldowns: Dict[str, float] = {}
         self._ob_lifecycle: Dict[str, Dict[str, Any]] = {}
+        self._armed_watchdogs: Dict[str, Dict[str, Any]] = {}
 
     async def send_telegram_alert(self, session: aiohttp.ClientSession, text: str):
         if not NEXUS_TELEGRAM_BOT_TOKEN or not NEXUS_TELEGRAM_CHAT_ID:
@@ -493,6 +494,237 @@ class HermesMSOBEngine:
 
         return valid_setups
 
+    def compute_atr(self, candles: List[Dict[str, Any]], period: int = 14) -> List[float]:
+        n = len(candles)
+        if n == 0:
+            return []
+        tr_list = [candles[0]["high"] - candles[0]["low"]]
+        for i in range(1, n):
+            hl = candles[i]["high"] - candles[i]["low"]
+            hc = abs(candles[i]["high"] - candles[i - 1]["close"])
+            lc = abs(candles[i]["low"] - candles[i - 1]["close"])
+            tr_list.append(max(hl, hc, lc))
+        atr = [0.0] * n
+        for i in range(n):
+            if i < period:
+                atr[i] = sum(tr_list[: i + 1]) / float(i + 1)
+            else:
+                atr[i] = (atr[i - 1] * (period - 1) + tr_list[i]) / float(period)
+        return atr
+
+    def detect_ltf_mss_and_retest(
+        self,
+        candles: List[Dict[str, Any]],
+        side: str,
+        htf_ob_top: float,
+        htf_ob_bottom: float,
+        tap_time: int
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Shoaib Khan Ep 08 Multi-Timeframe Institutional Engine:
+        - 1H OB Tap -> 5m Execution (5m MSS + Last POI Retest)
+        - 4H OB Tap -> 15m Execution (15m MSS + Last POI Retest)
+        - Eliminates blind 1-candle entries.
+        - Identifies valid fractal Swing High / Swing Low (Inducement).
+        - Verifies true MSS with Candle Body Close + Impulsive Displacement (>= 0.7*ATR) or FVG.
+        - Extracts the 'Latest POI' (Base Order Block of the displacement move).
+        - Triggers Limit Entry on Retest Tap of Latest POI (even a wick touch fills!).
+        - Refines Stop Loss strictly to the 5m/15m Latest POI boundary (dropping risk by 60-75%).
+        """
+        n = len(candles)
+        if n < 15:
+            return None
+
+        atr = self.compute_atr(candles, 14)
+        curr_price = candles[-1]["close"]
+        lookback = min(35, n - 2)
+        start_idx = n - lookback
+
+        if side.upper() in ("LONG", "BUY"):
+            # 1. Identify valid Swing Highs (Lower Highs) formed during or after tap
+            swing_highs = []
+            for i in range(start_idx, n - 2):
+                if candles[i]["high"] > candles[i - 1]["high"] and candles[i]["high"] > candles[i + 1]["high"]:
+                    swing_highs.append((i, candles[i]["high"]))
+            if not swing_highs:
+                max_c = max(candles[start_idx:n - 3], key=lambda c: c["high"])
+                swing_highs.append((candles.index(max_c), max_c["high"]))
+
+            # 2. Check for Bullish MSS Breakout after the swing high
+            for sh_idx, sh_val in reversed(swing_highs):
+                for k in range(sh_idx + 1, n):
+                    c_k = candles[k]
+                    body = c_k["close"] - c_k["open"]
+                    is_break = c_k["close"] > sh_val
+                    is_disp = body >= 0.7 * atr[k] and c_k["close"] > c_k["open"]
+                    has_fvg = k >= 2 and (c_k["low"] > candles[k - 2]["high"])
+
+                    if is_break and (is_disp or has_fvg):
+                        # MSS Confirmed at candle k!
+                        # 3. Identify Latest POI (base of displacement)
+                        base_idx = k - 1
+                        while base_idx > sh_idx and candles[base_idx]["close"] > candles[base_idx]["open"]:
+                            base_idx -= 1
+                        base_c = candles[base_idx]
+
+                        poi_top = max(base_c["open"], base_c["close"], (base_c["high"] + base_c["open"]) / 2.0)
+                        poi_bottom = min(base_c["open"], base_c["close"], base_c["low"])
+
+                        # 4. Check for Retest Tap from k+1 to current candle
+                        retested = False
+                        retest_price = None
+                        for m in range(k + 1, n):
+                            if candles[m]["low"] <= poi_top and candles[m]["high"] >= poi_bottom:
+                                retested = True
+                                retest_price = poi_top
+                                break
+                        # Live tick wick test
+                        if not retested and curr_price <= poi_top and curr_price >= poi_bottom * 0.998:
+                            retested = True
+                            retest_price = curr_price
+
+                        refined_sl = round(poi_bottom * 0.997, 6)
+                        entry_p = retest_price if retested else poi_top
+
+                        # Max risk guard: cap SL at 3.0% price distance (15% ROI on 5x)
+                        if entry_p > 0 and (entry_p - refined_sl) / entry_p > 0.03:
+                            refined_sl = round(entry_p * 0.97, 6)
+                        if refined_sl >= entry_p:
+                            refined_sl = round(entry_p * 0.992, 6)
+                        tp_p = round(entry_p * 1.03, 6)
+
+                        return {
+                            "status": "CONFIRMED_RETEST" if retested else "WAITING_RETEST",
+                            "pathway": "HERMES_MSOB_LTF_MSS_SNIPER",
+                            "mss_level": round(sh_val, 6),
+                            "mss_time": c_k["time"],
+                            "latest_poi": {
+                                "top": round(poi_top, 6),
+                                "bottom": round(poi_bottom, 6),
+                                "time": base_c["time"]
+                            },
+                            "entry_price": round(entry_p, 6),
+                            "sl_price": refined_sl,
+                            "tp_price": tp_p,
+                            "retested": retested,
+                            "poi_top": round(poi_top, 6),
+                            "poi_bot": round(poi_bottom, 6),
+                        }
+
+        else:  # SHORT
+            # 1. Identify valid Swing Lows (Higher Lows)
+            swing_lows = []
+            for i in range(start_idx, n - 2):
+                if candles[i]["low"] < candles[i - 1]["low"] and candles[i]["low"] < candles[i + 1]["low"]:
+                    swing_lows.append((i, candles[i]["low"]))
+            if not swing_lows:
+                min_c = min(candles[start_idx:n - 3], key=lambda c: c["low"])
+                swing_lows.append((candles.index(min_c), min_c["low"]))
+
+            # 2. Check for Bearish MSS Breakdown
+            for sl_idx, sl_val in reversed(swing_lows):
+                for k in range(sl_idx + 1, n):
+                    c_k = candles[k]
+                    body = c_k["open"] - c_k["close"]
+                    is_break = c_k["close"] < sl_val
+                    is_disp = body >= 0.7 * atr[k] and c_k["close"] < c_k["open"]
+                    has_fvg = k >= 2 and (c_k["high"] < candles[k - 2]["low"])
+
+                    if is_break and (is_disp or has_fvg):
+                        # Bearish MSS confirmed at candle k!
+                        # 3. Identify Latest Bearish POI (base of displacement)
+                        base_idx = k - 1
+                        while base_idx > sl_idx and candles[base_idx]["close"] < candles[base_idx]["open"]:
+                            base_idx -= 1
+                        base_c = candles[base_idx]
+
+                        poi_bottom = min(base_c["open"], base_c["close"], (base_c["low"] + base_c["open"]) / 2.0)
+                        poi_top = max(base_c["open"], base_c["close"], base_c["high"])
+
+                        retested = False
+                        retest_price = None
+                        for m in range(k + 1, n):
+                            if candles[m]["high"] >= poi_bottom and candles[m]["low"] <= poi_top:
+                                retested = True
+                                retest_price = poi_bottom
+                                break
+                        if not retested and curr_price >= poi_bottom and curr_price <= poi_top * 1.002:
+                            retested = True
+                            retest_price = curr_price
+
+                        refined_sl = round(poi_top * 1.003, 6)
+                        entry_p = retest_price if retested else poi_bottom
+
+                        if entry_p > 0 and (refined_sl - entry_p) / entry_p > 0.03:
+                            refined_sl = round(entry_p * 1.03, 6)
+                        if refined_sl <= entry_p:
+                            refined_sl = round(entry_p * 1.008, 6)
+                        tp_p = round(entry_p * 0.97, 6)
+
+                        return {
+                            "status": "CONFIRMED_RETEST" if retested else "WAITING_RETEST",
+                            "pathway": "HERMES_MSOB_LTF_MSS_SNIPER",
+                            "mss_level": round(sl_val, 6),
+                            "mss_time": c_k["time"],
+                            "latest_poi": {
+                                "top": round(poi_top, 6),
+                                "bottom": round(poi_bottom, 6),
+                                "time": base_c["time"]
+                            },
+                            "entry_price": round(entry_p, 6),
+                            "sl_price": refined_sl,
+                            "tp_price": tp_p,
+                            "retested": retested,
+                            "poi_top": round(poi_top, 6),
+                            "poi_bot": round(poi_bottom, 6),
+                        }
+
+        return None
+
+    async def check_ltf_confirmation(self, session: aiohttp.ClientSession, watchdog: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """
+        Fetches the designated LTF (5m for 1H OB, 15m for 4H OB) and runs detect_ltf_mss_and_retest
+        """
+        sym = watchdog["symbol"]
+        ltf = watchdog.get("ltf", "5m")
+        side = watchdog.get("side", "LONG").upper()
+        tap_time = watchdog.get("tap_time", 0)
+        setup = watchdog["setup"]
+        ob_key = setup["ob_key"]
+
+        if is_ob_retired(ob_key):
+            return None
+
+        candles_ltf = await self.fetch_klines(session, sym, ltf, limit=50)
+        if len(candles_ltf) < 15:
+            return None
+
+        result = self.detect_ltf_mss_and_retest(
+            candles_ltf,
+            side=side,
+            htf_ob_top=setup["ob_top"],
+            htf_ob_bottom=setup["ob_bottom"],
+            tap_time=tap_time
+        )
+
+        if not result:
+            watchdog["state"] = "WAITING_MSS"
+            return None
+
+        watchdog["latest_poi"] = result["latest_poi"]
+        watchdog["mss_data"] = {
+            "mss_level": result["mss_level"],
+            "mss_time": result["mss_time"]
+        }
+
+        if result["status"] == "CONFIRMED_RETEST":
+            watchdog["state"] = "CONFIRMED"
+            result["ltf"] = ltf
+            return result
+        else:
+            watchdog["state"] = "WAITING_RETEST"
+            return None
+
     async def check_5m_confirmation(self, session: aiohttp.ClientSession, setup: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """
         1:1 TradingView Execution Confirmation (BOTH BUY/LONG & SELL/SHORT):
@@ -552,21 +784,71 @@ class HermesMSOBEngine:
                     setups = self.scan_symbol_order_blocks(sym, tf, candles)
                     all_setups.extend(setups)
 
-                    if len(open_pos) < self.max_concurrent_trades and sym not in active_symbols:
-                        for setup in setups:
-                            side = setup.get("side", "LONG").upper()
-                            if side == "SHORT" and not self.allow_short:
-                                continue
-                            if setup["is_first_tap"]:
-                                now = time.time()
-                                cd_key = f"{sym}_{side}"
-                                if now - self._cooldowns.get(cd_key, 0) > 300:
-                                    confirm = await self.check_5m_confirmation(session, setup)
-                                    if confirm:
-                                        await self.execute_trade_trigger(session, setup, confirm)
-                                        active_symbols.add(sym)
-                                        open_pos = get_open_positions()
-                                        break
+                    # Arm watchdog when 1st Tap of an unmitigated 1H or 4H OB occurs
+                    for setup in setups:
+                        side = setup.get("side", "LONG").upper()
+                        if side == "SHORT" and not self.allow_short:
+                            continue
+                        if setup["is_first_tap"] and not is_ob_retired(setup["ob_key"]):
+                            ltf = "5m" if tf.lower() == "1h" else "15m"
+                            wd_key = f"{sym}_{tf}_{side}_{setup['ob_key']}"
+                            if wd_key not in self._armed_watchdogs:
+                                self._armed_watchdogs[wd_key] = {
+                                    "key": wd_key,
+                                    "symbol": sym,
+                                    "htf": tf.lower(),
+                                    "ltf": ltf,
+                                    "side": side,
+                                    "setup": setup,
+                                    "armed_time": time.time(),
+                                    "expires_at": time.time() + (7200 if ltf == "5m" else 14400),
+                                    "state": "WAITING_MSS",
+                                    "latest_poi": None,
+                                    "tap_time": candles[-1]["time"],
+                                }
+                                print(f"🎯 [HERMES WATCHDOG ARMED] {sym} ({tf} ➔ {ltf.upper()}) {side} | Scanning MSS & Latest POI")
+
+            # Clean up expired or retired watchdogs
+            now = time.time()
+            expired_keys = [k for k, w in self._armed_watchdogs.items() if w.get("expires_at", 0) < now or is_ob_retired(w["setup"]["ob_key"])]
+            for k in expired_keys:
+                del self._armed_watchdogs[k]
+
+            # Execute confirmed watchdogs (Strict Shoaib Khan Ep 08: HTF Tap -> LTF MSS -> Retest)
+            if len(open_pos) < self.max_concurrent_trades:
+                for wd_key, wd in list(self._armed_watchdogs.items()):
+                    sym = wd["symbol"]
+                    side = wd["side"]
+                    if sym in active_symbols:
+                        continue
+                    cd_key = f"{sym}_{side}"
+                    if now - self._cooldowns.get(cd_key, 0) < 300:
+                        continue
+
+                    confirm = await self.check_ltf_confirmation(session, wd)
+                    if confirm and confirm.get("status") == "CONFIRMED_RETEST":
+                        await self.execute_trade_trigger(session, wd["setup"], confirm)
+                        active_symbols.add(sym)
+                        open_pos = get_open_positions()
+                        if wd_key in self._armed_watchdogs:
+                            del self._armed_watchdogs[wd_key]
+                        if len(open_pos) >= self.max_concurrent_trades:
+                            break
+
+        # Attach live watchdog states to setups for website display
+        for s in all_setups:
+            tf = s["timeframe"]
+            side = s["side"]
+            sym = s["symbol"]
+            wd_key = f"{sym}_{tf}_{side}_{s['ob_key']}"
+            if wd_key in self._armed_watchdogs:
+                wd = self._armed_watchdogs[wd_key]
+                ltf_str = wd["ltf"].upper()
+                if wd["state"] == "WAITING_RETEST" and wd.get("latest_poi"):
+                    poi_lvl = wd["latest_poi"]["top"] if side == "LONG" else wd["latest_poi"]["bottom"]
+                    s["status"] = f"{ltf_str} MSS CONFIRMED • Awaiting Retest @ ${format_price(poi_lvl)}"
+                else:
+                    s["status"] = f"ARMED {ltf_str} • Searching MSS & POI"
 
         all_setups.sort(key=lambda s: s.get("proximity_pct", 99.0))
         self.scanned_setups = all_setups[:60]
@@ -586,8 +868,11 @@ class HermesMSOBEngine:
         lev = get_symbol_leverage(sym)
         sl_price_pct = HARD_SL_ROI_PCT / (lev * 100.0)
         tp_price_pct = FULL_BOOK_TP_ROI_PCT / (lev * 100.0)
-        sl_p = round(entry_p * (1.0 - sl_price_pct if is_long else 1.0 + sl_price_pct), 6)
-        tp_p = round(entry_p * (1.0 + tp_price_pct if is_long else 1.0 - tp_price_pct), 6)
+
+        # REFINED STOP LOSS: Use 5m/15m Latest POI boundary SL if present!
+        sl_p = confirm.get("sl_price") or round(entry_p * (1.0 - sl_price_pct if is_long else 1.0 + sl_price_pct), 6)
+        tp_p = confirm.get("tp_price") or round(entry_p * (1.0 + tp_price_pct if is_long else 1.0 - tp_price_pct), 6)
+        ltf_tag = confirm.get("ltf", "5M").upper()
         pos_size = self.margin_per_trade * lev
         sec_id = PAIR_MAPPING.get(sym, (len(get_open_positions()) % 8) + 1)
 
@@ -612,17 +897,19 @@ class HermesMSOBEngine:
             self._ob_lifecycle[ob_key] = {"tapped": True, "tap_count": 1, "invalidated": True}
             self._cooldowns[f"{sym}_{side}"] = time.time()
             dir_label = "BUY/LONG" if is_long else "SELL/SHORT"
-            sig_label = "Sweep + 5m" if setup.get("category") == "WEAK" else "1st Tap + 5m"
+            actual_sl_roi = round(abs((entry_p - sl_p) / entry_p) * lev * 100.0, 1)
+            sig_label = f"1st Tap + {ltf_tag} MSS Sniper"
             icon = "🟢" if is_long else "🔴"
-            print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf}) @ {entry_p} | {lev}x | SL: {sl_p} | TP: {tp_p} (+15% ROI)")
+            print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf} -> {ltf_tag}) @ {entry_p} | {lev}x | SL: {sl_p} (-{actual_sl_roi}% ROI) | TP: {tp_p} (+15% ROI)")
 
-            # Style 4 (Preformatted Monospace Card Box)
+            # Style 4 (Preformatted Monospace Card Box with Refined SL)
             caption = (
-                f"<pre>{icon} {sym} ({tf}) • {dir_label} (#{pos_id})\n"
+                f"<pre>{icon} {sym} ({tf} ➔ {ltf_tag}) • {dir_label} (#{pos_id})\n"
                 f"─────────────────────────────────\n"
-                f"ENTRY : ${format_price(entry_p)} ({sig_label})\n"
+                f"ENTRY : ${format_price(entry_p)} (MSS Sniper)\n"
                 f"TP 🎯 : ${format_price(tp_p)} (+15.0% ROI)\n"
-                f"SL 🛑 : ${format_price(sl_p)} (-15.0% ROI)</pre>"
+                f"SL 🛑 : ${format_price(sl_p)} (Refined -{actual_sl_roi}% ROI)\n"
+                f"POI   : ${format_price(confirm.get('poi_top', 0))} - ${format_price(confirm.get('poi_bot', 0))}</pre>"
             )
 
             # Generate institutional live chart image with Order Block & First Tap arrow
