@@ -614,7 +614,7 @@ def close_position_in_db(pos_id: int, exit_price: float, realized_pnl: float, ex
 
 # ----------------- TRADE HISTORY & SUMMARY -----------------
 
-def get_trade_history(limit: int = 50) -> List[Dict[str, Any]]:
+def get_trade_history(limit: int = 1000) -> List[Dict[str, Any]]:
     conn = get_db_connection()
     c = conn.cursor()
     c.execute("SELECT * FROM trade_history ORDER BY close_time DESC LIMIT ?", (limit,))

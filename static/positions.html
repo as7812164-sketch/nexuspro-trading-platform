@@ -1005,7 +1005,7 @@
 
         async function fetchHistory() {
             try {
-                const res = await fetch('/api/trade/history?t=' + Date.now());
+                const res = await fetch('/api/trade/history?limit=1000&t=' + Date.now());
                 const data = await res.json();
                 const container = document.getElementById('executedHistoryContainer');
                 if (!container) return;

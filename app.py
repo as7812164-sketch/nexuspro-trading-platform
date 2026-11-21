@@ -558,7 +558,7 @@ async def close_trade_body(body: Dict[str, Any] = Body(...)):
 
 @app.get("/api/trade/history")
 @app.get("/api/paper/trades")
-async def get_history(limit: int = 50):
+async def get_history(limit: int = 1000):
     trades = get_trade_history(limit=limit)
     enriched = [enrich_trade_metadata(t) for t in trades]
     return {"trades": enriched, "count": len(enriched)}

@@ -12,7 +12,7 @@ import { connector } from './core/websocket.js?v=tv_1to1_v6';
 import { HudHeader } from './components/hud_header.js';
 import { WalletSummary } from './components/wallet_summary.js';
 import { TickerCarousel } from './components/ticker_carousel.js';
-import { PositionCard } from './components/position_card.js';
+import { PositionCard } from './components/position_card.js?v=nexus_full_history_calendar_v10';
 import { Watchlist } from './components/watchlist.js';
 import { ChartTerminal } from './components/chart_terminal.js?v=tv_1to1_v7';
 import { AssetsView } from './components/assets_view.js?v=tv_1to1_v9';

@@ -19,7 +19,10 @@ export class PositionCard {
   constructor(mountSelector) {
     this.el = document.querySelector(mountSelector);
     this.isFullView = mountSelector.includes('positions-view');
-    this.activeTab = 'open'; // 'open' | 'upcoming' | 'history'
+    this.activeTab = 'open'; // 'open' | 'upcoming' | 'history' | 'calendar'
+    this.calYear = null;
+    this.calMonth = null;
+    this.selectedCalDay = null;
     this.historyTrades = [];
     this.upcomingSetups = [];
     this.historyStats = { total: 0, wins: 0, losses: 0, winRate: 0, totalPnl: 0 };
@@ -62,7 +65,7 @@ export class PositionCard {
 
   async fetchTradeHistory() {
     try {
-      const res = await fetch('/api/paper/trades?limit=50&t=' + Date.now());
+      const res = await fetch('/api/paper/trades?limit=1000&t=' + Date.now());
       if (!res.ok) return;
       const data = await res.json();
       this.historyTrades = data.trades || [];
@@ -196,14 +199,21 @@ export class PositionCard {
         <button id="tab-btn-upcoming" style="flex: 1.2; padding: 10px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; background: ${this.activeTab === 'upcoming' ? '#111d33' : '#0b0f17'}; border: 1px solid ${this.activeTab === 'upcoming' ? '#2563eb' : '#1a2333'}; color: ${this.activeTab === 'upcoming' ? '#60a5fa' : '#768296'};">
           📡 Upcoming Radar (${this.upcomingSetups.length || '0'})
         </button>
-        <button id="tab-btn-history" style="flex: 1; padding: 10px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; background: ${this.activeTab === 'history' ? '#111d33' : '#0b0f17'}; border: 1px solid ${this.activeTab === 'history' ? '#2563eb' : '#1a2333'}; color: ${this.activeTab === 'history' ? '#60a5fa' : '#768296'};">
+        <button id="tab-btn-history" style="flex: 1; padding: 10px 6px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; background: ${this.activeTab === 'history' ? '#111d33' : '#0b0f17'}; border: 1px solid ${this.activeTab === 'history' ? '#2563eb' : '#1a2333'}; color: ${this.activeTab === 'history' ? '#60a5fa' : '#768296'};">
           📜 History (${this.historyTrades.length || '0'})
+        </button>
+        <button id="tab-btn-calendar" style="flex: 1.1; padding: 10px 6px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; background: ${this.activeTab === 'calendar' ? '#042616' : '#0b0f17'}; border: 1px solid ${this.activeTab === 'calendar' ? '#00e676' : '#1a2333'}; color: ${this.activeTab === 'calendar' ? '#00e676' : '#768296'};">
+          📅 PnL Calendar
         </button>
       </div>
     `;
   }
 
   render() {
+    if (this.activeTab === 'calendar') {
+      this.renderCalendar();
+      return;
+    }
     if (this.activeTab === 'history') {
       this.renderHistory();
       return;
@@ -564,6 +574,20 @@ export class PositionCard {
           </div>
         </div>
         
+        <!-- PnL Calendar Quick Jump Banner -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, rgba(0, 230, 118, 0.08), rgba(37, 99, 235, 0.08)); border: 1px solid rgba(0, 230, 118, 0.25); border-radius: 8px; padding: 8px 10px; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 15px;">📅</span>
+            <div>
+              <div style="font-size: 10px; font-weight: 800; color: #ffffff;">PnL Calendar Heat Matrix</div>
+              <div style="font-size: 8.5px; color: #94a3b8;">Daily performance & autopsy matrix</div>
+            </div>
+          </div>
+          <button id="btn-quick-to-calendar" style="background: #00e676; color: #042616; border: none; padding: 4px 8px; border-radius: 5px; font-size: 9.5px; font-weight: 800; cursor: pointer;">
+            OPEN MATRIX ➔
+          </button>
+        </div>
+
         <!-- Win / Loss Breakdown Row -->
         <div style="display: flex; gap: 5px; background: #060912; border: 1px solid #182232; border-radius: 8px; padding: 6px 8px; justify-content: space-between; align-items: center;">
           <div style="display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 800; padding: 4px 6px; border-radius: 5px; background: #042616; color: #00e676; border: 1px solid #059669;">
@@ -666,6 +690,14 @@ export class PositionCard {
 
     this.el.innerHTML = tabsHtml + statsHtml + historyCards;
     this.attachTabHandlers();
+
+    const btnQuickCal = this.el.querySelector('#btn-quick-to-calendar');
+    if (btnQuickCal) {
+      btnQuickCal.addEventListener('click', () => {
+        this.activeTab = 'calendar';
+        this.render();
+      });
+    }
   }
 
   attachTabHandlers() {
@@ -692,6 +724,14 @@ export class PositionCard {
         this.activeTab = 'history';
         this.render();
         this.fetchTradeHistory();
+      });
+    }
+
+    const tabCal = this.el.querySelector('#tab-btn-calendar');
+    if (tabCal) {
+      tabCal.addEventListener('click', () => {
+        this.activeTab = 'calendar';
+        this.render();
       });
     }
   }

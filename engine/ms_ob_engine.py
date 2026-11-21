@@ -24,6 +24,7 @@ from config import (
     SYMBOL_LEVERAGE_OVERRIDES,
     get_symbol_leverage,
     PAIR_MAPPING,
+    CHAMPIONS,
     HARD_SL_PRICE_PCT,
     HARD_SL_ROI_PCT,
     FULL_BOOK_TP_PRICE_PCT,
@@ -79,11 +80,8 @@ class HermesMSOBEngine:
         self.gold_timeframes = []
         self.gold_symbol = None
 
-        self.watchlist = [
-            "BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT",
-            "AVAXUSDT", "DOGEUSDT", "NEARUSDT", "SUIUSDT", "TIAUSDT",
-            "OPUSDT", "ARBUSDT", "RENDERUSDT", "FETUSDT"
-        ]
+        # Full 29 Institutional Champions Watchlist (Synced 1:1 with config.CHAMPIONS / PAIR_MAPPING)
+        self.watchlist = list(CHAMPIONS)
 
         self.scanned_setups: List[Dict[str, Any]] = []
         self._is_running = False
@@ -571,7 +569,7 @@ class HermesMSOBEngine:
                                         break
 
         all_setups.sort(key=lambda s: s.get("proximity_pct", 99.0))
-        self.scanned_setups = all_setups[:25]
+        self.scanned_setups = all_setups[:60]
 
     async def execute_trade_trigger(self, session: aiohttp.ClientSession, setup: Dict[str, Any], confirm: Dict[str, Any]):
         sym = setup["symbol"]
