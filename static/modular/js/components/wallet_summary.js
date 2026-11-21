@@ -1,8 +1,9 @@
 /**
  * HERMES AI • WALLET SUMMARY COMPONENT (ISOLATED)
  * Displays 2-Row Institutional Matrix (Option B) for NexusPro:
- * Row 1: All-Time High ATH ($646.25), All-Time Low ATL ($485.00), Peak Profit (+$146.25)
- * Row 2: Base Capital ($500.00), Used Margin, Free Margin
+ * True Portfolio Scale: $1,000.00 Starting Base (10 Deca Sections)
+ * Row 1: All-Time High ATH ($1,146.25), All-Time Low ATL ($985.00), Peak Profit (+$146.25)
+ * Row 2: Base Capital ($1,000.00), Used Margin, Free Margin
  * Editing this file NEVER affects the chart or watchlist.
  */
 
@@ -30,14 +31,12 @@ export class WalletSummary {
       usedMargin += (p.sizeUsd / p.leverage);
     });
 
-    const rawBal = Number(state.account.baseCapital || 578.75);
-    const baseCap = 500.00;
-    const realizedPnl = rawBal > 800 ? (rawBal - 1000.0) : (rawBal - 500.0);
-    const currentBal = baseCap + (isNaN(realizedPnl) ? 78.75 : realizedPnl);
-    const equity = currentBal + unPnl;
+    const baseCap = 1000.00; // True NexusPro 10-Section Base Capital
+    const currentBal = Number(state.account.baseCapital || 1078.75);
+    const equity = currentBal + unPnl; // Live floating equity (~$1,074 - $1,078)
     const pnlPct = baseCap > 0 ? ((equity - baseCap) / baseCap) * 100 : 0;
     const freeMargin = Math.max(0, currentBal - usedMargin);
-    const athVal = Math.max(646.25, equity, currentBal);
+    const athVal = Math.max(1146.25, equity, currentBal);
     const peakProfit = Math.max(146.25, athVal - baseCap);
 
     const eqEl = this.el.querySelector('.wallet-balance');
@@ -72,18 +71,16 @@ export class WalletSummary {
       usedMargin += (p.sizeUsd / p.leverage);
     });
 
-    const rawBal = Number(acc.baseCapital || 578.75);
-    const baseCap = 500.00;
-    const realizedPnl = rawBal > 800 ? (rawBal - 1000.0) : (rawBal - 500.0);
-    const currentBal = baseCap + (isNaN(realizedPnl) ? 78.75 : realizedPnl);
-    const equity = currentBal + unPnl;
+    const baseCap = 1000.00; // True NexusPro 10-Section Base Capital
+    const currentBal = Number(acc.baseCapital || 1078.75);
+    const equity = currentBal + unPnl; // Live floating equity (~$1,074 - $1,078)
     const pnlPct = baseCap > 0 ? ((equity - baseCap) / baseCap) * 100 : 0;
     const freeMargin = Math.max(0, currentBal - usedMargin);
     const hasOpen = state.positions.length > 0;
     const pillLabel = hasOpen ? 'Active' : 'Return';
 
-    const athVal = Math.max(646.25, equity, currentBal);
-    const atlVal = 485.00;
+    const athVal = Math.max(1146.25, equity, currentBal);
+    const atlVal = 985.00;
     const peakProfit = Math.max(146.25, athVal - baseCap);
 
     this.el.innerHTML = `

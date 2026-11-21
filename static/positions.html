@@ -767,10 +767,10 @@
             <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
                 <div>
                     <div style="font-size:10px; font-weight:800; color:#64748B; letter-spacing:0.8px; text-transform:uppercase; font-family:var(--font-mono);">TOTAL PORTFOLIO EQUITY</div>
-                    <div class="wallet-balance" id="nexusWalletEquity" style="font-size:24px; font-weight:900; font-family:var(--font-mono); color:#fff;">$578.75</div>
+                    <div class="wallet-balance" id="nexusWalletEquity" style="font-size:24px; font-weight:900; font-family:var(--font-mono); color:#fff;">$1,078.75</div>
                 </div>
                 <div id="nexusWalletPill" style="font-size:11px; font-weight:800; padding:3px 8px; border-radius:6px; font-family:var(--font-mono); background:rgba(14,203,129,0.15); color:var(--buy-green); border:1px solid rgba(14,203,129,0.3);">
-                    +15.75% Return
+                    +7.88% Return
                 </div>
             </div>
 
@@ -778,11 +778,11 @@
             <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06);">
                 <div class="wallet-stat-item">
                     <div style="font-size:9.5px; font-weight:800; color:#F59E0B; text-transform:uppercase; font-family:var(--font-mono);"><i class="fa-solid fa-rocket" style="margin-right:3px;"></i> ATH (PEAK)</div>
-                    <div id="nexusAthVal" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#fff;">$646.25</div>
+                    <div id="nexusAthVal" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#fff;">$1,146.25</div>
                 </div>
                 <div class="wallet-stat-item">
                     <div style="font-size:9.5px; font-weight:800; color:#38BDF8; text-transform:uppercase; font-family:var(--font-mono);"><i class="fa-solid fa-shield-halved" style="margin-right:3px;"></i> ATL (FLOOR)</div>
-                    <div id="nexusAtlVal" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#fff;">$485.00</div>
+                    <div id="nexusAtlVal" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#fff;">$985.00</div>
                 </div>
                 <div class="wallet-stat-item">
                     <div style="font-size:9.5px; font-weight:800; color:var(--buy-green); text-transform:uppercase; font-family:var(--font-mono);"><i class="fa-solid fa-trophy" style="margin-right:3px;"></i> PEAK PROFIT</div>
@@ -794,7 +794,7 @@
             <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06);">
                 <div class="wallet-stat-item">
                     <div style="font-size:9.5px; font-weight:800; color:#94A3B8; text-transform:uppercase; font-family:var(--font-mono);">BASE CAPITAL</div>
-                    <div id="nexusBaseCap" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#fff;">$500.00</div>
+                    <div id="nexusBaseCap" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#fff;">$1,000.00</div>
                 </div>
                 <div class="wallet-stat-item">
                     <div style="font-size:9.5px; font-weight:800; color:#F59E0B; text-transform:uppercase; font-family:var(--font-mono);">USED MARGIN</div>
@@ -802,7 +802,7 @@
                 </div>
                 <div class="wallet-stat-item">
                     <div style="font-size:9.5px; font-weight:800; color:#38BDF8; text-transform:uppercase; font-family:var(--font-mono);">FREE MARGIN</div>
-                    <div id="nexusFreeMargin" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#38BDF8;">$478.75</div>
+                    <div id="nexusFreeMargin" style="font-size:14px; font-weight:800; font-family:var(--font-mono); color:#38BDF8;">$978.75</div>
                 </div>
             </div>
         </div>
@@ -950,9 +950,9 @@
 
         function updateNexusWalletHUD(positions) {
             try {
-                const baseCap = 500.00;
+                const baseCap = 1000.00; // True NexusPro Starting Capital
                 const realizedPnl = 78.75; // From audited 67 trades
-                const closedBal = baseCap + realizedPnl; // $578.75
+                const closedBal = baseCap + realizedPnl; // $1,078.75
                 
                 let unPnl = 0;
                 let usedMargin = 0;
@@ -965,8 +965,8 @@
                 
                 const totalEquity = closedBal + unPnl;
                 const freeMargin = Math.max(0, closedBal - usedMargin);
-                const athVal = Math.max(646.25, totalEquity, closedBal);
-                const atlVal = 485.00;
+                const athVal = Math.max(1146.25, totalEquity, closedBal);
+                const atlVal = 985.00;
                 const peakProfit = Math.max(146.25, athVal - baseCap);
                 const returnPct = ((totalEquity - baseCap) / baseCap) * 100;
                 
