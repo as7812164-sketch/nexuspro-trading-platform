@@ -1,8 +1,8 @@
 {
   "version": "3.0-hermes-msob-clean",
-  "updated_at": 1795235235489,
-  "updated_at_str": "2026-11-21 04:27:15 IST",
-  "total_trades": 62,
+  "updated_at": 1795235401615,
+  "updated_at_str": "2026-11-21 04:30:01 IST",
+  "total_trades": 63,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 61.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 2,
@@ -36,24 +36,24 @@
       "win_rate": 75.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 3,
       "name": "Section 3 (AVAXUSDT, DOGEUSDT, KAVAUSDT)",
       "assigned_coins": "AVAXUSDT, DOGEUSDT, KAVAUSDT",
       "initial_balance": 100.0,
-      "current_balance": 100.0,
+      "current_balance": 92.5,
       "vault_balance": 0.0,
-      "equity": 100.0,
-      "total_pnl": 0.0,
-      "pnl_pct": 0.0,
+      "equity": 92.5,
+      "total_pnl": -7.5,
+      "pnl_pct": -7.5,
       "win_count": 3,
-      "loss_count": 3,
-      "win_rate": 50.0,
-      "status": "IN_TRADE",
-      "active_symbol": "DOGEUSDT",
-      "updated_at": 1795235104.5448308
+      "loss_count": 4,
+      "win_rate": 42.9,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795235401.603242
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 62.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 90.9,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 37.5,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 57.1,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795235104.5448308
+      "updated_at": 1795235401.603242
     }
   ],
   "trade_history": [
@@ -1725,36 +1725,34 @@
       "mfe_pct": "+1.19%",
       "roi_pct": -15.0,
       "timeframe": "1H"
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 15,
+      "id": 111,
       "section_id": 3,
       "symbol": "DOGEUSDT",
       "side": "LONG",
       "entry_price": 0.05357,
-      "mark_price": 0.05137,
-      "position_size_usdt": 250.0,
+      "exit_price": 0.05125,
       "margin_usdt": 50.0,
+      "position_size_usdt": 250.0,
       "leverage": 5,
-      "sl_price": 0.051963,
-      "tp_price": 0.055177,
-      "trailing_sl_price": 0.051963,
-      "trailing_stage": 0,
-      "unrealized_pnl": -10.266940451745384,
-      "pnl_pct": -20.53,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
+      "realized_pnl": -7.5,
+      "pnl_pct": -15.0,
+      "exit_reason": "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)",
       "open_time": 1795231839.0052013,
-      "updated_at": 1795235229.1753685,
-      "mae_pct": 23.24,
-      "mfe_pct": 0.0,
-      "size_usdt": 0.0,
+      "close_time": 1795235401.5939224,
+      "duration_minutes": 59.4,
+      "entry_time_str": "21 Nov, 09:00:39 IST",
+      "exit_time_str": "21 Nov, 10:00:01 IST",
+      "duration_str": "59m 22s",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-23.24%",
+      "mfe_pct": "+0.00%",
+      "roi_pct": -15.0,
       "timeframe": "1H"
     }
   ],
+  "positions": [],
   "mitigated_order_blocks": [
     {
       "ob_key": "ETHUSDT_4h_LONG_1790640000",
