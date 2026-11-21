@@ -160,7 +160,7 @@ class HermesMSOBEngine:
         - Swing Pivot Lookback = 5 | Liquidity Sweep Decay = 35 bars | IDM Lookback = min(100, bar_index - swingBar)
         - 7-Model Order Block classification (FVG >= 0.15*ATR, Displacement >= 1.2*ATR, zero 8-bar skip, exact C1/C2 bounds)
         - Strong/Cond OB (Types 2,4,6,7): Strictly 1st Tap Only (First Tap OB Boundary)
-        - Weak OB (Types 1,3,5): Wick Sweep Rejection ONLY (>= 18.0% rejection wick beyond OB boundary)
+        - All 7 OB Models: Pure Clean First Tap of OB boundary
         - Supports BOTH BUY (LONG) and SELL (SHORT) signals when self.allow_short=True
         """
         n = len(candles)
@@ -348,7 +348,7 @@ class HermesMSOBEngine:
                             "signal_type": None,
                         })
 
-            # Step-by-step Tap, Weak Wick Sweep & Invalidation evaluation on bar i
+            # Step-by-step First Tap & Invalidation evaluation on bar i
             rng = curr["high"] - curr["low"]
             for ob in active_obs:
                 if i <= ob["create_idx"] or ob["inv"]:
@@ -704,7 +704,7 @@ class HermesMSOBEngine:
     async def check_5m_confirmation(self, session: aiohttp.ClientSession, setup: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """
         1:1 TradingView Execution Confirmation (BOTH BUY/LONG & SELL/SHORT):
-        - Verifies OB has NOT been retired in SQLite and has active 1st-Tap or >=18% Weak Sweep signal
+        - Verifies OB has NOT been retired in SQLite and has active 1st-Tap signal
         - Confirms on latest closed 5m candle within exact OB entry zone (zero stale chase!)
         """
         ob_key = setup["ob_key"]

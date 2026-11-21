@@ -781,7 +781,7 @@ export class ChartTerminal {
     const swingLen = 5;
     const minDispMult = 1.2;
     const minFvgMult = 0.15;
-    const minWeakWickPct = 18.0;
+    // Universal First Tap Engine
 
     let lastShPrice = null;
     let lastSlPrice = null;
@@ -1065,7 +1065,7 @@ export class ChartTerminal {
         }
       }
 
-      // 5. Evaluate Tap / Weak Wick Sweep >=18% / Body-Close Invalidation at bar i
+      // 5. Evaluate Pure First Tap / Body-Close Invalidation at bar i
       const rng = curr.high - curr.low;
       for (const ob of rawObList) {
         if (i <= ob.createIdx || ob.isInvalidated || ob.isMitigated) continue;
@@ -1074,46 +1074,24 @@ export class ChartTerminal {
             ob.isInvalidated = true;
             continue;
           }
-          if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
-            if (curr.low <= ob.top && curr.close >= ob.bottom) {
-              ob.isMitigated = true;
-              ob.mitIdx = i;
-              ob.mitTime = curr.time;
-              signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'STRONG_BUY' });
-            }
-          } else if (ob.catName === 'WEAK') {
-            if (curr.low < ob.bottom && curr.close >= ob.bottom && curr.close > curr.open) {
-              const wickPct = rng > 0 ? ((Math.min(curr.open, curr.close) - curr.low) / rng) * 100.0 : 0;
-              if (wickPct >= minWeakWickPct) {
-                ob.isMitigated = true;
-                ob.mitIdx = i;
-                ob.mitTime = curr.time;
-                signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'WEAK_BUY' });
-              }
-            }
+          // Universal Clean First Tap across all 7 Models
+          if (curr.low <= ob.top && curr.close >= ob.bottom) {
+            ob.isMitigated = true;
+            ob.mitIdx = i;
+            ob.mitTime = curr.time;
+            signals.push({ idx: i, time: curr.time, price: curr.low, kind: 'FIRST_TAP_BUY' });
           }
         } else {
           if (curr.close > ob.top) {
             ob.isInvalidated = true;
             continue;
           }
-          if (ob.catName === 'STRONG' || ob.catName === 'STRONGEST_COND') {
-            if (curr.high >= ob.bottom && curr.close <= ob.top) {
-              ob.isMitigated = true;
-              ob.mitIdx = i;
-              ob.mitTime = curr.time;
-              signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'STRONG_SELL' });
-            }
-          } else if (ob.catName === 'WEAK') {
-            if (curr.high > ob.top && curr.close <= ob.top && curr.close < curr.open) {
-              const wickPct = rng > 0 ? ((curr.high - Math.max(curr.open, curr.close)) / rng) * 100.0 : 0;
-              if (wickPct >= minWeakWickPct) {
-                ob.isMitigated = true;
-                ob.mitIdx = i;
-                ob.mitTime = curr.time;
-                signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'WEAK_SELL' });
-              }
-            }
+          // Universal Clean First Tap across all 7 Models
+          if (curr.high >= ob.bottom && curr.close <= ob.top) {
+            ob.isMitigated = true;
+            ob.mitIdx = i;
+            ob.mitTime = curr.time;
+            signals.push({ idx: i, time: curr.time, price: curr.high, kind: 'FIRST_TAP_SELL' });
           }
         }
       }
