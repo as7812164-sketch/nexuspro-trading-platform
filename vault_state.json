@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795340736767,
-  "updated_at_str": "2026-11-22 09:45:36 IST",
+  "updated_at": 1795341038229,
+  "updated_at_str": "2026-11-22 09:50:38 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "BNBUSDT",
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "RENDERUSDT",
-      "updated_at": 1795340724.0693896
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340687.8859482
+      "updated_at": 1795340871.5911264
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "BNBUSDT",
       "side": "SHORT",
       "entry_price": 546.18,
-      "mark_price": 549.1,
+      "mark_price": 550.53,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -191,14 +191,14 @@
       "tp_price": 529.7946,
       "trailing_sl_price": 562.5654,
       "trailing_stage": 0,
-      "unrealized_pnl": -1.3365557142334363,
-      "pnl_pct": -2.67,
+      "unrealized_pnl": -1.9911018345600453,
+      "pnl_pct": -3.98,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795337515.6829166,
-      "updated_at": 1795340709.8739548,
-      "mae_pct": 3.3,
+      "updated_at": 1795341023.2797647,
+      "mae_pct": 3.98,
       "mfe_pct": 0.51,
       "size_usdt": 0.0,
       "timeframe": "1H"
@@ -209,22 +209,22 @@
       "symbol": "RENDERUSDT",
       "side": "SHORT",
       "entry_price": 1.334,
-      "mark_price": 1.334,
+      "mark_price": 1.341,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
       "sl_price": 1.37402,
       "tp_price": 1.29398,
-      "trailing_sl_price": 0.0,
+      "trailing_sl_price": 1.37402,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.0,
-      "pnl_pct": 0.0,
+      "unrealized_pnl": -1.3118440779609997,
+      "pnl_pct": -2.62,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795340724.0646434,
-      "updated_at": 1795340724.0646434,
-      "mae_pct": 0.0,
+      "updated_at": 1795341023.2683346,
+      "mae_pct": 2.62,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
       "timeframe": "4H"
