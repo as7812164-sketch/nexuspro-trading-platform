@@ -104,3 +104,12 @@ DEFAULT_RRR = 1.0
 
 # Banned Symbols (Permanently excluded from scanning & trading per user mandate)
 BANNED_SYMBOLS = ["PAXGUSDT", "PAXG", "XAUUSDT", "GOLD"]
+
+# Bitget Live Real Account Integration
+BITGET_AUTO_TRADE = True
+BITGET_API_KEY = os.getenv("BITGET_API_KEY", "bg_c5a13dc855f2cccdf5889864baefee4a")
+BITGET_SECRET = os.getenv("BITGET_SECRET", "efed9c73efb845df89260a9f0f9b6b772ae8677c385ad3d0a273200b3d630f16")
+BITGET_PASSPHRASE = os.getenv("BITGET_PASSPHRASE", "Jaishriram")
+BITGET_STARTING_CAPITAL = 100.0   # $100.00 USDT starting wallet
+BITGET_MARGIN_PER_TRADE = 10.0    # Strictly $10.00 USDT margin per trade (Real Capital)
+

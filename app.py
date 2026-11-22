@@ -28,7 +28,9 @@ from config import (
     PAIR_MAPPING,
     DEFAULT_LEVERAGE,
     SYMBOL_LEVERAGE_OVERRIDES,
-    get_symbol_leverage
+    get_symbol_leverage,
+    BITGET_AUTO_TRADE,
+    BITGET_MARGIN_PER_TRADE
 )
 from database.db import (
     init_db,
@@ -522,6 +524,15 @@ async def close_trade(pos_id: int):
         pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
         close_position_in_db(pos_id, curr_price, pnl, "MANUAL_CLOSE")
+
+        # Close on Bitget live futures as well
+        try:
+            from engine.bitget_execution import bitget_client
+            if bitget_client.is_auto_trade_enabled():
+                asyncio.create_task(bitget_client.close_live_position(target["symbol"], side))
+        except Exception:
+            pass
+
         return {"status": "CLOSED", "success": True, "position_id": pos_id, "realized_pnl": pnl}
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
@@ -552,9 +563,34 @@ async def close_trade_body(body: Dict[str, Any] = Body(...)):
         pnl = round((price_diff / target["entry_price"]) * leverage * margin, 2)
 
         close_position_in_db(target["id"], curr_price, pnl, "MANUAL_CLOSE")
+
+        # Close on Bitget live futures as well
+        try:
+            from engine.bitget_execution import bitget_client
+            if bitget_client.is_auto_trade_enabled():
+                asyncio.create_task(bitget_client.close_live_position(target["symbol"], side))
+        except Exception:
+            pass
+
         return {"status": "CLOSED", "success": True, "position_id": target["id"], "realized_pnl": pnl}
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
+
+@app.get("/api/bitget/status")
+async def get_bitget_status():
+    try:
+        from engine.bitget_execution import bitget_client
+        bal = await bitget_client.fetch_account_balance()
+        return {
+            "success": True,
+            "auto_trade_enabled": bitget_client.is_auto_trade_enabled(),
+            "configured": bitget_client.is_configured(),
+            "margin_per_trade_usdt": BITGET_MARGIN_PER_TRADE,
+            "default_leverage": DEFAULT_LEVERAGE,
+            "account_balance": bal
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 @app.get("/api/trade/history")
 @app.get("/api/paper/trades")

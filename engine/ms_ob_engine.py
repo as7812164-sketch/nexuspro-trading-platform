@@ -37,7 +37,9 @@ from config import (
     MAX_CONCURRENT_TRADES,
     TOTAL_PORTFOLIO_CAPITAL,
     NEXUS_TELEGRAM_BOT_TOKEN,
-    NEXUS_TELEGRAM_CHAT_ID
+    NEXUS_TELEGRAM_CHAT_ID,
+    BITGET_AUTO_TRADE,
+    BITGET_MARGIN_PER_TRADE
 )
 from database.db import (
     get_open_positions,
@@ -892,6 +894,31 @@ class HermesMSOBEngine:
             icon = "🟢" if is_long else "🔴"
             print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf} -> {ltf_tag}) @ {entry_p} | {lev}x | SL: {sl_p} (-15.0% ROI) | TP: {tp_p} (+15.0% ROI)")
 
+            # Execute simultaneous Real-Money Order on Bitget Futures ($10.00 Fixed Margin)
+            bitget_res = None
+            bitget_status_line = ""
+            try:
+                from engine.bitget_execution import bitget_client
+                if bitget_client.is_auto_trade_enabled():
+                    bitget_res = await bitget_client.execute_live_order(
+                        symbol=sym,
+                        side=side,
+                        entry_price=entry_p,
+                        sl_price=sl_p,
+                        tp_price=tp_p,
+                        margin_usdt=BITGET_MARGIN_PER_TRADE,
+                        leverage=lev
+                    )
+                    if bitget_res and bitget_res.get("success"):
+                        bitget_status_line = f"\nBITGET: LIVE FILLED (${BITGET_MARGIN_PER_TRADE:.2f} • {lev}x)"
+                        print(f"💎 [BITGET REAL FILLED] #{pos_id} {sym} {side} | Order: {bitget_res.get('order_id')}")
+                    else:
+                        err_reason = bitget_res.get('reason') or bitget_res.get('error') if bitget_res else 'Unknown'
+                        bitget_status_line = f"\nBITGET: NOTE ({err_reason})"
+                        print(f"⚠️ [BITGET SKIPPED/NOTE] {err_reason}")
+            except Exception as bge:
+                print(f"❌ [BITGET LIVE EXECUTION EXCEPTION] {bge}")
+
             # Style 4 (Preformatted Monospace Card Box with Strict 15% ROI SL/TP)
             caption = (
                 f"<pre>{icon} {sym} ({tf} ➔ {ltf_tag}) • {dir_label} (#{pos_id})\n"
@@ -899,7 +926,8 @@ class HermesMSOBEngine:
                 f"ENTRY : ${format_price(entry_p)} (MSS Sniper)\n"
                 f"TP 🎯 : ${format_price(tp_p)} (+15.0% ROI)\n"
                 f"SL 🛑 : ${format_price(sl_p)} (-15.0% ROI)\n"
-                f"POI   : ${format_price(confirm.get('poi_top', 0))} - ${format_price(confirm.get('poi_bot', 0))}</pre>"
+                f"POI   : ${format_price(confirm.get('poi_top', 0))} - ${format_price(confirm.get('poi_bot', 0))}"
+                f"{bitget_status_line}</pre>"
             )
 
             # Generate Dual Institutional Live Chart Images (HTF First Tap + LTF MSS Sniper Entry)
@@ -972,6 +1000,16 @@ class HermesMSOBEngine:
                     realized = round(margin * (FULL_BOOK_TP_ROI_PCT / 100.0), 2)
                     close_position_in_db(pos_id, tp_p, realized, "FULL_BOOK_TP_HIT (+15% ROI)")
                     print(f"🎯 [HERMES MS-OB] Full TP Hit (+15% ROI): #{pos_id} {sym} ({lev}x) @ {tp_p}")
+
+                    # Close simultaneous Bitget Real-Money position
+                    try:
+                        from engine.bitget_execution import bitget_client
+                        if bitget_client.is_auto_trade_enabled():
+                            await bitget_client.close_live_position(sym, side)
+                            print(f"💎 [BITGET REAL CLOSED] {sym} {side} closed on exchange (TP Hit).")
+                    except Exception as bg_tp_err:
+                        print(f"⚠️ [BITGET TP CLOSE ERROR] {bg_tp_err}")
+
                     exit_msg = (
                         f"<pre>🎯 {sym} ({pos.get('timeframe', '1H')}) • TP HIT (#{pos_id})\n"
                         f"─────────────────────────────────\n"
@@ -1001,6 +1039,16 @@ class HermesMSOBEngine:
                         realized = round(margin * (self.be_lock_roi / 100.0), 2)
                         close_position_in_db(pos_id, trailing_sl_p, realized, "BREAKEVEN_PROFIT_LOCKED (+2.5% ROI)")
                         print(f"🛡️ [HERMES MS-OB] BE Exit (+2.5% ROI): #{pos_id} {sym} ({lev}x) @ {trailing_sl_p}")
+
+                        # Close simultaneous Bitget Real-Money position
+                        try:
+                            from engine.bitget_execution import bitget_client
+                            if bitget_client.is_auto_trade_enabled():
+                                await bitget_client.close_live_position(sym, side)
+                                print(f"💎 [BITGET REAL CLOSED] {sym} {side} closed on exchange (BE Exit).")
+                        except Exception as bg_be_err:
+                            print(f"⚠️ [BITGET BE CLOSE ERROR] {bg_be_err}")
+
                         exit_msg = (
                             f"<pre>🛡️ {sym} ({pos.get('timeframe', '1H')}) • BE EXIT (#{pos_id})\n"
                             f"─────────────────────────────────\n"
@@ -1032,6 +1080,16 @@ class HermesMSOBEngine:
                                 realized = round(margin * (-HARD_SL_ROI_PCT / 100.0), 2)
                                 close_position_in_db(pos_id, curr_price, realized, "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)")
                                 print(f"🛑 [HERMES MS-OB] Hard SL Hit (-15% ROI): #{pos_id} {sym} ({lev}x) @ {curr_price}")
+
+                                # Close simultaneous Bitget Real-Money position
+                                try:
+                                    from engine.bitget_execution import bitget_client
+                                    if bitget_client.is_auto_trade_enabled():
+                                        await bitget_client.close_live_position(sym, side)
+                                        print(f"💎 [BITGET REAL CLOSED] {sym} {side} closed on exchange (Hard SL).")
+                                except Exception as bg_sl_err:
+                                    print(f"⚠️ [BITGET SL CLOSE ERROR] {bg_sl_err}")
+
                                 exit_msg = (
                                     f"<pre>🛑 {sym} ({pos.get('timeframe', '1H')}) • SL HIT (#{pos_id})\n"
                                     f"─────────────────────────────────\n"
