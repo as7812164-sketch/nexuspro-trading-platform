@@ -1001,7 +1001,7 @@ class HermesMSOBEngine:
 
     async def start_loop(self):
         self._is_running = True
-        print("⚡ [HERMES MS-OB v2.0 EXCLUSIVE] BUY/LONG Only | Strict 1st Tap Valid | 2nd Tap Invalidated | $1000 Flat | BE +12%->+2.5% | Hard SL -15% | TP +15%")
+        print("⚡ [HERMES MS-OB v2.0 EXCLUSIVE] BUY/LONG & SELL/SHORT | Strict 1st Tap Valid | 1H➔5m & 4H➔15m MSS Sniper | $1000 Flat | BE +12%->+2.5% | Hard SL -15% | TP +15%")
         while self._is_running:
             try:
                 await self.update_open_positions()
