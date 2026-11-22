@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795337415580,
-  "updated_at_str": "2026-11-22 08:50:15 IST",
+  "updated_at": 1795337717837,
+  "updated_at_str": "2026-11-22 08:55:17 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 2,
@@ -34,9 +34,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "status": "IN_TRADE",
+      "active_symbol": "BNBUSDT",
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     },
     {
       "id": 10,
@@ -172,11 +172,38 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795337258.7941773
+      "updated_at": 1795337619.6703858
     }
   ],
   "trade_history": [],
-  "positions": [],
+  "positions": [
+    {
+      "id": 1,
+      "section_id": 2,
+      "symbol": "BNBUSDT",
+      "side": "SHORT",
+      "entry_price": 546.18,
+      "mark_price": 546.11,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 562.5654,
+      "tp_price": 529.7946,
+      "trailing_sl_price": 562.5654,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.032040719176799015,
+      "pnl_pct": 0.06,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795337515.6829166,
+      "updated_at": 1795337694.9730964,
+      "mae_pct": 0.06,
+      "mfe_pct": 0.51,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "mitigated_order_blocks": [
     {
       "ob_key": "BTCUSDT_1h_SHORT_1794535200",
@@ -7195,6 +7222,17 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 1,
       "updated_at": 1795337370.841653
+    },
+    {
+      "ob_key": "BNBUSDT_1h_SHORT_1795309200",
+      "symbol": "BNBUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 551.17,
+      "ob_bottom": 548.8,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795337515.7349222
     }
   ]
 }
