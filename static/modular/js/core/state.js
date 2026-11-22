@@ -46,27 +46,28 @@ class StateStore {
   // Persistent Account Cache (Guarantees instant true balance on cold/warm start)
   loadAccount() {
     try {
+      localStorage.removeItem('nexuspro_modular_account_v1074');
       localStorage.removeItem('nexuspro_modular_account_v500');
-      const saved = localStorage.getItem('nexuspro_modular_account_v1074');
+      const saved = localStorage.getItem('nexuspro_modular_account_v500_fresh');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed && typeof parsed.baseCapital === 'number' && parsed.baseCapital >= 1000.0) {
+        if (parsed && typeof parsed.baseCapital === 'number' && parsed.baseCapital === 500.0) {
           return parsed;
         }
       }
     } catch (e) {}
     return {
-      baseCapital: 1000.00,
-      equity: 1074.00,
-      all_time_high: 1146.25,
-      all_time_low: 985.00,
-      peak_profit: 146.25,
+      baseCapital: 500.00,
+      equity: 500.00,
+      all_time_high: 500.00,
+      all_time_low: 500.00,
+      peak_profit: 0.00,
       unrealizedPnl: 0.00,
-      pnlPct: 7.40,
-      totalPnl: 74.00,
-      totalPnlPct: 7.40,
+      pnlPct: 0.00,
+      totalPnl: 0.00,
+      totalPnlPct: 0.00,
       usedMargin: 0.00,
-      freeMargin: 1074.00,
+      freeMargin: 500.00,
       marginRatio: 0.00,
       winRate: 0.0,
       sentries: {
@@ -80,7 +81,7 @@ class StateStore {
 
   saveAccount() {
     try {
-      localStorage.setItem('nexuspro_modular_account_v1074', JSON.stringify(this.account));
+      localStorage.setItem('nexuspro_modular_account_v500_fresh', JSON.stringify(this.account));
     } catch (e) {}
   }
 
@@ -136,14 +137,12 @@ class StateStore {
             this.account.totalPnl = Number(accData.total_pnl || 0);
           }
           if (accData.all_time_high !== undefined) {
-            this.account.all_time_high = Number(accData.all_time_high);
+            this.account.all_time_high = Math.max(Number(this.account.all_time_high || 500.0), Number(accData.all_time_high || 500.0));
           }
           if (accData.all_time_low !== undefined) {
-            this.account.all_time_low = Number(accData.all_time_low);
+            this.account.all_time_low = Math.min(Number(this.account.all_time_low || 500.0), Number(accData.all_time_low || 500.0));
           }
-          if (accData.peak_profit !== undefined) {
-            this.account.peak_profit = Number(accData.peak_profit);
-          }
+          this.account.peak_profit = Math.max(0.0, this.account.all_time_high - 500.0);
           const comb = accData.combined_10x || accData.portfolio_10x || {};
           if (comb.total_pnl_pct !== undefined) {
             this.account.totalPnlPct = Number(comb.total_pnl_pct || 0);

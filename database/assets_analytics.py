@@ -383,20 +383,9 @@ def get_assets_analytics_payload(tickers: Optional[Dict[str, Any]] = None) -> Di
 
     tracks_list = list(tracks.values())
 
-    # Institutional Matrix for NexusPro Option B:
-    # Base Capital: $1,000.00
-    # Current Audited Realized: $1,074.00
-    # ATH (Peak): $1,146.25 (Audited Peak)
-    # ATL (Floor): $985.00 (STRICT FIXED FLOOR - Never drops!)
-    # Peak Profit: +$146.25
-    ath = max(1146.25, total_equity, realized_balance)
-    for t in reversed(trade_history):
-        realized_balance += float(t.get("realized_pnl", 0.0))
-        if realized_balance > ath:
-            ath = realized_balance
-    ath = round(max(ath, total_equity), 2)
-    atl = 985.00  # Strict Fixed Floor
-    peak_profit = max(146.25, round(ath - 1000.0, 2))
+    # Monotonic ATH & ATL Ratchet (Synced with database settings)
+    from database.db import update_and_get_ath_atl
+    ath, atl, peak_profit = update_and_get_ath_atl(total_equity, realized_balance, base_cap=base_capital)
 
     return {
         "status": "ONLINE",

@@ -345,10 +345,9 @@ def reconcile_sections_ledger():
     open_sec_map = {r["section_id"]: r["symbol"] for r in c.fetchall()}
 
     now = time.time()
-    AUDITED_HISTORICAL_PROFIT_PER_SEC = 7.40  # $74.00 audited profit across 10 sections ($1,074.00 portfolio)
     for sid in range(1, TOTAL_DECA_SECTIONS + 1):
         pnls = sec_pnls[sid]
-        tot_pnl = round(AUDITED_HISTORICAL_PROFIT_PER_SEC + sum(pnls), 2)
+        tot_pnl = round(sum(pnls), 2)
         cur_bal = round(STARTING_BALANCE_PER_SECTION + tot_pnl, 2)
         wins = len([p for p in pnls if p > 0])
         losses = len([p for p in pnls if p < 0])
@@ -501,6 +500,9 @@ def reset_fresh_portfolio_db() -> Dict[str, Any]:
     c.execute("DELETE FROM mitigated_order_blocks")
     c.execute("DELETE FROM sentinel_knowledge_base")
     c.execute("DELETE FROM deca_sections")
+    c.execute("INSERT OR REPLACE INTO settings (key, value) VALUES ('all_time_high', '500.0')")
+    c.execute("INSERT OR REPLACE INTO settings (key, value) VALUES ('all_time_low', '500.0')")
+    c.execute("INSERT OR REPLACE INTO settings (key, value) VALUES ('starting_capital', '500.0')")
     try:
         c.execute("DELETE FROM sqlite_sequence WHERE name IN ('positions', 'trade_history', 'pending_setups', 'deca_sections')")
     except Exception:
@@ -627,13 +629,68 @@ def get_trade_history(limit: int = 1000) -> List[Dict[str, Any]]:
     conn.close()
     return [enrich_trade_metadata(r) for r in rows]
 
+def get_setting(key: str, default: str = "") -> str:
+    try:
+        conn = get_db_connection()
+        c = conn.cursor()
+        c.execute("SELECT value FROM settings WHERE key = ?", (key,))
+        row = c.fetchone()
+        conn.close()
+        return row[0] if row else default
+    except Exception:
+        return default
+
+def set_setting(key: str, value: str):
+    try:
+        conn = get_db_connection()
+        c = conn.cursor()
+        c.execute("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)", (key, str(value)))
+        conn.commit()
+        conn.close()
+    except Exception:
+        pass
+
+def update_and_get_ath_atl(tot_equity: float, tot_balance: float, base_cap: float = 500.0) -> tuple:
+    """
+    Monotonic High-Watermark (ATH) and Low-Watermark (ATL) Persistent Ratchet:
+    - Base Capital: $500.00
+    - If profit occurs (e.g. 500 -> 510): ATH ratchets up to 510.00.
+    - If next trade has loss (e.g. 510 -> 505): ATH DOES NOT DROP! Stays 510.00!
+    - If subsequent trade reaches 525: ATH breaks high and updates to 525.00!
+    - ATL tracks lowest equity ever reached (starts at 500.00, only ratchets down).
+    - Peak Profit: max(0.0, ATH - base_cap).
+    """
+    saved_ath_str = get_setting("all_time_high", str(base_cap))
+    saved_atl_str = get_setting("all_time_low", str(base_cap))
+
+    try:
+        saved_ath = float(saved_ath_str) if saved_ath_str else base_cap
+    except ValueError:
+        saved_ath = base_cap
+
+    try:
+        saved_atl = float(saved_atl_str) if saved_atl_str else base_cap
+    except ValueError:
+        saved_atl = base_cap
+
+    ath = round(max(saved_ath, tot_equity, tot_balance, base_cap), 2)
+    atl = round(min(saved_atl, tot_equity, tot_balance, base_cap), 2)
+
+    if ath != saved_ath:
+        set_setting("all_time_high", str(ath))
+    if atl != saved_atl:
+        set_setting("all_time_low", str(atl))
+
+    peak_profit = round(max(0.0, ath - base_cap), 2)
+    return ath, atl, peak_profit
+
 def get_portfolio_summary() -> Dict[str, Any]:
     reconcile_sections_ledger()
     sections = get_all_sections()
     open_positions = get_open_positions()
 
-    tot_initial = sum(s["initial_balance"] for s in sections)
-    tot_balance = sum(s["current_balance"] for s in sections)
+    tot_initial = sum(s["initial_balance"] for s in sections) or 500.0
+    tot_balance = sum(s["current_balance"] for s in sections) or 500.0
     unrealized = sum(p["unrealized_pnl"] for p in open_positions)
     tot_equity = tot_balance + unrealized
     tot_pnl = tot_equity - tot_initial
@@ -644,28 +701,7 @@ def get_portfolio_summary() -> Dict[str, Any]:
     tot_trades = tot_wins + tot_losses
     win_rate = round((tot_wins / tot_trades) * 100.0, 1) if tot_trades > 0 else 0.0
 
-    # Calculate All-Time High (ATH), All-Time Low (ATL), and Peak Profit dynamically
-    conn = get_db_connection()
-    c = conn.cursor()
-    c.execute("SELECT realized_pnl FROM trade_history ORDER BY id ASC")
-    hist_rows = c.fetchall()
-    conn.close()
-
-    # Institutional Matrix for NexusPro Option B:
-    # Base Capital: $1,000.00
-    # Current Audited Realized: $1,074.00
-    # ATH (Peak): $1,146.25 (Audited Peak)
-    # ATL (Floor): $985.00 (STRICT FIXED FLOOR - Never drops!)
-    # Peak Profit: +$146.25
-    ath = max(1146.25, tot_equity, tot_balance)
-    for r in hist_rows:
-        tot_balance += float(r["realized_pnl"] or 0.0)
-        if tot_balance > ath:
-            ath = tot_balance
-
-    ath = round(max(ath, tot_equity), 2)
-    atl = 985.00  # Strict Fixed Floor
-    peak_profit = max(146.25, round(ath - 1000.0, 2))
+    ath, atl, peak_profit = update_and_get_ath_atl(tot_equity, tot_balance, base_cap=tot_initial)
 
     return {
         "mode": "HERMES_MS_OB_V2 (7-MODEL OB FIRST TAP)",

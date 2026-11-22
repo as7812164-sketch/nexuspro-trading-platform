@@ -241,7 +241,7 @@ async def get_deca_summary():
 @app.get("/api/paper/account")
 async def get_paper_account():
     summary = get_portfolio_summary()
-    init_cap = float(summary.get("starting_capital", 1000.0) or 1000.0)
+    init_cap = float(summary.get("starting_capital", 500.0) or 500.0)
     tot_bal = float(summary.get("total_balance", init_cap))
     tot_pnl = float(summary.get("total_pnl", 0.0))
     return {
@@ -659,7 +659,7 @@ async def get_vault_status():
         "status": "ARMED",
         "branch": VAULT_BRANCH,
         "total_trades_persisted": len(trades),
-        "total_equity": summary.get("total_equity", 1074.0),
+        "total_equity": summary.get("total_equity", 500.0),
         "local_backup_present": has_local
     }
 

@@ -94,23 +94,23 @@
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:16px; border-top:1px solid var(--border-subtle); padding-top:16px;">
                 <div>
                     <span style="font-size:10px; color:#F59E0B; font-weight:700; text-transform:uppercase;"><i class="fa-solid fa-rocket"></i> All-Time High (ATH)</span>
-                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:#fff;" id="walletAthVal">$1,146.25</div>
+                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:#fff;" id="walletAthVal">$500.00</div>
                 </div>
                 <div>
                     <span style="font-size:10px; color:#38BDF8; font-weight:700; text-transform:uppercase;"><i class="fa-solid fa-shield-halved"></i> All-Time Low (ATL)</span>
-                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:#fff;" id="walletAtlVal">$985.00</div>
+                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:#fff;" id="walletAtlVal">$500.00</div>
                 </div>
                 <div>
                     <span style="font-size:10px; color:var(--buy-green); font-weight:700; text-transform:uppercase;"><i class="fa-solid fa-trophy"></i> Peak Profit</span>
-                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:var(--buy-green);" id="walletPeakProfit">+$146.25</div>
+                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:var(--buy-green);" id="walletPeakProfit">+$0.00</div>
                 </div>
                 <div>
                     <span style="font-size:10px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Starting Paper Balance</span>
-                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:#fff;" id="walletStartingBal">$1,000.00</div>
+                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:#fff;" id="walletStartingBal">$500.00</div>
                 </div>
                 <div>
                     <span style="font-size:10px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Used / Free Margin</span>
-                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:var(--brand-teal);" id="walletMarginInfo">$0.00 / $1,074.00</div>
+                    <div style="font-size:16px; font-weight:800; font-family:var(--font-mono); color:var(--brand-teal);" id="walletMarginInfo">$0.00 / $500.00</div>
                 </div>
                 <div>
                     <span style="font-size:10px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Deca Sections Mode</span>
@@ -314,9 +314,24 @@
                 const modeEl = document.getElementById("walletMode");
                 if (modeEl) modeEl.innerText = s.mode || 'STANDBY';
 
-                const athVal = Math.max(1146.25, Number(s.all_time_high !== undefined ? s.all_time_high : 0), totalEq);
-                const atlVal = 985.00; // Strict Fixed Floor - Never drops!
-                const peakProfit = Math.max(146.25, Number(s.peak_profit !== undefined ? s.peak_profit : 0), Math.max(0.0, athVal - startingCap));
+                const baseCap = Number(s.starting_capital || 500.0);
+                let savedAth = baseCap;
+                let savedAtl = baseCap;
+                try {
+                    const lsAth = localStorage.getItem('nexuspro_ath');
+                    const lsAtl = localStorage.getItem('nexuspro_atl');
+                    savedAth = lsAth ? Number(lsAth) : (s.all_time_high !== undefined ? Number(s.all_time_high) : baseCap);
+                    savedAtl = lsAtl ? Number(lsAtl) : (s.all_time_low !== undefined ? Number(s.all_time_low) : baseCap);
+                } catch(e) {}
+
+                const athVal = Math.max(savedAth, totalEq, Number(s.all_time_high || baseCap), baseCap);
+                const atlVal = Math.min(savedAtl, totalEq, Number(s.all_time_low || baseCap), baseCap);
+                const peakProfit = Math.max(0.0, athVal - baseCap);
+
+                try {
+                    localStorage.setItem('nexuspro_ath', String(athVal));
+                    localStorage.setItem('nexuspro_atl', String(atlVal));
+                } catch(e) {}
 
                 const athEl = document.getElementById("walletAthVal");
                 if (athEl) athEl.innerText = `$${athVal.toFixed(2)}`;

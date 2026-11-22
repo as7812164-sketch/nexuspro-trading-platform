@@ -59,7 +59,7 @@
             <div class="top-stats-pill">
                 <div class="stat-item">
                     <span class="stat-label">Total Equity</span>
-                    <span class="stat-val green" id="topTotalEquity">$1,074.00</span>
+                    <span class="stat-val green" id="topTotalEquity">$500.00</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Target Milestone</span>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <button onclick="resetPaperTrading()" style="background:var(--bg-surface-elevated); color:var(--text-muted); border:1px solid var(--border-subtle); font-weight:700; font-size:11px; padding:6px 12px; border-radius:6px; cursor:pointer;">
-                <i class="fa-solid fa-rotate-left"></i> Reset $1,000
+                <i class="fa-solid fa-rotate-left"></i> Reset $500
             </button>
         </div>
     </header>
@@ -90,19 +90,19 @@
                     Deca Compounding Engine (Infinite Rider)
                 </h1>
                 <p style="color:var(--text-secondary); font-size:12px; max-width:600px;">
-                    Simulating the verified 6-month model: $1,000.00 initial capital distributed into 10 independent sections of $100.00 each, targeting the historic <b style="color:var(--gold);">$47,389.77 USDT (+9,378%)</b> milestone with zero cross-account liquidation risk.
+                    Simulating the verified 6-month model: $500.00 initial capital distributed into 10 independent sections of $50.00 each, targeting the historic <b style="color:var(--gold);">$47,389.77 USDT (+9,378%)</b> milestone with zero cross-account liquidation risk.
                 </p>
             </div>
 
             <div class="hero-stats">
                 <div>
                     <div style="font-size:10px; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Total Portfolio Equity</div>
-                    <div style="font-size:24px; font-weight:900; font-family:var(--font-mono); color:var(--buy-green);" id="heroTotalEquity">$1,074.00</div>
-                    <div style="font-size:11px; color:var(--brand-teal); font-weight:700;" id="heroMarginInfo">Used: $0.00 • Free: $1,074.00</div>
+                    <div style="font-size:24px; font-weight:900; font-family:var(--font-mono); color:var(--buy-green);" id="heroTotalEquity">$500.00</div>
+                    <div style="font-size:11px; color:var(--brand-teal); font-weight:700;" id="heroMarginInfo">Used: $0.00 • Free: $500.00</div>
                 </div>
                 <div>
                     <div style="font-size:10px; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Net Realized Return</div>
-                    <div style="font-size:24px; font-weight:900; font-family:var(--font-mono); color:var(--buy-green);" id="heroPnlPct">+$74.00 (+7.40%)</div>
+                    <div style="font-size:24px; font-weight:900; font-family:var(--font-mono); color:var(--buy-green);" id="heroPnlPct">+$0.00 (+0.00%)</div>
                     <div style="font-size:11px; color:var(--gold); font-weight:700;" id="heroMode">STANDBY</div>
                 </div>
                 <div>
@@ -518,7 +518,7 @@
         }
 
         async function resetPaperTrading() {
-            if (!confirm("Reset all 10 Deca sections back to $100.00 each ($1,000.00 total)?")) return;
+            if (!confirm("Reset all 10 Deca sections back to $50.00 each ($500.00 total)?")) return;
             try {
                 const res = await fetch("/api/deca/reset", { method: 'POST' });
                 const d = await res.json();

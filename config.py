@@ -26,10 +26,10 @@ BRAND_SUBTITLE = "INSTITUTIONAL FUTURES TERMINAL"
 BRAND_ACCENT = "#00DFC0"  # Bitget Signature Teal/Cyan
 THEME_BG = "#080B11"
 
-# Standard Futures Trading ($1,000.00 Portfolio - Zero Compounding)
+# Standard Futures Trading ($500.00 Portfolio - Fresh Start)
 COMPOUNDING_ENABLED = False  # Compounding permanently disabled per user mandate
-TOTAL_PORTFOLIO_CAPITAL = 1000.0  # USDT Total Portfolio
-FIXED_MARGIN_PER_TRADE = 50.0     # Flat $50 USDT per trade (5% of $1,000 Portfolio)
+TOTAL_PORTFOLIO_CAPITAL = 500.0   # USDT Total Portfolio
+FIXED_MARGIN_PER_TRADE = 50.0     # Flat $50 USDT per trade (10% of $500 Portfolio)
 DEFAULT_LEVERAGE = 5              # 5x Isolated Leverage (default altcoins)
 SYMBOL_LEVERAGE_OVERRIDES = {
     "BTCUSDT": 10,                # Bitcoin: 10x Isolated | +15% ROI TP (+1.5% price)
@@ -42,8 +42,8 @@ def get_symbol_leverage(symbol: str) -> int:
     return int(SYMBOL_LEVERAGE_OVERRIDES.get(sym, DEFAULT_LEVERAGE))
 
 TOTAL_DECA_SECTIONS = 10
-INITIAL_CAPITAL_TOTAL = 1000.0
-STARTING_BALANCE_PER_SECTION = 100.0
+INITIAL_CAPITAL_TOTAL = 500.0
+STARTING_BALANCE_PER_SECTION = 50.0
 SECTION_RISK_FRACTION = 0.50
 
 # Strategy Parameters: Hermes MS-OB 7-Model Order Block Engine (v2.0 1:1 TradingView Sync)
