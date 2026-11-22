@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795336811852,
-  "updated_at_str": "2026-11-22 08:40:11 IST",
+  "updated_at": 1795337113946,
+  "updated_at_str": "2026-11-22 08:45:13 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336717.8241947
+      "updated_at": 1795337078.482418
     }
   ],
   "trade_history": [],
@@ -7096,6 +7096,72 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 1,
       "updated_at": 1795336466.1616888
+    },
+    {
+      "ob_key": "TRBUSDT_1h_LONG_1795017600",
+      "symbol": "TRBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 12.765,
+      "ob_bottom": 12.566,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336871.7402813
+    },
+    {
+      "ob_key": "TRBUSDT_1h_LONG_1795039200",
+      "symbol": "TRBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 12.724,
+      "ob_bottom": 12.546,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336871.7533996
+    },
+    {
+      "ob_key": "TRBUSDT_1h_LONG_1795053600",
+      "symbol": "TRBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 12.835,
+      "ob_bottom": 12.777,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336871.764786
+    },
+    {
+      "ob_key": "BNBUSDT_1h_SHORT_1795010400",
+      "symbol": "BNBUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 590.77,
+      "ob_bottom": 582.66,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336912.0272968
+    },
+    {
+      "ob_key": "BNBUSDT_1h_LONG_1795262400",
+      "symbol": "BNBUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 536.67,
+      "ob_bottom": 529.44,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795336912.0540488
+    },
+    {
+      "ob_key": "LTCUSDT_1h_LONG_1795262400",
+      "symbol": "LTCUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 39.6,
+      "ob_bottom": 38.95,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795336939.4079657
     }
   ]
 }
