@@ -15,6 +15,7 @@ HERMES MS ORDER BLOCK INSTITUTIONAL EXECUTION ENGINE (v2.0 GOLDEN — 1ST TAP EX
 """
 
 import time
+import json
 import asyncio
 import aiohttp
 from typing import Dict, List, Any, Optional
@@ -47,7 +48,7 @@ from database.db import (
     mark_ob_state
 )
 from engine.feed import market_feed
-from engine.chart_image_generator import render_smc_chart_image
+from engine.chart_image_generator import render_htf_ob_chart, render_ltf_entry_chart, render_smc_chart_image
 
 def format_price(p: float) -> str:
     try:
@@ -124,6 +125,42 @@ class HermesMSOBEngine:
         except Exception as e:
             print(f"⚠️ Telegram sendPhoto exception: {e}, falling back to sendMessage")
             await self.send_telegram_alert(session, caption)
+
+    async def send_telegram_media_group(self, session: aiohttp.ClientSession, photos: List[bytes], caption: str):
+        if not NEXUS_TELEGRAM_BOT_TOKEN or not NEXUS_TELEGRAM_CHAT_ID:
+            return
+        if not photos:
+            await self.send_telegram_alert(session, caption)
+            return
+
+        url = f"https://api.telegram.org/bot{NEXUS_TELEGRAM_BOT_TOKEN}/sendMediaGroup"
+        try:
+            media = []
+            form = aiohttp.FormData()
+            form.add_field("chat_id", str(NEXUS_TELEGRAM_CHAT_ID))
+
+            for idx, p_bytes in enumerate(photos):
+                field_name = f"photo_{idx}"
+                item = {
+                    "type": "photo",
+                    "media": f"attach://{field_name}"
+                }
+                if idx == 0:
+                    item["caption"] = caption
+                    item["parse_mode"] = "HTML"
+                media.append(item)
+                form.add_field(field_name, p_bytes, filename=f"{field_name}.png", content_type="image/png")
+
+            form.add_field("media", json.dumps(media))
+
+            async with session.post(url, data=form, timeout=aiohttp.ClientTimeout(total=25)) as resp:
+                if resp.status != 200:
+                    text_err = await resp.text()
+                    print(f"⚠️ Telegram sendMediaGroup returned {resp.status}: {text_err}")
+                    await self.send_telegram_photo(session, photos[0], caption)
+        except Exception as e:
+            print(f"⚠️ Telegram sendMediaGroup exception: {e}")
+            await self.send_telegram_photo(session, photos[0], caption)
 
     async def fetch_klines(self, session: aiohttp.ClientSession, symbol: str, interval: str, limit: int = 120) -> List[Dict[str, Any]]:
         try:
@@ -865,9 +902,14 @@ class HermesMSOBEngine:
                 f"POI   : ${format_price(confirm.get('poi_top', 0))} - ${format_price(confirm.get('poi_bot', 0))}</pre>"
             )
 
-            # Generate institutional live chart image with Order Block & First Tap arrow
+            # Generate Dual Institutional Live Chart Images (HTF First Tap + LTF MSS Sniper Entry)
             try:
-                candles = await self.fetch_klines(session, sym, setup.get("timeframe", "1h").lower(), limit=120)
+                htf_tf = setup.get("timeframe", "1h").lower()
+                ltf_tf = confirm.get("ltf", "5m").lower()
+
+                candles_htf = await self.fetch_klines(session, sym, htf_tf, limit=120)
+                candles_ltf = await self.fetch_klines(session, sym, ltf_tf, limit=60)
+
                 chart_zone = {
                     "side": side,
                     "entry_price": entry_p,
@@ -877,10 +919,13 @@ class HermesMSOBEngine:
                     "ob_bottom": setup.get("ob_bottom", entry_p * 0.995),
                     "leverage": lev
                 }
-                chart_bytes = render_smc_chart_image(sym, candles, chart_zone, timeframe=tf)
-                await self.send_telegram_photo(session, chart_bytes, caption)
+
+                htf_bytes = render_htf_ob_chart(sym, candles_htf, chart_zone, timeframe=htf_tf)
+                ltf_bytes = render_ltf_entry_chart(sym, candles_ltf, chart_zone, confirm, timeframe=ltf_tf)
+
+                await self.send_telegram_media_group(session, [htf_bytes, ltf_bytes], caption)
             except Exception as chart_err:
-                print(f"⚠️ Failed to generate/send chart photo: {chart_err}")
+                print(f"⚠️ Failed to generate/send dual chart photos: {chart_err}")
                 await self.send_telegram_alert(session, caption)
         except Exception as e:
             print(f"❌ Trade execution error for {sym}: {e}")
