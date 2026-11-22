@@ -494,50 +494,51 @@ class HermesMSOBEngine:
         side: str,
         htf_ob_top: float,
         htf_ob_bottom: float,
-        tap_time: int
+        tap_time: int = 0
     ) -> Optional[Dict[str, Any]]:
         """
-        Shoaib Khan Ep 08 Multi-Timeframe Institutional Engine:
-        - 1H OB Tap -> 5m Execution (5m MSS + Last POI Retest)
-        - 4H OB Tap -> 15m Execution (15m MSS + Last POI Retest)
-        - Eliminates blind 1-candle entries.
-        - Identifies valid fractal Swing High / Swing Low (Inducement).
-        - Verifies true MSS with Candle Body Close + Impulsive Displacement (>= 0.7*ATR) or FVG.
-        - Extracts the 'Latest POI' (Base Order Block of the displacement move).
-        - Triggers Limit Entry on Retest Tap of Latest POI (even a wick touch fills!).
-        - Refines Stop Loss strictly to the 5m/15m Latest POI boundary (dropping risk by 60-75%).
+        Hermes MS-OB Institutional Multi-Timeframe Execution Engine:
+        - 1H OB Tap -> 5m Execution (5m MSS + Last POI Retest Tap)
+        - 4H OB Tap -> 15m Execution (15m MSS + Last POI Retest Tap)
+        
+        Rules:
+        1. Price trends into HTF OB with Lower Lows & Lower Highs (Long) / Higher Highs & Higher Lows (Short).
+        2. MSS Breakout: Any candle breaks Recent LH/HL by WICK OR CANDLE BODY.
+        3. Identify Last POI: The base origin candle before the impulsive MSS breakout move.
+        4. Strict LIVE Retest Tap: Evaluated ONLY on active live candle (candles[-1]) or immediate previous closed candle (candles[-2]).
+           - Discards stale/historical ghost retests.
+           - Instant Invalidation: If live price slices through the opposite side of the LTF POI, setup is cancelled.
+        5. Stop Loss & Take Profit: Strictly 15.0% ROI (at 5x leverage = 3.0% price move).
         """
         n = len(candles)
         if n < 15:
             return None
 
-        atr = self.compute_atr(candles, 14)
-        curr_price = candles[-1]["close"]
+        curr_c = candles[-1]
+        curr_price = curr_c["close"]
         lookback = min(35, n - 2)
         start_idx = n - lookback
 
         if side.upper() in ("LONG", "BUY"):
-            # 1. Identify valid Swing Highs (Lower Highs) formed during or after tap
+            # 1. Identify valid Swing Highs (Lower Highs) formed as price entered or inside the HTF OB
             swing_highs = []
             for i in range(start_idx, n - 2):
-                if candles[i]["high"] > candles[i - 1]["high"] and candles[i]["high"] > candles[i + 1]["high"]:
+                if candles[i]["high"] >= candles[i - 1]["high"] and candles[i]["high"] >= candles[i + 1]["high"]:
                     swing_highs.append((i, candles[i]["high"]))
             if not swing_highs:
-                max_c = max(candles[start_idx:n - 3], key=lambda c: c["high"])
+                max_c = max(candles[start_idx:n - 2], key=lambda c: c["high"])
                 swing_highs.append((candles.index(max_c), max_c["high"]))
 
-            # 2. Check for Bullish MSS Breakout after the swing high
+            # 2. Check for Bullish MSS Breakout after recent swing high (by WICK or BODY)
             for sh_idx, sh_val in reversed(swing_highs):
                 for k in range(sh_idx + 1, n):
                     c_k = candles[k]
-                    body = c_k["close"] - c_k["open"]
-                    is_break = c_k["close"] > sh_val
-                    is_disp = body >= 0.7 * atr[k] and c_k["close"] > c_k["open"]
-                    has_fvg = k >= 2 and (c_k["low"] > candles[k - 2]["high"])
+                    # User Rule: Break Recent Lower High by WICK OR CANDLE BODY!
+                    is_break = c_k["high"] > sh_val
 
-                    if is_break and (is_disp or has_fvg):
-                        # MSS Confirmed at candle k!
-                        # 3. Identify Latest POI (base of displacement)
+                    if is_break:
+                        # MSS Confirmed!
+                        # 3. Identify Latest 5m/15m POI (base candle of the breakout move)
                         base_idx = k - 1
                         while base_idx > sh_idx and candles[base_idx]["close"] > candles[base_idx]["open"]:
                             base_idx -= 1
@@ -546,28 +547,18 @@ class HermesMSOBEngine:
                         poi_top = max(base_c["open"], base_c["close"], (base_c["high"] + base_c["open"]) / 2.0)
                         poi_bottom = min(base_c["open"], base_c["close"], base_c["low"])
 
-                        # 4. Check for Retest Tap from k+1 to current candle
-                        retested = False
-                        retest_price = None
-                        for m in range(k + 1, n):
-                            if candles[m]["low"] <= poi_top and candles[m]["high"] >= poi_bottom:
-                                retested = True
-                                retest_price = poi_top
-                                break
-                        # Live tick wick test
-                        if not retested and curr_price <= poi_top and curr_price >= poi_bottom * 0.998:
-                            retested = True
-                            retest_price = curr_price
+                        # 4. Strict Live Retest Only (Zero Historical Ghost Retest)
+                        # Invalidation: If live price has sliced below poi_bottom, setup is broken
+                        if curr_price < poi_bottom * 0.997:
+                            return None
 
-                        refined_sl = round(poi_bottom * 0.997, 6)
-                        entry_p = retest_price if retested else poi_top
+                        # Check live retest strictly on candles AFTER the breakout candle k
+                        is_live_retest = (n - 1 > k) and (curr_c["low"] <= poi_top and curr_price >= poi_bottom * 0.998)
+                        prev_c = candles[-2]
+                        is_prev_retest = (n - 2 > k) and (prev_c["low"] <= poi_top and prev_c["low"] >= poi_bottom * 0.998 and curr_price >= poi_bottom * 0.998)
 
-                        # Max risk guard: cap SL at 3.0% price distance (15% ROI on 5x)
-                        if entry_p > 0 and (entry_p - refined_sl) / entry_p > 0.03:
-                            refined_sl = round(entry_p * 0.97, 6)
-                        if refined_sl >= entry_p:
-                            refined_sl = round(entry_p * 0.992, 6)
-                        tp_p = round(entry_p * 1.03, 6)
+                        retested = is_live_retest or is_prev_retest
+                        entry_p = min(poi_top, curr_price) if retested else poi_top
 
                         return {
                             "status": "CONFIRMED_RETEST" if retested else "WAITING_RETEST",
@@ -580,35 +571,31 @@ class HermesMSOBEngine:
                                 "time": base_c["time"]
                             },
                             "entry_price": round(entry_p, 6),
-                            "sl_price": refined_sl,
-                            "tp_price": tp_p,
                             "retested": retested,
                             "poi_top": round(poi_top, 6),
                             "poi_bot": round(poi_bottom, 6),
                         }
 
         else:  # SHORT
-            # 1. Identify valid Swing Lows (Higher Lows)
+            # 1. Identify valid Swing Lows (Higher Lows) formed as price entered or inside the HTF OB
             swing_lows = []
             for i in range(start_idx, n - 2):
-                if candles[i]["low"] < candles[i - 1]["low"] and candles[i]["low"] < candles[i + 1]["low"]:
+                if candles[i]["low"] <= candles[i - 1]["low"] and candles[i]["low"] <= candles[i + 1]["low"]:
                     swing_lows.append((i, candles[i]["low"]))
             if not swing_lows:
-                min_c = min(candles[start_idx:n - 3], key=lambda c: c["low"])
+                min_c = min(candles[start_idx:n - 2], key=lambda c: c["low"])
                 swing_lows.append((candles.index(min_c), min_c["low"]))
 
-            # 2. Check for Bearish MSS Breakdown
+            # 2. Check for Bearish MSS Breakdown after recent swing low (by WICK or BODY)
             for sl_idx, sl_val in reversed(swing_lows):
                 for k in range(sl_idx + 1, n):
                     c_k = candles[k]
-                    body = c_k["open"] - c_k["close"]
-                    is_break = c_k["close"] < sl_val
-                    is_disp = body >= 0.7 * atr[k] and c_k["close"] < c_k["open"]
-                    has_fvg = k >= 2 and (c_k["high"] < candles[k - 2]["low"])
+                    # User Rule: Break Recent Higher Low by WICK OR CANDLE BODY!
+                    is_break = c_k["low"] < sl_val
 
-                    if is_break and (is_disp or has_fvg):
-                        # Bearish MSS confirmed at candle k!
-                        # 3. Identify Latest Bearish POI (base of displacement)
+                    if is_break:
+                        # Bearish MSS Confirmed!
+                        # 3. Identify Latest 5m/15m Bearish POI (base candle of the breakdown move)
                         base_idx = k - 1
                         while base_idx > sl_idx and candles[base_idx]["close"] < candles[base_idx]["open"]:
                             base_idx -= 1
@@ -617,25 +604,18 @@ class HermesMSOBEngine:
                         poi_bottom = min(base_c["open"], base_c["close"], (base_c["low"] + base_c["open"]) / 2.0)
                         poi_top = max(base_c["open"], base_c["close"], base_c["high"])
 
-                        retested = False
-                        retest_price = None
-                        for m in range(k + 1, n):
-                            if candles[m]["high"] >= poi_bottom and candles[m]["low"] <= poi_top:
-                                retested = True
-                                retest_price = poi_bottom
-                                break
-                        if not retested and curr_price >= poi_bottom and curr_price <= poi_top * 1.002:
-                            retested = True
-                            retest_price = curr_price
+                        # 4. Strict Live Retest Only (Zero Historical Ghost Retest)
+                        # Invalidation: If live price has spiked above poi_top, setup is broken
+                        if curr_price > poi_top * 1.003:
+                            return None
 
-                        refined_sl = round(poi_top * 1.003, 6)
-                        entry_p = retest_price if retested else poi_bottom
+                        # Check live retest strictly on candles AFTER the breakdown candle k
+                        is_live_retest = (n - 1 > k) and (curr_c["high"] >= poi_bottom and curr_price <= poi_top * 1.002)
+                        prev_c = candles[-2]
+                        is_prev_retest = (n - 2 > k) and (prev_c["high"] >= poi_bottom and prev_c["high"] <= poi_top * 1.002 and curr_price <= poi_top * 1.002)
 
-                        if entry_p > 0 and (refined_sl - entry_p) / entry_p > 0.03:
-                            refined_sl = round(entry_p * 1.03, 6)
-                        if refined_sl <= entry_p:
-                            refined_sl = round(entry_p * 1.008, 6)
-                        tp_p = round(entry_p * 0.97, 6)
+                        retested = is_live_retest or is_prev_retest
+                        entry_p = max(poi_bottom, curr_price) if retested else poi_bottom
 
                         return {
                             "status": "CONFIRMED_RETEST" if retested else "WAITING_RETEST",
@@ -648,8 +628,6 @@ class HermesMSOBEngine:
                                 "time": base_c["time"]
                             },
                             "entry_price": round(entry_p, 6),
-                            "sl_price": refined_sl,
-                            "tp_price": tp_p,
                             "retested": retested,
                             "poi_top": round(poi_top, 6),
                             "poi_bot": round(poi_bottom, 6),
@@ -845,9 +823,9 @@ class HermesMSOBEngine:
         sl_price_pct = HARD_SL_ROI_PCT / (lev * 100.0)
         tp_price_pct = FULL_BOOK_TP_ROI_PCT / (lev * 100.0)
 
-        # REFINED STOP LOSS: Use 5m/15m Latest POI boundary SL if present!
-        sl_p = confirm.get("sl_price") or round(entry_p * (1.0 - sl_price_pct if is_long else 1.0 + sl_price_pct), 6)
-        tp_p = confirm.get("tp_price") or round(entry_p * (1.0 + tp_price_pct if is_long else 1.0 - tp_price_pct), 6)
+        # STRICT USER MANDATE: Stop Loss is strictly -15.0% ROI, Take Profit is strictly +15.0% ROI
+        sl_p = round(entry_p * (1.0 - sl_price_pct if is_long else 1.0 + sl_price_pct), 6)
+        tp_p = round(entry_p * (1.0 + tp_price_pct if is_long else 1.0 - tp_price_pct), 6)
         ltf_tag = confirm.get("ltf", "5M").upper()
         pos_size = self.margin_per_trade * lev
         sec_id = PAIR_MAPPING.get(sym, (len(get_open_positions()) % 8) + 1)
@@ -873,18 +851,17 @@ class HermesMSOBEngine:
             self._ob_lifecycle[ob_key] = {"tapped": True, "tap_count": 1, "invalidated": True}
             self._cooldowns[f"{sym}_{side}"] = time.time()
             dir_label = "BUY/LONG" if is_long else "SELL/SHORT"
-            actual_sl_roi = round(abs((entry_p - sl_p) / entry_p) * lev * 100.0, 1)
             sig_label = f"1st Tap + {ltf_tag} MSS Sniper"
             icon = "🟢" if is_long else "🔴"
-            print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf} -> {ltf_tag}) @ {entry_p} | {lev}x | SL: {sl_p} (-{actual_sl_roi}% ROI) | TP: {tp_p} (+15% ROI)")
+            print(f"⚡ [HERMES MS-OB] {sig_label} {dir_label} #{pos_id} {sym} ({tf} -> {ltf_tag}) @ {entry_p} | {lev}x | SL: {sl_p} (-15.0% ROI) | TP: {tp_p} (+15.0% ROI)")
 
-            # Style 4 (Preformatted Monospace Card Box with Refined SL)
+            # Style 4 (Preformatted Monospace Card Box with Strict 15% ROI SL/TP)
             caption = (
                 f"<pre>{icon} {sym} ({tf} ➔ {ltf_tag}) • {dir_label} (#{pos_id})\n"
                 f"─────────────────────────────────\n"
                 f"ENTRY : ${format_price(entry_p)} (MSS Sniper)\n"
                 f"TP 🎯 : ${format_price(tp_p)} (+15.0% ROI)\n"
-                f"SL 🛑 : ${format_price(sl_p)} (Refined -{actual_sl_roi}% ROI)\n"
+                f"SL 🛑 : ${format_price(sl_p)} (-15.0% ROI)\n"
                 f"POI   : ${format_price(confirm.get('poi_top', 0))} - ${format_price(confirm.get('poi_bot', 0))}</pre>"
             )
 
@@ -995,10 +972,13 @@ class HermesMSOBEngine:
                     hard_sl_level = sl_p if sl_p > 0 else (round(entry_p * (1.0 - sl_price_pct), 6) if side in ("LONG", "BUY") else round(entry_p * (1.0 + sl_price_pct), 6))
                     is_sl_tapped = (side in ("LONG", "BUY") and curr_price <= hard_sl_level) or (side in ("SHORT", "SELL") and curr_price >= hard_sl_level)
                     if is_sl_tapped:
-                        candles_15m = await self.fetch_klines(session, sym, "15m", limit=6)
-                        if len(candles_15m) >= 4:
-                            c_prev2 = candles_15m[-3]
-                            c_prev1 = candles_15m[-2]
+                        pos_open_time = float(pos.get("open_time") or 0.0)
+                        candles_15m = await self.fetch_klines(session, sym, "15m", limit=8)
+                        # STRICT DEFENSE: Only count completed 15m candles that closed strictly AFTER this position opened
+                        closed_since_open = [c for c in candles_15m[:-1] if (c["time"] + 900) > pos_open_time]
+                        if len(closed_since_open) >= 2:
+                            c_prev2 = closed_since_open[-2]
+                            c_prev1 = closed_since_open[-1]
                             if side in ("LONG", "BUY"):
                                 two_closes = c_prev2["close"] < hard_sl_level and c_prev1["close"] < hard_sl_level
                             else:
