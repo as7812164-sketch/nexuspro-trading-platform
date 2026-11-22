@@ -46,23 +46,28 @@ class StateStore {
   // Persistent Account Cache (Guarantees instant true balance on cold/warm start)
   loadAccount() {
     try {
-      const saved = localStorage.getItem('nexuspro_modular_account');
+      const saved = localStorage.getItem('nexuspro_modular_account_v500');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed && typeof parsed.baseCapital === 'number' && parsed.baseCapital > 0) {
+        if (parsed && typeof parsed.baseCapital === 'number' && parsed.baseCapital === 500.0) {
           return parsed;
         }
       }
+      // Clear legacy 1000/1078 caches
+      localStorage.removeItem('nexuspro_modular_account');
     } catch (e) {}
     return {
-      baseCapital: 1000.00,
-      equity: 1000.00,
+      baseCapital: 500.00,
+      equity: 500.00,
+      all_time_high: 500.00,
+      all_time_low: 500.00,
+      peak_profit: 0.00,
       unrealizedPnl: 0.00,
       pnlPct: 0.00,
       totalPnl: 0.00,
       totalPnlPct: 0.00,
       usedMargin: 0.00,
-      freeMargin: 1000.00,
+      freeMargin: 500.00,
       marginRatio: 0.00,
       winRate: 0.0,
       sentries: {
@@ -76,7 +81,7 @@ class StateStore {
 
   saveAccount() {
     try {
-      localStorage.setItem('nexuspro_modular_account', JSON.stringify(this.account));
+      localStorage.setItem('nexuspro_modular_account_v500', JSON.stringify(this.account));
     } catch (e) {}
   }
 
@@ -130,6 +135,15 @@ class StateStore {
           }
           if (accData.total_pnl !== undefined) {
             this.account.totalPnl = Number(accData.total_pnl || 0);
+          }
+          if (accData.all_time_high !== undefined) {
+            this.account.all_time_high = Number(accData.all_time_high);
+          }
+          if (accData.all_time_low !== undefined) {
+            this.account.all_time_low = Number(accData.all_time_low);
+          }
+          if (accData.peak_profit !== undefined) {
+            this.account.peak_profit = Number(accData.peak_profit);
           }
           const comb = accData.combined_10x || accData.portfolio_10x || {};
           if (comb.total_pnl_pct !== undefined) {

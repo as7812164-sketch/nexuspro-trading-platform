@@ -643,11 +643,35 @@ def get_portfolio_summary() -> Dict[str, Any]:
     tot_trades = tot_wins + tot_losses
     win_rate = round((tot_wins / tot_trades) * 100.0, 1) if tot_trades > 0 else 0.0
 
+    # Calculate All-Time High (ATH), All-Time Low (ATL), and Peak Profit dynamically
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("SELECT realized_pnl FROM trade_history ORDER BY id ASC")
+    hist_rows = c.fetchall()
+    conn.close()
+
+    running_bal = tot_initial
+    ath = tot_initial
+    atl = tot_initial
+    for r in hist_rows:
+        running_bal += float(r["realized_pnl"] or 0.0)
+        if running_bal > ath:
+            ath = running_bal
+        if running_bal < atl:
+            atl = running_bal
+
+    ath = max(ath, tot_equity)
+    atl = min(atl, tot_equity)
+    peak_profit = max(0.0, round(ath - tot_initial, 2))
+
     return {
         "mode": "HERMES_MS_OB_V2 (7-MODEL OB FIRST TAP)",
         "starting_capital": tot_initial,
         "total_balance": round(tot_balance, 2),
         "total_equity": round(tot_equity, 2),
+        "all_time_high": round(ath, 2),
+        "all_time_low": round(atl, 2),
+        "peak_profit": round(peak_profit, 2),
         "unrealized_pnl": round(unrealized, 2),
         "total_pnl": round(tot_pnl, 2),
         "pnl_pct": pnl_pct,

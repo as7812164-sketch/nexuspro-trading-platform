@@ -383,6 +383,20 @@ def get_assets_analytics_payload(tickers: Optional[Dict[str, Any]] = None) -> Di
 
     tracks_list = list(tracks.values())
 
+    # Dynamic ATH, ATL, and Peak Profit
+    ath = base_capital
+    atl = base_capital
+    running_b = base_capital
+    for t in reversed(trade_history):
+        running_b += float(t.get("realized_pnl", 0.0))
+        if running_b > ath:
+            ath = running_b
+        if running_b < atl:
+            atl = running_b
+    ath = max(ath, total_equity)
+    atl = min(atl, total_equity)
+    peak_profit = max(0.0, round(ath - base_capital, 2))
+
     return {
         "status": "ONLINE",
         "timestamp": now_ts,
@@ -390,6 +404,9 @@ def get_assets_analytics_payload(tickers: Optional[Dict[str, Any]] = None) -> Di
         "base_capital": base_capital,
         "realized_balance": realized_balance,
         "total_equity": total_equity,
+        "all_time_high": round(ath, 2),
+        "all_time_low": round(atl, 2),
+        "peak_profit": round(peak_profit, 2),
         "used_margin": round(used_margin, 2),
         "free_vault": free_vault,
         "margin_utilization_pct": margin_utilization_pct,
