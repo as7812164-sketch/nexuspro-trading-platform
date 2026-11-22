@@ -241,7 +241,7 @@ async def get_deca_summary():
 @app.get("/api/paper/account")
 async def get_paper_account():
     summary = get_portfolio_summary()
-    init_cap = float(summary.get("starting_capital", 1000.0) or 1000.0)
+    init_cap = float(summary.get("starting_capital", 500.0) or 500.0)
     tot_bal = float(summary.get("total_balance", init_cap))
     tot_pnl = float(summary.get("total_pnl", 0.0))
     return {
@@ -581,7 +581,7 @@ async def sync_trade_decommissioned():
 @app.post("/api/deca/reset")
 @app.post("/api/paper/reset")
 async def reset_deca():
-    """Deletes all old trade records/positions/OB locks and resets portfolio cleanly to $1,000.00 USDT."""
+    """Deletes all old trade records/positions/OB locks and resets portfolio cleanly to $500.00 USDT."""
     summary = reset_fresh_portfolio_db()
     hermes_ms_ob_engine._ob_lifecycle.clear()
     hermes_ms_ob_engine._cooldowns.clear()
@@ -593,7 +593,7 @@ async def reset_deca():
         pass
     return {
         "status": "RESET_SUCCESS",
-        "message": "All old trades cleared. Portfolio reset cleanly to $1,000.00 USDT ($100 x 10 sections).",
+        "message": "All old trades cleared. Portfolio reset cleanly to $500.00 USDT ($50 x 10 sections).",
         "summary": summary
     }
 

@@ -97,8 +97,8 @@ def get_assets_analytics_payload(tickers: Optional[Dict[str, Any]] = None) -> Di
         })
 
     # 2. Portfolio Balances & Valuations
-    base_capital = sum(float(s["initial_balance"]) for s in sections) or 1000.0
-    realized_balance = sum(float(s["current_balance"]) for s in sections) or 1000.0
+    base_capital = sum(float(s["initial_balance"]) for s in sections) or 500.0
+    realized_balance = sum(float(s["current_balance"]) for s in sections) or 500.0
     total_equity = round(realized_balance + total_unrealized_pnl, 2)
     free_vault = max(0.0, round(total_equity - used_margin, 2))
     margin_utilization_pct = round((used_margin / total_equity) * 100.0, 1) if total_equity > 0 else 0.0
@@ -159,7 +159,7 @@ def get_assets_analytics_payload(tickers: Optional[Dict[str, Any]] = None) -> Di
             "pnl": "+0.00 USDT (+0.00%)",
             "pnl_usd": 0.0,
             "is_win": True,
-            "trade": "Initial Capital Base ($1,000.00)"
+            "trade": f"Initial Capital Base (${base_capital:,.2f})"
         })
 
         running_eq = base_capital
@@ -242,7 +242,7 @@ def get_assets_analytics_payload(tickers: Optional[Dict[str, Any]] = None) -> Di
                 "pnl": "+0.00 USDT (+0.00%)",
                 "pnl_usd": 0.0,
                 "is_win": True,
-                "trade": "Initial Capital Base ($1,000.00)"
+                "trade": f"Initial Capital Base (${base_capital:,.2f})"
             },
             {
                 "date": now_dt.strftime("%b %d, %H:%M IST (Latest)"),

@@ -30,7 +30,7 @@ GITHUB_REPO = os.getenv("GITHUB_REPO", "as7812164-sketch/nexuspro-trading-platfo
 VAULT_BRANCH = "data-vault"
 VAULT_FILE = "vault_state.json"
 LOCAL_VAULT_BACKUP = BASE_DIR / "database" / "local_vault_backup.json"
-CURRENT_VAULT_VERSION = "3.0-hermes-msob-clean"
+CURRENT_VAULT_VERSION = "4.0-hermes-msob-500-fresh"
 
 def get_vault_headers() -> Dict[str, str]:
     return {

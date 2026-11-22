@@ -490,7 +490,7 @@ def mark_ob_state(ob_key: str, symbol: str, timeframe: str, side: str, ob_top: f
     conn.close()
 
 def reset_fresh_portfolio_db() -> Dict[str, Any]:
-    """Deletes all old positions, trade history, setups, and OB locks; resets 10 sections cleanly to $1,000.00 USDT."""
+    """Deletes all old positions, trade history, setups, and OB locks; resets 10 sections cleanly to $500.00 USDT ($50.00 x 10)."""
     conn = get_db_connection()
     c = conn.cursor()
     now = time.time()
@@ -500,6 +500,10 @@ def reset_fresh_portfolio_db() -> Dict[str, Any]:
     c.execute("DELETE FROM mitigated_order_blocks")
     c.execute("DELETE FROM sentinel_knowledge_base")
     c.execute("DELETE FROM deca_sections")
+    try:
+        c.execute("DELETE FROM sqlite_sequence WHERE name IN ('positions', 'trade_history', 'pending_setups', 'deca_sections')")
+    except Exception:
+        pass
     for sec_id in range(1, TOTAL_DECA_SECTIONS + 1):
         coins = [sym for sym, sid in PAIR_MAPPING.items() if sid == sec_id]
         coins_str = ", ".join(coins)
