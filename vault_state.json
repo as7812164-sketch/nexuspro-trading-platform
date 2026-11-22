@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795336208460,
-  "updated_at_str": "2026-11-22 08:30:08 IST",
+  "updated_at": 1795336510112,
+  "updated_at_str": "2026-11-22 08:35:10 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795336176.9646308
+      "updated_at": 1795336357.252586
     }
   ],
   "trade_history": [],
@@ -6953,6 +6953,149 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 1,
       "updated_at": 1795336167.8753557
+    },
+    {
+      "ob_key": "APTUSDT_4h_SHORT_1794902400",
+      "symbol": "APTUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.4592,
+      "ob_bottom": 0.4487,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795336396.0385118
+    },
+    {
+      "ob_key": "SEIUSDT_4h_LONG_1794931200",
+      "symbol": "SEIUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.03913,
+      "ob_bottom": 0.03853,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336410.538882
+    },
+    {
+      "ob_key": "DYDXUSDT_1h_LONG_1795204800",
+      "symbol": "DYDXUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.0702,
+      "ob_bottom": 0.0692,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 0,
+      "updated_at": 1795336414.507742
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1795064400",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.4307,
+      "ob_bottom": 1.4113,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336415.5411165
+    },
+    {
+      "ob_key": "SUIUSDT_4h_SHORT_1795204800",
+      "symbol": "SUIUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.6591,
+      "ob_bottom": 0.6311,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795336439.496917
+    },
+    {
+      "ob_key": "1000PEPEUSDT_1h_SHORT_1795183200",
+      "symbol": "1000PEPEUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.003574,
+      "ob_bottom": 0.003503,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795336441.8206086
+    },
+    {
+      "ob_key": "FETUSDT_1h_SHORT_1795132800",
+      "symbol": "FETUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.1258,
+      "ob_bottom": 0.1243,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795336443.622075
+    },
+    {
+      "ob_key": "SNXUSDT_1h_LONG_1794978000",
+      "symbol": "SNXUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.1539,
+      "ob_bottom": 0.1521,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336464.5844808
+    },
+    {
+      "ob_key": "SNXUSDT_1h_LONG_1795039200",
+      "symbol": "SNXUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.1544,
+      "ob_bottom": 0.1525,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336464.59545
+    },
+    {
+      "ob_key": "SNXUSDT_4h_SHORT_1794657600",
+      "symbol": "SNXUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.1584,
+      "ob_bottom": 0.1508,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336464.8352098
+    },
+    {
+      "ob_key": "SNXUSDT_4h_LONG_1794902400",
+      "symbol": "SNXUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.1481,
+      "ob_bottom": 0.1452,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336464.8463497
+    },
+    {
+      "ob_key": "ARKMUSDT_1h_SHORT_1795010400",
+      "symbol": "ARKMUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 0.0875,
+      "ob_bottom": 0.0867,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795336466.1510212
+    },
+    {
+      "ob_key": "ARKMUSDT_1h_LONG_1795204800",
+      "symbol": "ARKMUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.0772,
+      "ob_bottom": 0.0761,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795336466.1616888
     }
   ]
 }
