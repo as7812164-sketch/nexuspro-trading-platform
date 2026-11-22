@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795370879297,
-  "updated_at_str": "2026-11-22 18:07:59 IST",
+  "updated_at": 1795371181261,
+  "updated_at_str": "2026-11-22 18:13:01 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 5,
@@ -85,9 +85,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "status": "IN_TRADE",
+      "active_symbol": "DYDXUSDT",
+      "updated_at": 1795371095.9167955
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     },
     {
       "id": 10,
@@ -172,11 +172,38 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795370859.4400833
+      "updated_at": 1795371068.1821136
     }
   ],
   "trade_history": [],
-  "positions": [],
+  "positions": [
+    {
+      "id": 1,
+      "section_id": 5,
+      "symbol": "DYDXUSDT",
+      "side": "LONG",
+      "entry_price": 0.0692,
+      "mark_price": 0.06928,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 0.067124,
+      "tp_price": 0.071276,
+      "trailing_sl_price": 0.067124,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.2890173410404507,
+      "pnl_pct": 0.58,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795371095.9116662,
+      "updated_at": 1795371179.6795528,
+      "mae_pct": 0.0,
+      "mfe_pct": 0.58,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    }
+  ],
   "mitigated_order_blocks": [
     {
       "ob_key": "OPUSDT_1h_SHORT_1795096800",
@@ -7514,6 +7541,17 @@
       "status": "CONSUMED_TRADE",
       "tap_count": 1,
       "updated_at": 1795358680.3212042
+    },
+    {
+      "ob_key": "DYDXUSDT_1h_LONG_1795334400",
+      "symbol": "DYDXUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 0.06917,
+      "ob_bottom": 0.0675,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795371095.9219198
     }
   ]
 }
