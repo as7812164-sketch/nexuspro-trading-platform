@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795334371063,
-  "updated_at_str": "2026-11-22 07:59:31 IST",
+  "updated_at": 1795334673177,
+  "updated_at_str": "2026-11-22 08:04:33 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795334369.9137688
+      "updated_at": 1795334550.2595253
     }
   ],
   "trade_history": [],
@@ -7151,6 +7151,61 @@
       "status": "INVALIDATED_2ND_TAP",
       "tap_count": 1,
       "updated_at": 1795334099.8335562
+    },
+    {
+      "ob_key": "AVAXUSDT_1h_SHORT_1794430800",
+      "symbol": "AVAXUSDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "ob_top": 8.648,
+      "ob_bottom": 8.601,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795334409.519969
+    },
+    {
+      "ob_key": "FETUSDT_4h_LONG_1791086400",
+      "symbol": "FETUSDT",
+      "timeframe": "4h",
+      "side": "LONG",
+      "ob_top": 0.225,
+      "ob_bottom": 0.221,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795334419.5007823
+    },
+    {
+      "ob_key": "RENDERUSDT_1h_LONG_1795064400",
+      "symbol": "RENDERUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 1.4307,
+      "ob_bottom": 1.4113,
+      "status": "INVALIDATED_CLOSE",
+      "tap_count": 1,
+      "updated_at": 1795334525.6410058
+    },
+    {
+      "ob_key": "APTUSDT_4h_SHORT_1794902400",
+      "symbol": "APTUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.4592,
+      "ob_bottom": 0.4487,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795334553.0841339
+    },
+    {
+      "ob_key": "SUIUSDT_4h_SHORT_1795204800",
+      "symbol": "SUIUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 0.6591,
+      "ob_bottom": 0.6311,
+      "status": "INVALIDATED_2ND_TAP",
+      "tap_count": 1,
+      "updated_at": 1795334572.9953115
     }
   ]
 }
