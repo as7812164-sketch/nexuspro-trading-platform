@@ -10,7 +10,7 @@ import { connector } from './core/websocket.js?v=tv_1to1_v6';
 
 // Modular Components
 import { HudHeader } from './components/hud_header.js';
-import { WalletSummary } from './components/wallet_summary.js?v=nexus_ath_atl_v500_fresh_v1';
+import { WalletSummary } from './components/wallet_summary.js?v=nexus_startup_ok_v3';
 import { TickerCarousel } from './components/ticker_carousel.js';
 import { PositionCard } from './components/position_card.js?v=nexus_calendar_v12';
 import { Watchlist } from './components/watchlist.js';
