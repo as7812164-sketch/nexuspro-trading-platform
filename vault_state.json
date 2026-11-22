@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795340435054,
-  "updated_at_str": "2026-11-22 09:40:35 IST",
+  "updated_at": 1795340736767,
+  "updated_at_str": "2026-11-22 09:45:36 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "BNBUSDT",
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 6,
@@ -102,9 +102,9 @@
       "win_count": 0,
       "loss_count": 0,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "status": "IN_TRADE",
+      "active_symbol": "RENDERUSDT",
+      "updated_at": 1795340724.0693896
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795340325.3732028
+      "updated_at": 1795340687.8859482
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "BNBUSDT",
       "side": "SHORT",
       "entry_price": 546.18,
-      "mark_price": 548.82,
+      "mark_price": 549.1,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -191,17 +191,43 @@
       "tp_price": 529.7946,
       "trailing_sl_price": 562.5654,
       "trailing_stage": 0,
-      "unrealized_pnl": -1.2083928375261364,
-      "pnl_pct": -2.42,
+      "unrealized_pnl": -1.3365557142334363,
+      "pnl_pct": -2.67,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795337515.6829166,
-      "updated_at": 1795340415.673968,
-      "mae_pct": 2.43,
+      "updated_at": 1795340709.8739548,
+      "mae_pct": 3.3,
       "mfe_pct": 0.51,
       "size_usdt": 0.0,
       "timeframe": "1H"
+    },
+    {
+      "id": 2,
+      "section_id": 6,
+      "symbol": "RENDERUSDT",
+      "side": "SHORT",
+      "entry_price": 1.334,
+      "mark_price": 1.334,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 1.37402,
+      "tp_price": 1.29398,
+      "trailing_sl_price": 0.0,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.0,
+      "pnl_pct": 0.0,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795340724.0646434,
+      "updated_at": 1795340724.0646434,
+      "mae_pct": 0.0,
+      "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "4H"
     }
   ],
   "mitigated_order_blocks": [
@@ -7255,6 +7281,17 @@
       "status": "INVALIDATED_CLOSE",
       "tap_count": 1,
       "updated_at": 1795338334.7356646
+    },
+    {
+      "ob_key": "RENDERUSDT_4h_SHORT_1795161600",
+      "symbol": "RENDERUSDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "ob_top": 1.378,
+      "ob_bottom": 1.328,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795340724.0734227
     }
   ]
 }
