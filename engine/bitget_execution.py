@@ -90,6 +90,71 @@ class BitgetExecutionClient:
             except Exception as e:
                 print(f"[BITGET] load_markets warning: {e}")
 
+    def round_price_to_precision(self, ccxt_sym: str, price: float) -> str:
+        """
+        Dynamically rounds any price to the exact exchange tick size multiple for the symbol.
+        Prevents Bitget rejection code 45115 across all pairs.
+        """
+        if self.exchange:
+            self.ensure_markets()
+            try:
+                formatted = self.exchange.price_to_precision(ccxt_sym, price)
+                if formatted is not None:
+                    return str(formatted)
+            except Exception:
+                pass
+
+        try:
+            m = self.exchange.markets.get(ccxt_sym) if (self.exchange and getattr(self.exchange, 'markets', None)) else None
+            if m:
+                p_prec = m.get('precision', {}).get('price')
+                if isinstance(p_prec, int) and p_prec >= 0:
+                    return f"{price:.{p_prec}f}"
+                elif isinstance(p_prec, float) and p_prec > 0:
+                    dec_str = f"{p_prec:.10f}".rstrip('0')
+                    decimals = len(dec_str.split('.')[1]) if '.' in dec_str else 0
+                    return f"{price:.{decimals}f}"
+        except Exception:
+            pass
+
+        # Magnitude-based fallback if exchange metadata is unavailable
+        if price >= 1000:
+            return f"{price:.1f}"
+        elif price >= 10:
+            return f"{price:.2f}"
+        elif price >= 1:
+            return f"{price:.4f}"
+        elif price >= 0.01:
+            return f"{price:.5f}"
+        else:
+            return f"{price:.7f}"
+
+    def round_amount_to_precision(self, ccxt_sym: str, amount: float) -> float:
+        """Dynamically rounds contract size to the exact exchange step size for the symbol."""
+        if self.exchange:
+            self.ensure_markets()
+            try:
+                formatted = self.exchange.amount_to_precision(ccxt_sym, amount)
+                if formatted is not None:
+                    return float(formatted)
+            except Exception:
+                pass
+
+        try:
+            m = self.exchange.markets.get(ccxt_sym) if (self.exchange and getattr(self.exchange, 'markets', None)) else None
+            if m:
+                a_prec = m.get('precision', {}).get('amount')
+                if isinstance(a_prec, int) and a_prec >= 0:
+                    return float(round(amount, a_prec)) if a_prec > 0 else float(int(amount))
+                elif isinstance(a_prec, float) and a_prec > 0:
+                    dec_str = f"{a_prec:.10f}".rstrip('0')
+                    decimals = len(dec_str.split('.')[1]) if '.' in dec_str else 0
+                    return float(round(amount, decimals))
+        except Exception:
+            pass
+
+        return round(amount, 2)
+
     def enforce_isolated_margin(self, symbol: str) -> bool:
         """Enforces ISOLATED margin mode on Bitget Futures."""
         if not self.exchange:
@@ -205,29 +270,25 @@ class BitgetExecutionClient:
             notional = margin_usdt * leverage
             raw_amount = notional / eff_entry
 
-            # Precision rounding
-            try:
-                amount = float(self.exchange.amount_to_precision(ccxt_sym, raw_amount))
-            except Exception:
-                m = self.exchange.markets.get(ccxt_sym) if getattr(self.exchange, 'markets', None) else None
-                prec = m.get('precision', {}).get('amount') if m else None
-                if prec is not None and prec == 1.0:
-                    amount = float(int(raw_amount))
-                else:
-                    amount = round(raw_amount, 2)
+            # Dynamic Amount Precision Rounding
+            amount = self.round_amount_to_precision(ccxt_sym, raw_amount)
 
             if amount <= 0:
                 return {"success": False, "error": f"Calculated order amount ({amount}) is zero or invalid"}
+
+            # Dynamic Price Precision Rounding (Permanent fix for code 45115)
+            eff_tp_str = self.round_price_to_precision(ccxt_sym, eff_tp)
+            eff_sl_str = self.round_price_to_precision(ccxt_sym, eff_sl)
 
             # 5. Place Market Order with preset TP & SL
             order_params = {
                 'marginMode': 'isolated',
                 'hedged': True,
-                'presetTakeProfitPrice': str(round(eff_tp, 4 if eff_tp >= 1 else 6)),
-                'presetStopLossPrice': str(round(eff_sl, 4 if eff_sl >= 1 else 6))
+                'presetTakeProfitPrice': eff_tp_str,
+                'presetStopLossPrice': eff_sl_str
             }
 
-            print(f"💎 [BITGET REAL ORDER] Placing MARKET {trade_side.upper()} {ccxt_sym} | Amount: {amount} | Margin: ${margin_usdt} | TP: {eff_tp} | SL: {eff_sl}")
+            print(f"💎 [BITGET REAL ORDER] Placing MARKET {trade_side.upper()} {ccxt_sym} | Amount: {amount} | Margin: ${margin_usdt} | TP: {eff_tp_str} | SL: {eff_sl_str}")
 
             order = self.exchange.create_order(
                 symbol=ccxt_sym,
@@ -247,12 +308,12 @@ class BitgetExecutionClient:
                     'symbol': clean_sym,
                     'productType': 'USDT-FUTURES',
                     'holdSide': hold_side,
-                    'stopSurplusTriggerPrice': str(round(eff_tp, 6)),
+                    'stopSurplusTriggerPrice': eff_tp_str,
                     'stopSurplusTriggerType': 'fill_price',
-                    'stopLossTriggerPrice': str(round(eff_sl, 6)),
+                    'stopLossTriggerPrice': eff_sl_str,
                     'stopLossTriggerType': 'fill_price'
                 })
-                print(f"🛡️ [BITGET POS TP/SL ARMED] Attached TP: {eff_tp} | SL: {eff_sl}")
+                print(f"🛡️ [BITGET POS TP/SL ARMED] Attached TP: {eff_tp_str} | SL: {eff_sl_str}")
             except Exception as tpe:
                 print(f"[BITGET POS TP/SL NOTE] {tpe}")
 
