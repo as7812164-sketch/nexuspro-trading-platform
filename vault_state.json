@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795414859488,
-  "updated_at_str": "2026-11-23 06:20:59 IST",
+  "updated_at": 1795415161593,
+  "updated_at_str": "2026-11-23 06:26:01 IST",
   "total_trades": 0,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "ETHUSDT",
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "LINKUSDT",
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795414752.373631
+      "updated_at": 1795415098.4303386
     }
   ],
   "trade_history": [],
@@ -183,7 +183,7 @@
       "symbol": "ETHUSDT",
       "side": "SHORT",
       "entry_price": 1724.72,
-      "mark_price": 1727.02,
+      "mark_price": 1723.42,
       "position_size_usdt": 500.0,
       "margin_usdt": 50.0,
       "leverage": 10,
@@ -191,15 +191,15 @@
       "tp_price": 1698.8492,
       "trailing_sl_price": 1750.5908,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.6667748967948289,
-      "pnl_pct": -1.33,
+      "unrealized_pnl": 0.3768727677535932,
+      "pnl_pct": 0.75,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795410910.247348,
-      "updated_at": 1795414857.901654,
+      "updated_at": 1795415158.0985668,
       "mae_pct": 7.28,
-      "mfe_pct": 0.0,
+      "mfe_pct": 1.37,
       "size_usdt": 0.0,
       "timeframe": "4H"
     },
@@ -209,7 +209,7 @@
       "symbol": "LINKUSDT",
       "side": "SHORT",
       "entry_price": 8.927,
-      "mark_price": 8.909,
+      "mark_price": 8.893,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -217,15 +217,15 @@
       "tp_price": 8.65919,
       "trailing_sl_price": 9.19481,
       "trailing_stage": 0,
-      "unrealized_pnl": 0.5040887196146215,
-      "pnl_pct": 1.01,
+      "unrealized_pnl": 0.9521675814943129,
+      "pnl_pct": 1.9,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795413244.256649,
-      "updated_at": 1795414857.8939083,
+      "updated_at": 1795415158.0920591,
       "mae_pct": 2.18,
-      "mfe_pct": 1.01,
+      "mfe_pct": 2.24,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
