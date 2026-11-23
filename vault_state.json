@@ -1,7 +1,7 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795444874471,
-  "updated_at_str": "2026-11-23 14:41:14 IST",
+  "updated_at": 1795445055581,
+  "updated_at_str": "2026-11-23 14:44:15 IST",
   "total_trades": 8,
   "sections": [
     {
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 4,
@@ -68,9 +68,9 @@
       "win_count": 0,
       "loss_count": 1,
       "win_rate": 0.0,
-      "status": "IDLE",
-      "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "status": "IN_TRADE",
+      "active_symbol": "ENSUSDT",
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "OPUSDT",
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444874.4518151
+      "updated_at": 1795444908.8146992
     }
   ],
   "trade_history": [
@@ -384,7 +384,7 @@
       "symbol": "OPUSDT",
       "side": "LONG",
       "entry_price": 0.07486,
-      "mark_price": 0.0747,
+      "mark_price": 0.0748,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -392,15 +392,41 @@
       "tp_price": 0.077106,
       "trailing_sl_price": 0.072614,
       "trailing_stage": 0,
-      "unrealized_pnl": -0.5343307507346831,
-      "pnl_pct": -1.07,
+      "unrealized_pnl": -0.200374031525483,
+      "pnl_pct": -0.4,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795444244.152663,
-      "updated_at": 1795444858.1978512,
+      "updated_at": 1795445030.100011,
       "mae_pct": 6.41,
       "mfe_pct": 0.0,
+      "size_usdt": 0.0,
+      "timeframe": "1H"
+    },
+    {
+      "id": 10,
+      "section_id": 4,
+      "symbol": "ENSUSDT",
+      "side": "LONG",
+      "entry_price": 3.853,
+      "mark_price": 3.86,
+      "position_size_usdt": 250.0,
+      "margin_usdt": 50.0,
+      "leverage": 5,
+      "sl_price": 3.73741,
+      "tp_price": 3.96859,
+      "trailing_sl_price": 3.73741,
+      "trailing_stage": 0,
+      "unrealized_pnl": 0.4541915390604511,
+      "pnl_pct": 0.91,
+      "liquidation_price": 0.0,
+      "order_type": "MS_OB_1ST_TAP",
+      "status": "OPEN",
+      "open_time": 1795444889.242226,
+      "updated_at": 1795445030.091943,
+      "mae_pct": 0.39,
+      "mfe_pct": 0.91,
       "size_usdt": 0.0,
       "timeframe": "1H"
     }
@@ -8501,6 +8527,17 @@
       "status": "CONSUMED_TRADE",
       "tap_count": 1,
       "updated_at": 1795444244.1605334
+    },
+    {
+      "ob_key": "ENSUSDT_1h_LONG_1795399200",
+      "symbol": "ENSUSDT",
+      "timeframe": "1h",
+      "side": "LONG",
+      "ob_top": 3.636,
+      "ob_bottom": 3.608,
+      "status": "CONSUMED_TRADE",
+      "tap_count": 1,
+      "updated_at": 1795444889.2588089
     }
   ]
 }
