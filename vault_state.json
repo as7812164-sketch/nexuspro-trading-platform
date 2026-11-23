@@ -1,8 +1,8 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795448677995,
-  "updated_at_str": "2026-11-23 15:44:37 IST",
-  "total_trades": 10,
+  "updated_at": 1795448704461,
+  "updated_at_str": "2026-11-23 15:45:04 IST",
+  "total_trades": 11,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 3,
@@ -53,24 +53,24 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 4,
       "name": "Section 4 (DOTUSDT, LINKUSDT, ENSUSDT)",
       "assigned_coins": "DOTUSDT, LINKUSDT, ENSUSDT",
       "initial_balance": 50.0,
-      "current_balance": 42.5,
+      "current_balance": 35.0,
       "vault_balance": 0.0,
-      "equity": 42.5,
-      "total_pnl": -7.5,
-      "pnl_pct": -15.0,
+      "equity": 35.0,
+      "total_pnl": -15.0,
+      "pnl_pct": -30.0,
       "win_count": 0,
-      "loss_count": 1,
+      "loss_count": 2,
       "win_rate": 0.0,
-      "status": "IN_TRADE",
-      "active_symbol": "ENSUSDT",
-      "updated_at": 1795448585.2435396
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "WLDUSDT",
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "ARKMUSDT",
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 66.7,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795448585.2435396
+      "updated_at": 1795448704.4516637
     }
   ],
   "trade_history": [
@@ -425,6 +425,31 @@
       "mfe_pct": "+15.00%",
       "roi_pct": 15.0,
       "timeframe": "1H"
+    },
+    {
+      "id": 11,
+      "section_id": 4,
+      "symbol": "ENSUSDT",
+      "side": "LONG",
+      "entry_price": 3.853,
+      "exit_price": 3.69,
+      "margin_usdt": 50.0,
+      "position_size_usdt": 250.0,
+      "leverage": 5,
+      "realized_pnl": -7.5,
+      "pnl_pct": -15.0,
+      "exit_reason": "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)",
+      "open_time": 1795444889.242226,
+      "close_time": 1795448704.4448173,
+      "duration_minutes": 63.6,
+      "entry_time_str": "23 Nov, 20:11:29 IST",
+      "exit_time_str": "23 Nov, 21:15:04 IST",
+      "duration_str": "1h 3m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-25.05%",
+      "mfe_pct": "+0.91%",
+      "roi_pct": -15.0,
+      "timeframe": "1H"
     }
   ],
   "positions": [
@@ -455,38 +480,12 @@
       "timeframe": "1H"
     },
     {
-      "id": 10,
-      "section_id": 4,
-      "symbol": "ENSUSDT",
-      "side": "LONG",
-      "entry_price": 3.853,
-      "mark_price": 3.7,
-      "position_size_usdt": 250.0,
-      "margin_usdt": 50.0,
-      "leverage": 5,
-      "sl_price": 3.73741,
-      "tp_price": 3.96859,
-      "trailing_sl_price": 3.73741,
-      "trailing_stage": 0,
-      "unrealized_pnl": -9.927329353750325,
-      "pnl_pct": -19.85,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
-      "open_time": 1795444889.242226,
-      "updated_at": 1795448677.6886027,
-      "mae_pct": 25.05,
-      "mfe_pct": 0.91,
-      "size_usdt": 0.0,
-      "timeframe": "1H"
-    },
-    {
       "id": 13,
       "section_id": 9,
       "symbol": "ARKMUSDT",
       "side": "LONG",
       "entry_price": 0.0782,
-      "mark_price": 0.0774,
+      "mark_price": 0.0773,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -494,13 +493,13 @@
       "tp_price": 0.080546,
       "trailing_sl_price": 0.075854,
       "trailing_stage": 0,
-      "unrealized_pnl": -2.557544757033277,
-      "pnl_pct": -5.12,
+      "unrealized_pnl": -2.877237851662442,
+      "pnl_pct": -5.75,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795445528.3295972,
-      "updated_at": 1795448677.0946116,
+      "updated_at": 1795448703.894057,
       "mae_pct": 7.67,
       "mfe_pct": 5.12,
       "size_usdt": 0.0,
@@ -512,7 +511,7 @@
       "symbol": "WLDUSDT",
       "side": "SHORT",
       "entry_price": 0.25575,
-      "mark_price": 0.2494,
+      "mark_price": 0.2492,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -520,13 +519,13 @@
       "tp_price": 0.248077,
       "trailing_sl_price": 0.263423,
       "trailing_stage": 1,
-      "unrealized_pnl": 6.207233626588433,
-      "pnl_pct": 12.41,
+      "unrealized_pnl": 6.402737047898312,
+      "pnl_pct": 12.81,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795445558.2520015,
-      "updated_at": 1795448677.088679,
+      "updated_at": 1795448703.889074,
       "mae_pct": 0.0,
       "mfe_pct": 13.2,
       "size_usdt": 0.0,
