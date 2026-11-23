@@ -1,8 +1,8 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795444753264,
-  "updated_at_str": "2026-11-23 14:39:13 IST",
-  "total_trades": 2,
+  "updated_at": 1795444858300,
+  "updated_at_str": "2026-11-23 14:40:58 IST",
+  "total_trades": 3,
   "sections": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "ETHUSDT",
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 2,
@@ -36,24 +36,24 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 3,
       "name": "Section 3 (AVAXUSDT, DOGEUSDT, KAVAUSDT)",
       "assigned_coins": "AVAXUSDT, DOGEUSDT, KAVAUSDT",
       "initial_balance": 50.0,
-      "current_balance": 50.0,
+      "current_balance": 57.5,
       "vault_balance": 0.0,
-      "equity": 50.0,
-      "total_pnl": 0.0,
-      "pnl_pct": 0.0,
-      "win_count": 0,
+      "equity": 57.5,
+      "total_pnl": 7.5,
+      "pnl_pct": 15.0,
+      "win_count": 1,
       "loss_count": 0,
-      "win_rate": 0.0,
-      "status": "IN_TRADE",
-      "active_symbol": "KAVAUSDT",
-      "updated_at": 1795444728.4912932
+      "win_rate": 100.0,
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "LINKUSDT",
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 100.0,
       "status": "IN_TRADE",
       "active_symbol": "DYDXUSDT",
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "OPUSDT",
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "ARBUSDT",
-      "updated_at": 1795444728.4912932
+      "updated_at": 1795444858.2159374
     }
   ],
   "trade_history": [
@@ -225,6 +225,31 @@
       "mfe_pct": "+15.00%",
       "roi_pct": 15.0,
       "timeframe": "1H"
+    },
+    {
+      "id": 3,
+      "section_id": 3,
+      "symbol": "KAVAUSDT",
+      "side": "LONG",
+      "entry_price": 0.02426,
+      "exit_price": 0.024988,
+      "margin_usdt": 50.0,
+      "position_size_usdt": 250.0,
+      "leverage": 5,
+      "realized_pnl": 7.5,
+      "pnl_pct": 15.0,
+      "exit_reason": "FULL_BOOK_TP_HIT (+15% ROI)",
+      "open_time": 1795429538.7399206,
+      "close_time": 1795444858.2070549,
+      "duration_minutes": 255.3,
+      "entry_time_str": "23 Nov, 15:55:38 IST",
+      "exit_time_str": "23 Nov, 20:10:58 IST",
+      "duration_str": "4h 15m",
+      "be_status_str": "\ud83d\udee1\ufe0f Trailing Protected",
+      "mae_pct": "-6.39%",
+      "mfe_pct": "+15.00%",
+      "roi_pct": 15.0,
+      "timeframe": "1H"
     }
   ],
   "positions": [
@@ -248,7 +273,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795410910.247348,
-      "updated_at": 1795444731.988946,
+      "updated_at": 1795444833.222006,
       "mae_pct": 48.95,
       "mfe_pct": 6.48,
       "size_usdt": 0.0,
@@ -274,7 +299,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795413244.256649,
-      "updated_at": 1795444731.7334142,
+      "updated_at": 1795444832.9536107,
       "mae_pct": 22.4,
       "mfe_pct": 3.58,
       "size_usdt": 0.0,
@@ -300,7 +325,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795415363.9822757,
-      "updated_at": 1795444731.4324124,
+      "updated_at": 1795444832.688625,
       "mae_pct": 26.79,
       "mfe_pct": 2.46,
       "size_usdt": 0.0,
@@ -326,7 +351,7 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795423628.058366,
-      "updated_at": 1795444731.181266,
+      "updated_at": 1795444832.4262574,
       "mae_pct": 26.8,
       "mfe_pct": 0.52,
       "size_usdt": 0.0,
@@ -352,35 +377,9 @@
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795428090.7914112,
-      "updated_at": 1795444730.6381385,
+      "updated_at": 1795444831.8544593,
       "mae_pct": 12.48,
       "mfe_pct": 14.58,
-      "size_usdt": 0.0,
-      "timeframe": "1H"
-    },
-    {
-      "id": 6,
-      "section_id": 3,
-      "symbol": "KAVAUSDT",
-      "side": "LONG",
-      "entry_price": 0.02426,
-      "mark_price": 0.02457,
-      "position_size_usdt": 250.0,
-      "margin_usdt": 50.0,
-      "leverage": 5,
-      "sl_price": 0.023532,
-      "tp_price": 0.024988,
-      "trailing_sl_price": 0.023532,
-      "trailing_stage": 0,
-      "unrealized_pnl": 3.194558944765058,
-      "pnl_pct": 6.39,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
-      "open_time": 1795429538.7399206,
-      "updated_at": 1795444730.628072,
-      "mae_pct": 6.39,
-      "mfe_pct": 6.8,
       "size_usdt": 0.0,
       "timeframe": "1H"
     },
@@ -390,7 +389,7 @@
       "symbol": "OPUSDT",
       "side": "LONG",
       "entry_price": 0.07486,
-      "mark_price": 0.0739,
+      "mark_price": 0.0747,
       "position_size_usdt": 250.0,
       "margin_usdt": 50.0,
       "leverage": 5,
@@ -398,13 +397,13 @@
       "tp_price": 0.077106,
       "trailing_sl_price": 0.072614,
       "trailing_stage": 0,
-      "unrealized_pnl": -3.2059845044082373,
-      "pnl_pct": -6.41,
+      "unrealized_pnl": -0.5343307507346831,
+      "pnl_pct": -1.07,
       "liquidation_price": 0.0,
       "order_type": "MS_OB_1ST_TAP",
       "status": "OPEN",
       "open_time": 1795444244.152663,
-      "updated_at": 1795444730.6200411,
+      "updated_at": 1795444858.1978512,
       "mae_pct": 6.41,
       "mfe_pct": 0.0,
       "size_usdt": 0.0,
