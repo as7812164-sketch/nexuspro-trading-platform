@@ -105,8 +105,8 @@ DEFAULT_RRR = 1.0
 # Banned Symbols (Permanently excluded from scanning & trading per user mandate)
 BANNED_SYMBOLS = ["PAXGUSDT", "PAXG", "XAUUSDT", "GOLD"]
 
-# Bitget Live Real Account Integration
-BITGET_AUTO_TRADE = True
+# Bitget Live Real Account Integration (PERMANENTLY DISABLED ON NEXUSPRO PER AKASH BHAI MANDATE)
+BITGET_AUTO_TRADE = False
 BITGET_API_KEY = os.getenv("BITGET_API_KEY", "bg_c5a13dc855f2cccdf5889864baefee4a")
 BITGET_SECRET = os.getenv("BITGET_SECRET", "efed486f52b2fb0f3fbf6a1c17ff8b861bb65fed5716f6a0791748f72e410f16")
 BITGET_PASSPHRASE = os.getenv("BITGET_PASSPHRASE", "Jaishriram")
