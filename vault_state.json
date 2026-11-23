@@ -1,25 +1,25 @@
 {
   "version": "4.0-hermes-msob-500-fresh",
-  "updated_at": 1795444871406,
-  "updated_at_str": "2026-11-23 14:41:11 IST",
-  "total_trades": 7,
+  "updated_at": 1795444874471,
+  "updated_at_str": "2026-11-23 14:41:14 IST",
+  "total_trades": 8,
   "sections": [
     {
       "id": 1,
       "name": "Section 1 (BTCUSDT, ETHUSDT)",
       "assigned_coins": "BTCUSDT, ETHUSDT",
       "initial_balance": 50.0,
-      "current_balance": 50.0,
+      "current_balance": 42.5,
       "vault_balance": 0.0,
-      "equity": 50.0,
-      "total_pnl": 0.0,
-      "pnl_pct": 0.0,
+      "equity": 42.5,
+      "total_pnl": -7.5,
+      "pnl_pct": -15.0,
       "win_count": 0,
-      "loss_count": 0,
+      "loss_count": 1,
       "win_rate": 0.0,
-      "status": "IN_TRADE",
-      "active_symbol": "ETHUSDT",
-      "updated_at": 1795444871.393412
+      "status": "IDLE",
+      "active_symbol": null,
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 3,
@@ -53,7 +53,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 4,
@@ -70,7 +70,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 5,
@@ -87,7 +87,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 6,
@@ -104,7 +104,7 @@
       "win_rate": 0.0,
       "status": "IN_TRADE",
       "active_symbol": "OPUSDT",
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 7,
@@ -121,7 +121,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "win_rate": 0.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 9,
@@ -155,7 +155,7 @@
       "win_rate": 100.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     },
     {
       "id": 10,
@@ -172,7 +172,7 @@
       "win_rate": 50.0,
       "status": "IDLE",
       "active_symbol": null,
-      "updated_at": 1795444871.393412
+      "updated_at": 1795444874.4518151
     }
   ],
   "trade_history": [
@@ -350,35 +350,34 @@
       "mfe_pct": "+3.58%",
       "roi_pct": -15.0,
       "timeframe": "1H"
-    }
-  ],
-  "positions": [
+    },
     {
-      "id": 1,
+      "id": 8,
       "section_id": 1,
       "symbol": "ETHUSDT",
       "side": "SHORT",
       "entry_price": 1724.72,
-      "mark_price": 1797.07,
-      "position_size_usdt": 500.0,
+      "exit_price": 1804.47,
       "margin_usdt": 50.0,
+      "position_size_usdt": 500.0,
       "leverage": 10,
-      "sl_price": 1750.5908,
-      "tp_price": 1698.8492,
-      "trailing_sl_price": 1750.5908,
-      "trailing_stage": 0,
-      "unrealized_pnl": -20.974419036133373,
-      "pnl_pct": -41.95,
-      "liquidation_price": 0.0,
-      "order_type": "MS_OB_1ST_TAP",
-      "status": "OPEN",
+      "realized_pnl": -7.5,
+      "pnl_pct": -15.0,
+      "exit_reason": "HARD_SL_HIT_2x15M_CONFIRMED (-15% ROI)",
       "open_time": 1795410910.247348,
-      "updated_at": 1795444833.222006,
-      "mae_pct": 48.95,
-      "mfe_pct": 6.48,
-      "size_usdt": 0.0,
+      "close_time": 1795444874.4412806,
+      "duration_minutes": 566.1,
+      "entry_time_str": "23 Nov, 10:45:10 IST",
+      "exit_time_str": "23 Nov, 20:11:14 IST",
+      "duration_str": "9h 26m",
+      "be_status_str": "BE Inactive",
+      "mae_pct": "-48.95%",
+      "mfe_pct": "+6.48%",
+      "roi_pct": -15.0,
       "timeframe": "4H"
-    },
+    }
+  ],
+  "positions": [
     {
       "id": 9,
       "section_id": 6,
